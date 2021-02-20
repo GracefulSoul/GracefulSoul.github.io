@@ -27,6 +27,9 @@ toc_sticky: true
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
 
+import java.util.Set;
+import java.util.HashSet;
+
 class Solution {
   public int solution(int X, int[] A) {
     Set<Integer> leafs = new HashSet<>();
