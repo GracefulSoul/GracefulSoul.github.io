@@ -32,7 +32,7 @@ import java.util.HashSet;
 
 class Solution {
   public int solution(int[] A) {
-    Set<Integer> numSet = new HashSet();
+    Set<Integer> numSet = new HashSet<>();
     for (int num : A) {
       if (num > 0) { // Greater than 0.
         numSet.add(num);
