@@ -28,14 +28,14 @@ toc_sticky: true
 // System.out.println("this is a debug message");
 
 class Solution {
-    public int solution(int[] A) {
-        int result = 0;
-        for (int num : A) {
-            // Using bit operation.
-            result ^= num;
-        }
-        return result;
+  public int solution(int[] A) {
+    int result = 0;
+    for (int num : A) {
+      // Using bit operation.
+      result ^= num;
     }
+    return result;
+  }
 }
 ```
 

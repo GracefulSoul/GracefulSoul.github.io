@@ -28,15 +28,15 @@ toc_sticky: true
 // System.out.println("this is a debug message");
 
 class Solution {
-    public int[] solution(int[] A, int K) {
-        int length = A.length;
-        int[] result = new int[length];
-        // Repeat the size of array A.
-        for (int idx = 0; idx < length; idx++) {
-            result[(idx + K) % length] = A[idx];
-        }
-        return result;
+  public int[] solution(int[] A, int K) {
+    int length = A.length;
+    int[] result = new int[length];
+    // Repeat the size of array A.
+    for (int idx = 0; idx < length; idx++) {
+      result[(idx + K) % length] = A[idx];
     }
+    return result;
+  }
 }
 ```
 

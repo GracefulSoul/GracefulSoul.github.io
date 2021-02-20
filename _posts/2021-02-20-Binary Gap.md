@@ -28,24 +28,24 @@ toc_sticky: true
 // System.out.println("this is a debug message");
 
 class Solution {
-    public int solution(int N) {
-        char[] binary = Integer.toBinaryString(N).toCharArray();
-        int max = 0;
-        int counter = 0;
-        // Loop and check max length.
-        for (int idx = 1; idx < binary.length; idx++) {
-            if(binary[idx] == '0') {
-                counter++;
-            } else {
-                if (counter > max) {
-                    max = counter;
-                }
-                // Initializing counter.
-                counter = 0;
-            }
+  public int solution(int N) {
+    char[] binary = Integer.toBinaryString(N).toCharArray();
+    int max = 0;
+    int counter = 0;
+    // Loop and check max length.
+    for (int idx = 1; idx < binary.length; idx++) {
+      if(binary[idx] == '0') {
+        counter++;
+      } else {
+        if (counter > max) {
+          max = counter;
         }
-        return max;
+        // Initializing counter.
+        counter = 0;
+      }
     }
+    return max;
+  }
 }
 ```
 
