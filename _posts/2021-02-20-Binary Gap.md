@@ -1,6 +1,6 @@
 ---
 title: "Codility Binary Gap"
-excerpt: "Lesson1. Binary Gap"
+excerpt: "Lesson1. Iterations"
 last_modified_at: 2021-02-20T13:49:00
 header:
   image: /assets/images/codility/BinaryGap.png
@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Coding Test
+  - Iterations
   - Binary Gap
 
 toc: true

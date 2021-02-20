@@ -1,6 +1,6 @@
 ---
 title: "Codility Cyclic Rotation"
-excerpt: "Lesson2. Cyclic Rotation"
+excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:16:00
 header:
   image: /assets/images/codility/CyclicRotation.png
@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Coding Test
+  - Arrays
   - Cyclic Rotation
 
 toc: true
