@@ -1,9 +1,9 @@
 ---
 title: "Codility Cyclic Rotation"
 excerpt: "Lesson2. Cyclic Rotation"
-last_modified_at: 2021-02-20T13:49:00
+last_modified_at: 2021-02-20T14:16:00
 header:
-  image: /assets/images/codility/CyclicRotation.jpg
+  image: /assets/images/codility/CyclicRotation.png
 categories:
   - Programming
 tags:

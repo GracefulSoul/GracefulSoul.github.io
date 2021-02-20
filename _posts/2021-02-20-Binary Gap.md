@@ -3,13 +3,13 @@ title: "Codility Binary Gap"
 excerpt: "Lesson1. Binary Gap"
 last_modified_at: 2021-02-20T13:49:00
 header:
-  image: /assets/images/codility/BinaryGap.jpg
+  image: /assets/images/codility/BinaryGap.png
 categories:
   - Programming
 tags:
   - Programming
   - Coding Test
-  - Binary
+  - Binary Gap
 
 toc: true
 toc_ads: true
