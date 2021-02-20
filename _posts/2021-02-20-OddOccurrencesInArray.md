@@ -1,5 +1,5 @@
 ---
-title: "Codility Odd Occurrences In Array"
+title: "Codility OddOccurrencesInArray"
 excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:33:00
 header:
@@ -10,7 +10,7 @@ tags:
   - Programming
   - Coding Test
   - Arrays
-  - Odd Occurrences In Array
+  - OddOccurrencesInArray
 
 toc: true
 toc_ads: true

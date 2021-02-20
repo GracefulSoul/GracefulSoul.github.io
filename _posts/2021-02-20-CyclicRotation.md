@@ -1,5 +1,5 @@
 ---
-title: "Codility Cyclic Rotation"
+title: "Codility CyclicRotation"
 excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:16:00
 header:
@@ -10,7 +10,7 @@ tags:
   - Programming
   - Coding Test
   - Arrays
-  - Cyclic Rotation
+  - CyclicRotation
 
 toc: true
 toc_ads: true
