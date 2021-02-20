@@ -45,7 +45,7 @@ class Solution {
 2. 배열을 반복하면서 배열 result에 배열 A의 값을 넣어준다.
 - 기존 index의 값에 반복횟수인 K를 더해서 이동시키고, 배열의 크기를 벗어나면 0번째 index로 이동하여 계산하여야 한다.
 - 위의 조건을 계산식으로 변환하면 A의 idx번째 들어있는 값은 result의 (idx + K) % length번째 index에 들어가야 한다.
-3. 배열 result를 return하여 주어진 문제의 결과를 반환한다.
+3. 주어진 문제의 결과를 반환한다.
 
 # 결과
 [Link](https://app.codility.com/demo/results/trainingUWMRMK-AWK/)
