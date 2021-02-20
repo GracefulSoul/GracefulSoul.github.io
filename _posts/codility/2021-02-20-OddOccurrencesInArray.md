@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T14:33:00
 header:
   image: /assets/images/codility/OddOccurrencesInArray.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Arrays
-  - OddOccurrencesInArray
+  - Codility
 
 toc: true
 toc_ads: true

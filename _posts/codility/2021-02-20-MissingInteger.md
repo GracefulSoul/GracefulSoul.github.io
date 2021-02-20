@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T16:12:00
 header:
   image: /assets/images/codility/MissingInteger.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Counting Elements
-  - MissingInteger
+  - Codility
 
 toc: true
 toc_ads: true

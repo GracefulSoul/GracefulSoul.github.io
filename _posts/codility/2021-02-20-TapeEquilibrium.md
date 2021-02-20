@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T15:03:00
 header:
   image: /assets/images/codility/TapeEquilibrium.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Time Complexity
-  - TapeEquilibrium
+  - Codility
 
 toc: true
 toc_ads: true

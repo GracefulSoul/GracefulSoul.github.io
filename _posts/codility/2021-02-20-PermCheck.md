@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T16:26:00
 header:
   image: /assets/images/codility/PermCheck.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Counting Elements
-  - PermCheck
+  - Codility
 
 toc: true
 toc_ads: true

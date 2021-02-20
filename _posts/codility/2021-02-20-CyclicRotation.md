@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T14:16:00
 header:
   image: /assets/images/codility/CyclicRotation.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Arrays
-  - CyclicRotation
+  - Codility
 
 toc: true
 toc_ads: true

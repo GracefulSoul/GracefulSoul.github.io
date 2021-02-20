@@ -5,12 +5,10 @@ last_modified_at: 2021-02-20T15:50:00
 header:
   image: /assets/images/codility/MaxCounters.png
 categories:
-  - Programming
+  - Codility
 tags:
   - Programming
-  - Coding Test
-  - Counting Elements
-  - MaxCounters
+  - Codility
 
 toc: true
 toc_ads: true
