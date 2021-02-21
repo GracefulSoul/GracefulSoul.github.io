@@ -37,7 +37,7 @@ class Solution {
 ```
 
 # 설명
-1. 배열 A 내 값이 최소 값은 1이고 최대 값은 배열의 크기 + 1이므로, Index의 합과 배열 A의 값의 합을 빼면 빠진 값이 도출된다.
+1. 배열 A 내 값이 최소 값은 1이고 최대 값은 배열 N의 크기 + 1이므로, Index + 1의 합과 배열 A의 값의 합을 빼면 빠진 값이 도출된다.
 
 # 결과
 [Link](https://app.codility.com/demo/results/trainingMBK8M8-JET/)
