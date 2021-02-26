@@ -41,7 +41,7 @@ comments:
     num_posts            : # 5 (default)
     colorscheme          : # "light" (default), "dark"
   utterances:
-    repo                 : "GracefulSoul/utterances"
+    repo                 : "GracefulSoul/blog-comments"
     theme                : "github-dark" # "github-light" (default), "github-dark"
     issue_term           : "title" # "pathname" (default)
   staticman:
