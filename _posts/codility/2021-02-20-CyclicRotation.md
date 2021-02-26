@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Arrays
 
 toc: true
 toc_ads: true

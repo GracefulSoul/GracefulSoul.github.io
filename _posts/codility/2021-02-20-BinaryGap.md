@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Iterations
 
 toc: true
 toc_ads: true

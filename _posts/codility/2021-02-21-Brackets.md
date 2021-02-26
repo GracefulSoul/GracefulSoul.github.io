@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Stack and Queues
 
 toc: true
 toc_ads: true

@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Sorting
 
 toc: true
 toc_ads: true

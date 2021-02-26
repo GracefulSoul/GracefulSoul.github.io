@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Leader
 
 toc: true
 toc_ads: true

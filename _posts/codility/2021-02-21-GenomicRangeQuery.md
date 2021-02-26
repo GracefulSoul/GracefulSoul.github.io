@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Prefix Sums
 
 toc: true
 toc_ads: true

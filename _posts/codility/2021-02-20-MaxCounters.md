@@ -9,6 +9,7 @@ categories:
 tags:
   - Programming
   - Codility
+  - Counting Elements
 
 toc: true
 toc_ads: true
