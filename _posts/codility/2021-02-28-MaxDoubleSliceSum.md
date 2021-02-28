@@ -60,4 +60,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingZ9SZBR-5H4/)
 
 # 소스
-[GitHub-EquiLeader](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson09/MaxDoubleSliceSum.java)
+[GitHub-MaxDoubleSliceSum](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson09/MaxDoubleSliceSum.java)
