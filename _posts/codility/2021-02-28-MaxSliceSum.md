@@ -1,6 +1,6 @@
 ---
 title: "Codility MaxSliceSum"
-excerpt: "Lesson8. Maximum slice problem"
+excerpt: "Lesson9. Maximum slice problem"
 last_modified_at: 2021-02-28T14:07:00
 header:
   image: /assets/images/codility/MaxSliceSum.png
