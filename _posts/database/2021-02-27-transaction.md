@@ -5,9 +5,10 @@ last_modified_at: 2021-02-27T23:38:00
 header:
   image: /assets/images/blog/transaction/transaction.png
 categories:
-  - Transaction
+  - Database
 tags:
   - Programming
+  - Database
   - Transaction
 
 toc: true
