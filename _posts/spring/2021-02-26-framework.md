@@ -3,7 +3,7 @@ title: "Framework란?"
 excerpt: "Framework에 대한 설명"
 last_modified_at: 2021-02-24T19:40:00
 header:
-  image: /assets/images/blog/framework/framework.png
+  image: /assets/images/blog/spring/framework.png
 categories:
   - Framework
 tags:
