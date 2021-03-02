@@ -3,7 +3,7 @@ title: "Codility EquiLeader"
 excerpt: "Lesson8. Leader"
 last_modified_at: 2021-02-21T15:04:00
 header:
-  image: /assets/images/codility/EquiLeader.png
+  image: /assets/images/codility/lesson08/EquiLeader.png
 categories:
   - Codility
 tags:

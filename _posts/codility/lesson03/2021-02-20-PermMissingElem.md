@@ -3,7 +3,7 @@ title: "Codility PermMissingElem"
 excerpt: "Lesson3. Time Complexity"
 last_modified_at: 2021-02-20T15:19:00
 header:
-  image: /assets/images/codility/PermMissingElem.png
+  image: /assets/images/codility/lesson03/PermMissingElem.png
 categories:
   - Codility
 tags:

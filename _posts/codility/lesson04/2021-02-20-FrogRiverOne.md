@@ -3,7 +3,7 @@ title: "Codility FrogRiverOne"
 excerpt: "Lesson4. Counting Elements"
 last_modified_at: 2021-02-20T15:03:00
 header:
-  image: /assets/images/codility/FrogRiverOne.png
+  image: /assets/images/codility/lesson04/FrogRiverOne.png
 categories:
   - Codility
 tags:

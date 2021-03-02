@@ -3,7 +3,7 @@ title: "Codility CountFactors"
 excerpt: "Lesson10. Prime and composite numbers"
 last_modified_at: 2021-02-28T14:41:00
 header:
-  image: /assets/images/codility/CountFactors.png
+  image: /assets/images/codility/lesson10/CountFactors.png
 categories:
   - Codility
 tags:

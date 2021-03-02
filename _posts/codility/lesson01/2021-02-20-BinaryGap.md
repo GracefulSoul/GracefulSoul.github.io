@@ -3,7 +3,7 @@ title: "Codility BinaryGap"
 excerpt: "Lesson1. Iterations"
 last_modified_at: 2021-02-20T13:49:00
 header:
-  image: /assets/images/codility/BinaryGap.png
+  image: /assets/images/codility/lesson01/BinaryGap.png
 categories:
   - Codility
 tags:

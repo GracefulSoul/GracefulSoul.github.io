@@ -3,7 +3,7 @@ title: "Codility OddOccurrencesInArray"
 excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:33:00
 header:
-  image: /assets/images/codility/OddOccurrencesInArray.png
+  image: /assets/images/codility/lesson02/OddOccurrencesInArray.png
 categories:
   - Codility
 tags:

@@ -3,7 +3,7 @@ title: "Codility MinPerimeterRectangle"
 excerpt: "Lesson10. Prime and composite numbers"
 last_modified_at: 2021-03-01T15:18:00
 header:
-  image: /assets/images/codility/MinPerimeterRectangle.png
+  image: /assets/images/codility/lesson10/MinPerimeterRectangle.png
 categories:
   - Codility
 tags:

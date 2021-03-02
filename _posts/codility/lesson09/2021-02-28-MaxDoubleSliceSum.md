@@ -3,7 +3,7 @@ title: "Codility MaxDoubleSliceSum"
 excerpt: "Lesson9. Maximum slice problem"
 last_modified_at: 2021-02-28T13:20:00
 header:
-  image: /assets/images/codility/MaxDoubleSliceSum.png
+  image: /assets/images/codility/lesson09/MaxDoubleSliceSum.png
 categories:
   - Codility
 tags:

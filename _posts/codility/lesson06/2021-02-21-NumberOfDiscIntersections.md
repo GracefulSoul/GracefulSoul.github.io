@@ -3,7 +3,7 @@ title: "Codility NumberOfDiscIntersections"
 excerpt: "Lesson6. Sorting"
 last_modified_at: 2021-02-21T12:46:00
 header:
-  image: /assets/images/codility/NumberOfDiscIntersections.png
+  image: /assets/images/codility/lesson06/NumberOfDiscIntersections.png
 categories:
   - Codility
 tags:

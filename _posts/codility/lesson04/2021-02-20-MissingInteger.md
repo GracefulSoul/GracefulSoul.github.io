@@ -3,7 +3,7 @@ title: "Codility MissingInteger"
 excerpt: "Lesson4. Counting Elements"
 last_modified_at: 2021-02-20T16:12:00
 header:
-  image: /assets/images/codility/MissingInteger.png
+  image: /assets/images/codility/lesson04/MissingInteger.png
 categories:
   - Codility
 tags:

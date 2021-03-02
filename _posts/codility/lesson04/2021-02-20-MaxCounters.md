@@ -3,7 +3,7 @@ title: "Codility MaxCounters"
 excerpt: "Lesson4. Counting Elements"
 last_modified_at: 2021-02-20T15:50:00
 header:
-  image: /assets/images/codility/MaxCounters.png
+  image: /assets/images/codility/lesson04/MaxCounters.png
 categories:
   - Codility
 tags:

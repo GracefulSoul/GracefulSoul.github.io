@@ -3,7 +3,7 @@ title: "Codility Distinct"
 excerpt: "Lesson6. Sorting"
 last_modified_at: 2021-02-21T12:13:00
 header:
-  image: /assets/images/codility/Distinct.png
+  image: /assets/images/codility/lesson06/Distinct.png
 categories:
   - Codility
 tags:

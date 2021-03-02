@@ -3,7 +3,7 @@ title: "Spring Transaction"
 excerpt: "Spring Transaction에 대한 설명"
 last_modified_at: 2021-02-24T19:40:00
 header:
-  image: /assets/images/blog/spring/transactional.png
+  image: /assets/images/spring/transactional.png
 categories:
   - Spring
 tags:
@@ -18,7 +18,7 @@ toc_sticky: true
 # Spring Transaction[^Transaction]
 - Spring Transaction은 어노테이션 기반으로 수행이 된다.
 - Spring Bean[^Bean]으로 정의 된 Method를 트랜잭션 관리를 하고자 할 때, @Transactional 어노테이션을 활용하면 프록시 패턴의 AOP[^AOP]를 사용하여 원하는 수준의 트랜잭션 관리를 할 수 있다.
-![tx](../../assets/images/blog/spring/tx.png)
+![tx](../../assets/images/spring/tx.png)
 
 # Isolation Level
 - 트랜잭션에서 일관성이 없는 데이터를 다른 트랜잭션이 읽는 것을 허용하도록 하는 수준이다.

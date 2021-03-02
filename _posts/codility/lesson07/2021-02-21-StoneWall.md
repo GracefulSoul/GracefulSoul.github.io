@@ -3,7 +3,7 @@ title: "Codility StoneWall"
 excerpt: "Lesson7. Stack and Queues"
 last_modified_at: 2021-02-21T14:28:00
 header:
-  image: /assets/images/codility/StoneWall.png
+  image: /assets/images/codility/lesson07/StoneWall.png
 categories:
   - Codility
 tags:

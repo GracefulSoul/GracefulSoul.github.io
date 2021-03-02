@@ -3,7 +3,7 @@ title: "Codility PassingCars"
 excerpt: "Lesson5. Prefix Sums"
 last_modified_at: 2021-02-21T11:44:00
 header:
-  image: /assets/images/codility/PassingCars.png
+  image: /assets/images/codility/lesson05/PassingCars.png
 categories:
   - Codility
 tags:

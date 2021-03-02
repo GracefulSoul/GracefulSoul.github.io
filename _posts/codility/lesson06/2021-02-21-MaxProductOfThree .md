@@ -3,7 +3,7 @@ title: "Codility MaxProductOfThree"
 excerpt: "Lesson6. Sorting"
 last_modified_at: 2021-02-21T12:30:00
 header:
-  image: /assets/images/codility/MaxProductOfThree.png
+  image: /assets/images/codility/lesson06/MaxProductOfThree.png
 categories:
   - Codility
 tags:

@@ -3,7 +3,7 @@ title: "Codility CyclicRotation"
 excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:16:00
 header:
-  image: /assets/images/codility/CyclicRotation.png
+  image: /assets/images/codility/lesson02/CyclicRotation.png
 categories:
   - Codility
 tags:
