@@ -14,7 +14,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# Framework란?
+# Framework
 - 소프트웨어의 구체적인 부분에 해당하는 설계와 구현을 재사용이 가능하게끔 일련의 협업화된 형태로 클래스들을 제공하는 것이다. - 랄프 존슨(Ralph Johnson)
 - 개발자들이 작성하는 코드 품질 및 개발 속도를 상향 평준화시키기 위해 제공되는 개발 환경을 제공해준다.
 

@@ -15,7 +15,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# Transaction이란?
+# Transaction
 - 은행 ATM이나 데이터베이스 등의 시스템에서 사용되는 더 이상 쪼갤 수 없는 업무 처리의 최소 단위이다.
 
 # ACID
