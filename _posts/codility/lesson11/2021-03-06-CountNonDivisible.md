@@ -1,6 +1,6 @@
 ---
 title: "Codility CountNonDivisible"
-excerpt: "Lesson10. Sieve of Eratosthenes"
+excerpt: "Lesson11. Sieve of Eratosthenes"
 last_modified_at: 2021-03-01T20:22:00
 header:
   image: /assets/images/codility/lesson11/CountNonDivisible.png
@@ -68,4 +68,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingVZ25BY-FPX/)
 
 # 소스
-[GitHub-Peaks](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/codility/lesson11)
+[GitHub-CountNonDivisible](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson11/CountNonDivisible.java)
