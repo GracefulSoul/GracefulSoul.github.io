@@ -1,7 +1,7 @@
 ---
 title: "Codility CountSemiprimes"
-excerpt: "Lesson10. Sieve of Eratosthenes"
-last_modified_at: 2021-03-01T20:22:00
+excerpt: "Lesson11. Sieve of Eratosthenes"
+last_modified_at: 2021-03-01T21:54:00
 header:
   image: /assets/images/codility/lesson11/CountSemiprimes.png
 categories:
