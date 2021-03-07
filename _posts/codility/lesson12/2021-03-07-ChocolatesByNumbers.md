@@ -1,9 +1,9 @@
 ---
 title: "Codility ChocolatesByNumbers"
-excerpt: "Lesson11. Euclidean algorithm"
+excerpt: "Lesson12. Euclidean algorithm"
 last_modified_at: 2021-03-07T13:27:00
 header:
-  image: /assets/images/codility/lesson11/ChocolatesByNumbers.png
+  image: /assets/images/codility/lesson12/ChocolatesByNumbers.png
 categories:
   - Codility
 tags:
