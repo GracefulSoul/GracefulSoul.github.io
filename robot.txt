@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://gracefulsoul.github.io/sitemap.xml
