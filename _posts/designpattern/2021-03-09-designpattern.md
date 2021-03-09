@@ -5,7 +5,7 @@ last_modified_at: 2021-03-09T19:00:00
 header:
   image: /assets/images/designpattern/designpattern.png
 categories:
-  - Paradigm
+  - Design Pattern
 tags:
   - Programming
   - Design Pattern
