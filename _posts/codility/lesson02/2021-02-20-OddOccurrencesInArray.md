@@ -1,5 +1,5 @@
 ---
-title: "Codility OddOccurrencesInArray"
+title: "Codility Java OddOccurrencesInArray"
 excerpt: "Lesson2. Arrays"
 last_modified_at: 2021-02-20T14:33:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Arrays
+  - Java
 
 toc: true
 toc_ads: true

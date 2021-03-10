@@ -1,6 +1,6 @@
 ---
-title: "Codility CommonPrimeDivisors"
-excerpt: "Lesson12. Euclidean algorithm"
+title: "Codility Java CommonPrimeDivisors"
+excerpt: "Lesson12. Euclidean Algorithm"
 last_modified_at: 2021-03-07T13:27:00
 header:
   image: /assets/images/codility/lesson12/CommonPrimeDivisors.png
@@ -9,7 +9,8 @@ categories:
 tags:
   - Programming
   - Codility
-  - Euclidean algorithm
+  - Euclidean Algorithm
+  - Java
 
 toc: true
 toc_ads: true

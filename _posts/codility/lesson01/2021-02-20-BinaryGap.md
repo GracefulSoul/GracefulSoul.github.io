@@ -1,5 +1,5 @@
 ---
-title: "Codility BinaryGap"
+title: "Codility Java BinaryGap"
 excerpt: "Lesson1. Iterations"
 last_modified_at: 2021-02-20T13:49:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Iterations
+  - Java
 
 toc: true
 toc_ads: true

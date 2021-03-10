@@ -1,6 +1,6 @@
 ---
-title: "Codility MaxSliceSum"
-excerpt: "Lesson9. Maximum slice problem"
+title: "Codility Java MaxSliceSum"
+excerpt: "Lesson9. Maximum Slice Problem"
 last_modified_at: 2021-02-28T14:07:00
 header:
   image: /assets/images/codility/lesson09/MaxSliceSum.png
@@ -9,7 +9,8 @@ categories:
 tags:
   - Programming
   - Codility
-  - Maximum slice problem
+  - Maximum Slice Problem
+  - Java
 
 toc: true
 toc_ads: true

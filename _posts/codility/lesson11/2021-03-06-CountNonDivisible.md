@@ -1,6 +1,6 @@
 ---
-title: "Codility CountNonDivisible"
-excerpt: "Lesson11. Sieve of Eratosthenes"
+title: "Codility Java CountNonDivisible"
+excerpt: "Lesson11. Sieve Of Eratosthenes"
 last_modified_at: 2021-03-06T20:22:00
 header:
   image: /assets/images/codility/lesson11/CountNonDivisible.png
@@ -9,7 +9,8 @@ categories:
 tags:
   - Programming
   - Codility
-  - Sieve of Eratosthenes
+  - Sieve Of Eratosthenes
+  - Java
 
 toc: true
 toc_ads: true

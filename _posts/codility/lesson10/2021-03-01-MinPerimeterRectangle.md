@@ -1,6 +1,6 @@
 ---
-title: "Codility MinPerimeterRectangle"
-excerpt: "Lesson10. Prime and composite numbers"
+title: "Codility Java MinPerimeterRectangle"
+excerpt: "Lesson10. Prime And Composite Numbers"
 last_modified_at: 2021-03-01T15:18:00
 header:
   image: /assets/images/codility/lesson10/MinPerimeterRectangle.png
@@ -9,7 +9,8 @@ categories:
 tags:
   - Programming
   - Codility
-  - Prime and composite numbers
+  - Prime And Composite Numbers
+  - Java
 
 toc: true
 toc_ads: true

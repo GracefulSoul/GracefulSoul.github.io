@@ -1,5 +1,5 @@
 ---
-title: "Codility MaxCounters"
+title: "Codility Java MaxCounters"
 excerpt: "Lesson4. Counting Elements"
 last_modified_at: 2021-02-20T15:50:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Counting Elements
+  - Java
 
 toc: true
 toc_ads: true

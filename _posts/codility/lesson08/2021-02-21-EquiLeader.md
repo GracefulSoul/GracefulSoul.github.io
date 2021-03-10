@@ -1,5 +1,5 @@
 ---
-title: "Codility EquiLeader"
+title: "Codility Java EquiLeader"
 excerpt: "Lesson8. Leader"
 last_modified_at: 2021-02-21T15:04:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Leader
+  - Java
 
 toc: true
 toc_ads: true

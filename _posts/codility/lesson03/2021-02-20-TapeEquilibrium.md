@@ -1,5 +1,5 @@
 ---
-title: "Codility TapeEquilibrium"
+title: "Codility Java TapeEquilibrium"
 excerpt: "Lesson3. Time Complexity"
 last_modified_at: 2021-02-20T15:03:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Time Complexity
+  - Java
 
 toc: true
 toc_ads: true

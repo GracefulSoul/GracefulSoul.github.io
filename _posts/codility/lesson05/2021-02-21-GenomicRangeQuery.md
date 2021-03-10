@@ -1,5 +1,5 @@
 ---
-title: "Codility GenomicRangeQuery"
+title: "Codility Java GenomicRangeQuery"
 excerpt: "Lesson5. Prefix Sums"
 last_modified_at: 2021-02-21T11:12:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Prefix Sums
+  - Java
 
 toc: true
 toc_ads: true

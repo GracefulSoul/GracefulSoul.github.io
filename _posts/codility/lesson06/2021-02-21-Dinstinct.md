@@ -1,5 +1,5 @@
 ---
-title: "Codility Distinct"
+title: "Codility Java Distinct"
 excerpt: "Lesson6. Sorting"
 last_modified_at: 2021-02-21T12:13:00
 header:
@@ -10,6 +10,7 @@ tags:
   - Programming
   - Codility
   - Sorting
+  - Java
 
 toc: true
 toc_ads: true
