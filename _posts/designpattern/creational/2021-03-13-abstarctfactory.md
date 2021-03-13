@@ -1,7 +1,7 @@
 ---
 title: "Design Pattern - Abstract Factory Pattern이란(Java)"
 excerpt: "Java를 이용하여 Design Pattern - Abstract Factory Pattern에 대해 설명합니다."
-last_modified_at: 2021-03-13T14:50:00
+last_modified_at: 2021-03-13T16:50:00
 header:
   image: /assets/images/designpattern/creational/abstractfactory.png
 categories:
@@ -22,7 +22,7 @@ toc_sticky: true
 # Abstract Factory Pattern
 - 구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만들 수 있는 인터페이스를 제공하는 패턴이다.
 
-# Sample
+# Example
 ```java
 public interface Shape {
   void draw();

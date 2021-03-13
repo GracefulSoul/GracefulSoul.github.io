@@ -22,7 +22,7 @@ toc_sticky: true
 # Singleton Pattern
 - 전역 변수를 사용하지 않고 객체를 하나만 생성도록 하며, 생성된 객체를 어디에서든지 참조할 수 있도록 하는 패턴이다.
 
-# Sample
+# Example
 ```java
 public class SingleObject {
 	// Create an object of SingleObject.
