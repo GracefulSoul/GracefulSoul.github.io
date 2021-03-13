@@ -62,6 +62,3 @@ public class SingletonPatternMain {
 
 # Source
 [GitHub-Singleton](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/singleton)
-
-# Reference
-[TutorialsPoint-SingletonPattern](https://www.tutorialspoint.com/design_pattern/singleton_pattern.htm)
