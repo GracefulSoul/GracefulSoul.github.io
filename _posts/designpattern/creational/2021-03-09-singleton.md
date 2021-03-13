@@ -1,6 +1,6 @@
 ---
-title: "Design Pattern - Singleton Pattern이란"
-excerpt: "Design Pattern에 - Singleton Pattern에 대한 설명"
+title: "Design Pattern - Singleton Pattern이란(Java)"
+excerpt: "Java를 이용하여 Design Pattern - Singleton Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-09T19:00:00
 header:
   image: /assets/images/designpattern/designpattern.png
