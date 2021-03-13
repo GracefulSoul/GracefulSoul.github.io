@@ -59,3 +59,6 @@ public class SingletonPatternMain {
 
 - Singleton 객체를 생성자를 통해 생성하고자 하면, Compile 단계에서 오류가 발생한다.
 - Singleton 객체의 getter 메서드를 이용하여 내부 메서드(기능)를 사용하면 정상적으로 수행이 된다.
+
+# Source
+[GitHub-Singleton](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/singleton)
