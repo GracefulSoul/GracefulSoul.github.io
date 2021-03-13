@@ -3,7 +3,7 @@ title: "Design Pattern - Abstract Factory Pattern이란(Java)"
 excerpt: "Java를 이용하여 Design Pattern - Abstract Factory Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-13T14:50:00
 header:
-  image: /assets/images/designpattern/designpattern.png
+  image: /assets/images/designpattern/creational/abstractfactory.png
 categories:
   - DesignPattern
 tags:

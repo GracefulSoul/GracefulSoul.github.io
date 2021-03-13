@@ -3,7 +3,7 @@ title: "Design Pattern - Singleton Pattern이란(Java)"
 excerpt: "Java를 이용하여 Design Pattern - Singleton Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-09T19:00:00
 header:
-  image: /assets/images/designpattern/designpattern.png
+  image: /assets/images/designpattern/creational/singleton.png
 categories:
   - DesignPattern
 tags:
@@ -62,3 +62,6 @@ public class SingletonPatternMain {
 
 # Source
 [GitHub-Singleton](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/singleton)
+
+# Reference
+[TutorialsPoint-SingletonPattern](https://www.tutorialspoint.com/design_pattern/singleton_pattern.htm)
