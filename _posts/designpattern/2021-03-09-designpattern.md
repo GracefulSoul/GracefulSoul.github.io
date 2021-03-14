@@ -56,10 +56,10 @@ toc_sticky: true
 - 클래스와 객체를 더 큰 결과물로 합칠 수 있는 구조로 설계하는 패턴이다.
 - 서로 다른 인터페이스를 지닌 여러 개의 객체를 조합하여 단일 인터페이스를 제공하거나, 객체들을 서로 묶어 새로운 기능을 제공하는 패턴이다.
 
-### Composite
+### Composite[^Composite]
 - 여러 개의 객체들로 구성된 복합 객체와 단일 객체를 클라이언트에서 구별 없이 다루게 해주는 패턴이다.
 
-### Decorator
+### Decorator[^Decorator]
 - 객체의 결합을 통해 기능을 동적으로 유연하게 확장할 수 있게 해주는 패턴이다.
 
 ### Adaptor
@@ -120,3 +120,5 @@ toc_sticky: true
 [^AbstractFactory]: [GitHub-AbstractFactory](../creational/abstractfactory)
 [^Builder]: [GitHub-Builder](../creational/builder)
 [^Prototype]: [GitHub-Prototype](../creational/prototype)
+[^Composite]: [GitHub-Composite](../structural/composite)
+[^Decorator]: [GitHub-Decorator](../structural/decorator)
