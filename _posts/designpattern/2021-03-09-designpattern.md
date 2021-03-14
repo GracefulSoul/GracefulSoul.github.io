@@ -33,15 +33,15 @@ toc_sticky: true
 - 객체가 생성되는 방식을 중시하는 패턴이다.
 - 객체의 생성과 조합을 캡슐화하여 객체가 생성 혹은 수정되어도 전체 프로그램 구조에 영향을 받지 않도록 유연성을 제공한다.
 
-### Singleton
+### Singleton[^Singleton]
 - 전역 변수를 사용하지 않고 객체를 하나만 생성도록 하며, 생성된 객체를 어디에서든지 참조할 수 있도록 하는 패턴이다.
-### Factory Method
+### Factory Method[^Factory]
 - 객체 생성을 서브 클래스로 분리해 처리하도록 캡슐화하는 패턴이다.
-### Abstract Factory
+### Abstract Factory[^AbstractFactory]
 - 구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만들 수 있는 인터페이스를 제공하는 패턴이다.
-### Builder
+### Builder[^Builder]
 - 복잡한 객체를 생성하는 방법을 정의하는 클래스와 표현하는 방법을 정의하는 클래스를 별도로 분리하여, 서로 다른 표현이라도 이를 생성할 수 있는 동일한 절차를 제공하는 패턴이다.
-### Prototype
+### Prototype[^Prototype]
 - Original 객체를 새로운 객체에 복사하여 우리의 필요에 따라 수정하는 메커니즘을 제공하는 패턴이다.
 - Java Cloneable 클래스의 clone() 메서드가 대표적인 예이다.
 
@@ -90,3 +90,10 @@ toc_sticky: true
 - 컬렉션 구현 방법을 노출시키지 않으면서도 그 집합체 안에 들어있는 모든 항목에 접근할 수 있는 방법을 제공하는 패턴이다.
 ### Visitor
 - 알고리즘을 객체 구조에서 분리시키는 패턴이다.
+
+# Reference
+[^Singleton]: [GitHub-Singleton](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/singleton)
+[^Factory]: [GitHub-Factory](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/factory)
+[^AbstractFactory]: [GitHub-AbstractFactory](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/abstractfactory)
+[^Builder]: [GitHub-Builder](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/builder)
+[^Prototype]: [GitHub-Prototype](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/prototype)
