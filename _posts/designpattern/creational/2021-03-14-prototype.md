@@ -1,7 +1,7 @@
 ---
 title: "Design Pattern - Prototype Pattern이란(Java)"
 excerpt: "Java를 이용하여 Design Pattern - Prototype Pattern에 대해 설명합니다."
-last_modified_at: 2021-03-13T14:50:00
+last_modified_at: 2021-03-14T13:00:00
 header:
   image: /assets/images/designpattern/creational/prototype.png
 categories:
