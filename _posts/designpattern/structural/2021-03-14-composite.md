@@ -73,7 +73,6 @@ public class CompositePatternMain {
 
 		// Print all employees of the organization.
 		System.out.println(CEO);
-
 		for (Employee headEmployee : CEO.getSubordinates()) {
 			System.out.println(headEmployee);
 			for (Employee employee : headEmployee.getSubordinates()) {
@@ -84,7 +83,7 @@ public class CompositePatternMain {
 }
 ```
 
-- CEO부터 영업직군까지 Employee를 추가하여 subordinates 객체에 포함된 모든 임직원들을 출력한다.
+- CEO부터 영업직군까지 Employee를 추가하여 CEO와 subordinates에 포함된 모든 임직원들을 출력한다.
 
 # Source
 [GitHub-Composite](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/composite)
