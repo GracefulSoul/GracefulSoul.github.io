@@ -3,7 +3,7 @@ title: "Design Pattern - Decorator Pattern이란(Java)"
 excerpt: "Java를 이용하여 Design Pattern - Decorator Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-14T15:30:00
 header:
-  image: /assets/images/designpattern/creational/decorator.png
+  image: /assets/images/designpattern/structural/decorator.png
 categories:
   - DesignPattern
 tags:
