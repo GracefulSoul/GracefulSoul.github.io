@@ -62,19 +62,19 @@ toc_sticky: true
 ### Decorator[^Decorator]
 - 객체의 결합을 통해 기능을 동적으로 유연하게 확장할 수 있게 해주는 패턴이다.
 
-### Adaptor
+### Adaptor[^Adaptor]
 - 클래스의 인터페이스를 사용자가 기대하는 인터페이스 형태로 변환시키는 패턴이다.
 
-### Proxy
+### Proxy[^Proxy]
 - 어떤 다른 객체로 접근하는 것을 통제하기 위해서 그 객체의 대리자나 자리표시자의 역할을 하는 패턴이다.
 
-### Flyweight
+### Flyweight[^Flyweight]
 - 공유를 통하여 대량의 객체들을 효과적으로 지원하는 패턴이다.
 
-### Facade
+### Facade[^Facade]
 - 서브시스템을 더 쉽게 사용할 수 있도록 높은 수준의 인터페이스를 정의하고 제공하는 패턴이다.
 
-### Bridge
+### Bridge[^Bridge]
 - 추상화를 구현으로부터 분리하여 각각 독립적으로 변화할 수 있도록 하는 패턴이다.
 
 ## Behavioral Patterns
@@ -115,10 +115,15 @@ toc_sticky: true
 - 알고리즘을 객체 구조에서 분리시키는 패턴이다.
 
 # Reference
-[^Singleton]: [GitHub-Singleton](../creational/singleton)
-[^Factory]: [GitHub-Factory](../creational/factory)
-[^AbstractFactory]: [GitHub-AbstractFactory](../creational/abstractfactory)
-[^Builder]: [GitHub-Builder](../creational/builder)
-[^Prototype]: [GitHub-Prototype](../creational/prototype)
-[^Composite]: [GitHub-Composite](../structural/composite)
-[^Decorator]: [GitHub-Decorator](../structural/decorator)
+[^Singleton]: [Blog-Singleton](../singleton)
+[^Factory]: [Blog-Factory](../factory)
+[^AbstractFactory]: [Blog-AbstractFactory](../abstractfactory)
+[^Builder]: [Blog-Builder](../builder)
+[^Prototype]: [Blog-Prototype](../prototype)
+[^Composite]: [Blog-Composite](../composite)
+[^Decorator]: [Blog-Decorator](../decorator)
+[^Adaptor]: [Blog-Adaptor](../adaptor)
+[^Proxy]: [Blog-Proxy](../proxy)
+[^Flyweight]: [Blog-Flyweight](../flyweight)
+[^Facade]: [Blog-Facade](../facade)
+[^Bridge]: [Blog-Bridge](../bridge)

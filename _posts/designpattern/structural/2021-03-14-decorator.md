@@ -15,6 +15,10 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
+# Design Pattern[^DesignPattern]
+- 과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.
+- 디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.
+
 # Structural Patterns, 구조 패턴
 - 클래스와 객체를 더 큰 결과물로 합칠 수 있는 구조로 설계하는 패턴이다.
 - 서로 다른 인터페이스를 지닌 여러 개의 객체를 조합하여 단일 인터페이스를 제공하거나, 객체들을 서로 묶어 새로운 기능을 제공하는 패턴이다.
@@ -88,3 +92,6 @@ public class DecoratorPatternMain {
 
 # Source
 [GitHub-Decorator](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/decorator)
+
+# Reference
+[^DesignPattern]: [Blog-Design_Pattern](../designpattern)
