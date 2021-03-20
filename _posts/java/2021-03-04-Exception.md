@@ -1,5 +1,5 @@
 ---
-title: "Java Exception이란?"
+title: "Java Exception"
 excerpt: "Java Exception에 대한 설명"
 last_modified_at: 2021-03-04T19:45:00
 header:
