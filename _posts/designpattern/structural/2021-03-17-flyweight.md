@@ -1,5 +1,5 @@
 ---
-title: "Design Pattern - Flyweight Pattern이란(Java)"
+title: "Java Design Pattern - Flyweight Pattern"
 excerpt: "Java를 이용하여 Design Pattern - Flyweight Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-17T20:40:00
 header:
@@ -8,6 +8,7 @@ categories:
   - DesignPattern
 tags:
   - Programming
+	- Java
   - DesignPattern
   - Structural Patterns
 
@@ -15,7 +16,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# Design Pattern[^DesignPattern]
+# [Design Pattern](../designpattern)
 - 과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.
 - 디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.
 
@@ -29,34 +30,50 @@ toc_sticky: true
 # Example
 ```java
 public interface Shape {
+
 	void draw();
+
 }
 public class Circle implements Shape {
+
 	private String color;
 	private int x;
 	private int y;
 	private int radius;
+
 	public Circle(String color) {
 		this.color = color;
 	}
+
 	public void setX(int x) {
 		this.x = x;
 	}
+
 	public void setY(int y) {
 		this.y = y;
 	}
+
 	public void setRadius(int radius) {
 		this.radius = radius;
 	}
+
 	@Override
 	public void draw() {
 		System.out.println("Circle: Draw() [Color : " + color + ", x : " + x + ", y :" + y + ", radius :" + radius);
 	}
+
 }
+```
+
+- 공유 객체로 사용할 Shape 인터페이스를 정의하고, Circle 클래스를 구현한다.
+
+```java
 public class ShapeFactory {
+
 	// Uncomment the compiler directive line and javac *.java will compile properly.
 	// @SuppressWarnings("unchecked")
 	private static final Map<String, Circle> circleMap = new HashMap<>();
+
 	public static Shape getCircle(String color) {
 		Circle circle = (Circle) circleMap.get(color);
 		if (circle == null) {
@@ -66,16 +83,18 @@ public class ShapeFactory {
 		}
 		return circle;
 	}
+
 }
 ```
 
-- 공유 객체로 사용할 Shape, Circle 객체를 생성한다.
 - 공유 객체를 관리하는 ShapeFactory 객체를 생성하여 color 별 첫 Circle 객체는 생성하고, 이후 요청은 circleMap에 저장된 color 별 Circle 객체를 공유하게된다.
 - Javac를 활용한 Compile 시, 주석처리된 @SuppressWarnings("unchecked")을 해제하고 사용해야 정상 컴파일이 가능하다.
 
 ```java
 public class FlyweightPatternMain {
+
 	private static final String colors[] = { "Red", "Green", "Blue", "White", "Black" };
+
 	public static void main(String[] args) {
 		for (int i = 0; i < 20; ++i) {
 			Circle circle = (Circle) ShapeFactory.getCircle(getRandomColor());
@@ -85,15 +104,19 @@ public class FlyweightPatternMain {
 			circle.draw();
 		}
 	}
+
 	private static String getRandomColor() {
 		return colors[(int) (Math.random() * colors.length)];
 	}
+
 	private static int getRandomX() {
 		return (int) (Math.random() * 100);
 	}
+
 	private static int getRandomY() {
 		return (int) (Math.random() * 100);
 	}
+
 }
 ```
 
@@ -101,6 +124,3 @@ public class FlyweightPatternMain {
 
 # Source
 [GitHub-Flyweight](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/flyweight)
-
-# Reference
-[^DesignPattern]: [Blog-Design_Pattern](../designpattern)

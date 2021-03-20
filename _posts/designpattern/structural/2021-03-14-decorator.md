@@ -1,5 +1,5 @@
 ---
-title: "Design Pattern - Decorator Pattern이란(Java)"
+title: "Java Design Pattern - Decorator Pattern"
 excerpt: "Java를 이용하여 Design Pattern - Decorator Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-14T15:30:00
 header:
@@ -8,6 +8,7 @@ categories:
   - DesignPattern
 tags:
   - Programming
+	- Java
   - DesignPattern
   - Structural Patterns
 
@@ -15,7 +16,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# Design Pattern[^DesignPattern]
+# [Design Pattern](../designpattern)
 - 과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.
 - 디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.
 
@@ -29,41 +30,60 @@ toc_sticky: true
 # Example
 ```java
 public interface Shape {
+
 	void draw();
+
 }
 public class Circle implements Shape {
+
 	@Override
 	public void draw() {
 		System.out.println("Shape: Circle");
 	}
+
 }
 public class Rectangle implements Shape {
+
 	@Override
 	public void draw() {
 		System.out.println("Shape: Rectangle");
 	}
+
 }
+```
+
+- 각 도형을 그리기 위해 Shape 인터페이스를 정의하고, Circle, Rectangle 클래스를 구현하여 draw() 메서드를 작성한다.
+
+```java
 public abstract class ShapeDecorator implements Shape {
+
 	protected Shape decoratedShape;
+
 	public ShapeDecorator(Shape decoratedShape) {
 		this.decoratedShape = decoratedShape;
 	}
+
 	public void draw() {
 		decoratedShape.draw();
 	}
+
 }
 public class RedShapeDecorator extends ShapeDecorator {
+
 	public RedShapeDecorator(Shape decoratedShape) {
 		super(decoratedShape);
 	}
+
 	@Override
 	public void draw() {
 		decoratedShape.draw();
 		setRedBorder(decoratedShape);
 	}
+
 	private void setRedBorder(Shape decoratedShape) {
 		System.out.println("Border Color: Red");
 	}
+
 }
 ```
 
@@ -71,6 +91,7 @@ public class RedShapeDecorator extends ShapeDecorator {
 
 ```java
 public class DecoratorPatternMain {
+
 	public static void main(String[] args) {
 		Shape circle = new Circle();
 		Shape redCircle = new RedShapeDecorator(new Circle());
@@ -85,6 +106,7 @@ public class DecoratorPatternMain {
 		System.out.println("Rectangle of red border");
 		redRectangle.draw();
 	}
+
 }
 ```
 
@@ -92,6 +114,3 @@ public class DecoratorPatternMain {
 
 # Source
 [GitHub-Decorator](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/decorator)
-
-# Reference
-[^DesignPattern]: [Blog-Design_Pattern](../designpattern)
