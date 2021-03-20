@@ -38,18 +38,18 @@ class Solution {
     return result;
   }
   // Check whether the sets of prime divisors of integers N and M are exactly the same.
-	private boolean isSameDivisors(int num1, int num2) {
-		int gcd = getGcd(num1, num2);
-		return getDivisor(gcd, num1) == 1 && getDivisor(gcd, num2) == 1;
-	}
-	private int getDivisor(int gcd, int num) {
-		int quotient = 0;
-		while (quotient != 1) {
-			quotient = getGcd(num, gcd);
-			num /= quotient;
-		}
-		return num;
-	}
+  private boolean isSameDivisors(int num1, int num2) {
+    int gcd = getGcd(num1, num2);
+    return getDivisor(gcd, num1) == 1 && getDivisor(gcd, num2) == 1;
+  }
+  private int getDivisor(int gcd, int num) {
+    int quotient = 0;
+    while (quotient != 1) {
+      quotient = getGcd(num, gcd);
+      num /= quotient;
+    }
+    return num;
+  }
   // Euclidean algorithm.
   private int getGcd(int num1, int num2) {
     if (num1 % num2 == 0) {

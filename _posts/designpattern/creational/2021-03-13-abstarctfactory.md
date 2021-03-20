@@ -8,7 +8,7 @@ categories:
   - DesignPattern
 tags:
   - Programming
-	- Java
+  - Java
   - DesignPattern
   - Creational Patterns
 
@@ -36,10 +36,10 @@ public interface Shape {
 }
 public class Circle implements Shape {
 
-	@Override
-	public void draw() {
-		System.out.println("Inside Circle::draw() method.");
-	}
+  @Override
+  public void draw() {
+    System.out.println("Inside Circle::draw() method.");
+  }
 
 }
 
@@ -61,41 +61,41 @@ public class Square implements Shape {
 }
 public enum ShapeType {
 
-	CIRCLE, RECTANGLE, SQUARE;
+  CIRCLE, RECTANGLE, SQUARE;
 
 }
 public interface Color {
 
-	void fill();
+  void fill();
 
 }
 public class Blue implements Color {
 
-	@Override
-	public void fill() {
-		System.out.println("Inside Blue::fill() method.");
-	}
+  @Override
+  public void fill() {
+    System.out.println("Inside Blue::fill() method.");
+  }
 
 }
 public class Green implements Color {
 
-	@Override
-	public void fill() {
-		System.out.println("Inside Green::fill() method.");
-	}
+  @Override
+  public void fill() {
+    System.out.println("Inside Green::fill() method.");
+  }
 
 }
 public class Red implements Color {
 
-	@Override
-	public void fill() {
-		System.out.println("Inside Red::fill() method.");
-	}
+  @Override
+  public void fill() {
+    System.out.println("Inside Red::fill() method.");
+  }
 
 }
 public enum ColorType {
 
-	BLUE, GREEN, RED;
+  BLUE, GREEN, RED;
 
 }
 ```
@@ -105,53 +105,53 @@ public enum ColorType {
 ```java
 public abstract class AbstractFactory {
 
-	abstract Color getColor(ColorType colorType);
+  abstract Color getColor(ColorType colorType);
 
-	abstract Shape getShape(ShapeType shapeType);
+  abstract Shape getShape(ShapeType shapeType);
 
 }
 public class ShapeFactory extends AbstractFactory {
 
-	@Override
-	public Shape getShape(ShapeType shapeType) {
-		switch (shapeType) {
-			case CIRCLE:
-				return new Circle();
-			case RECTANGLE:
-				return new Rectangle();
-			case SQUARE:
-				return new Square();
-			default:
-				return null;
-		}
-	}
+  @Override
+  public Shape getShape(ShapeType shapeType) {
+    switch (shapeType) {
+      case CIRCLE:
+        return new Circle();
+      case RECTANGLE:
+        return new Rectangle();
+      case SQUARE:
+        return new Square();
+      default:
+        return null;
+    }
+  }
 
-	@Override
-	public Color getColor(ColorType colorType) {
-		return null;
-	}
+  @Override
+  public Color getColor(ColorType colorType) {
+    return null;
+  }
 
 }
 public class ColorFactory extends AbstractFactory {
 
-	@Override
-	public Shape getShape(ShapeType shapeType) {
-		return null;
-	}
+  @Override
+  public Shape getShape(ShapeType shapeType) {
+    return null;
+  }
 
-	@Override
-	public Color getColor(ColorType colorType) {
-		switch (colorType) {
-			case RED:
-				return new Red();
-			case GREEN:
-				return new Green();
-			case BLUE:
-				return new Blue();
-			default:
-				return null;
-		}
-	}
+  @Override
+  public Color getColor(ColorType colorType) {
+    switch (colorType) {
+      case RED:
+        return new Red();
+      case GREEN:
+        return new Green();
+      case BLUE:
+        return new Blue();
+      default:
+        return null;
+    }
+  }
 
 }
 ```
@@ -162,64 +162,64 @@ public class ColorFactory extends AbstractFactory {
 ```java
 public class FactoryProducer {
 
-	public static AbstractFactory getFactory(FactroyType factroyType) {
-		switch (factroyType) {
-			case SHAPE:
-				return new ShapeFactory();
-			case COLOR:
-				return new ColorFactory();
-			default:
-				return null;
-		}
-	}
+  public static AbstractFactory getFactory(FactroyType factroyType) {
+    switch (factroyType) {
+      case SHAPE:
+        return new ShapeFactory();
+      case COLOR:
+        return new ColorFactory();
+      default:
+        return null;
+    }
+  }
 
 }
 public class AbstractFactoryPatternMain {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		// Get shape factory
-		AbstractFactory shapeFactory = FactoryProducer.getFactory(FactroyType.SHAPE);
+    // Get shape factory
+    AbstractFactory shapeFactory = FactoryProducer.getFactory(FactroyType.SHAPE);
 
-		// Get an object of Shape Circle
-		Shape shape1 = shapeFactory.getShape(ShapeType.CIRCLE);
+    // Get an object of Shape Circle
+    Shape shape1 = shapeFactory.getShape(ShapeType.CIRCLE);
 
-		// Call draw method of Shape Circle
-		shape1.draw();
+    // Call draw method of Shape Circle
+    shape1.draw();
 
-		// Get an object of Shape Rectangle
-		Shape shape2 = shapeFactory.getShape(ShapeType.RECTANGLE);
+    // Get an object of Shape Rectangle
+    Shape shape2 = shapeFactory.getShape(ShapeType.RECTANGLE);
 
-		// Call draw method of Shape Rectangle
-		shape2.draw();
+    // Call draw method of Shape Rectangle
+    shape2.draw();
 
-		// Get an object of Shape Square
-		Shape shape3 = shapeFactory.getShape(ShapeType.SQUARE);
+    // Get an object of Shape Square
+    Shape shape3 = shapeFactory.getShape(ShapeType.SQUARE);
 
-		// Call draw method of Shape Square
-		shape3.draw();
+    // Call draw method of Shape Square
+    shape3.draw();
 
-		// Get color factory
-		AbstractFactory colorFactory = FactoryProducer.getFactory(FactroyType.COLOR);
+    // Get color factory
+    AbstractFactory colorFactory = FactoryProducer.getFactory(FactroyType.COLOR);
 
-		// Get an object of Color Red
-		Color color1 = colorFactory.getColor(ColorType.RED);
+    // Get an object of Color Red
+    Color color1 = colorFactory.getColor(ColorType.RED);
 
-		// Call fill method of Red
-		color1.fill();
+    // Call fill method of Red
+    color1.fill();
 
-		// Get an object of Color Green
-		Color color2 = colorFactory.getColor(ColorType.GREEN);
+    // Get an object of Color Green
+    Color color2 = colorFactory.getColor(ColorType.GREEN);
 
-		// Call fill method of Green
-		color2.fill();
+    // Call fill method of Green
+    color2.fill();
 
-		// Get an object of Color Blue
-		Color color3 = colorFactory.getColor(ColorType.BLUE);
+    // Get an object of Color Blue
+    Color color3 = colorFactory.getColor(ColorType.BLUE);
 
-		// Call fill method of Color Blue
-		color3.fill();
-	}
+    // Call fill method of Color Blue
+    color3.fill();
+  }
 
 }
 ```

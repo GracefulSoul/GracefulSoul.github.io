@@ -58,43 +58,43 @@ toc_sticky: true
 ```java
 public class FileService {
   public List<String> usingTryCatch() {
-		List<String> rows = new ArrayList<>();
-		// You must declare the InputStreamReader, BufferedReader class outside the try~catch syntax so it can be used and closed.
-		InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
-		BufferedReader bufferedReader = null;
-		try {
-			bufferedReader = new BufferedReader(inputStreamReader);
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				rows.add(line);
-			}
-			return rows;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally { // Must close the InputStreamReader, BufferedReader class.
-			try {
-				inputStreamReader.close();
-				bufferedReader.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-	public List<String> usingTryWithResources() {
-		List<String> rows = new ArrayList<>();
-		try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
-			 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				rows.add(line);
-			}
-			return rows;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} // Even if you don't use the Finally keyword, the BufferedReader closes automatically.
-		return null;
-	}
+    List<String> rows = new ArrayList<>();
+    // You must declare the InputStreamReader, BufferedReader class outside the try~catch syntax so it can be used and closed.
+    InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
+    BufferedReader bufferedReader = null;
+    try {
+      bufferedReader = new BufferedReader(inputStreamReader);
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        rows.add(line);
+      }
+      return rows;
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally { // Must close the InputStreamReader, BufferedReader class.
+      try {
+        inputStreamReader.close();
+        bufferedReader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+  public List<String> usingTryWithResources() {
+    List<String> rows = new ArrayList<>();
+    try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
+       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);) {
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        rows.add(line);
+      }
+      return rows;
+    } catch (IOException e) {
+      e.printStackTrace();
+    } // Even if you don't use the Finally keyword, the BufferedReader closes automatically.
+    return null;
+  }
 }
 ```
 - usingTryCatch 메서드의 경우 InputStreamReader와 BufferedReader를 종료하는 close() 메서드를 호출하기 위해서 finally 구문을 사용해야 하는데 scope의 문제로 try~catch 구문 밖에 변수를 선언하여야 사용하는 불편함이 존재한다.
@@ -107,17 +107,17 @@ public class FileService {
 ```java
 public class FileService {
   ...
-	public List<String> usingThrows() throws IOException { // Pass the IOException to the caller.
-		List<String> rows = new ArrayList<>();
-		try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
-			 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				rows.add(line);
-			}
-			return rows;
-		}
-	}
+  public List<String> usingThrows() throws IOException { // Pass the IOException to the caller.
+    List<String> rows = new ArrayList<>();
+    try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
+       BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        rows.add(line);
+      }
+      return rows;
+    }
+  }
 }
 ```
 
@@ -127,32 +127,32 @@ public class FileService {
 
 ```java
 public class FileException extends RuntimeException {
-	private static final long serialVersionUID = -7903712172617310856L;
-	public FileException(String message) {
-		super(message);
-	}
-	public FileException(Throwable cause) {
-		super(cause);
-	}
-	public FileException(String message, Throwable cause) {
-		super(message, cause);
-	}
+  private static final long serialVersionUID = -7903712172617310856L;
+  public FileException(String message) {
+    super(message);
+  }
+  public FileException(Throwable cause) {
+    super(cause);
+  }
+  public FileException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }
 public class FileService {
   ...
-	public List<String> usingThrow() { // Pass the IOException to the caller.
-		List<String> rows = new ArrayList<>();
-		try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
-			 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-			String line;
-			while ((line = bufferedReader.readLine()) != null) {
-				rows.add(line);
-			}
-			return rows;
-		} catch (IOException e) {
-			throw new FileException("An error occurred while loading the file.", e);
-		}
-	}
+  public List<String> usingThrow() { // Pass the IOException to the caller.
+    List<String> rows = new ArrayList<>();
+    try (InputStreamReader inputStreamReader = new InputStreamReader(FileService.class.getClassLoader().getResourceAsStream("music.txt"));
+       BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+      String line;
+      while ((line = bufferedReader.readLine()) != null) {
+        rows.add(line);
+      }
+      return rows;
+    } catch (IOException e) {
+      throw new FileException("An error occurred while loading the file.", e);
+    }
+  }
 }
 ```
 

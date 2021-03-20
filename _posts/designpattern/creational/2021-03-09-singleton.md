@@ -8,7 +8,7 @@ categories:
   - DesignPattern
 tags:
   - Programming
-	- Java
+  - Java
   - DesignPattern
   - Creational Patterns
 
@@ -31,21 +31,21 @@ toc_sticky: true
 ```java
 public class SingleObject {
 
-	// Create an object of SingleObject.
-	private static SingleObject instance = new SingleObject();
+  // Create an object of SingleObject.
+  private static SingleObject instance = new SingleObject();
 
-	// Make the constructor private so that this class cannot be instantiated.
-	private SingleObject() {
-	}
+  // Make the constructor private so that this class cannot be instantiated.
+  private SingleObject() {
+  }
 
-	// Get the only object available.
-	public static SingleObject getInstance() {
-		return instance;
-	}
+  // Get the only object available.
+  public static SingleObject getInstance() {
+    return instance;
+  }
 
-	public void showMessage() {
-		System.out.println("Hello World!");
-	}
+  public void showMessage() {
+    System.out.println("Hello World!");
+  }
 
 }
 ```
@@ -56,15 +56,15 @@ public class SingleObject {
 ```java
 public class SingletonPatternMain {
 
-	public static void main(String[] args) {
-		// Illegal construct.
-		// Compile Time Error: The constructor SingleObject() is not visible.
-		// SingleObject object = new SingleObject();
-		// Get the only object available.
-		SingleObject object = SingleObject.getInstance();
-		// Show the message.
-		object.showMessage();
-	}
+  public static void main(String[] args) {
+    // Illegal construct.
+    // Compile Time Error: The constructor SingleObject() is not visible.
+    // SingleObject object = new SingleObject();
+    // Get the only object available.
+    SingleObject object = SingleObject.getInstance();
+    // Show the message.
+    object.showMessage();
+  }
 
 }
 ```

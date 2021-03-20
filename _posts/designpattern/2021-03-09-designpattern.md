@@ -1,5 +1,5 @@
 ---
-title: "Design Pattern이란"
+title: "Design Pattern"
 excerpt: "Design Pattern에 대한 설명"
 last_modified_at: 2021-03-09T19:00:00
 header:
