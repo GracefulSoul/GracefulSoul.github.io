@@ -75,4 +75,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingQSWXB3-AAH/)
 
 # 소스
-[GitHub-GenomicRangeQuery](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson05/GenomicRangeQuery.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson05/GenomicRangeQuery.java)에서 확인 가능합니다.

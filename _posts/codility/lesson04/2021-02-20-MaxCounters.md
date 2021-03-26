@@ -71,4 +71,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingQ5G9KP-C39/)
 
 # 소스
-[GitHub-MaxCounters](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson04/MaxCounters.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson04/MaxCounters.java)에서 확인 가능합니다.

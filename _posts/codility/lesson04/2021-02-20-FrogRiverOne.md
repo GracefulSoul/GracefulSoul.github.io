@@ -55,4 +55,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingJ8UD3S-3CE/)
 
 # 소스
-[GitHub-FrogRiverOne](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson04/FrogRiverOne.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson04/FrogRiverOne.java)에서 확인 가능합니다.

@@ -47,4 +47,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingPK5C7W-QF2/)
 
 # 소스
-[GitHub-OddOccurrencesInArray](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson02/OddOccurrencesInArray.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson02/OddOccurrencesInArray.java)에서 확인 가능합니다.

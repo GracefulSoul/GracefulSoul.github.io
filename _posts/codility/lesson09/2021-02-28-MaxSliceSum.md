@@ -53,4 +53,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingNXT2S3-3U7/)
 
 # 소스
-[GitHub-MaxSliceSum](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson09/MaxSliceSum.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson09/MaxSliceSum.java)에서 확인 가능합니다.

@@ -61,4 +61,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/training8NYBNN-9FU/)
 
 # 소스
-[GitHub-MinAvgTwoSlice](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson05/MinAvgTwoSlice.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson05/MinAvgTwoSlice.java)에서 확인 가능합니다.

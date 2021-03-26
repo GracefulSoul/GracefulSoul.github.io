@@ -69,4 +69,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingVZ25BY-FPX/)
 
 # 소스
-[GitHub-CountNonDivisible](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson11/CountNonDivisible.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson11/CountNonDivisible.java)에서 확인 가능합니다.

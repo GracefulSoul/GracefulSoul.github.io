@@ -70,4 +70,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingY8JCA7-Z55/)
 
 # 소스
-[GitHub-NumberOfDiscIntersections](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson06/NumberOfDiscIntersections.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson06/NumberOfDiscIntersections.java)에서 확인 가능합니다.

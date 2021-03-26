@@ -52,4 +52,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingUWMRMK-AWK/)
 
 # 소스
-[GitHub-CyclicRotation](https://github.com/GracefulSoul/Sample/blob/master/src/main/java/gracefulsoul/codility/lesson02/CyclicRotation.java)
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson02/CyclicRotation.java)에서 확인 가능합니다.
