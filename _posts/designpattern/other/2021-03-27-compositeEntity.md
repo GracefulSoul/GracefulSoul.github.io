@@ -20,7 +20,7 @@ toc_sticky: true
 - 디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.
 
 # Composite Entity Pattern
-- Java EE 디자인 패턴이다.
+- EJB Persistence Mechanism에서 사용되는 디자인 패턴이다.
 - Composite Entity는 객체의 그래프를 나타내는 EJB Entity Bean이다.
 - Composite Entity가 업데이트되면 내부적으로 종속된 Bean이 EJB Entity에 의해 관리되어 자동으로 업데이트된다.
 
