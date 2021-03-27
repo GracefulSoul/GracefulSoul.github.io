@@ -70,7 +70,7 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingHCMKR3-3PJ/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson12/CommonPrimeDivisors.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson12/CommonPrimeDivisors.java)에서 확인 가능합니다.
 
 # Reference
 [^Euclidean]: [Wiki-Euclidean_Algorithm](https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95)

@@ -71,4 +71,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingBN5US6-ESY/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson08/Dominator.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson08/Dominator.java)에서 확인 가능합니다.

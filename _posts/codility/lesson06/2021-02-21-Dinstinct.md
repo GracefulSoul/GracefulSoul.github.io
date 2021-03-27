@@ -41,4 +41,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingBUTFHG-DS3/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson06/Distinct.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/Distinct.java)에서 확인 가능합니다.

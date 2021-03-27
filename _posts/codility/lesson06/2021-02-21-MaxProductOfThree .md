@@ -54,4 +54,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/training6ZYATQ-GE7/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson06/MaxProductOfThree.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/MaxProductOfThree.java)에서 확인 가능합니다.

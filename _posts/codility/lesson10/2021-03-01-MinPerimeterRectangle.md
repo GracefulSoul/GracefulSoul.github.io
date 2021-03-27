@@ -55,4 +55,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/trainingQ26K5H-P53/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson10/MinPerimeterRectangle.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson10/MinPerimeterRectangle.java)에서 확인 가능합니다.

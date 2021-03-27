@@ -60,4 +60,4 @@ class Solution {
 3. 문제의 결과를 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson01/BinaryGap.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson01/BinaryGap.java)에서 확인 가능합니다.

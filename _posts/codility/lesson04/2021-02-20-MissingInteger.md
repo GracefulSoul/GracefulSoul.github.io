@@ -57,4 +57,4 @@ class Solution {
 [Link](https://app.codility.com/demo/results/training6RJEX8-PHQ/)
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/lesson04/MissingInteger.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/MissingInteger.java)에서 확인 가능합니다.
