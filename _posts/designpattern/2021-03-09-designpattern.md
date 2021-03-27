@@ -116,3 +116,24 @@ toc_sticky: true
 
 ### [Visitor](../visitor)
 - 알고리즘을 객체 구조에서 분리시키는 패턴이다.
+
+## Other
+- GoF 디자인 패턴 외 Java EE 등에서 사용되거나, MVC 등의 범용적인 패턴들이다.
+
+### [Business Delegate](../businessDelegate)
+- Java EE 디자인 패턴이다.
+- 프레젠테이션 계층과 비즈니스 계층을 분리하여 결합을 줄이고 서비스의 세부 구현 정보를 캡슐화 하는데 사용된다.
+- 기본적으로 프레젠테이션 계층 코드에서 비즈니스 계층 코드에 대한 통신 또는 원격 조회 기능을 줄이는 데 사용된다.
+
+### [Composite Entity](../compositeEntity)
+- EJB Persistence Mechanism에서 사용되는 디자인 패턴이다.
+- Composite Entity는 객체의 그래프를 나타내는 EJB Entity Bean이다.
+- Composite Entity가 업데이트되면 내부적으로 종속된 Bean이 EJB Entity에 의해 관리되어 자동으로 업데이트된다.
+
+### [Data Access Object](../dataAccessObject)
+- DAO 패턴이라고도 불린다.
+- API 또는 작업에 액세스하는 하위 수준의 데이터를 상위 수준의 비즈니스 서비스에서 분리하는 데 사용된다.
+
+### [Front Controller](../frontController)
+- 모든 요청이 단일 핸들러로 처리되도록 중앙 집중식 요청 처리 메커니즘을 제공하는 데 사용된다.
+- 이 핸들러는 요청의 인증/권한/로깅 또는 추적을 수행한 다음 요청을 해당 핸들러로 전달할 수 있다.
