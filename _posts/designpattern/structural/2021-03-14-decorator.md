@@ -113,4 +113,4 @@ public class DecoratorPatternMain {
 - Shape의 형태 별 객체와 Decorator 객체를 이용하여 확인한다.
 
 # Source
-[GitHub-Decorator](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/decorator)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/structural/decorator)에서 확인 가능합니다.

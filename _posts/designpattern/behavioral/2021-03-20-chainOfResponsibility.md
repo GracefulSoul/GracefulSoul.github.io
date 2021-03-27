@@ -128,4 +128,4 @@ public class ChainPatternMain {
 - 위의 설정이 적용된 Logger를 AbstractLogger로 받아 각 Logging Level 별 Log 메시지를 출력해본다.
 
 # Source
-[GitHub-Chain of Responsibility](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/behavioral/chainOfResponsibility)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/behavioral/chainOfResponsibility)에서 확인 가능합니다.

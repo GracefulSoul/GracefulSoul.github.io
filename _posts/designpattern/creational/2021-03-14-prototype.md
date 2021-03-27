@@ -165,4 +165,4 @@ public class PrototypePatternMain {
 - ShapeCache 객체의 getShape 메서드를 이용하여 clone된 객체를 반환함으로써, Prototype Pattern을 구현한다.
 
 # Source
-[GitHub-Prototype](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/prototype)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/creational/prototype)에서 확인 가능합니다.

@@ -227,4 +227,4 @@ public class AbstractFactoryPatternMain {
 - FactoryProducer를 통해서 AbstractFactory 인터페이스를 가져와서 Color와 Shape의 조합을 만들 수 있다.
 
 # Source
-[GitHub-AbstractFactory](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/abstractfactory)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/creational/abstractfactory)에서 확인 가능합니다.

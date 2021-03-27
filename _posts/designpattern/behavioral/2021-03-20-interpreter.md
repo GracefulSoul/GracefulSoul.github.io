@@ -119,4 +119,4 @@ public class InterpreterPatternMain {
 - Expression의 조합을 통해서 각 질의를 수행해본다.
 
 # Source
-[GitHub-Interpreter](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/behavioral/interpreter)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/behavioral/interpreter)에서 확인 가능합니다.

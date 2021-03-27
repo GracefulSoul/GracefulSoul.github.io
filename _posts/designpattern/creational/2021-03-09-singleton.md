@@ -73,4 +73,4 @@ public class SingletonPatternMain {
 - Singleton 객체의 getter 메서드를 이용하여 내부 메서드(기능)를 사용하면 정상적으로 수행이 된다.
 
 # Source
-[GitHub-Singleton](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/creational/singleton)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/creational/singleton)에서 확인 가능합니다.

@@ -123,4 +123,4 @@ public class FlyweightPatternMain {
 - 임의의 X축과 Y축에 반지름이 100인 원을 20개 그리도록하여 color 별 circle이 제공되는 방식을 확인한다.
 
 # Source
-[GitHub-Flyweight](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/designpattern/structural/flyweight)
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/structural/flyweight)에서 확인 가능합니다.
