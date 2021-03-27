@@ -1,5 +1,5 @@
 ---
-title: "Java Design Pattern - composite Entity Pattern"
+title: "Java Design Pattern - Composite Entity Pattern"
 excerpt: "Java를 이용하여 Design Pattern - Composite Entity Pattern에 대해 설명합니다."
 last_modified_at: 2021-03-27T12:10:00
 header:
