@@ -137,3 +137,22 @@ toc_sticky: true
 ### [Front Controller](../frontController)
 - 모든 요청이 단일 핸들러로 처리되도록 중앙 집중식 요청 처리 메커니즘을 제공하는 데 사용된다.
 - 이 핸들러는 요청의 인증/권한/로깅 또는 추적을 수행한 다음 요청을 해당 핸들러로 전달할 수 있다.
+
+### [Intercepting Filter](../interceptingFilter)
+- 응용 프로그램의 Request나 Response의 전/후 처리를 하고자 할 때 사용된다.
+- 실제 대상 응용 프로그램에 요청을 전달하기 전에 필터가 정의되고 요청에 적용된다.
+- 필터는 인증/승인/로그인 또는 요청의 추적 작업을 수행한 다음 해당 처리기에 요청을 전달할 수 있다.
+
+### [Model-View-Controller(MVC)](../mvc)
+- 사용자 인터페이스로부터 비즈니스 로직을 분리하여 애플리케이션의 시각적 요소나 그 이면에서 실행되는 비즈니스 로직을 서로 영향 없이 쉽게 고칠 수 있는 애플리케이션을 만들 기 위해 사용한다.
+
+### [Null Object](../nullObject)
+- NULL Object 인스턴스의 검사를 대체하여 사용 및 동작을 설명한다.
+
+### [Service Locator](../serviceLocator)
+- JNDI 조회를 사용하여 다양한 서비스를 찾고자 할 때 사용된다.
+- 서비스에 대한 JNDI를 찾는 데 드는 높은 비용을 고려하여 캐싱 기술을 사용한다.
+- Service Locator를 통한 추가 조회 또는 동일한 서비스가 캐쉬에서 수행되므로 애플리케이션 성능이 크게 향상된다.
+
+### Transfer Object(../transferObject)
+- 여러 속성을 가진 데이터를 Client에서 Server로 한 번에 전달할 때 사용된다.
