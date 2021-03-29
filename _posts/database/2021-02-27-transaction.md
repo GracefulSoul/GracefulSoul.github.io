@@ -1,5 +1,5 @@
 ---
-title: "Database ransaction"
+title: "Database Transaction"
 excerpt: "Transaction에 대한 설명"
 last_modified_at: 2021-02-27T23:38:00
 header:
