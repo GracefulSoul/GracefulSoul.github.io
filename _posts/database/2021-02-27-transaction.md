@@ -3,7 +3,7 @@ title: "Database Transaction"
 excerpt: "Transaction에 대한 설명"
 last_modified_at: 2021-02-27T23:38:00
 header:
-  image: /assets/images/database/transaction.png
+  image: /assets/images/database/transaction/transaction.png
 categories:
   - Database
 tags:
@@ -29,7 +29,7 @@ toc_sticky: true
 성공적으로 완료된 트랜잭션의 결과는 시스템이 고장나더라도 영구적으로 반영되어야 한다.
 
 # 트랜잭션 상태(Status)
-![transactionStatus](../../assets/images/database/transactionStatus.png)
+![transactionStatus](../../assets/images/database/transaction/transactionStatus.png)
 ## 활성(Active)
 트랜잭션이 실행 중인 상태이다.
 ## 실패(Failed)
