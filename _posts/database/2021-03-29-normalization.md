@@ -1,6 +1,6 @@
 ---
-title: "Normalization"
-excerpt: "Normalization에 대한 설명"
+title: "Database Normalization"
+excerpt: "Database Normalization에 대한 설명"
 last_modified_at: 2021-03-29T23:38:00
 header:
   image: /assets/images/database/normalization/normalization.png

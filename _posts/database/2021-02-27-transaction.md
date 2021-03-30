@@ -1,6 +1,6 @@
 ---
-title: "Transaction"
-excerpt: "Transaction에 대한 설명"
+title: "Database Transaction"
+excerpt: "Database Transaction에 대한 설명"
 last_modified_at: 2021-02-27T23:38:00
 header:
   image: /assets/images/database/transaction/transaction.png
