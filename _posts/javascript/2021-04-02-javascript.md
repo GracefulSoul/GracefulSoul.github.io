@@ -23,8 +23,50 @@ toc_sticky: true
 
 # First-Class Functions, 일급 함수
 - 매개변수로 제공이 가능하다.
+
+```js
+function sayHello() {
+   return "Hello, ";
+}
+function greeting(helloMessage, name) {
+  console.log(helloMessage() + name);
+}
+// Pass `sayHello` as an argument to `greeting` function.
+greeting(sayHello, "JavaScript!");
+```
+
 - 함수가 함수를 반환할 수 있다.
+
+```js
+// Using a variable.
+const sayHello = function() {
+   return function() {
+      console.log("Hello!");
+   }
+}
+const myFunc = sayHello();
+myFunc();
+```
+
+```js
+// Using double parentheses.
+function sayHello() {
+   return function() {
+      console.log("Hello!");
+   }
+}
+sayHello()();
+```
+
 - 변수에 할당이 가능하다.
+
+```js
+const foo = function() {
+   console.log("foobar");
+}
+// Invoke it using the variable.
+foo();
+```
 
 # Library
 ## [JQuery](https://jquery.com/)
@@ -39,7 +81,7 @@ toc_sticky: true
 
 ## [Angular.js](https://angularjs.org/) / [Angular](https://angular.io/)
 - JavaScript에 정적 타입 개념을 추가한 신형 언어인 [TypeScript](https://www.typescriptlang.org/) 기반 오픈 소스 Web Application Framework이다.
-- Angular 1은 Angular.js, Angular2 이상부터 Angular로 불린다.
+- Angular 1.x 버전은 Angular.js, Angular 2 버전 이상부터 Angular로 불린다.
 
 ## [Vue.js](https://vuejs.org/)
 - User Interface 및 Single-Page Application(SPA)을 구축하기위한 오픈 소스 Model-View-ViewModel Front-End JavaScript Framework이다.
@@ -47,3 +89,6 @@ toc_sticky: true
 
 # [ECMAScript](http://www.ecma-international.org/)
 - JavaScript를 이루는 코어 스크립트 언어이자 표준([ECMA-262](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/))이다.
+
+# Reference
+- [Wiki-JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
