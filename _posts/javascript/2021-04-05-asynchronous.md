@@ -47,9 +47,9 @@ new Promise(function(resolve, reject) {
 ```
 
 ## 오류 처리
-- then()을 사용하여 두 번째 인자로 에러를 처리하는 방법.
-  - 이 방법으로 호출되면 Uncaught Error가 발생하여, catch()를 이용하도록 한다.
-- catch()를 이용하여 에러를 처리하는 방법.
+- then()을 사용하여 두 번째 인자로 에러를 처리한다.
+  - 이 방법으로 호출되면 Uncaught Error가 발생하므로, catch()를 이용하도록 한다.
+- catch()를 이용하여 에러를 처리한다.
 
 # async, await
 - 자바스크립트 비동기 처리 패턴 중 가장 최근에 나온 문법이다.
