@@ -87,4 +87,4 @@ class Solution {
   - 초기 ListNode를 선언하고 temp가 next값부터 주입되었으므로, 첫 ListNode는 껍데기이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/TwoSum.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/AddTwoNumbers.java)에서 확인 가능합니다.
