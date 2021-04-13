@@ -47,7 +47,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/479212877/)
+[Link](https://leetcode.com/submissions/detail/480056605/)
 
 # 설명
 1. 주어진 문자열 s에서 가장 긴 반복 문자열을 추출하기 위해서 변수 start와 end를 정의한다.
