@@ -85,4 +85,4 @@ class Solution {
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ZigZagConversion.java)에서 확인 가능합니다.
 
 # Refference
-[^StringBuiler]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html)
+[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html)
