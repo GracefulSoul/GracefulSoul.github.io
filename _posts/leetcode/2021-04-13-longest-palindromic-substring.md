@@ -1,9 +1,9 @@
 ---
-title: "Leetcode Longest Palindromic Substring"
-excerpt: "Leetcode Longest Palindromic Substring 풀이"
-last_modified_at: 2021-04-12T20:00:00
+title: "Leetcode Java Longest Palindromic Substring"
+excerpt: "Leetcode Longest Palindromic Substring Java 풀이"
+last_modified_at: 2021-04-13T20:00:00
 header:
-  image: /assets/images/leetcode/longest-palindromic-substring
+  image: /assets/images/leetcode/longest-palindromic-substring.png
 categories:
   - Leetcode
 tags:
