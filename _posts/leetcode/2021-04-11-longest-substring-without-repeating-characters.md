@@ -14,6 +14,7 @@ tags:
 toc: true
 toc_ads: true
 toc_sticky: true
+use_math: true
 ---
 # 문제
 [Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
@@ -56,8 +57,8 @@ class Solution {
 
 4. Collection에 주어진 변수 s의 i번째 문자와 index를 저장한다.
 
-5. 기존에 계산한 고유 문자열의 길이와 i - j + 1 중 큰 값을 고유 문자열의 길이를 저장하는 result 변수에 주입한다.
-  - i - j + 1로 길이를 계산하는 이유는 s가 한 글자인 경우 글자의 길이가 0으로 반환되는 부분을 보정하기 위함이다.
+5. 기존에 계산한 고유 문자열의 길이와 $i - j + 1$ 중 큰 값을 고유 문자열의 길이를 저장하는 result 변수에 주입한다.
+  - $i - j + 1$로 길이를 계산하는 이유는 s가 한 글자인 경우 글자의 길이가 0으로 반환되는 부분을 보정하기 위함이다.
 
 6. 반복이 끝나면 고유 문자열의 길이를 저장한 result를 주어진 문제의 결과로 반환한다.
 

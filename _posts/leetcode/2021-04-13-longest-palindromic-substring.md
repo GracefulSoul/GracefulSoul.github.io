@@ -14,6 +14,7 @@ tags:
 toc: true
 toc_ads: true
 toc_sticky: true
+use_math: true
 ---
 # 문제
 [Link](https://leetcode.com/problems/longest-palindromic-substring/)
@@ -59,8 +60,8 @@ class Solution {
   - 위의 두 경우 중 큰 값을 길이로 결정한다.
 
 3. 만일 2번의 결과로 나온 길이가 end - start보다 크다면 start와 end 값을 수정한다.
-  - 변수 start는 index i 기준으로 (len - 1) / 2를 뺀 값으로 설정한다.
-  - 변수 end는 index i 기준으로 len / 2를 더한 값으로 설정한다.
+  - 변수 start는 index i 기준으로 $\frac{(len - 1)}{2}$를 뺀 값으로 설정한다.
+  - 변수 end는 index i 기준으로 $\frac{len}{2}$를 더한 값으로 설정한다.
 
 4. 반복이 끝나면 주어진 문자열 s에서 변수 start번째 문자부터 변수 end까지 문자까지 잘라서 주어진 문제의 결과로 제출한다.
   - end까지 자르는데 substring(start, end + 1)인 이유는 substring 메서드가 start번째 부터 end + 1번째 전까지 자르기 때문이다.
