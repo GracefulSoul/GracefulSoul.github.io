@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/4-counting_elements/frog_river_one/)
+[Link](https://app.codility.com/programmers/lessons/4-counting_elements/frog_river_one/){:target="_blank"}
 
 # 코드
 ```java
@@ -52,7 +52,7 @@ class Solution {
 3. 만약 목표 지점과 leafs의 크기가 동일하면 현재 index를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingJ8UD3S-3CE/)
+[Link](https://app.codility.com/demo/results/trainingJ8UD3S-3CE/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/FrogRiverOne.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/FrogRiverOne.java){:target="_blank"}에서 확인 가능합니다.

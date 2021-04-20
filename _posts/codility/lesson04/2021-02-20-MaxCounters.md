@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/4-counting_elements/max_counters/)
+[Link](https://app.codility.com/programmers/lessons/4-counting_elements/max_counters/){:target="_blank"}
 
 # 코드
 ```java
@@ -68,7 +68,7 @@ class Solution {
 4. 마지막으로 결과로 반환할 배열 result의 값이 init보다 작다면, init 값으로 초기화 하고 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingQ5G9KP-C39/)
+[Link](https://app.codility.com/demo/results/trainingQ5G9KP-C39/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/MaxCounters.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/MaxCounters.java){:target="_blank"}에서 확인 가능합니다.

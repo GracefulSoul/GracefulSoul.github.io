@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/4-counting_elements/perm_check/)
+[Link](https://app.codility.com/programmers/lessons/4-counting_elements/perm_check/){:target="_blank"}
 
 # 코드
 ```java
@@ -48,7 +48,7 @@ class Solution {
 3. for문이 정상적으로 실행 되었을 경우, 배열의 크기만큼의 연속된 숫자가 들어있으므로 1을 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingJZTBZU-BE7/)
+[Link](https://app.codility.com/demo/results/trainingJZTBZU-BE7/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/PermCheck.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/PermCheck.java){:target="_blank"}에서 확인 가능합니다.

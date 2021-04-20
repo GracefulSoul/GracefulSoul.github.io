@@ -16,7 +16,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# [Design Pattern](../designpattern)
+# [Design Pattern](../designpattern){:target="_blank"}
 - 과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.
 - 디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.
 
@@ -128,4 +128,4 @@ public class ChainPatternMain {
 - 위의 설정이 적용된 Logger를 AbstractLogger로 받아 각 Logging Level 별 Log 메시지를 출력해본다.
 
 # Source
-Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/behavioral/chainOfResponsibility)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/behavioral/chainOfResponsibility){:target="_blank"}에서 확인 가능합니다.

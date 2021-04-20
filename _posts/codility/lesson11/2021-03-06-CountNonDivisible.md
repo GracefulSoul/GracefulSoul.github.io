@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_non_divisible/)
+[Link](https://app.codility.com/programmers/lessons/11-sieve_of_eratosthenes/count_non_divisible/){:target="_blank"}
 
 # 코드
 ```java
@@ -66,7 +66,7 @@ class Solution {
 3. 반복이 끝나면 주어진 배열 A의 각 숫자의 인수가 아닌 숫자의 갯수를 저장한 변수 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingVZ25BY-FPX/)
+[Link](https://app.codility.com/demo/results/trainingVZ25BY-FPX/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson11/CountNonDivisible.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson11/CountNonDivisible.java){:target="_blank"}에서 확인 가능합니다.

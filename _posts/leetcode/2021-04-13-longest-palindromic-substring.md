@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/longest-palindromic-substring/)
+[Link](https://leetcode.com/problems/longest-palindromic-substring/){:target="_blank"}
 
 # 코드
 ```java
@@ -48,7 +48,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/480056605/)
+[Link](https://leetcode.com/submissions/detail/480056605/){:target="_blank"}
 
 # 설명
 1. 주어진 문자열 s에서 가장 긴 반복 문자열을 추출하기 위해서 변수 start와 end를 정의한다.
@@ -67,4 +67,4 @@ class Solution {
   - end까지 자르는데 substring(start, end + 1)인 이유는 substring 메서드가 start번째 부터 end + 1번째 전까지 자르기 때문이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LongestPalindromicSubstring.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LongestPalindromicSubstring.java){:target="_blank"}에서 확인 가능합니다.

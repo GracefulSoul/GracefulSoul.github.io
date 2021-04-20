@@ -18,7 +18,7 @@ toc_sticky: true
 ---
 
 # 문제
-[Link](https://app.codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/)
+[Link](https://app.codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/){:target="_blank"}
 
 # 코드
 ```java
@@ -60,7 +60,7 @@ class Solution {
 3. 주어진 문제의 결과를 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/training2C4RED-4GW/)
+[Link](https://app.codility.com/demo/results/training2C4RED-4GW/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson03/TapeEquilibrium.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson03/TapeEquilibrium.java){:target="_blank"}에서 확인 가능합니다.

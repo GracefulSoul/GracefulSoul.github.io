@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/)
+[Link](https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/){:target="_blank"}
 
 # 코드
 ```java
@@ -58,7 +58,7 @@ class Solution {
 5. 반복이 완료되면 블록의 수를 저장하는 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingJSWNH2-6PS/)
+[Link](https://app.codility.com/demo/results/trainingJSWNH2-6PS/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson07/StoneWall.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson07/StoneWall.java){:target="_blank"}에서 확인 가능합니다.

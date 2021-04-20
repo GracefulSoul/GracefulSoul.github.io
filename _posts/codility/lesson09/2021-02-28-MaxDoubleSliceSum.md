@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/)
+[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/){:target="_blank"}
 
 # 코드
 ```java
@@ -58,7 +58,7 @@ class Solution {
 2. 특정 인덱스가 주어지면, 해당 인덱스 기준으로 사잇 값의 누계를 합하여 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingZ9SZBR-5H4/)
+[Link](https://app.codility.com/demo/results/trainingZ9SZBR-5H4/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxDoubleSliceSum.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxDoubleSliceSum.java){:target="_blank"}에서 확인 가능합니다.

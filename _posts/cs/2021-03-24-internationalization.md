@@ -65,7 +65,7 @@ toc_sticky: true
 ### UTC
 ![timezones](../../assets/images/cs/internationalization/timezones.png)
 
-## [문자열 정렬 방법](https://namu.wiki/w/%EC%A0%95%EB%A0%AC/%EC%88%9C%EC%84%9C)
+## [문자열 정렬 방법](https://namu.wiki/w/%EC%A0%95%EB%A0%AC/%EC%88%9C%EC%84%9C){:target="_blank"}
 - 한국어
 대한민국 표준어에서 사용되는 정렬 순서는 다음과 같다. 대개 가나다순이라고 한다.
   - 초성: ㄱ ㄲ ㄴ ㄷ ㄸ ㄹ ㅁ ㅂ ㅃ ㅅ ㅆ ㅇ ㅈ ㅉ ㅊ ㅋ ㅌ ㅍ ㅎ
@@ -81,7 +81,7 @@ toc_sticky: true
   - А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ъ Ы Ь Э Ю Я
 
 ## 개인 이름 및 주소 형식 처리 등
-### [개인 이름](https://namu.wiki/w/%EC%84%B1%EC%94%A8)
+### [개인 이름](https://namu.wiki/w/%EC%84%B1%EC%94%A8){:target="_blank"}
 - 동아시아나 헝가리 등지에서는 이름 앞에 쓰고, 유럽(헝가리 제외)이나 중동, 터키, 인도, 아메리카에서는 뒤에 쓴다.
 - 대부분의 문화권에서 성이 있지만 지금도 아랍인과 말레이인처럼 성이 없는 문화권이 있다.
 
@@ -117,7 +117,7 @@ toc_sticky: true
 - 지리적 명명 분쟁 및 <87과 같은 다양한 정치적 문제에 대한 민감도>분쟁 된 국경 지도에 표시 (Ex. 인도는 카슈미르 및 정부가 의도 한 기타 지역을 범죄로 표시하지 않는 논란이 있는 법안을 제안했다.)
 
 # Reference
-- [NamuWiki-성씨](https://namu.wiki/w/%EC%84%B1%EC%94%A8)
-- [NamuWiki-정렬/순서](https://namu.wiki/w/%EC%A0%95%EB%A0%AC/%EC%88%9C%EC%84%9C)
-- [NaverBlog-세계의 주소 체계](https://m.blog.naver.com/edizon426/220737608336)
-- [Wikipedia-국제화 및 현지화](https://ko.wikiarabi.org/wiki/Internationalization_and_localization)
+- [NamuWiki-성씨](https://namu.wiki/w/%EC%84%B1%EC%94%A8){:target="_blank"}
+- [NamuWiki-정렬/순서](https://namu.wiki/w/%EC%A0%95%EB%A0%AC/%EC%88%9C%EC%84%9C){:target="_blank"}
+- [NaverBlog-세계의 주소 체계](https://m.blog.naver.com/edizon426/220737608336){:target="_blank"}
+- [Wikipedia-국제화 및 현지화](https://ko.wikiarabi.org/wiki/Internationalization_and_localization){:target="_blank"}

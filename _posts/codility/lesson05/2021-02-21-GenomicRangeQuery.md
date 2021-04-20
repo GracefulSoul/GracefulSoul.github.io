@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/genomic_range_query/)
+[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/genomic_range_query/){:target="_blank"}
 
 # 코드
 ```java
@@ -72,7 +72,7 @@ class Solution {
 - 만일 위의 변화가 없으면 T로 간주하여 해당 DNA 영향 계수를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingQSWXB3-AAH/)
+[Link](https://app.codility.com/demo/results/trainingQSWXB3-AAH/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/GenomicRangeQuery.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/GenomicRangeQuery.java){:target="_blank"}에서 확인 가능합니다.

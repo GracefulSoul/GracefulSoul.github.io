@@ -85,6 +85,6 @@ Non-Transactionally로 실행하며 부모 트랜잭션이 존재하면 Exceptio
 - Default : -1(No-Timeout)
 
 # Reference
-[^Transaction]: [SpringDocs-Transaction](https://docs.spring.io/spring-framework/docs/5.0.0.M5/spring-framework-reference/html/transaction.html)
-[^Bean]: [Blog-Bean](../Bean)
-[^AOP]: [Blog-AOP](../aop)
+[^Transaction]: [SpringDocs-Transaction](https://docs.spring.io/spring-framework/docs/5.0.0.M5/spring-framework-reference/html/transaction.html){:target="_blank"}
+[^Bean]: [Blog-Bean](../Bean){:target="_blank"}
+[^AOP]: [Blog-AOP](../aop){:target="_blank"}

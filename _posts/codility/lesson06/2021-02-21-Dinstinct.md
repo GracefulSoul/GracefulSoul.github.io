@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/6-sorting/distinct/)
+[Link](https://app.codility.com/programmers/lessons/6-sorting/distinct/){:target="_blank"}
 
 # 코드
 ```java
@@ -38,7 +38,7 @@ class Solution {
 1. 주어진 배열 A의 중복을 제거한 숫자를 반환하면 된다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingBUTFHG-DS3/)
+[Link](https://app.codility.com/demo/results/trainingBUTFHG-DS3/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/Distinct.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/Distinct.java){:target="_blank"}에서 확인 가능합니다.

@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/14-binary_search_algorithm/min_max_division/)
+[Link](https://app.codility.com/programmers/lessons/14-binary_search_algorithm/min_max_division/){:target="_blank"}
 
 # 코드
 ```java
@@ -80,7 +80,7 @@ class Solution {
 3. 반복이 종료되면 결과 값을 저장한 변수 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingTRFHH9-GJE/)
+[Link](https://app.codility.com/demo/results/trainingTRFHH9-GJE/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson14/MinMaxDivision.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson14/MinMaxDivision.java){:target="_blank"}에서 확인 가능합니다.

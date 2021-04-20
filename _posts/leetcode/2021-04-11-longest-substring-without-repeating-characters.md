@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+[Link](https://leetcode.com/problems/longest-substring-without-repeating-characters/){:target="_blank"}
 
 # 코드
 ```java
@@ -41,7 +41,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/478726995/)
+[Link](https://leetcode.com/submissions/detail/478726995/){:target="_blank"}
 
 # 설명
 1. 임시로 문자를 저장하기 위해 Collection을 선언한다.
@@ -63,4 +63,4 @@ class Solution {
 6. 반복이 끝나면 고유 문자열의 길이를 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LongestSubstringWithoutRepeatingCharacters.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LongestSubstringWithoutRepeatingCharacters.java){:target="_blank"}에서 확인 가능합니다.

@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/4-counting_elements/missing_integer/)
+[Link](https://app.codility.com/programmers/lessons/4-counting_elements/missing_integer/){:target="_blank"}
 
 # 코드
 ```java
@@ -54,7 +54,7 @@ class Solution {
 3. 1부터 1씩 증가하며 numSet에 포함되어있는지 확인하고, 없을 경우 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/training6RJEX8-PHQ/)
+[Link](https://app.codility.com/demo/results/training6RJEX8-PHQ/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/MissingInteger.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson04/MissingInteger.java){:target="_blank"}에서 확인 가능합니다.

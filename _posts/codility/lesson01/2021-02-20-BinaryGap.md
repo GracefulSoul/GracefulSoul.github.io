@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/1-iterations/binary_gap/)
+[Link](https://app.codility.com/programmers/lessons/1-iterations/binary_gap/){:target="_blank"}
 
 # 코드
 ```java
@@ -50,7 +50,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingE5EF2K-44N/)
+[Link](https://app.codility.com/demo/results/trainingE5EF2K-44N/){:target="_blank"}
 
 # 설명
 1. 주어진 숫자를 Binary로 변환한다.
@@ -60,4 +60,4 @@ class Solution {
 3. 문제의 결과를 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson01/BinaryGap.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson01/BinaryGap.java){:target="_blank"}에서 확인 가능합니다.

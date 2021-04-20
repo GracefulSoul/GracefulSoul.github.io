@@ -16,7 +16,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/add-two-numbers/)
+[Link](https://leetcode.com/problems/add-two-numbers/){:target="_blank"}
 
 # 코드
 ```java
@@ -62,11 +62,11 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/478103072/)
+[Link](https://leetcode.com/submissions/detail/478103072/){:target="_blank"}
 
 # 설명
 1. ListNode를 먼저 파악해보면 숫자를 val 변수로 저장하고,다음 ListNode를 next 변수로 저장한다.
-  - Java에서 [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html)를 이해하면 도움이 된다.
+  - Java에서 [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html){:target="_blank"}를 이해하면 도움이 된다.
   - 하나의 ListNode는 숫자의 역순으로 저장이 되므로 val의 값은 1의 자리, 다음 ListNode의 val의 값은 10의 자리이다.
   - 예를 들어 숫자 123은 '3 - 2 - 1' 순의 ListNode로 구성된다.
   - 위의 경우 첫 ListNode의 val값은 3이고, next ListNode의 val값은 2이고, next ListNode의 val값은 1이며 next는 null이 된다.
@@ -87,4 +87,4 @@ class Solution {
   - 초기 ListNode를 선언하고 temp가 next값부터 주입되었으므로, 첫 ListNode는 껍데기이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/AddTwoNumbers.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/AddTwoNumbers.java){:target="_blank"}에서 확인 가능합니다.

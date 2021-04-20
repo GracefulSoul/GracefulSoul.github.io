@@ -16,7 +16,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/zigzag-conversion/)
+[Link](https://leetcode.com/problems/zigzag-conversion/){:target="_blank"}
 
 # 코드
 ```java
@@ -59,7 +59,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/480333369/)
+[Link](https://leetcode.com/submissions/detail/480333369/){:target="_blank"}
 
 # 설명
 1. 주어진 행의 수인 변수 numRows가 1이면 주어진 문자열 그대로이므로, 주어진 문제의 결과로 반환한다.
@@ -82,7 +82,7 @@ class Solution {
   - sbArr[0]의 값에 0 이후 index 배열의 값을 append 시켜 sbArr[0].toString()을 통해 간단히 하나의 문자열로 생성하였다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ZigZagConversion.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ZigZagConversion.java){:target="_blank"}에서 확인 가능합니다.
 
 # Refference
-[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html)
+[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}

@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/zigzag-conversion/)
+[Link](https://leetcode.com/problems/zigzag-conversion/){:target="_blank"}
 
 # 코드
 ```java
@@ -41,7 +41,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/480942023/)
+[Link](https://leetcode.com/submissions/detail/480942023/){:target="_blank"}
 
 # 설명
 1. 주어진 정수 x를 반대로 전환한 결과값을 저장할 result 변수를 선언한다.
@@ -61,4 +61,4 @@ class Solution {
   
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ReverseInteger.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ReverseInteger.java){:target="_blank"}에서 확인 가능합니다.

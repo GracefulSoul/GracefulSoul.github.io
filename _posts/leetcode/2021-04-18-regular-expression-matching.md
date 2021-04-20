@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/regular-expression-matching/)
+[Link](https://leetcode.com/problems/regular-expression-matching/){:target="_blank"}
 
 # 코드
 ```java
@@ -61,7 +61,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/481648922/)
+[Link](https://leetcode.com/submissions/detail/481648922/){:target="_blank"}
 
 # 설명
 1. 주어진 패턴 p가 null이거나 길이가 0이라면 주어진 문자열 s가 null이거나 길이가 0인지를 주어진 문제의 결과로 반환한다.
@@ -86,4 +86,4 @@ class Solution {
 	- dp 배열의 s의 길이, p의 길이 위치에 있는 값은 주어진 문자열이 주어진 패턴에 부합한다고 판단되는 경우이기 때문에, 해당 값이 문제의 결과이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromeNumber.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromeNumber.java){:target="_blank"}에서 확인 가능합니다.

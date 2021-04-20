@@ -42,4 +42,4 @@ toc_sticky: true
 - 이러한 제어의 역흐름을 통해 프레임워크가 외부의 이벤트에 대해 애플리케이션이 어떠한 메소드들을 수행해야 하는지 결정할 수 있다.
 
 # Reference
-[^Features]: [HashNet-프레임워크](http://wiki.hash.kr/index.php/%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC)
+[^Features]: [HashNet-프레임워크](http://wiki.hash.kr/index.php/%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC){:target="_blank"}

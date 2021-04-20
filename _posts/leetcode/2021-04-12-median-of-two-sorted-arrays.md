@@ -16,7 +16,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/median-of-two-sorted-arrays/)
+[Link](https://leetcode.com/problems/median-of-two-sorted-arrays/){:target="_blank"}
 
 # 코드
 ```java
@@ -48,7 +48,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/479212877/)
+[Link](https://leetcode.com/submissions/detail/479212877/){:target="_blank"}
 
 # 설명
 1. 주어진 두 배열의 중앙값을 찾기 위해서 하나의 배열로 합친다.
@@ -60,4 +60,4 @@ class Solution {
   - 배열의 크가기 짝수일 경우, 가운데 있는 두 값의 평균이 중앙값이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MedianOfTwoSortedArrays.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MedianOfTwoSortedArrays.java){:target="_blank"}에서 확인 가능합니다.

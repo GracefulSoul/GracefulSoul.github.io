@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/palindrome-number/)
+[Link](https://leetcode.com/problems/palindrome-number/){:target="_blank"}
 
 # 코드
 ```java
@@ -40,7 +40,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/481574918/)
+[Link](https://leetcode.com/submissions/detail/481574918/){:target="_blank"}
 
 # 설명
 1. 주어진 정수 x가 만일 0보다 작거나 10의 배수인 경우, 주어진 문제의 결과로 false를 반환한다.
@@ -56,4 +56,4 @@ class Solution {
 3. 주어진 정수 x의 절반과 반대로 저장시킨 reverse 변수의 값이 동일하거나 $\frac{reverse}{10}$와 동일하면 true로, 아니면 false로 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromeNumber.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromeNumber.java){:target="_blank"}에서 확인 가능합니다.

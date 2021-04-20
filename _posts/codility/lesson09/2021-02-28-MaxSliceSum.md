@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/)
+[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/){:target="_blank"}
 
 # 코드
 ```java
@@ -50,7 +50,7 @@ class Solution {
 3. 반복이 끝나면 최대 합계를 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingNXT2S3-3U7/)
+[Link](https://app.codility.com/demo/results/trainingNXT2S3-3U7/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxSliceSum.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxSliceSum.java){:target="_blank"}에서 확인 가능합니다.

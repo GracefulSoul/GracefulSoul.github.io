@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/6-sorting/number_of_disc_intersections/)
+[Link](https://app.codility.com/programmers/lessons/6-sorting/number_of_disc_intersections/){:target="_blank"}
 
 # 코드
 ```java
@@ -67,7 +67,7 @@ class Solution {
 5. 디스크들의 교차 수를 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingY8JCA7-Z55/)
+[Link](https://app.codility.com/demo/results/trainingY8JCA7-Z55/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/NumberOfDiscIntersections.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson06/NumberOfDiscIntersections.java){:target="_blank"}에서 확인 가능합니다.

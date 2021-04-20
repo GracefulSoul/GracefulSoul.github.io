@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/string-to-integer-atoi/)
+[Link](https://leetcode.com/problems/string-to-integer-atoi/){:target="_blank"}
 
 # 코드
 ```java
@@ -62,7 +62,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/481300277/)
+[Link](https://leetcode.com/submissions/detail/481300277/){:target="_blank"}
 
 # 설명
 1. 주어진 문자열 s는 0부터 1000까지 길이이므로 s의 길이가 0일 경우, 0을 그대로 주어진 문제의 결과로 반환한다.
@@ -86,4 +86,4 @@ class Solution {
 6. 반복이 끝나면 결과로 반환할 result에 음수/양수를 구분할 sign값을 곱하여 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/StringToIntegerAtoi.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/StringToIntegerAtoi.java){:target="_blank"}에서 확인 가능합니다.

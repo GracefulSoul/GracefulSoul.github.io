@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/12-euclidean_algorithm/chocolates_by_numbers/)
+[Link](https://app.codility.com/programmers/lessons/12-euclidean_algorithm/chocolates_by_numbers/){:target="_blank"}
 
 # 코드
 ```java
@@ -47,10 +47,10 @@ class Solution {
 2. 주어진 정수 N을 유클리드 호제법을 통해 구한 최대 공약수로 나누어서 나온 먹을 초콜릿의 갯수를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/training2XBK6X-U2F/)
+[Link](https://app.codility.com/demo/results/training2XBK6X-U2F/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson12/ChocolatesByNumbers.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson12/ChocolatesByNumbers.java){:target="_blank"}에서 확인 가능합니다.
 
 # Reference
-[^Euclidean]: [Wiki-Euclidean_Algorithm](https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95)
+[^Euclidean]: [Wiki-Euclidean_Algorithm](https://ko.wikipedia.org/wiki/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C_%ED%98%B8%EC%A0%9C%EB%B2%95){:target="_blank"}

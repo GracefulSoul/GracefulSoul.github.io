@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/min_avg_two_slice/)
+[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/min_avg_two_slice/){:target="_blank"}
 
 # 코드
 ```java
@@ -58,7 +58,7 @@ class Solution {
 4. 반복이 완료되면 최소 평균이 나오는 시작점을 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/training8NYBNN-9FU/)
+[Link](https://app.codility.com/demo/results/training8NYBNN-9FU/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/MinAvgTwoSlice.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/MinAvgTwoSlice.java){:target="_blank"}에서 확인 가능합니다.

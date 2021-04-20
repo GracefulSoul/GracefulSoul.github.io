@@ -156,4 +156,4 @@ public class FileService {
 }
 ```
 
-※ Sample Code는 [여기](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/java/exception)에서 확인 가능합니다.
+※ Sample Code는 [여기](https://github.com/GracefulSoul/Sample/tree/master/src/main/java/gracefulsoul/java/exception){:target="_blank"}에서 확인 가능합니다.

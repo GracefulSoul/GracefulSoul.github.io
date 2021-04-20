@@ -43,7 +43,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/482958970/)
+[Link](https://leetcode.com/submissions/detail/482958970/){:target="_blank"}
 
 # 설명
 1. 정수 숫자와 로마 숫자를 각 배열 nums와 romans에 정의한다.
@@ -60,7 +60,7 @@ class Solution {
 4. 3번의 반복이 완료되면 변수 sb를 String으로 변환하여 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/IntegerToRoman.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/IntegerToRoman.java){:target="_blank"}에서 확인 가능합니다.
 
 # Refference
-[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html)
+[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}

@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/container-with-most-water/)
+[Link](https://leetcode.com/problems/container-with-most-water/){:target="_blank"}
 
 # 코드
 ```java
@@ -42,7 +42,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/482578956/)
+[Link](https://leetcode.com/submissions/detail/482578956/){:target="_blank"}
 
 # 설명
 1. 주어진 배열 height의 양 끝단부터 탐색하기 위해 초기 index인 start는 0, end는 height.length - 1로 초기화 한다.
@@ -59,4 +59,4 @@ class Solution {
 5. 반복이 끝나면 최대로 담을 수 있는 물의 양을 저장한 max 변수를 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ContainerWithMostWater.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ContainerWithMostWater.java){:target="_blank"}에서 확인 가능합니다.

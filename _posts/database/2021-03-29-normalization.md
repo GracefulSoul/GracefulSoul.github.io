@@ -44,7 +44,7 @@ toc_sticky: true
 # 과정
 ![normalForms](../../assets/images/database/normalization/normalForms.png)
 - 비공식적으로 "관계형 데이터베이스 테이블(컴퓨터 공학적 표현으로는 관계)이 제 3정규(3NF)화가 되었으면 정규화 되었다."라고 한다.
-- 일반적으로 2002년에 소개된 [6NF](https://en.wikipedia.org/wiki/Sixth_normal_form)는 정규화 대상에서 제외된다.
+- 일반적으로 2002년에 소개된 [6NF](https://en.wikipedia.org/wiki/Sixth_normal_form){:target="_blank"}는 정규화 대상에서 제외된다.
 
 ## 1NF
 
@@ -253,10 +253,10 @@ toc_sticky: true
 - 위 세 테이블 기반으로 보면 후보키를 통해서 조인 관계가 성립하므로, Louis Ferguson은 Acme가 만든 Vacuum Cleaner 뿐 아니라 Robusto가 만든 Vacuum Cleaner도 판매할 수 있다.
 
 # Reference
-- [Wiki-Database_normalization](https://en.wikipedia.org/wiki/Database_normalization)
-- [Wiki-First_normal_form](https://en.wikipedia.org/wiki/First_normal_form)
-- [Wiki-Second_normal_form](https://en.wikipedia.org/wiki/Second_normal_form)
+- [Wiki-Database_normalization](https://en.wikipedia.org/wiki/Database_normalization){:target="_blank"}
+- [Wiki-First_normal_form](https://en.wikipedia.org/wiki/First_normal_form){:target="_blank"}
+- [Wiki-Second_normal_form](https://en.wikipedia.org/wiki/Second_normal_form){:target="_blank"}
 - [Wiki-Third_normal_form](https://en.wikipedia.org/wiki/Third_normal_form)
-- [WIki-Boyce–Codd_normal_form](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form)
-- [Wiki-Fourth_normal_form](https://en.wikipedia.org/wiki/Fourth_normal_form)
-- [Wiki-Fifth_normal_form](https://en.wikipedia.org/wiki/Fifth_normal_form)
+- [WIki-Boyce–Codd_normal_form](https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form){:target="_blank"}
+- [Wiki-Fourth_normal_form](https://en.wikipedia.org/wiki/Fourth_normal_form){:target="_blank"}
+- [Wiki-Fifth_normal_form](https://en.wikipedia.org/wiki/Fifth_normal_form){:target="_blank"}

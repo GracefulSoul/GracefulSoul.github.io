@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/8-leader/equi_leader/)
+[Link](https://app.codility.com/programmers/lessons/8-leader/equi_leader/){:target="_blank"}
 
 # 코드
 ```java
@@ -87,7 +87,7 @@ class Solution {
     - 절반 이사의 리더가 존재하는 경우만 동등한 리더의 수를 계산하는 변수 result를 증가시킨다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingT4DHJ8-XJZ/)
+[Link](https://app.codility.com/demo/results/trainingT4DHJ8-XJZ/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson08/EquiLeader.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson08/EquiLeader.java){:target="_blank"}에서 확인 가능합니다.

@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/count_factors/)
+[Link](https://app.codility.com/programmers/lessons/10-prime_and_composite_numbers/count_factors/){:target="_blank"}
 
 # 코드
 ```java
@@ -55,7 +55,7 @@ class Solution {
 4. 3번의 이유로 반복이 끝나면 인수의 갯수를 담은 result에 2를 곱하고, 만일 제곱근의 값이 정수라면 1을 더해서 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingWRXP78-3U7/)
+[Link](https://app.codility.com/demo/results/trainingWRXP78-3U7/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson10/CountFactors.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson10/CountFactors.java){:target="_blank"}에서 확인 가능합니다.

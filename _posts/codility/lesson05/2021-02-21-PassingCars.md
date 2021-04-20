@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/passing_cars/)
+[Link](https://app.codility.com/programmers/lessons/5-prefix_sums/passing_cars/){:target="_blank"}
 
 # 코드
 ```java
@@ -55,7 +55,7 @@ class Solution {
 3. 반복이 완료되면 추월된 차량의 수를 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingSVXSS6-HYF/)
+[Link](https://app.codility.com/demo/results/trainingSVXSS6-HYF/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/PassingCars.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson05/PassingCars.java){:target="_blank"}에서 확인 가능합니다.

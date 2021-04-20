@@ -17,7 +17,7 @@ toc_ads: true
 toc_sticky: true
 ---
 # 문제
-[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/)
+[Link](https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/){:target="_blank"}
 
 # 코드
 ```java
@@ -58,7 +58,7 @@ class Solution {
 3. 반복이 끝나면 최대 이익을 계산한 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
-[Link](https://app.codility.com/demo/results/trainingTQDNU5-K6T/)
+[Link](https://app.codility.com/demo/results/trainingTQDNU5-K6T/){:target="_blank"}
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxProfit.java)에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/codility/blob/master/src/main/java/gracefulsoul/lesson09/MaxProfit.java){:target="_blank"}에서 확인 가능합니다.
