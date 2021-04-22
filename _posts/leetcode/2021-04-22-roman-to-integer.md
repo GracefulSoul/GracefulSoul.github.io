@@ -73,7 +73,7 @@ class Solution {
   - 복합 로마 숫자 표현식의 경우 접두어 로마 숫자 표현식 문자의 숫자값의 두 배를 빼주는 이유는 단일 로마 숫자 표현식에서 이미 더했기 때문에, 그 값을 포함하여 2배를 빼주는 것이다.
   - 직전 문자를 저장하는 lastWord 변수에 해당 문자를 넣어준다.
 
-4. 반복문이 끝나면 결과를 저장한 result 변수를 주어진 문제의 결과로 반환한다.
+4. 반복이 끝나면 결과를 저장한 result 변수를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RomanToInteger.java){:target="_blank"}에서 확인 가능합니다.
