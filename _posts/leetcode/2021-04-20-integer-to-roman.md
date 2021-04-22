@@ -23,7 +23,7 @@ use_math: true
 ```java
 class Solution {
 
-  public static String intToRoman(int num) {
+  public String intToRoman(int num) {
     String[] romans = new String[] { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
     int[] nums = new int[] { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
     StringBuilder sb = new StringBuilder();

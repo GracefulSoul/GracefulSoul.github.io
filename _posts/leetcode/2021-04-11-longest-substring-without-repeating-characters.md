@@ -23,7 +23,7 @@ use_math: true
 ```java
 class Solution {
 
-  public static int lengthOfLongestSubstring(String s) {
+  public int lengthOfLongestSubstring(String s) {
     int result = 0;
     Map<Character, Integer> map = new HashMap<>();
     for (int i = 0, j = 0; i < s.length(); ++i) {
