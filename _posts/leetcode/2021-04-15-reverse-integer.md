@@ -23,19 +23,19 @@ use_math: true
 ```java
 class Solution {
 
-	public int reverse(int x) {
-		int result = 0;
-		while (x != 0) {
-			int temp = result * 10 + x % 10;
-			if (temp / 10 != result) {
-				return 0;
-			} else {
-				result = temp;
-				x /= 10;
-			}
-		}
-		return result;
-	}
+  public int reverse(int x) {
+    int result = 0;
+    while (x != 0) {
+      int temp = result * 10 + x % 10;
+      if (temp / 10 != result) {
+        return 0;
+      } else {
+        result = temp;
+        x /= 10;
+      }
+    }
+    return result;
+  }
 
 }
 ```

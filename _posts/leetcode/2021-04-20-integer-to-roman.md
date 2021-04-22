@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/integer-to-roman/)
+[Link](https://leetcode.com/problems/integer-to-roman/){:target="_blank"}
 
 # 코드
 ```java
