@@ -26,11 +26,9 @@ echo "🏋️ Building website..."
 JEKYLL_ENV=production bundle exec jekyll build
 echo "Jekyll build done"
 
-ls -l
-
 # Now lets go to the generated folder by Jekyll
 # and perform everything else from there
-cd build
+cd _posts
 
 echo "☁️ Publishing website"
 
