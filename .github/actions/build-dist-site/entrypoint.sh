@@ -24,12 +24,12 @@ bundle install
 # Build the website using Jekyll
 echo "🏋️ Building website..."
 JEKYLL_ENV=production
-bundle exec jekyll build --incremental
+bundle exec jekyll build
 echo "Jekyll build done"
 
 # Now lets go to the generated folder by Jekyll
 # and perform everything else from there
-cd _site
+cd ../posts
 
 echo "☁️ Publishing website"
 
