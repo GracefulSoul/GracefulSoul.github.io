@@ -51,7 +51,7 @@ class Solution {
   - 높은 순서대로 정의하여, 순차 계산할 경우 오름차순으로 정렬된 로마 숫자 표현식이 되도록 한다.
 
 2. 로마 숫자 표현식을 동적으로 만들기 위해 변수 sb를 선언한다.
-  - StringBuilder를 사용하는 이유는 동적 문자열의 생성에 효율적인 메모리 사용[^StringBuilder]을 위함이다.
+  - 동적 문자열의 생성시, 효율적인 메모리 사용을 위해 [StringBuilder](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}를 사용한다.
 
 3. 로마 숫자 표현식의 순차 처리를 위해 변수 idx를 0으로 초기화하고, num이 0 이하가 될 때 까지 반복문을 수행하여 로마 숫자 표현식을 완성한다.
   - 주어진 정수 num을 idx번째 nums 배열의 숫자를 나눈 몫만큼 반복하여 변수 sb에 idx번째 roman 배열의 문자열을 반복하고, 주어진 정수 num을 idx번째 숫자를 빼준다.
@@ -61,6 +61,3 @@ class Solution {
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/IntegerToRoman.java){:target="_blank"}에서 확인 가능합니다.
-
-# Refference
-[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}

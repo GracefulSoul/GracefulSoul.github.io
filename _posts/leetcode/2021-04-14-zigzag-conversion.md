@@ -66,7 +66,7 @@ class Solution {
 
 2. 주어진 문자열 s를 문자 배열 c에 저장하고, 주어진 행의 수인 변수 numRows를 이용하여 StringBuilder 배열인 sbArr을 만든다.
   - StringBuilder 배열은 행의 숫자인 numRows 크기로 만든다.
-  - StringBuilder를 사용하는 이유는 동적 문자열의 생성에 효율적인 메모리 사용[^StringBuilder]을 위함이다.
+  - 동적 문자열의 생성시, 효율적인 메모리 사용을 위해 [StringBuilder](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}를 사용한다.
 
 3. 방향을 나탄는 변수 sign과 지그재그로 표현하기 위한 최대 꼭짓점인 변수 i를 선언한다.
   - 변수 sign은 양수/음수에 따라서 아래로 내려갔다가 다시 위로 올라오기 위해 사용한다.
@@ -83,6 +83,3 @@ class Solution {
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ZigZagConversion.java){:target="_blank"}에서 확인 가능합니다.
-
-# Refference
-[^StringBuilder]: [Oracle-Java_Tutorials_The_StringBuilder_Class](https://docs.oracle.com/javase/tutorial/java/data/buffers.html){:target="_blank"}
