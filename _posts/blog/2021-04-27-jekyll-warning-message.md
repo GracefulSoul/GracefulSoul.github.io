@@ -22,15 +22,16 @@ toc_sticky: true
 # Ruby version
 - 루비는 처음부터 2.7을 사용하였고, 시작부터 해당 이슈가 있었기에 근본 문제부터 찾아보기로 한다.
 [![separation-of-positional-and-keyword-arguments-in-ruby-3x.png](../../assets/images/blog/jekyll-warning-message/separation-of-positional-and-keyword-arguments-in-ruby-3x.png)](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/)
-- 위의 문제는 손쉽게 위의 사진에 표시된 내용임 확인 할 수 있었다.(링크로 본문이 연결됩니다.)
+- 위의 문제는 손쉽게 위의 사진에 표시된 내용임 확인 할 수 있었다.(링크로 본문이 연결된다.)
+- 주요 내용은 "Ruby 3.0 이후에서는 위치 인수와 키워드 인수가 분리되므로 2.7 버전에서는 이에 대한 경고를 하여 코드를 수정해야 한다."는 내용이다.
 - 해결 방법 1안은 루비 버전을 내려서 메시지가 출력되지 않게 하는 방법이 있을 것이다.
 - 해결 방법 2안은 사용하는 버전의 Plugin등을 사용하는 방법이 있을 것이다.
-- 1안은 미래 지향적으로 좋은 방법은 아닐 것으로 판단하고 2안을 탐색하였다.
+- 1안은 미래 지향적으로 좋은 방법은 아닐 것으로 판단하고 2안으로 탐색하고 진행하였다.
 
 # Plugin version
 - Jekyll 버전은 3.6.2를 고정으로 사용했으나, 3.x 버전이 다 해당 문제가 발생함을 확인하였다.
 [![github-pages-support-for-jekyll-4x.png](../../assets/images/blog/jekyll-warning-message/github-pages-support-for-jekyll-4x.png)](https://github.com/github/pages-gem/issues/651)
-- 결국 Jekyll을 4.x로 올리는 방향을 고민하였지만, 역시나 여기에도 위의 함정이 있었다.(링크로 본문이 연결됩니다.)
+- 결국 Jekyll을 4.x로 올리는 방향을 고민하였지만, 역시나 여기에도 위의 함정이 있었다.(링크로 본문이 연결된다.)
 
 ## Github Pages?
 - [Github Pages](https://pages.github.com/)는 Github 저장소에 Commit한 내용을 웹사이트로 자동으로 만들어 주는 서비스이다.
@@ -212,6 +213,9 @@ echo "🎉 New version deployed 🎊"
 - 내용을 작성 후 git push까지 진행하게 되면, 위의 사진과 같이 자동으로 workflow가 수행되게 된다.
 
 # The end
+- 만일 모르고 Ruby 2.7이 EoS(End of Service)되고 3.0으로 올렸을 경우, 큰 문제에 직면했을 가능성이 있다.
+[![ruby-maintenance-branches](../../assets/images/blog/jekyll-warning-message/ruby-maintenance-branches.png)](https://www.ruby-lang.org/en/downloads/branches/)
+- 물론 위의 사진처럼 아직 확정되지 않았지만, Ruby를 사용하고 코딩하는 개발자로서 이는 기본으로 파악해야 할 내용이다.
 - 모든 경고 메시지 안에는 추후 발생할 상황을 예측 할 수 있으며, 이를 회피하기 위해서 사전에 해결하는 것이 현명한 방법이다.
 
 # Reference
