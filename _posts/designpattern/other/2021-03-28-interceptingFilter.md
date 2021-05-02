@@ -28,21 +28,21 @@ toc_sticky: true
 ```java
 public interface Filter {
 
-	public void execute(String request);
+  public void execute(String request);
 
 }
 public class DebugFilter implements Filter {
 
-	public void execute(String request) {
-		System.out.println("Request log: " + request);
-	}
+  public void execute(String request) {
+    System.out.println("Request log: " + request);
+  }
 
 }
 public class AuthenticationFilter implements Filter {
 
-	public void execute(String request) {
-		System.out.println("Authenticating request: " + request);
-	}
+  public void execute(String request) {
+    System.out.println("Authenticating request: " + request);
+  }
 
 }
 ```
@@ -52,9 +52,9 @@ public class AuthenticationFilter implements Filter {
 ```java
 public class Target {
 
-	public void execute(String request) {
-		System.out.println("Executing request: " + request);
-	}
+  public void execute(String request) {
+    System.out.println("Executing request: " + request);
+  }
 
 }
 ```
@@ -64,41 +64,41 @@ public class Target {
 ```java
 public class FilterChain {
 
-	private List<Filter> filters = new ArrayList<Filter>();
-	private Target target;
+  private List<Filter> filters = new ArrayList<Filter>();
+  private Target target;
 
-	public void addFilter(Filter filter) {
-		filters.add(filter);
-	}
+  public void addFilter(Filter filter) {
+    filters.add(filter);
+  }
 
-	public void execute(String request) {
-		for (Filter filter : filters) {
-			filter.execute(request);
-		}
-		this.target.execute(request);
-	}
+  public void execute(String request) {
+    for (Filter filter : filters) {
+      filter.execute(request);
+    }
+    this.target.execute(request);
+  }
 
-	public void setTarget(Target target) {
-		this.target = target;
-	}
+  public void setTarget(Target target) {
+    this.target = target;
+  }
 
 }
 public class FilterManager {
 
-	FilterChain filterChain;
+  FilterChain filterChain;
 
-	public FilterManager(Target target) {
-		this.filterChain = new FilterChain();
-		this.filterChain.setTarget(target);
-	}
+  public FilterManager(Target target) {
+    this.filterChain = new FilterChain();
+    this.filterChain.setTarget(target);
+  }
 
-	public void setFilter(Filter filter) {
-		this.filterChain.addFilter(filter);
-	}
+  public void setFilter(Filter filter) {
+    this.filterChain.addFilter(filter);
+  }
 
-	public void filterRequest(String request) {
-		this.filterChain.execute(request);
-	}
+  public void filterRequest(String request) {
+    this.filterChain.execute(request);
+  }
 
 }
 ```
@@ -109,15 +109,15 @@ public class FilterManager {
 ```java
 public class Client {
 
-	FilterManager filterManager;
+  FilterManager filterManager;
 
-	public void setFilterManager(FilterManager filterManager) {
-		this.filterManager = filterManager;
-	}
+  public void setFilterManager(FilterManager filterManager) {
+    this.filterManager = filterManager;
+  }
 
-	public void sendRequest(String request) {
-		this.filterManager.filterRequest(request);
-	}
+  public void sendRequest(String request) {
+    this.filterManager.filterRequest(request);
+  }
 
 }
 ```
@@ -127,15 +127,15 @@ public class Client {
 ```java
 public class InterceptingFilterMain {
 
-	public static void main(String[] args) {
-		FilterManager filterManager = new FilterManager(new Target());
-		filterManager.setFilter(new AuthenticationFilter());
-		filterManager.setFilter(new DebugFilter());
+  public static void main(String[] args) {
+    FilterManager filterManager = new FilterManager(new Target());
+    filterManager.setFilter(new AuthenticationFilter());
+    filterManager.setFilter(new DebugFilter());
 
-		Client client = new Client();
-		client.setFilterManager(filterManager);
-		client.sendRequest("HOME");
-	}
+    Client client = new Client();
+    client.setFilterManager(filterManager);
+    client.sendRequest("HOME");
+  }
 
 }
 ```

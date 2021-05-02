@@ -27,16 +27,16 @@ toc_sticky: true
 ```java
 public class HomeView {
 
-	public void show() {
-		System.out.println("Displaying Home Page");
-	}
+  public void show() {
+    System.out.println("Displaying Home Page");
+  }
 
 }
 public class StudentView {
 
-	public void show() {
-		System.out.println("Displaying Student Page");
-	}
+  public void show() {
+    System.out.println("Displaying Student Page");
+  }
 
 }
 ```
@@ -46,21 +46,21 @@ public class StudentView {
 ```java
 public class Dispatcher {
 
-	private StudentView studentView;
-	private HomeView homeView;
+  private StudentView studentView;
+  private HomeView homeView;
 
-	public Dispatcher() {
-		this.studentView = new StudentView();
-		this.homeView = new HomeView();
-	}
+  public Dispatcher() {
+    this.studentView = new StudentView();
+    this.homeView = new HomeView();
+  }
 
-	public void dispatch(Request request) {
-		if (Request.STUDENT.equals(request)) {
-			this.studentView.show();
-		} else {
-			homeView.show();
-		}
-	}
+  public void dispatch(Request request) {
+    if (Request.STUDENT.equals(request)) {
+      this.studentView.show();
+    } else {
+      homeView.show();
+    }
+  }
 
 }
 ```
@@ -70,29 +70,29 @@ public class Dispatcher {
 ```java
 public class FrontController {
 
-	private Dispatcher dispatcher;
+  private Dispatcher dispatcher;
 
-	public FrontController() {
-		this.dispatcher = new Dispatcher();
-	}
+  public FrontController() {
+    this.dispatcher = new Dispatcher();
+  }
 
-	private boolean isAuthenticUser() {
-		System.out.println("User is authenticated successfully.");
-		return true;
-	}
+  private boolean isAuthenticUser() {
+    System.out.println("User is authenticated successfully.");
+    return true;
+  }
 
-	private void trackRequest(Request request) {
-		System.out.println("Page requested: " + request.name());
-	}
+  private void trackRequest(Request request) {
+    System.out.println("Page requested: " + request.name());
+  }
 
-	public void dispatchRequest(Request request) {
-		// Long each request.
-		trackRequest(request);
-		// Authenticate the user.
-		if (isAuthenticUser()) {
-			dispatcher.dispatch(request);
-		}
-	}
+  public void dispatchRequest(Request request) {
+    // Long each request.
+    trackRequest(request);
+    // Authenticate the user.
+    if (isAuthenticUser()) {
+      dispatcher.dispatch(request);
+    }
+  }
 
 }
 ```
@@ -102,11 +102,11 @@ public class FrontController {
 ```java
 public class FrontControllerPatternMain {
 
-	public static void main(String[] args) {
-		FrontController frontController = new FrontController();
-		frontController.dispatchRequest(Request.HOME);
-		frontController.dispatchRequest(Request.STUDENT);
-	}
+  public static void main(String[] args) {
+    FrontController frontController = new FrontController();
+    frontController.dispatchRequest(Request.HOME);
+    frontController.dispatchRequest(Request.STUDENT);
+  }
 
 }
 ```

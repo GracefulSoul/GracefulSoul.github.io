@@ -28,33 +28,33 @@ toc_sticky: true
 ```java
 public interface Service {
 
-	public String getName();
+  public String getName();
 
-	public void execute();
+  public void execute();
 
 }
 public class Service1 implements Service {
 
-	public void execute() {
-		System.out.println("Executing Service1");
-	}
+  public void execute() {
+    System.out.println("Executing Service1");
+  }
 
-	@Override
-	public String getName() {
-		return "Service1";
-	}
+  @Override
+  public String getName() {
+    return "Service1";
+  }
 
 }
 public class Service2 implements Service {
 
-	public void execute() {
-		System.out.println("Executing Service2");
-	}
+  public void execute() {
+    System.out.println("Executing Service2");
+  }
 
-	@Override
-	public String getName() {
-		return "Service2";
-	}
+  @Override
+  public String getName() {
+    return "Service2";
+  }
 
 }
 ```
@@ -64,33 +64,33 @@ public class Service2 implements Service {
 ```java
 public class Cache {
 
-	private List<Service> services;
+  private List<Service> services;
 
-	public Cache() {
-		services = new ArrayList<Service>();
-	}
+  public Cache() {
+    services = new ArrayList<Service>();
+  }
 
-	public Service getService(String serviceName) {
-		for (Service service : services) {
-			if (service.getName().equalsIgnoreCase(serviceName)) {
-				System.out.println("Returning cached  " + serviceName + " object");
-				return service;
-			}
-		}
-		return null;
-	}
+  public Service getService(String serviceName) {
+    for (Service service : services) {
+      if (service.getName().equalsIgnoreCase(serviceName)) {
+        System.out.println("Returning cached  " + serviceName + " object");
+        return service;
+      }
+    }
+    return null;
+  }
 
-	public void addService(Service newService) {
-		boolean exists = false;
-		for (Service service : services) {
-			if (service.getName().equalsIgnoreCase(newService.getName())) {
-				exists = true;
-			}
-		}
-		if (!exists) {
-			services.add(newService);
-		}
-	}
+  public void addService(Service newService) {
+    boolean exists = false;
+    for (Service service : services) {
+      if (service.getName().equalsIgnoreCase(newService.getName())) {
+        exists = true;
+      }
+    }
+    if (!exists) {
+      services.add(newService);
+    }
+  }
 }
 ```
 
@@ -99,18 +99,18 @@ public class Cache {
 ```java
 public class InitialContext {
 
-	public Object lookup(String jndiName) {
-		switch (jndiName) {
-			case "SERVICE1":
-				System.out.println("Looking up and creating a new Service1 object");
-				return new Service1();
-			case "SERVICE2":
-				System.out.println("Looking up and creating a new Service2 object");
-				return new Service2();
-			default:
-				return null;
-		}
-	}
+  public Object lookup(String jndiName) {
+    switch (jndiName) {
+      case "SERVICE1":
+        System.out.println("Looking up and creating a new Service1 object");
+        return new Service1();
+      case "SERVICE2":
+        System.out.println("Looking up and creating a new Service2 object");
+        return new Service2();
+      default:
+        return null;
+    }
+  }
 
 }
 ```
@@ -120,19 +120,19 @@ public class InitialContext {
 ```java
 public class ServiceLocator {
 
-	private static Cache cache = new Cache();
-	private static InitialContext context = new InitialContext();
+  private static Cache cache = new Cache();
+  private static InitialContext context = new InitialContext();
 
-	public static Service getService(String jndiName) {
-		Service service = cache.getService(jndiName);
-		if (service != null) {
-			return service;
-		} else {
-			Service service1 = (Service) context.lookup(jndiName);
-			cache.addService(service1);
-			return service1;
-		}
-	}
+  public static Service getService(String jndiName) {
+    Service service = cache.getService(jndiName);
+    if (service != null) {
+      return service;
+    } else {
+      Service service1 = (Service) context.lookup(jndiName);
+      cache.addService(service1);
+      return service1;
+    }
+  }
 
 }
 ```
@@ -142,16 +142,16 @@ public class ServiceLocator {
 ```java
 public class ServiceLocatorpatternMain {
 
-	public static void main(String[] args) {
-		Service service = ServiceLocator.getService("Service1");
-		service.execute();
-		service = ServiceLocator.getService("Service2");
-		service.execute();
-		service = ServiceLocator.getService("Service1");
-		service.execute();
-		service = ServiceLocator.getService("Service2");
-		service.execute();
-	}
+  public static void main(String[] args) {
+    Service service = ServiceLocator.getService("Service1");
+    service.execute();
+    service = ServiceLocator.getService("Service2");
+    service.execute();
+    service = ServiceLocator.getService("Service1");
+    service.execute();
+    service = ServiceLocator.getService("Service2");
+    service.execute();
+  }
 
 }
 ```

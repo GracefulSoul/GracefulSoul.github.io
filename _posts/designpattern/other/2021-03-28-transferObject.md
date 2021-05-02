@@ -26,29 +26,29 @@ toc_sticky: true
 ```java
 public class StudentVO {
 
-	private String name;
-	private int rollNo;
+  private String name;
+  private int rollNo;
 
-	StudentVO(String name, int rollNo) {
-		this.name = name;
-		this.rollNo = rollNo;
-	}
+  StudentVO(String name, int rollNo) {
+    this.name = name;
+    this.rollNo = rollNo;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public int getRollNo() {
-		return rollNo;
-	}
+  public int getRollNo() {
+    return rollNo;
+  }
 
-	public void setRollNo(int rollNo) {
-		this.rollNo = rollNo;
-	}
+  public void setRollNo(int rollNo) {
+    this.rollNo = rollNo;
+  }
 
 }
 ```
@@ -58,35 +58,35 @@ public class StudentVO {
 ```java
 public class StudentBO {
 
-	// List is working as a database.
-	List<StudentVO> students;
+  // List is working as a database.
+  List<StudentVO> students;
 
-	public StudentBO() {
-		students = new ArrayList<StudentVO>();
-		StudentVO student1 = new StudentVO("Robert", 0);
-		StudentVO student2 = new StudentVO("John", 1);
-		students.add(student1);
-		students.add(student2);
-	}
+  public StudentBO() {
+    students = new ArrayList<StudentVO>();
+    StudentVO student1 = new StudentVO("Robert", 0);
+    StudentVO student2 = new StudentVO("John", 1);
+    students.add(student1);
+    students.add(student2);
+  }
 
-	public void deleteStudent(StudentVO student) {
-		students.remove(student.getRollNo());
-		System.out.println("Student: Roll No " + student.getRollNo() + ", deleted from database");
-	}
+  public void deleteStudent(StudentVO student) {
+    students.remove(student.getRollNo());
+    System.out.println("Student: Roll No " + student.getRollNo() + ", deleted from database");
+  }
 
-	// Retrieve list of student from the database.
-	public List<StudentVO> getAllStudents() {
-		return students;
-	}
+  // Retrieve list of student from the database.
+  public List<StudentVO> getAllStudents() {
+    return students;
+  }
 
-	public StudentVO getStudent(int rollNo) {
-		return students.get(rollNo);
-	}
+  public StudentVO getStudent(int rollNo) {
+    return students.get(rollNo);
+  }
 
-	public void updateStudent(StudentVO student) {
-		students.get(student.getRollNo());
-		System.out.println("Student: Roll No " + student.getRollNo() + ", updated from database");
-	}
+  public void updateStudent(StudentVO student) {
+    students.get(student.getRollNo());
+    System.out.println("Student: Roll No " + student.getRollNo() + ", updated from database");
+  }
 
 }
 ```
@@ -96,23 +96,23 @@ public class StudentBO {
 ```java
 public class TransferObjectPatternMain {
 
-	public static void main(String[] args) {
-		StudentBO studentBusinessObject = new StudentBO();
+  public static void main(String[] args) {
+    StudentBO studentBusinessObject = new StudentBO();
 
-		// Print all students.
-		for (StudentVO student : studentBusinessObject.getAllStudents()) {
-			System.out.println("Student: [RollNo : " + student.getRollNo() + ", Name : " + student.getName() + " ]");
-		}
+    // Print all students.
+    for (StudentVO student : studentBusinessObject.getAllStudents()) {
+      System.out.println("Student: [RollNo : " + student.getRollNo() + ", Name : " + student.getName() + " ]");
+    }
 
-		// Update student.
-		StudentVO student = studentBusinessObject.getAllStudents().get(0);
-		student.setName("Michael");
-		studentBusinessObject.updateStudent(student);
+    // Update student.
+    StudentVO student = studentBusinessObject.getAllStudents().get(0);
+    student.setName("Michael");
+    studentBusinessObject.updateStudent(student);
 
-		// Get the student.
-		student = studentBusinessObject.getStudent(0);
-		System.out.println("Student: [RollNo : " + student.getRollNo() + ", Name : " + student.getName() + " ]");
-	}
+    // Get the student.
+    student = studentBusinessObject.getStudent(0);
+    System.out.println("Student: [RollNo : " + student.getRollNo() + ", Name : " + student.getName() + " ]");
+  }
 
 }
 ```

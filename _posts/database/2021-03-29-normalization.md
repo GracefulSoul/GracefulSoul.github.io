@@ -48,19 +48,19 @@ toc_sticky: true
 
 ## 1NF
 
-| Customer ID |	First Name |	Surname |	Telephone Number |
+| Customer ID | First Name | Surname | Telephone Number |
 |:--------|:--------|:--------|:--------|
-| 123 |	Pooja |	Singh |	555-861-2025, 192-122-1111 |
-| 456 |	San |	Zhang |	(555) 403-1659 Ext. 53; 182-929-2929 |
-| 789 |	John |	Doe |	555-808-9633 |
+| 123 | Pooja | Singh | 555-861-2025, 192-122-1111 |
+| 456 | San | Zhang | (555) 403-1659 Ext. 53; 182-929-2929 |
+| 789 | John | Doe | 555-808-9633 |
 
 - 위의 도표에서 Telephone Number는 한 컬럼에 단일 값(원자값)이 아니다.
 
-| Customer ID	| First Name | Surname | Telephone Number1 | Telephone Number2 |
+| Customer ID | First Name | Surname | Telephone Number1 | Telephone Number2 |
 |:--------|:--------|:--------|:--------|:--------|
-| 123	| Pooja	| Singh	| 555-861-2025 | 192-122-1111 |
-| 456	| San	| Zhang	| (555) 403-1659 Ext. 53 | 182-929-2929 |
-| 789	| John | Doe | 555-808-9633 | |
+| 123 | Pooja | Singh | 555-861-2025 | 192-122-1111 |
+| 456 | San | Zhang | (555) 403-1659 Ext. 53 | 182-929-2929 |
+| 789 | John | Doe | 555-808-9633 | |
 
 - 컬럼을 분리하여 단일 값이 들어가도록 수정하였다.
 
@@ -139,7 +139,7 @@ toc_sticky: true
 
 - 모든 속성은 어떤 후보 키에 속하므로 2NF와 3NF를 모두 준수한다.
 
-| Rate type | Court	Member | flag |
+| Rate type | Court Member | flag |
 |:--------|:--------|:--------|
 | SAVER | 1 | Yes |
 | STANDARD | 1 | No |

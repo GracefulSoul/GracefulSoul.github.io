@@ -28,31 +28,31 @@ toc_sticky: true
 ```java
 public interface BusinessService {
 
-	public void doProcessing();
+  public void doProcessing();
 
 }
 public class DefaultService implements BusinessService {
 
-	@Override
-	public void doProcessing() {
-		System.out.println("Processing task by invoking Default Service");
-	}
+  @Override
+  public void doProcessing() {
+    System.out.println("Processing task by invoking Default Service");
+  }
 
 }
 public class EJBService implements BusinessService {
 
-	@Override
-	public void doProcessing() {
-		System.out.println("Processing task by invoking EJB Service");
-	}
+  @Override
+  public void doProcessing() {
+    System.out.println("Processing task by invoking EJB Service");
+  }
 
 }
 public class JMSService implements BusinessService {
 
-	@Override
-	public void doProcessing() {
-		System.out.println("Processing task by invoking JMS Service");
-	}
+  @Override
+  public void doProcessing() {
+    System.out.println("Processing task by invoking JMS Service");
+  }
 
 }
 ```
@@ -61,36 +61,36 @@ public class JMSService implements BusinessService {
 
 ```java
 public enum ServiceType {
-	EJB, JMS;
+  EJB, JMS;
 }
 public class BusinessDelegate {
 
-	private BusinessLookUp lookupService = new BusinessLookUp();
-	private BusinessService businessService;
-	private ServiceType serviceType;
+  private BusinessLookUp lookupService = new BusinessLookUp();
+  private BusinessService businessService;
+  private ServiceType serviceType;
 
-	public void setServiceType(ServiceType serviceType) {
-		this.serviceType = serviceType;
-	}
+  public void setServiceType(ServiceType serviceType) {
+    this.serviceType = serviceType;
+  }
 
-	public void doTask() {
-		businessService = lookupService.getBusinessService(serviceType);
-		businessService.doProcessing();
-	}
+  public void doTask() {
+    businessService = lookupService.getBusinessService(serviceType);
+    businessService.doProcessing();
+  }
 
 }
 public class BusinessLookUp {
 
-	public BusinessService getBusinessService(ServiceType serviceType) {
-		switch (serviceType) {
-			case EJB:
-				return new EJBService();
-			case JMS:
-				return new JMSService();
-			default:
-				return new DefaultService();
-		}
-	}
+  public BusinessService getBusinessService(ServiceType serviceType) {
+    switch (serviceType) {
+      case EJB:
+        return new EJBService();
+      case JMS:
+        return new JMSService();
+      default:
+        return new DefaultService();
+    }
+  }
 
 }
 ```
@@ -101,15 +101,15 @@ public class BusinessLookUp {
 ```java
 public class Client {
 
-	BusinessDelegate businessDelegate;
+  BusinessDelegate businessDelegate;
 
-	public Client(BusinessDelegate businessDelegate) {
-		this.businessDelegate = businessDelegate;
-	}
+  public Client(BusinessDelegate businessDelegate) {
+    this.businessDelegate = businessDelegate;
+  }
 
-	public void doTask() {
-		businessDelegate.doTask();
-	}
+  public void doTask() {
+    businessDelegate.doTask();
+  }
 
 }
 ```
@@ -119,17 +119,17 @@ public class Client {
 ```java
 public class BusinessDelegatePatternMain {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		BusinessDelegate businessDelegate = new BusinessDelegate();
-		businessDelegate.setServiceType(ServiceType.EJB);
+    BusinessDelegate businessDelegate = new BusinessDelegate();
+    businessDelegate.setServiceType(ServiceType.EJB);
 
-		Client client = new Client(businessDelegate);
-		client.doTask();
+    Client client = new Client(businessDelegate);
+    client.doTask();
 
-		businessDelegate.setServiceType(ServiceType.JMS);
-		client.doTask();
-	}
+    businessDelegate.setServiceType(ServiceType.JMS);
+    client.doTask();
+  }
 
 }
 ```
