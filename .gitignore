@@ -3,15 +3,12 @@ _site
 .jekyll-metadata
 *-cache/
 
-
 ### NPM ###
 /node_modules/
-
 
 ### Atom ###
 .ftpconfig
 .sftpconfig
-
 
 ### WordPress ###
 wp-config.php
@@ -26,10 +23,8 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 
-
 ### Apache ###
 .htaccess
-
 
 ### Compiled Source ##
 *.com
@@ -38,7 +33,6 @@ wp-content/plugins/hello.php
 *.exe
 *.o
 *.so
-
 
 ### Compressed Packages ###
 *.7z
@@ -50,19 +44,16 @@ wp-content/plugins/hello.php
 *.tar
 *.zip
 
-
 ### Logs and Databases ###
 *.log
 *.sql
 *.sqlite
-
 
 ### Linux ###
 *~
 .fuse_hidden*
 .Trash-*
 .nfs*
-
 
 ### MacOS ###
 *.DS_Store
@@ -83,7 +74,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
 ### Windows ###
 Thumbs.db
 ehthumbs.db
@@ -95,3 +85,6 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 *.lnk
+
+### Config ###
+_config.yml
