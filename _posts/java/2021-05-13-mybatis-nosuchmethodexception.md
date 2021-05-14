@@ -32,13 +32,13 @@ toc_sticky: true
 - Console Log
 
 ```text
- org.apache.ibatis.exceptions.PersistenceException: 
- ### Error querying database.  Cause: org.apache.ibatis.reflection.ReflectionException: Error instantiating class java.lang.Long with invalid types () or values (). Cause: java.lang.NoSuchMethodException: java.lang.Long.<init>()
- ### The error may exist in gracefulsoul/mybatis/resouces/mapper/CustomerMapper.xml
- ### The error may involve gracefulsoul.mybatis.resouces.mapper.CustomerMapper.getCustomer
- ### The error occurred while handling results
- ### SQL: SELECT * FROM customer     WHERE id = ?
- ### Cause: org.apache.ibatis.reflection.ReflectionException: Error instantiating class java.lang.Long with invalid types () or values (). Cause: java.lang.NoSuchMethodException: java.lang.Long.<init>()
+org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.apache.ibatis.reflection.ReflectionException: Error instantiating class java.lang.Long with invalid types () or values (). Cause: java.lang.NoSuchMethodException: java.lang.Long.<init>()
+### The error may exist in gracefulsoul/mybatis/resouces/mapper/CustomerMapper.xml
+### The error may involve gracefulsoul.mybatis.resouces.mapper.CustomerMapper.getCustomer
+### The error occurred while handling results
+### SQL: SELECT * FROM customer     WHERE id = ?
+### Cause: org.apache.ibatis.reflection.ReflectionException: Error instantiating class java.lang.Long with invalid types () or values (). Cause: java.lang.NoSuchMethodException: java.lang.Long.<init>()
 ```
 
 - 해당 쿼리를 수행하는 API를 호출하게 되면 갑자기 이런 오류가 발생한다.
@@ -48,42 +48,42 @@ toc_sticky: true
 - Java Docs - java.lang.Long
 
 ```java
-    /* line 932 */
-    /**
-     * The value of the {@code Long}.
-     *
-     * @serial
-     */
-    private final long value;
+  /* line 932 */
+  /**
+    * The value of the {@code Long}.
+    *
+    * @serial
+    */
+  private final long value;
 
-    /**
-     * Constructs a newly allocated {@code Long} object that
-     * represents the specified {@code long} argument.
-     *
-     * @param   value   the value to be represented by the
-     *          {@code Long} object.
-     */
-    public Long(long value) {
-        this.value = value;
-    }
+  /**
+    * Constructs a newly allocated {@code Long} object that
+    * represents the specified {@code long} argument.
+    *
+    * @param   value   the value to be represented by the
+    *          {@code Long} object.
+    */
+  public Long(long value) {
+      this.value = value;
+  }
 
-    /**
-     * Constructs a newly allocated {@code Long} object that
-     * represents the {@code long} value indicated by the
-     * {@code String} parameter. The string is converted to a
-     * {@code long} value in exactly the manner used by the
-     * {@code parseLong} method for radix 10.
-     *
-     * @param      s   the {@code String} to be converted to a
-     *             {@code Long}.
-     * @throws     NumberFormatException  if the {@code String} does not
-     *             contain a parsable {@code long}.
-     * @see        java.lang.Long#parseLong(java.lang.String, int)
-     */
-    public Long(String s) throws NumberFormatException {
-        this.value = parseLong(s, 10);
-    }
-    /* line 967 */
+  /**
+    * Constructs a newly allocated {@code Long} object that
+    * represents the {@code long} value indicated by the
+    * {@code String} parameter. The string is converted to a
+    * {@code long} value in exactly the manner used by the
+    * {@code parseLong} method for radix 10.
+    *
+    * @param      s   the {@code String} to be converted to a
+    *             {@code Long}.
+    * @throws     NumberFormatException  if the {@code String} does not
+    *             contain a parsable {@code long}.
+    * @see        java.lang.Long#parseLong(java.lang.String, int)
+    */
+  public Long(String s) throws NumberFormatException {
+      this.value = parseLong(s, 10);
+  }
+  /* line 967 */
 ```
 
 - 위의 Java Docs 내 java.lang.Long 소스코드를 보면 Default Constructor가 존재하지 않는 것을 확인 할 수 있다.
