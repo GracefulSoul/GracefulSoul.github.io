@@ -87,6 +87,7 @@ org.apache.ibatis.exceptions.PersistenceException: 
 ```
 
 - 위의 Java Docs 내 java.lang.Long 소스코드를 보면 Default Constructor가 존재하지 않는 것을 확인 할 수 있다.
+- MyBatis에서는 Reflection을 이용하여 동적인 파라미터 초기화를 수행하므로, 기본 생성자가 없으면 객체 초기화가 불가능하기 때문에 당연히 오류가 발생하게 된다.
 - 그렇기 때문에 MyBatis에서 java.lang.Long을 parameterType으로 명시할 경우, 해당 타입의 기본 생성자가 없으므로 오류가 발생한다.
 
 # 오류 해결
@@ -101,5 +102,5 @@ org.apache.ibatis.exceptions.PersistenceException: 
   <!-- ... -->
 ```
 
-- Mapper 내 getCustomer에 parameterType을 명시하지 않도록 처리하였다.
-- 실제 주입한 파라미터가 java.lang.Long이어도 오류가 발생하지 않는 이유는 AutoBoxing과 Unboxing에 의해 타입 유추가 되어 위의 Exception이 발생하지 않는 것이다.
+- 해결 방법은 Mapper 내 getCustomer에 parameterType을 명시하지 않도록 처리하였다.
+- 이렇게 실제 주입한 파라미터가 java.lang.Long이어도 오류가 발생하지 않는 이유는 AutoBoxing과 Unboxing에 의해 타입 유추가 되어 위의 Exception이 발생하지 않는 것이다.
