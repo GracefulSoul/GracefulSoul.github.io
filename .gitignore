@@ -3,51 +3,49 @@ _site
 .jekyll-metadata
 *-cache/
 
+
 ### NPM ###
 /node_modules/
+
 
 ### Atom ###
 .ftpconfig
 .sftpconfig
 
+
 ### WordPress ###
 wp-config.php
 wp-config-local.php
-wp-content/advanced-cache.php
-wp-content/backup-db/
-wp-content/backups/
-wp-content/blogs.dir/
-wp-content/cache/
-wp-content/upgrade/
-wp-content/uploads/
+	@@ -26,11 +23,9 @@ wp-content/uploads/
 wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
+
 
 ### Apache ###
 .htaccess
 
+
 ### Compiled Source ##
 *.com
 *.class
-*.dll
-*.exe
+	@@ -39,7 +34,6 @@ wp-content/plugins/hello.php
 *.o
 *.so
+
 
 ### Compressed Packages ###
 *.7z
 *.dmg
-*.gz
-*.iso
-*.jar
-*.rar
+	@@ -50,20 +44,17 @@ wp-content/plugins/hello.php
 *.tar
 *.zip
+
 
 ### Logs and Databases ###
 *.log
 *.sql
 *.sqlite
+
 
 ### Linux ###
 *~
@@ -55,32 +53,19 @@ wp-content/plugins/hello.php
 .Trash-*
 .nfs*
 
+
 ### MacOS ###
 *.DS_Store
 .AppleDouble
-.LSOverride
-Icon
-._*
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-Network Trash Folder
+	@@ -83,7 +74,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
+
 
 ### Windows ###
 Thumbs.db
 ehthumbs.db
-ehthumbs_vista.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
+	@@ -94,4 +84,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp

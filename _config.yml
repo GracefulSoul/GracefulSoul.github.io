@@ -143,8 +143,8 @@ footer:
 # Reading Files
 include:
   - .htaccess
+  - _pages
   - ads.txt
-  - _posts
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
