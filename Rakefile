@@ -9,7 +9,6 @@ require 'rake'
 require 'date'
 require 'yaml'
 
-
 CONFIG = YAML.load(File.read('_config.yml'))
 USERNAME = CONFIG["username"]
 REPO = CONFIG["repo"]
