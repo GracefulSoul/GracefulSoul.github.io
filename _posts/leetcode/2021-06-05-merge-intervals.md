@@ -3,7 +3,7 @@ title: "Leetcode Java Merge Intervals"
 excerpt: "Leetcode Merge Intervals Java 풀이"
 last_modified_at: 2021-06-05T19:30:00
 header:
-  image: /assets/images/leetcode/jump-game.png
+  image: /assets/images/leetcode/merge-intervals.png
 categories:
   - Leetcode
 tags:
@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/jump-game/){:target="_blank"}
+[Link](https://leetcode.com/problems/merge-intervals/){:target="_blank"}
 
 # 코드
 ```java
