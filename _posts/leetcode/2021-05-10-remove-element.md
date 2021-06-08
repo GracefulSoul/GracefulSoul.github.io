@@ -1,6 +1,6 @@
 ---
-title: "Leetcode Java Remove Duplicates from Sorted Array"
-excerpt: "Leetcode Remove Duplicates from Sorted Array Java 풀이"
+title: "Leetcode Java Remove Element"
+excerpt: "Leetcode Remove Element Java 풀이"
 last_modified_at: 2021-05-10T21:10:00
 header:
   image: /assets/images/leetcode/remove-element.png
