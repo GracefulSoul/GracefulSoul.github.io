@@ -213,7 +213,7 @@ echo "🎉 New version deployed 🎊"
 - 내용을 작성 후 git push까지 진행하게 되면, 위의 사진과 같이 자동으로 workflow가 수행되게 된다.
 
 # The end
-- 만일 모르고 Ruby 2.7이 EoS(End of Service)되고 3.0으로 올렸을 경우, 큰 문제에 직면했을 가능성이 있다.
+- 만일 모르고 Ruby 2.7이 EoS(End of Service)되고 3.0으로 올렸을 경우, 큰 문제에 직면했을 가능성이 있다.  
 [![ruby-maintenance-branches](../../assets/images/blog/jekyll-warning-message/ruby-maintenance-branches.png)](https://www.ruby-lang.org/en/downloads/branches/){:target="_blank"}
 - 물론 위의 사진처럼 아직 확정되지 않았지만, Ruby를 사용하고 코딩하는 개발자로서 이는 기본으로 파악해야 할 내용이다.
 - 모든 경고 메시지 안에는 추후 발생할 상황을 예측 할 수 있으며, 이를 회피하기 위해서 사전에 해결하는 것이 현명한 방법이다.
