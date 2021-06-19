@@ -103,4 +103,4 @@ org.apache.ibatis.exceptions.PersistenceException: 
 ```
 
 - 해결 방법은 Mapper 내 getCustomer에 parameterType을 명시하지 않도록 처리하였다.
-- 이렇게 실제 주입한 파라미터가 java.lang.Long이어도 오류가 발생하지 않는 이유는 AutoBoxing과 Unboxing에 의해 타입 유추가 되어 위의 Exception이 발생하지 않는 것이다.
+- 이렇게 실제 주입한 파라미터가 java.lang.Long이어도 오류가 발생하지 않는 이유는 AutoBoxing과 UnBoxing에 의해 타입 유추가 되어 위의 Exception이 발생하지 않는 것이다.
