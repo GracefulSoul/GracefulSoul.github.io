@@ -56,7 +56,7 @@ class Solution {
 - matrix[i][j]의 값이 target보다 크면 i값을 낮추어 위의 행을 탐색한다.
 - matrix[i][j]의 값이 target보다 작으면 j값을 크게 하여 다음 열을 탐색한다.
 
-4. 반복문이 종료되면, 해당 되는 값이 없므으로 주어진 문제의 결과로 false를 반환한다.
+4. 반복문이 종료되면, target과 동일한 값이 없므으로 주어진 문제의 결과로 false를 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/SearchA2DMatrix.java){:target="_blank"}에서 확인 가능합니다.
