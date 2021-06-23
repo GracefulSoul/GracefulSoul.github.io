@@ -63,7 +63,7 @@ class Solution {
 
 # 설명
 1. 주어진 배열 matrix 내부에 0이 존재하는 열과 행의 모든 값에 0을 채우는 문제이다.
-- 단, matrix를 내부에서 변경해야하므로 [In-Place 알고리즘](https://en.wikipedia.org/wiki/In-place_algorithm)을 이용하여 변경해야 한다.
+- 단, matrix를 내부에서 변경해야하므로 [In-Place 알고리즘](https://en.wikipedia.org/wiki/In-place_algorithm){:target="_blank"}을 이용하여 변경해야 한다.
 
 2. 주어진 배열 matrix 내부에 0이 존재하는지 반복문을 통해 위에서 아래로 이동하며 확인한다.
 - 첫 열이 0인 경우, isFirstColumnZero를 true로 바꾸어준다.
