@@ -47,9 +47,9 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/515857149/){:target="_blank"}
 
 # 설명
-1. 주어진 ListNode인 head의 val 값이 중복된 ListNode를 제거하고 중복되지 않은 값들의 ListNode를 반환하는 문제이다.
+1. 주어진 ListNode인 head의 val 값이 중복된 ListNode를 모두 제거하고 중복되지 않은 값들을 가진 ListNode를 반환하는 문제이다.
 
-2. 재귀 호출을 통해서 head와 이전의 값을 privious 변수에 넣어 중복을 제거한 ListNode를 만들어 주어진 문제의 결과로 반환한다.
+2. 재귀 호출을 통해서 head와 이전의 값을 privious 변수에 넣어 중복된 ListNode들을 제외하고 역순으로 ListNode를 만들어 주어진 문제의 결과로 반환한다.
 - head가 null인 경우, 주어진 ListNode인 head의 마지막 값이므로 그대로 반환한다.
 - head가 null이 아닌 경우, 아래의 경우를 확인하여 중복을 제거한 값을 찾기 위해서 재귀 호출을 반복한다.
   - head.next가 존재하고, head.val 값과 head.next의 val 값이 동일하면 현재 값과 다음 값이 동일한 경우이다.
