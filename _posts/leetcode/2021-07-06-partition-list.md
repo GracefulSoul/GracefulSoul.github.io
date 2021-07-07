@@ -65,8 +65,12 @@ class Solution {
 3. pointer.next가 null이 아닐 때 까지 반복하여 주어진 정수 x보다 큰 값을 후순위로 미루어 값을 정렬해준다.
 - pointer.next.val의 값이 x보다 작은 경우 값을 확인한다.
   - pointer와 temp가 동일한 경우 pointer의 위치가 temp와 동일하므로, pointer를 다음 ListNode로 이동시킨다.
-  - temp.next와 pointer.next가 존재하는 경우, 값을 바꾸어준다.
-    - pointer.next의 값을 pointer
+  - temp.next와 pointer.next가 존재하는 경우, 각 next의 객체를 바꾸어준다.
+    - pointer.next와 temp.next를 각각 바꾸어 순서를 변경한다.
+  - temp를 다음 ListNode로 이동시킨다.
+- pointer.next.val의 값이 x보다 크거나 같은 경우, pointer를 다음 ListNode로 이동시킨다.
+
+4. 반복이 완료되면 껍데기로 감싸 넣었던 변수 result의 next 객체를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PartitionList.java){:target="_blank"}에서 확인 가능합니다.
