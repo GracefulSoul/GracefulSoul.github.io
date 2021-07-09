@@ -60,7 +60,7 @@ class Solution {
 - 위의 경우가 아닌 경우 temp에 nums[idx]를 넣고 start에 idx + 1 값을 넣어 재귀 호출을 수행한다.
 - 재귀 호출이 끝나면 temp의 마지막 값을 제거하고 반복을 계속 한다.
 
-4. 재귀 호출이 완료되어 중복되지 않은 부분 배열들을 저장한 result를 주어진 문제의 결과로 반환한다.
+4. 재귀 호출이 완료되면 중복되지 않은 부분 배열들을 저장한 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/SubsetsII.java){:target="_blank"}에서 확인 가능합니다.
