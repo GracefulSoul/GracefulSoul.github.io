@@ -77,7 +77,7 @@ class Solution {
   - 변수 numsLeft는 inOrderIndex의 위치 값에서 preorder와 inorder 사이의 남은 값이 존재하는지를 의미하며, inOrderIndex에서 inStart를 뺀 값으로 정의한다.
 - treeNode의 left의 TreeNode는 preStart에 1을 증가시키고, preEnd에 $preStart + numsLeft$를 넣어 재귀호출을 수행한 결과로 넣어준다.
 - treeNode의 right의 TreeNode는 preStart에 $preStart + numsLeft + 1$을, inStart에 $inOrderIndex + 1$을 넣어 재귀호출을 수행한 결과로 넣어준다.
-- 설정된 TreeNode는 반환 시키고, 최초 호출의 경우 만들어진 TreeNode를 주어진 문제의 결과로 반환한다.
+- 위의 순서대로 만들어진 TreeNode는 반환 시키고, 최초 호출의 경우 만들어진 TreeNode를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ConstructBinaryTreeFromPreorderAndInorderTraversal.java){:target="_blank"}에서 확인 가능합니다.
