@@ -70,7 +70,7 @@ class Solution {
 2. 주어진 inorder의 순서를 기억하기 위해 inorderMap을 정의하여 inorder 배열의 해당 값 index를 저장한다.
 
 3. 재귀 호출을 이용하여 TreeNode를 만들어 주어진 문제의 결과로 반환한다.
-- preStart가 preEnd보다 큰 경우 다음 노드의 val 값을 설정 불가능하다는 의미이므로, return 시킨다.
+- preStart가 preEnd보다 큰 경우 다음 노드의 val 값을 설정하지 못한다는 의미이므로, return 시킨다.
 - 문제 풀이에 필요한 기본 변수를 정의한다.
   - 변수 treeNode는 결과로 반환 할 TreeNode를 구성하기 위해 정의하며, preorder[preStart] 값으로 TreeNode를 생성하여 초기화 한다.
   - 변수 inOrderIndex를 inorder 배열 내 treeNode val 값의 위치를 사용하기 위하여 정의한다.
