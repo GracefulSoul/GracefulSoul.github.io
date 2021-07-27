@@ -74,7 +74,7 @@ class Solution {
 - 문제 풀이에 필요한 기본 변수를 정의한다.
   - 변수 treeNode는 결과로 반환 할 TreeNode를 구성하기 위해 정의하며, preorder[preStart] 값으로 TreeNode를 생성하여 초기화 한다.
   - 변수 inOrderIndex를 inorder 배열 내 treeNode val 값의 위치를 사용하기 위하여 정의한다.
-  - 변수 numsLeft는 inOrderIndex의 위치 값에서 좌측에 남은 값이 존재하는지를 의미하며, inOrderIndex에서 inStart를 뺀 값으로 정의한다.
+  - 변수 numsLeft는 inOrderIndex의 위치 값에서 preorder와 inorder 사이의 남은 값이 존재하는지를 의미하며, inOrderIndex에서 inStart를 뺀 값으로 정의한다.
 - treeNode의 left의 TreeNode는 preStart에 1을 증가시키고, preEnd에 $preStart + numsLeft$를 넣어 재귀호출을 수행한 결과로 넣어준다.
 - treeNode의 right의 TreeNode는 preStart에 $preStart + numsLeft + 1$을, inStart에 $inOrderIndex + 1$을 넣어 재귀호출을 수행한 결과로 넣어준다.
 - 설정된 TreeNode는 반환 시키고, 최초 호출의 경우 만들어진 TreeNode를 주어진 문제의 결과로 반환한다.
