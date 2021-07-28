@@ -63,16 +63,16 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/526359175/){:target="_blank"}
 
 # 설명
-1. 주어진 TreeNode root를 이용하여 tree의 level 별 val 값들의 집합을 모두 구하는 문제이다.
+1. 주어진 TreeNode인 root를 오름차순으로 level 별 val 값의 부분 집합을 만드는 문제이다.
 
-2. 재귀 호출을 이용하여 root의 각 level 별 val 값들의 집합을 result에 모두 넣어준다.
-- treeNode가 null인 경우, TreeNode의 마지막이므로 종료 시킨다.
+2. 재귀 호출을 이용하여 root를 내림차순의 level 별 부분 집합을 result에 넣어준다.
+- treeNode가 null인 경우 마지막 노드에서 재귀 호출을 한 것이므로, return 시킨다.
 - result의 size가 $level + 1$보다 작은 경우, level의 처음 값이므로 새로운 ArrayList를 result에 넣어준다.
 - result의 level번째 List를 가져와 treeNode의 val 값을 넣어준다.
 - left -> right 순으로 값을 넣어주어야 하므로, treeNode의 left TreeNode를 1 증가시킨 level로 재귀 호출을 수행한다.
 - 이후 right TreeNode도 1증가시킨 level로 재귀 호출을 수행한다.
 
-3. 재귀 호출이 완료되면 root를 이용하여 level 별 val 값들의 집합으로 구성된 result를 주어진 문제의 결과로 반환한다.
+3. 재귀 호출이 완료되면 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/BinaryTreeLevelOrderTraversal.java){:target="_blank"}에서 확인 가능합니다.
