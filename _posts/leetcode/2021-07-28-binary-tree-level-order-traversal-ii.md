@@ -65,7 +65,7 @@ class Solution {
 # 설명
 1. 주어진 TreeNode인 root를 내림차순으로 level 별 val 값의 부분 집합을 만드는 문제이다.
 
-2. 재귀 호출을 이용하여 root를 내림차순의 level 별 부분 집합을 result에 넣어 주어진 문제의 결과를 생성한다.
+2. 재귀 호출을 이용하여 root를 내림차순의 level 별 부분 집합을 result에 넣어준다.
 - treeNode가 null인 경우 마지막 노드에서 재귀 호출을 한 것이므로, return 시킨다.
 - result의 size가 $level + 1$보다 작은 경우, level의 처음 값이므로 새로운 ArrayList를 result의 맨 처음에 넣어준다.
 - left -> right 순으로 값을 넣어주어야 하므로, treeNode의 left TreeNode를 1 증가시킨 level로 재귀 호출을 수행한다.
