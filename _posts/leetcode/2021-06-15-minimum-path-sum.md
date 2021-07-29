@@ -37,7 +37,7 @@ class Solution {
     return dp[grid[0].length - 1];
   }
 
-  public int[] getDp(int[][] grid) {
+  private int[] getDp(int[][] grid) {
     int[] dp = new int[grid[0].length];
     dp[0] = grid[0][0];
     for (int j = 1; j < grid[0].length; j++) {

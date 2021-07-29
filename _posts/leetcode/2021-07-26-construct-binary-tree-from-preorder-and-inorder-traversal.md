@@ -46,7 +46,7 @@ class Solution {
     return this.recursive(preorder, inorderMap, 0, preorder.length - 1, 0);
   }
 
-  public TreeNode recursive(int[] preorder, Map<Integer, Integer> inorderMap, int preStart, int preEnd, int inStart) {
+  private TreeNode recursive(int[] preorder, Map<Integer, Integer> inorderMap, int preStart, int preEnd, int inStart) {
     if (preStart > preEnd) {
       return null;
     }
