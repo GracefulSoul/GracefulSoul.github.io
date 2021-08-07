@@ -76,7 +76,7 @@ class Solution {
 - 단, 연결하는 중간에 빠진 노드가 존재하므로 해당 노드를 건너 뛰고 연결하여야 한다.
 
 2. 재귀 호출을 이용하여 주어진 Node인 root의 next가 null인 경우, 동일 Level 내에서 다음에 존재하는 Node를 넣어 이어준다.
-- curr이 null인 경우 해당 노드가 존재하지 않으므로, 반환한다.
+- curr이 null인 경우 해당 노드가 존재하지 않으므로, 그만 수행한다.
 - curr의 left TreeNode가 null이 아닌 경우 curr TreeNode의 left와 right 자식 노드가 모두 존재한다는 의미이므로, curr.left의 next TreeNode에 curr의 right TreeNode를 넣어준다.
 - curr의 next TreeNode가 null이고, pre TreeNode가 null이 아니고, pre의 right TreeNode가 null이 아닌 경우 계속 반복문을 통해서 아래를 수행한다.
   - pre TreeNode에 pre의 next TreeNode를 넣어준다.
