@@ -72,7 +72,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/534076549/){:target="_blank"}
 
 # 설명
-1. 지난번 [Populating Next Right Pointers in Each Node](../populating-next-right-pointers-in-each-node) 문제와 유사하게, 주어진 Node인 root를 이용하여 각 node를 이어주는 문제이다.
+1. 지난번 [Populating Next Right Pointers in Each Node](../populating-next-right-pointers-in-each-node){:target="_blank"} 문제와 유사하게, 주어진 Node인 root를 이용하여 각 node를 이어주는 문제이다.
 - 단, 연결하는 중간에 빠진 노드가 존재하므로 해당 노드를 건너 뛰고 연결하여야 한다.
 
 2. 재귀 호출을 이용하여 주어진 Node인 root의 next가 null인 경우, 동일 Level 내에서 다음에 존재하는 Node를 넣어 이어준다.
