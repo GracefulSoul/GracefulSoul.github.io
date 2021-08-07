@@ -69,7 +69,7 @@ class Solution {
 1. 주어진 Node인 root를 이용하여 각 node를 이어주는 문제이다.
 
 2. 재귀 호출을 이용하여 주어진 Node인 root의 next가 null인 경우, 다음 Level의 좌측 첫 Node를 넣어 이어준다.
-- curr이 null인 경우 마지막 노드이므로, 반환시킨다.
+- curr이 null인 경우 해당 노드가 존재하지 않으므로, 그만 수행한다.
 - curr의 next에 next를 넣어 다음 노드로 이동시킨다.
 - curr의 left Node와 right Node를 재귀 호출을 수행하여 left Node의 next에 right Node가 연결되도록 엮어준다.
 - curr의 next Node가 null이 아닌 경우, curr.next의 left Node가 curr의 right Node의 next에 연결되도록 엮어준다.
