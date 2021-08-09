@@ -37,7 +37,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/535120781/){:target="_blank"}
+[Link](https://leetcode.com/submissions/detail/535581977/){:target="_blank"}
 
 # 설명
 1. 기존 [Pascal's Triangle](../pascals-triangle)와 동일하게 [파스칼의 삼각형](https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%8A%A4%EC%B9%BC%EC%9D%98_%EC%82%BC%EA%B0%81%ED%98%95){:target="_blank"}에 대한 문제이다.
