@@ -47,7 +47,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/537161438/){:target="_blank"}
 
 # 설명
-1. 주식에 대한 가격 정보를 담은 배열 prices를 이용하여 최대 이익의 합을 구하는 문제이다.
+1. 주식에 대한 가격 정보를 담은 배열 prices를 이용하여 이익이 되는 값들의 합이 최대인 결과를 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - idx는 이익을 발생시킬 수 있는 최소와 최대 index를 구하기 위한 임시 변수이다.
