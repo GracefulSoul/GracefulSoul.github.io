@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/distinct-subsequences/){:target="_blank"}
+[Link](https://leetcode.com/problems/distinct-subsequences/){:target="_blank"}
 
 # 코드
 ```java

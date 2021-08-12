@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/populating-next-right-pointers-in-each-node/){:target="_blank"}
+[Link](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/){:target="_blank"}
 
 # 코드
 ```java
@@ -46,18 +46,18 @@ class Node {
 class Solution {
 
   public Node connect(Node root) {
-		this.recursive(root, null);
-		return root;
-	}
+    this.recursive(root, null);
+    return root;
+  }
 
-	private void recursive(Node curr, Node next) {
-		if (curr == null) {
-			return;
-		}
-		curr.next = next;
-		this.recursive(curr.left, curr.right);
-		this.recursive(curr.right, curr.next == null ? null : curr.next.left);
-	}
+  private void recursive(Node curr, Node next) {
+    if (curr == null) {
+      return;
+    }
+    curr.next = next;
+    this.recursive(curr.left, curr.right);
+    this.recursive(curr.right, curr.next == null ? null : curr.next.left);
+  }
 
 }
 ```

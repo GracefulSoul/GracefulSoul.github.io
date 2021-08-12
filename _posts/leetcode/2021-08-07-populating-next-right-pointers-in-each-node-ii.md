@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/populating-next-right-pointers-in-each-node-ii/){:target="_blank"}
+[Link](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/){:target="_blank"}
 
 # 코드
 ```java

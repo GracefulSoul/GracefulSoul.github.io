@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/flatten-binary-tree-to-linked-list/){:target="_blank"}
+[Link](https://leetcode.com/problems/flatten-binary-tree-to-linked-list/){:target="_blank"}
 
 # 코드
 ```java
