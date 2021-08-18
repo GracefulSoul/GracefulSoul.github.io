@@ -13,7 +13,7 @@ RUN apt-get update && \
   build-essential \
   ca-certificates \
   curl \
-  libffi6 \
+#  libffi6 \
   make \
   shellcheck \
   libffi6 \
