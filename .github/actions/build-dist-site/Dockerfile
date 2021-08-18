@@ -7,8 +7,8 @@ LABEL version="1.0.0"
 # Lets install all dependencies
 # including git and Bundler 2.1.4
 ENV BUNDLER_VERSION 2.1.4
-RUN apt-get update && \
-  apt-get install --no-install-recommends -y \
+RUN apt-get update \
+  && apt-get install --no-install-recommends -y \
   bats \
   build-essential \
   ca-certificates \
@@ -16,7 +16,6 @@ RUN apt-get update && \
 #  libffi6 \
   make \
   shellcheck \
-  libffi6 \
   git-all \
   && gem install bundler:2.1.4 \
   && bundle config --global silence_root_warning 1
