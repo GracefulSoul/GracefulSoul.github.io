@@ -68,4 +68,4 @@ class Solution {
 - 변수 fill보다 use가 작거나 같은 경우 순회가 가능하므로, 시작 위치를 저장한 start를 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/GasStation.java){:target="_blank"}에서 확인 가능합니다.II.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/GasStation.java){:target="_blank"}에서 확인 가능합니다.

@@ -62,4 +62,4 @@ class Solution {
 5. 반복이 완료되면 회문의 조합으로 자르기 위한 최소 횟수를 저장한 배열 min의 마지막 값인 min[$s.length() - 1$]을 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromePartitioningII.java){:target="_blank"}에서 확인 가능합니다.II.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PalindromePartitioningII.java){:target="_blank"}에서 확인 가능합니다.
