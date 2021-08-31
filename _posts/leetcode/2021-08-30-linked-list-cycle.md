@@ -66,7 +66,7 @@ class Solution {
 4. fast.next와 fast.next.next가 null이 아닐 때 까지 반복하여 검증을 수행한다.
 - fast에 fast.next.next 값을 주입하여 다다음 ListNode로 이동한다.
 - slow에 slow.next 값을 주입하여 다음 ListNode로 이동한다.
-- slow와 fast가 동일하면 순회가 되는 포인트가 있는 경우이므로, true를 주어진 문제의 결과로 반환한다.
+- fast와 slow가 동일하면 순회가 되는 포인트가 있는 경우이므로, true를 주어진 문제의 결과로 반환한다.
 
 5. 반복이 종료되면 null이 되는 순간이 존재한다는 의미이므로, false를 주어진 문제의 결과로 반환한다.
 
