@@ -67,12 +67,13 @@ public class Solution {
 - listNodeB가 null인 경우, headA를 listNodeB에 넣어 공통된 부분 ListNode를 찾는다.
 - listNodeB가 null이 아닌 경우, listNodeB.next를 listNodeA에 넣어 다음 ListNode로 이동시킨다.
   - listNodeA와 listNodeB의 길이가 다른 경우 서로 전환하여 수행하면 같은 길이가 되므로 탐색이 가능하다.
-  - 예를 들어, 1 -> 2 -> 3 -> 4 & 5 -> 3 -> 4 두 ListNode가 있다고 할 때 아래와 같이 수행되면서 공통된 부분 ListNode를 탐색하게 된다.
-    - listNodeA : 1 -> 2 -> 3 -> 4 -> (null)5 -> <b>3 -> 4 -> null</b>
-    - listNodeB : 5 -> 3 -> 4 -> (null)1 -> 2 -> <b>3 -> 4 -> null</b>
-  - 예를 들어, 1 -> 2 -> 3 & 4 -> 5 두 ListNode가 있다고 할 때 아래와 같이 수행되면서 공통된 부분 ListNode를 탐색하게 된다.
-    - listNodeA : 1 -> 2 -> 3 -> (null)4 -> 5 -> <b>null</b>
-    - listNodeB : 4 -> 5 -> (null)1 -> 2 -> 3 -> <b>null</b>
+  - 아래의 두 예제를 참고바란다.
+    - 1 -> 2 -> 3 -> 4 & 5 -> 3 -> 4 두 ListNode가 있다고 할 때 아래와 같이 수행되면서 공통된 부분 ListNode를 탐색하게 된다.
+      - listNodeA : 1 -> 2 -> 3 -> 4 -> (null)5 -> <b>3 -> 4 -> null</b>
+      - listNodeB : 5 -> 3 -> 4 -> (null)1 -> 2 -> <b>3 -> 4 -> null</b>
+    - 1 -> 2 -> 3 & 4 -> 5 두 ListNode가 있다고 할 때 아래와 같이 수행되면서 공통된 부분 ListNode를 탐색하게 된다.
+      - listNodeA : 1 -> 2 -> 3 -> (null)4 -> 5 -> <b>null</b>
+      - listNodeB : 4 -> 5 -> (null)1 -> 2 -> 3 -> <b>null</b>
 
 5. 위의 반복이 종료되면 공통된 부분으로 구성된 listNodeA와 listNodeB 둘 중 아무 ListNode를 주어진 문제의 결과로 반환한다.
 
