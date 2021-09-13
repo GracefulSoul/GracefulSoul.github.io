@@ -77,4 +77,4 @@ public class Solution {
 5. 위의 반복이 종료되면 공통된 부분으로 구성된 listNodeA와 listNodeB 둘 중 아무 ListNode를 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MinStack.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/IntersectionOfTwoLinkedLists.java){:target="_blank"}에서 확인 가능합니다.
