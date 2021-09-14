@@ -16,7 +16,7 @@ toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# Selenium Chromedriver 실행.
+# 오류 발생
 ```python
 Python 3.8.12 (default, Sep  3 2021, 02:24:44)
 [GCC 10.2.1 20210110] on linux
