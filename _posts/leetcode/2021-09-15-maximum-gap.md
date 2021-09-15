@@ -74,13 +74,13 @@ class Solution {
 4. min과 max가 동일한 값일 경우 nums에 동일한 값들만 있을 경우이므로, 0을 주어진 문제의 결과로 반환한다.
 
 5. 문제 풀이에 필요한 변수를 정의한다.
-- gap은 최소 가능한 차이를 나타내며, $frac{max - min}{length - 1}$의 값을 올림한 값을 저장한다.
+- gap은 최소 가능한 차이를 나타내며, $\frac{max - min}{length - 1}$의 값을 올림한 값을 저장한다.
 - bucketMin과 bucketMax는 nums를 순회할 때 차이의 최솟값과 최댓값을 저장할 배열로, 주어진 배열 nums의 크기로 생성한다.
 
 6. bucketMin에는 int형의 최댓값(2,147,483,647)을, bucketMax에는 int형의 최솟값(-2,147,483,648)을 채워준다.
 
 7. 주어진 배열 nums를 반복하여 bucketMin과 bucketMax를 채워준다.
-- 각 배열의 index를 저장할 idx에 $frac{num - min} / gap$의 값을 넣어준다.
+- 각 배열의 index를 저장할 idx에 $\frac{num - min}{gap}$의 값을 넣어준다.
 - bucketMin[idx]에는 bucketMin[idx]와 num 중 작은 값을 넣어준다.
 - bucketMax[idx]에는 bucketMax[idx]와 num 중 큰 값을 넣어준다.
 
