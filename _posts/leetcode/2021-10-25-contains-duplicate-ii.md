@@ -43,7 +43,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/576785901/){:target="_blank"}
 
 # 설명
-1. 주어진 배열 nums의 내부 값 중 임의 동일한 두 값이 k번째 거래 내 존재하는지를 확인하는 문제이다.
+1. 주어진 배열 nums의 내부 값 중 임의 동일한 두 값이 배열 내 k 거리안에 존재하는지를 확인하는 문제이다.
 
 2. k번째 거리까지 값을 넣어 검증에 사용하기 위한 set을 정의한다.
 
