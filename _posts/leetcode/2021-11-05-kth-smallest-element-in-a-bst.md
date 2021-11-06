@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Kth Smallest Element in a BST"
 excerpt: "Leetcode Kth Smallest Element in a BST Java 풀이"
-last_modified_at: 2021-11-04T09:00:00
+last_modified_at: 2021-11-05T09:00:00
 header:
   image: /assets/images/leetcode/kth-smallest-element-in-a-bst.png
 categories:
