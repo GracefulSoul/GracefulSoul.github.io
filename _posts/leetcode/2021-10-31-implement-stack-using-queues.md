@@ -86,6 +86,7 @@ class MyStack {
 4. 주어진 메서드인 push(int x)를 완성한다.
 - main에 있는 값을 sub에 순차적으로 넣어주고, main에 x를 먼저 넣어준다.
 - 다시 sub에 있는 값을 main에 넣어 순서를 유지시켜준다.
+- queue의 경우 [FIFO](https://en.wikipedia.org/wiki/FIFO_and_LIFO_accounting#FIFO){:target="_blank"}이기 때문에, main의 값을 sub로 옮긴 후 main에 주어진 x를 넣고 sub의 값을 main으로 옮기면 LIFO와 같은 효과를 낼 수 있다.
 
 5. 주어진 메서드인 pop()을 완성한다.
 - main에 있는 첫 값을 꺼내서 반환한다.
