@@ -37,7 +37,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/585843867/){:target="_blank"}
 
 # 설명
-1. 주어진 TreeNode인 root에서 TreeNode p와 q의 최소의 공통된 부모 노드를 찾는 문제이다.
+1. 주어진 이진 탐색 트리([BST](https://en.wikipedia.org/wiki/Binary_search_tree){:target="_blank"})인 root에서 TreeNode p와 q의 최소의 공통된 부모 노드인 [LCA](https://en.wikipedia.org/wiki/Lowest_common_ancestor){:target="_blank"}를 찾는 문제이다.
 
 2. 주어진 TreeNode인 root의 val 값에 p의 val 값을 뺀 값과 root의 val 값에 q의 val 값을 뺀 값이 0보다 큰 경우 root의 노드가 해당 노드보다 큰 val 값을 가진 경우이므로, 아래를 수행하고 반복을 계속 수행한다.
 - root의 val 값이 p의 val 값보다 큰 경우, root의 left TreeNode를 root에 넣어준다.
