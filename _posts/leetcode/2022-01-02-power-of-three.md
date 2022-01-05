@@ -38,7 +38,7 @@ class Solution {
 
 2. n이 0보다 크고, 1162261467를 n으로 나누었을 때 0인 경우 true를 아니면 false를 반환한다.
 - 0은 3의 배수가 아니기 때문에 예외처리를 한다.
-- 1162261467는 $3^19$로, $3^20$은 int형의 자릿수를 벗어나게 되므로 해당 값을 이용하여 n을 나눈 나머지가 0인지를 검증하면 된다.
+- 1162261467는 $3^{19}$로, $3^{20}$은 int형의 자릿수를 벗어나게 되므로 해당 값을 이용하여 n을 나눈 나머지가 0인지를 검증하면 된다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/PowerOfThree.java){:target="_blank"}에서 확인 가능합니다.

@@ -89,7 +89,7 @@ class Solution {
 
 3. 부분 범위 합의 갯수를 세기 위한 recursive(long[] sum, long[] cache, int low, int high, long lower, long upper) 메서드를 완성한다.
 - low가 high보다 크거나 같은 경우, 0을 반환한다.
-- mid에 $\frac{high + 1 - low$}{2} + low$의 값을 넣어준다.
+- mid에 $\frac{high + 1 - low}{2} + low$의 값을 넣어준다.
 - count는 $mid - 1$로 재귀호출한 값과 mid로 재귀호출한 값을 넣어준다.
 - start와 end에 mid 값을 넣어준다.
 - low부터 mid 전까지 idx를 증가시키며 반복시켜 아래를 수행한다.
