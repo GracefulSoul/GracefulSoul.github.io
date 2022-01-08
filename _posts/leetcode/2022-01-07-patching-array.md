@@ -23,20 +23,20 @@ use_math: true
 ```java
 class Solution {
 
-	public int minPatches(int[] nums, int n) {
-		int length = nums.length;
-		int miss = 1;
-		int count = 0;
-		for (int idx = 0; 0 < miss && miss <= n;) {
-			if (idx < length && nums[idx] <= miss) {
-				miss += nums[idx++];
-			} else {
-				miss += miss;
-				count++;
-			}
-		}
-		return count;
-	}
+  public int minPatches(int[] nums, int n) {
+    int length = nums.length;
+    int miss = 1;
+    int count = 0;
+    for (int idx = 0; 0 < miss && miss <= n;) {
+      if (idx < length && nums[idx] <= miss) {
+        miss += nums[idx++];
+      } else {
+        miss += miss;
+        count++;
+      }
+    }
+    return count;
+  }
 
 }
 ```
