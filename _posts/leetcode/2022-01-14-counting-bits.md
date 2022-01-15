@@ -51,4 +51,4 @@ class Solution {
 4. 0 ~ n까지 bit 형식에 포함된 1의 갯수를 넣은 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/HouseRobberIII.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/CountingBits.java){:target="_blank"}에서 확인 가능합니다.
