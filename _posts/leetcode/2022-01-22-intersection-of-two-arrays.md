@@ -46,7 +46,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/624904682/){:target="_blank"}
 
 # 설명
-1. 주어진 정수 배열인 nums1과 nums2 내 중복된 값들을 반환하는 문제이다.
+1. 주어진 정수 배열인 nums1과 nums2 내 동일하게 들어있는 값들을 중복 제거하여 반환하는 문제이다.
 
 2. 숫자의 갯수를 저장할 배열인 count를 주어진 배열 내 정수가 가질 수 있는 최대값인 1000 크기로 정의하고, nums1을 순회하여 count의 내부 값들의 갯수를 증가시켜준다.
 
