@@ -25,11 +25,12 @@ class RandomizedSet {
 
   private Map<Integer, Integer> map;
   private List<Integer> list;
-  private Random random = new Random();
+  private Random random;
 
   public RandomizedSet() {
     this.map = new HashMap<>();
     this.list = new ArrayList<>();
+    this.random = new Random();
   }
 
   public boolean insert(int val) {
