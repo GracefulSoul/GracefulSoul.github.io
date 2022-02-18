@@ -54,4 +54,4 @@ class Solution {
 - tCharArray 배열 내 문자들의 ASCII Code 값의 합에 sCharArray 배열 내 문자들의 ASCII Code의 합을 뺀 경우, sCharArray에 누락된 문자의 ASCII 코드 값이 나와 문자로 변환하면 해당 영문자로 반환이 된다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LongestAbsoluteFilePath.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/FindTheDifference.java){:target="_blank"}에서 확인 가능합니다.
