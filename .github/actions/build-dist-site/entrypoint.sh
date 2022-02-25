@@ -46,6 +46,8 @@ git add .
 # Github Actions - Fri Sep 6 12:32:22 UTC 2019
 git commit -m "Github Actions - $(date)"
 echo "Build branch ready to go. Pushing to Github..."
+# Perform "fetch" and "merge" with the "git pull" command before executing the "git push" command.
+git pull $REMOTE_REPO master:gh-pages
 # Force push this update to our gh-pages
 git push --force $REMOTE_REPO master:gh-pages
 # Now everything is ready.
