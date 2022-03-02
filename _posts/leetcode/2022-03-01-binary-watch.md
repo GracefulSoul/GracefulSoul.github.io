@@ -56,7 +56,7 @@ class Solution {
 
 3. 0부터 11까지 hour를 증가시키며 반복한다.
 - 0부터 59까지 minute를 증가시키며 반복을 수행한다.
-  - hour와 minute의 2의 보완 이진 표현에 있는 비트 수의 합이 turnedOn과 동일한 경우, hour와 minute를 주어진 시간 표현식에 맞춰 변환하여 times에 넣어준다.
+  - hour와 minute의 이진 표현에 있는 비트 수의 합이 turnedOn과 동일한 경우, hour와 minute를 주어진 시간 표현식에 맞춰 변환하여 times에 넣어준다.
 
 4. 반복이 완료되면 표현 가능한 시간을 저장한 times를 주어진 문제의 결과로 반환한다.
 
