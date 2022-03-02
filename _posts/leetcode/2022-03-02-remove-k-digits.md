@@ -59,7 +59,7 @@ class Solution {
 - start는 문자열로 변환하기 위한 시작 인덱스로, 0으로 초기화한다.
 - end는 문자열로 변환하기 위한 종료 인덱스로, 0으로 초기화한다.
 
-3. 0부터 numCharArray의 길이만큼 idx를 증가시키며 반복하여 가능한 작은 순서대로 정렬을 수행한다.
+3. 0부터 numCharArray의 길이만큼 idx를 증가시키며 반복하여 순서대로 만들 수 있는 작은 값 순으로 정렬을 수행한다.
 - end와 k가 0보다 크고 numCharArray의 $end - 1$번째 값이 idx번째 값보다 큰 경우, k와 idx와 end를 감소시킨다.
 - 위의 경우가 아닌 경우, numCharArray의 end번째 자리에 idx번째 문자를 넣고 end를 증가시킨다.
 
