@@ -23,102 +23,102 @@ use_math: true
 ```java
 class AllOne {
 
-	private Node head;
-	private Node tail;
-	private Map<String, Node> map;
+  private Node head;
+  private Node tail;
+  private Map<String, Node> map;
 
-	public AllOne() {
-		this.map = new HashMap<>();
-	}
+  public AllOne() {
+    this.map = new HashMap<>();
+  }
 
-	public void inc(String key) {
-		Node node = this.map.get(key);
-		if (node == null) {
-			node = new Node(key);
-			this.map.put(key, node);
-			if (this.head == null) {
-				this.head = node;
-				this.tail = node;
-			} else {
-				this.head.left = node;
-				node.right = this.head;
-				this.head = node;
-			}
-		} else {
-			node.count++;
-			while (this.tail != node && node.count > node.right.count) {
-				this.swap(node, node.right);
-			}
-		}
-	}
+  public void inc(String key) {
+    Node node = this.map.get(key);
+    if (node == null) {
+      node = new Node(key);
+      this.map.put(key, node);
+      if (this.head == null) {
+        this.head = node;
+        this.tail = node;
+      } else {
+        this.head.left = node;
+        node.right = this.head;
+        this.head = node;
+      }
+    } else {
+      node.count++;
+      while (this.tail != node && node.count > node.right.count) {
+        this.swap(node, node.right);
+      }
+    }
+  }
 
-	public void dec(String key) {
-		Node node = this.map.get(key);
-		node.count--;
-		if (node.count == 0) {
-			this.map.remove(key);
-			if (node.right != null) {
-				node.right.left = node.left;
-			}
-			if (node.left != null) {
-				node.left.right = node.right;
-			}
-			if (node == head) {
-				this.head = node.right;
-			}
-			if (node == tail) {
-				this.tail = node.left;
-			}
-		} else {
-			while (this.head != node && node.count < node.left.count) {
-				this.swap(node.left, node);
-			}
-		}
-	}
+  public void dec(String key) {
+    Node node = this.map.get(key);
+    node.count--;
+    if (node.count == 0) {
+      this.map.remove(key);
+      if (node.right != null) {
+        node.right.left = node.left;
+      }
+      if (node.left != null) {
+        node.left.right = node.right;
+      }
+      if (node == head) {
+        this.head = node.right;
+      }
+      if (node == tail) {
+        this.tail = node.left;
+      }
+    } else {
+      while (this.head != node && node.count < node.left.count) {
+        this.swap(node.left, node);
+      }
+    }
+  }
 
-	public String getMinKey() {
-		return this.head == null ? "" : this.head.val; 
-	}
+  public String getMinKey() {
+    return this.head == null ? "" : this.head.val; 
+  }
 
-	public String getMaxKey() {
-		return this.tail == null ? "" : this.tail.val;
-	}
+  public String getMaxKey() {
+    return this.tail == null ? "" : this.tail.val;
+  }
 
-	private void swap(Node node1, Node node2) {
-		Node left = node1.left;
-		Node right = node2.right;
-		if (left == null) {
-			this.head = node2;
-		} else {
-			left.right = node2;
-		}
-		node2.left = left;
-		if (right == null) {
-			this.tail = node1;
-		} else {
-			right.left = node1;
-		}
-		node1.right = right;
-		node1.left = node2;
-		node2.right = node1;
-	}
+  private void swap(Node node1, Node node2) {
+    Node left = node1.left;
+    Node right = node2.right;
+    if (left == null) {
+      this.head = node2;
+    } else {
+      left.right = node2;
+    }
+    node2.left = left;
+    if (right == null) {
+      this.tail = node1;
+    } else {
+      right.left = node1;
+    }
+    node1.right = right;
+    node1.left = node2;
+    node2.right = node1;
+  }
 
 }
 
 class Node {
 
-	public String val;
-	public int count;
-	public Node left;
-	public Node right;
+  public String val;
+  public int count;
+  public Node left;
+  public Node right;
 
-	public Node() {
-	}
+  public Node() {
+  }
 
-	public Node(String val) {
-		this.val = val;
-		this.count = 1;
-	}
+  public Node(String val) {
+    this.val = val;
+    this.count = 1;
+  }
 
 }
 
