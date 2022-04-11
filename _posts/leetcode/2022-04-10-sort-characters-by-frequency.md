@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Characters By Frequency"
-excerpt: "Leetcode Sort Characters By FrequencyJava 풀이"
+excerpt: "Leetcode Sort Characters By Frequency Java 풀이"
 last_modified_at: 2022-04-10T14:00:00
 header:
   image: /assets/images/leetcode/sort-characters-by-frequency.png
