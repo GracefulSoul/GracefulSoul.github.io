@@ -74,4 +74,4 @@ class Solution {
 - 반복이 종료되면 target의 임의 위치 값을 넣은 result를 주어진 문제의 결과로 반환한다.
   
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RandomPickIndex.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/object/solution/random/pick/Solution.java){:target="_blank"}에서 확인 가능합니다.

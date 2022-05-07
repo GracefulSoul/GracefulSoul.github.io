@@ -93,4 +93,4 @@ class Solution {
 - num번째 노드인 curr의 val 값을 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/LinkedListRandomNode.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/object/solution/random/node/Solution.java){:target="_blank"}에서 확인 가능합니다.

@@ -88,4 +88,4 @@ class Solution {
 - 반복이 완료되면 값을 섞은 copy를 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ShuffleAnArray.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/object/solution/shuffle/array/Solution.java){:target="_blank"}에서 확인 가능합니다.
