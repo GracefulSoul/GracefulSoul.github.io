@@ -77,6 +77,5 @@ class Solution {
 
 3. 반복이 완료되면 위의 규칙대로 대각선으로 이동하여 값을 이어준 result를 주어진 문제의 결과로 반환한다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/DiagonalTraverse.java){:target="_blank"}에서 확인 가능합니다.
