@@ -23,31 +23,31 @@ use_math: true
 ```java
 class Solution {
 
-	private Map<Integer, Integer> map;
-	private int m;
-	private int n;
-	private int total;
-	private Random random;
+  private Map<Integer, Integer> map;
+  private int m;
+  private int n;
+  private int total;
+  private Random random;
 
-	public Solution(int m, int n) {
-		this.random = new Random();
-		this.m = m;
-		this.n = n;
-		this.reset();
-	}
+  public Solution(int m, int n) {
+    this.random = new Random();
+    this.m = m;
+    this.n = n;
+    this.reset();
+  }
 
-	public int[] flip() {
-		int num = this.random.nextInt(this.total--);
-		int value = this.map.getOrDefault(num, num);
-		this.map.put(num, this.map.getOrDefault(this.total, this.total));
-		this.map.put(this.total, value);
-		return new int[] { value / this.n, value % this.n };
-	}
+  public int[] flip() {
+    int num = this.random.nextInt(this.total--);
+    int value = this.map.getOrDefault(num, num);
+    this.map.put(num, this.map.getOrDefault(this.total, this.total));
+    this.map.put(this.total, value);
+    return new int[] { value / this.n, value % this.n };
+  }
 
-	public void reset() {
-		this.map = new HashMap<>();
-		this.total = this.m * this.n;
-	}
+  public void reset() {
+    this.map = new HashMap<>();
+    this.total = this.m * this.n;
+  }
 
 }
 
