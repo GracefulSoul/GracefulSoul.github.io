@@ -54,6 +54,5 @@ class Solution {
 
 4. 수행이 완료되면 root를 반환한다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ConvertBSTToGreaterTree.java){:target="_blank"}에서 확인 가능합니다.
