@@ -1,5 +1,5 @@
 ---
-title: "Leetcode Java N-ary Tree Preorder Traversal Strings"
+title: "Leetcode Java N-ary Tree Preorder Traversal"
 excerpt: "Leetcode N-ary Tree Preorder Traversal Java"
 last_modified_at: 2022-07-20T19:30:00
 header:
