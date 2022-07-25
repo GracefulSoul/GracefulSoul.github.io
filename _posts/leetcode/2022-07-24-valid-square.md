@@ -35,9 +35,9 @@ class Solution {
     }
   }
     
-    private long getDistance(int[] p1, int[] p2) {
-        return (p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]);
-    }
+  private long getDistance(int[] p1, int[] p2) {
+    return (p1[0] - p2[0]) * (p1[0] - p2[0]) + (p1[1] - p2[1]) * (p1[1] - p2[1]);
+  }
 
 }
 ```
