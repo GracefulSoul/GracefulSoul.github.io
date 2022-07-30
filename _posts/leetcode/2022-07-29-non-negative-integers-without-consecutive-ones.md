@@ -47,7 +47,6 @@ class Solution {
     return sum + 1;
   }
 
-
 }
 ```
 
