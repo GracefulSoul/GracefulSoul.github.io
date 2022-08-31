@@ -23,54 +23,54 @@ use_math: true
 ```java
 class MyCircularQueue {
 
-	private final int[] array;
-	private int front;
-	private int rear;
-	private int length;
+  private final int[] array;
+  private int front;
+  private int rear;
+  private int length;
 
-	public MyCircularQueue(int k) {
-		this.array = new int[k];
-		this.front = 0;
-		this.rear = -1;
-		this.length = 0;
-	}
+  public MyCircularQueue(int k) {
+    this.array = new int[k];
+    this.front = 0;
+    this.rear = -1;
+    this.length = 0;
+  }
 
-	public boolean enQueue(int val) {
-		if (!this.isFull()) {
-			this.rear = (this.rear + 1) % this.array.length;
-			this.array[this.rear] = val;
-			this.length++;
-			return true;
-		} else {
-			return false;
-		}
-	}
+  public boolean enQueue(int val) {
+    if (!this.isFull()) {
+      this.rear = (this.rear + 1) % this.array.length;
+      this.array[this.rear] = val;
+      this.length++;
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-	public boolean deQueue() {
-		if (!this.isEmpty()) {
-			this.front = (this.front + 1) % this.array.length;
-			this.length--;
-			return true;
-		} else {
-			return false;
-		}
-	}
+  public boolean deQueue() {
+    if (!this.isEmpty()) {
+      this.front = (this.front + 1) % this.array.length;
+      this.length--;
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-	public int Front() {
-		return this.isEmpty() ? -1 : this.array[this.front];
-	}
+  public int Front() {
+    return this.isEmpty() ? -1 : this.array[this.front];
+  }
 
-	public int Rear() {
-		return this.isEmpty() ? -1 : this.array[this.rear];
-	}
+  public int Rear() {
+    return this.isEmpty() ? -1 : this.array[this.rear];
+  }
 
-	public boolean isEmpty() {
-		return this.length == 0;
-	}
+  public boolean isEmpty() {
+    return this.length == 0;
+  }
 
-	public boolean isFull() {
-		return this.length == this.array.length;
-	}
+  public boolean isFull() {
+    return this.length == this.array.length;
+  }
 
 }
 
