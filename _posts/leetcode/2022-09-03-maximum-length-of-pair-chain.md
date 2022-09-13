@@ -57,7 +57,7 @@ class Solution {
 
 4. 첫 값이 포함되었으므로, 1부터 pairs의 길이 미만까지 idx를 증가시키며 아래를 반복한다.
 - pairs[idx][0]의 값이 pre보다 큰 경우 연결이 가능하므로, pre에 pairs[idx][1] 값을 넣어주고 count를 증가시킨다.
-- 그 외의 경우 pre에 pre와 paris[idx][1] 중 작은 값을 넣어준다.
+- 그 외의 경우 pre에 pre와 pairs[idx][1] 중 작은 값을 넣어준다.
 
 5. 반복이 완료되면 계산된 count를 주어진 문제의 결과로 반환한다.
 
