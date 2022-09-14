@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Duplicate Subtrees"
-excerpt: "Leetcode Find Duplicate Subtrees"
+excerpt: "Leetcode Find Duplicate Subtrees Java"
 last_modified_at: 2022-09-08T19:30:00
 header:
   image: /assets/images/leetcode/find-duplicate-subtrees.png

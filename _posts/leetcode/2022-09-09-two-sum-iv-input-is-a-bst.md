@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Two Sum IV - Input is a BST"
-excerpt: "Leetcode Two Sum IV - Input is a BST"
+excerpt: "Leetcode Two Sum IV - Input is a BST Java"
 last_modified_at: 2022-09-09T10:30:00
 header:
   image: /assets/images/leetcode/two-sum-iv-input-is-a-bst.png
