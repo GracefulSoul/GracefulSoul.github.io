@@ -21,7 +21,6 @@ use_math: true
 
 # 코드
 ```java
-
 class Solution {
 
   public int[][] imageSmoother(int[][] img) {
