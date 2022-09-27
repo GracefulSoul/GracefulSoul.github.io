@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Number of Longest Increasing Subsequence"
 excerpt: "Leetcode Number of Longest Increasing Subsequence Java"
-last_modified_at: 2022-09-24T19:40:00
+last_modified_at: 2022-09-26T19:40:00
 header:
   image: /assets/images/leetcode/number-of-longest-increasing-subsequence.png
 categories:
