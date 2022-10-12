@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Employee Importance"
-excerpt: "Leetcode LonEmployee Importance Java"
+excerpt: "Leetcode Employee Importance Java"
 last_modified_at: 2022-10-11T19:50:00
 header:
   image: /assets/images/leetcode/employee-importance.png
