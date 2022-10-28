@@ -31,7 +31,7 @@ class MyHashSet {
 
   public void add(int key) {
     if (key >= this.set.length) {
-      this.set = Arrays.copyOf(this.set, key + 10);
+      this.set = Arrays.copyOf(this.set, key + 1);
     }
     this.set[key] = true;
   }
@@ -62,7 +62,7 @@ class MyHashSet {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/831337137/){:target="_blank"}
+[Link](https://leetcode.com/submissions/detail/831982910/){:target="_blank"}
 
 # 설명
 1. HashSet과 동일한 기능인 MyHashSet을 구현하는 문제이다.
