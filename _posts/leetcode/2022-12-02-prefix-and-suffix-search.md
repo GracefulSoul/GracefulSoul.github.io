@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Prefix and Suffix Search"
 excerpt: "Leetcode Prefix and Suffix Search Java"
-last_modified_at: 2022-12-01T12:50:00
+last_modified_at: 2022-12-02T12:50:00
 header:
   image: /assets/images/leetcode/prefix-and-suffix-search.png
 categories:
