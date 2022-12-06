@@ -39,9 +39,7 @@ class Solution {
           continue;
         } else {
           checked.add(curr);
-          for (String next : this.getNexts(curr)) {
-            temp.add(next);
-          }
+          temp.addAll(this.getNexts(curr));
         }
       }
       step++;
@@ -69,7 +67,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/problems/open-the-lock/submissions/855405999/){:target="_blank"}
+[Link](https://leetcode.com/problems/open-the-lock/submissions/855412378/){:target="_blank"}
 
 # 설명
 1. 0 ~ 9 까지로 이루어져 있는 원형 자물쇠의 잠금을 해제하기 위해 휠을 돌리는 최소 횟수를 구하는 문제이다.
