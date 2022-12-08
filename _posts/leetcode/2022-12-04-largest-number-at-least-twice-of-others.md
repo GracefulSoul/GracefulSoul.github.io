@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Number At Least Twice of Others"
-excerpt: "Leetcode MLargest Number At Least Twice of Others Java"
+excerpt: "Leetcode Largest Number At Least Twice of Others Java"
 last_modified_at: 2022-12-04T12:30:00
 header:
   image: /assets/images/leetcode/largest-number-at-least-twice-of-others.png
