@@ -42,8 +42,8 @@ class Solution {
 # 설명
 1. 1-indexed의 n개의 행으로 이루어진 테이블에서 k번째 값을 반환하는 문제이다.
 - 이전 행에서 0을 01로, 1을 10으로 변경해서 다음 행을 구성한다.
-- 예를 들어 n이 3인 경우 테이블은 아래의 사진과 동일한 트리 형태인 테이블로 구성된다.
-  - ![1IndexedTree](../../assets/images/leetcode/description/1-indexed-tree.png)
+- 예를 들어 n이 3인 경우 테이블은 아래의 사진과 동일한 트리 형태인 테이블로 구성된다.  
+![1IndexedTree](../../assets/images/leetcode/description/1-indexed-tree.png)
 
 2. 아래의 각 경우에 따라 값을 반환한다.
 - n이 1인 경우, 처음 값은 무조건 0이므로 0을 반환한다.
