@@ -63,7 +63,5 @@ class Solution {
 
 4. 반복이 완료되면 result를 2001로 나눈 나머지 값을 주어진 문제의 결과로 반환한다.
 
-3. 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/CardFlippingGame.java){:target="_blank"}에서 확인 가능합니다.
