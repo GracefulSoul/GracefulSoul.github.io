@@ -23,39 +23,39 @@ use_math: true
 ```java
 class Solution {
 
-	public int numSimilarGroups(String[] strs) {
-		boolean[] visited = new boolean[strs.length];
-		int result = 0;
-		for (int i = 0; i < strs.length; i++) {
-			if (!visited[i]) {
-				this.dfs(strs, i, visited);
-				result++;
-			}
-		}
-		return result;
-	}
+  public int numSimilarGroups(String[] strs) {
+    boolean[] visited = new boolean[strs.length];
+    int result = 0;
+    for (int i = 0; i < strs.length; i++) {
+      if (!visited[i]) {
+        this.dfs(strs, i, visited);
+        result++;
+      }
+    }
+    return result;
+  }
 
-	private void dfs(String[] strs, int index, boolean[] visited) {
-		visited[index] = true;
-		for (int i = 0; i < strs.length; i++) {
-			if (!visited[i] && this.isSimilar(strs[index], strs[i])) {
-				this.dfs(strs, i, visited);
-			}
-		}
-	}
+  private void dfs(String[] strs, int index, boolean[] visited) {
+    visited[index] = true;
+    for (int i = 0; i < strs.length; i++) {
+      if (!visited[i] && this.isSimilar(strs[index], strs[i])) {
+        this.dfs(strs, i, visited);
+      }
+    }
+  }
 
-	private boolean isSimilar(String s1, String s2) {
-		int count = 0;
-		for (int i = 0; i < s1.length(); i++) {
-			if (s1.charAt(i) != s2.charAt(i)) {
-				count++;
-			}
-			if (count > 2) {
-				return false;
-			}
-		}
-		return count == 0 || count == 2;
-	}
+  private boolean isSimilar(String s1, String s2) {
+    int count = 0;
+    for (int i = 0; i < s1.length(); i++) {
+      if (s1.charAt(i) != s2.charAt(i)) {
+        count++;
+      }
+      if (count > 2) {
+        return false;
+      }
+    }
+    return count == 0 || count == 2;
+  }
 
 }
 ```
