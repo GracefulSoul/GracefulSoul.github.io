@@ -64,7 +64,5 @@ class Solution {
 
 4. 검증된 문자열의 두 위치 변수인 i와 j가 -1인지 검증한 결과를 주어진 문제의 결과로 반환한다.
 
-
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/BackspaceStringCompare.java){:target="_blank"}에서 확인 가능합니다.
