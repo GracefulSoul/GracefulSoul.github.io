@@ -38,9 +38,9 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/748137628/){:target="_blank"}
 
 # 설명
-1. candyType의 캔디를 절반을 먹을 때, 중복되지 않은 candy의 최대 유형 갯수를 구하는 문제이다.
+1. candyType의 캔디를 절반을 먹을 때, 중복되지 않은 candy의 최대 유형 개수를 구하는 문제이다.
 
-2. 중복을 배제한 캔디 유형의 갯수를 저장하기 위한 types를 HashSet으로 초기화하고, candyType의 모든 값을 넣어준다.
+2. 중복을 배제한 캔디 유형의 개수를 저장하기 위한 types를 HashSet으로 초기화하고, candyType의 모든 값을 넣어준다.
 
 3. candyType의 절반과 types의 크기 중 작은 값을 주어진 문제의 결과로 반환한다.
 

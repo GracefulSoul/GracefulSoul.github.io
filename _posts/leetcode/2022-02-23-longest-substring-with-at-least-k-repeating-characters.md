@@ -61,13 +61,13 @@ class Solution {
 2. 재귀 호출을 위한 recursive(String s, int k, int start, int end) 메서드를 이용하여 0부터 s의 길이까지 가장 긴 부분 문자열의 길이를 주어진 문제의 결과로 반환한다.
 - end가 k보다 작은 경우 k번 이상 반복할 문자가 존재하지 않으므로, 0을 반환한다.
 - 문제 풀이에 필요한 변수를 정의한다.
-  - count는 각 문자 별 발생 횟수를 저장하기 위한 배열로, 알파벳의 갯수인 26 크기로 정의한다.
+  - count는 각 문자 별 발생 횟수를 저장하기 위한 배열로, 알파벳의 개수인 26 크기로 정의한다.
   - charArray는 s를 문자의 배열로 변환하여 저장한다.
 - start부터 end까지 count 배열 내 영문자의 순서인 'a'(0) ~ 'z'(25)에 발생 횟수를 저장한다.
 - start부터 end까지 mid를 증가시키며 반복을 수행한다.
   - charArray의 mid번째 문자가 k 이상인 경우 조건을 만족하므로, 반복을 계속 수행한다.
   - next에 $mid + 1$을 넣어준다.
-  - next가 end 미만이고 charArray의 next번째 문자의 갯수가 k개 미만인 경우, next를 증가시킨다.
+  - next가 end 미만이고 charArray의 next번째 문자의 개수가 k개 미만인 경우, next를 증가시킨다.
   - start에서 mid, next에서 end까지 각각 재귀 호출을 수행하여 가장 큰 값을 반환한다.
 - 반복이 정상적으로 끝나면 가장 큰 길이가 되는, $end - start$를 반환한다.
 

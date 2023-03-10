@@ -51,7 +51,7 @@ class Solution {
   - 위의 경우를 생각해보면 처음 두 값은 동일한 값이 와도 상관이 없다.
     - 다음 값을 넣을 때 확인이 되므로, 처음 두 값은 확인하지 않아도 된다.
 
-4. 반복이 종료되면 새롭게 값을 넣은 nums의 마지막 위치 값이자, 새로 정렬된 숫자의 갯수인 count를 주어진 문제의 결과로 반환한다.
+4. 반복이 종료되면 새롭게 값을 넣은 nums의 마지막 위치 값이자, 새로 정렬된 숫자의 개수인 count를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RemoveDuplicatesFromSortedArrayII.java){:target="_blank"}에서 확인 가능합니다.

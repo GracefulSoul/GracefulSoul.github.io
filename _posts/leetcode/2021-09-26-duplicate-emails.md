@@ -33,4 +33,4 @@ HAVING COUNT(*) > 1
 # 설명
 1. Person Table에서 중복 사용된 Email을 찾는 문제이다.
 
-2. 간단한 집계함수를 이용하여 Email이 중복된 갯수가 1개 초과인 Email만 출력한다.
+2. 간단한 집계함수를 이용하여 Email이 중복된 개수가 1개 초과인 Email만 출력한다.

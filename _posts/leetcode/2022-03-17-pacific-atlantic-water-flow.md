@@ -80,8 +80,8 @@ class Solution {
 1. Pacific과 Atlantic 해안을 인접하고 있는 섬의 높이를 나타내는 heights가 주어지면, 빗물이 올 경우 두 해안으로 흐를 수 있는 경계가 되는 구간을 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- row는 heights 배열 내 행의 갯수를 저장할 변수로, heights의 행의 갯수로 초기화한다.
-- col은 heights 배열 내 열의 갯수를 저장할 변수로, heights의 첫 행의 열 갯수로 초기화한다.
+- row는 heights 배열 내 행의 개수를 저장할 변수로, heights의 행의 개수로 초기화한다.
+- col은 heights 배열 내 열의 개수를 저장할 변수로, heights의 첫 행의 열 개수로 초기화한다.
 - result는 결과를 저장할 List로, 새 ArrayList로 정의한다.
 - pacific은 Pacific 해안으로 빗물이 흐를 가능성이 있는지 저장할 배열로, heights와 동일한 크기로 초기화한다.
 - atlantic은 Atlantic 해안으로 빗물이 흐를 가능성이 있는지 저장할 배열로, heights와 동일한 크기로 초기화한다.

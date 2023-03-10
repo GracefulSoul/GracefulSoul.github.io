@@ -62,10 +62,10 @@ class Solution {
 
 4. low가 high 미만일 때 까지 아래를 반복한다.
 - mid에 low와 high의 중간 값인 $\frac{low + high}{2}$을 넣어준다.
-- count는 mid에 해당하는 거리 이하인 nums의 숫자 갯수를 넣을 변수로, 0으로 초기화한다.
+- count는 mid에 해당하는 거리 이하인 nums의 숫자 개수를 넣을 변수로, 0으로 초기화한다.
 - 0부터 nums의 길이 미만까지 i를 증가시키고, j는 0으로 아래를 반복한다.
   - $nums[i] - nums[j]$의 결과가 mid보다 클 때까지 j를 증가시켜준다.
-  - count에 $i - j$를 더해서 mid 이하인 작은 거리 갯수를 계산한다.
+  - count에 $i - j$를 더해서 mid 이하인 작은 거리 개수를 계산한다.
 - count가 k 이상인 경우, high에 mid를 넣어 범위를 낮은 수로 좁힌다.
 - count가 k 미만인 경우, low에 $mid + 1$을 넣어 범위를 높은 수로 좁힌다.
 

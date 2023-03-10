@@ -77,12 +77,12 @@ class Solution {
   - 단, 순회하면서 배열의 크기를 최소한으로 사용하기 위해 nums의 idx번째 값에 $nums[idx] - min + 1$ 값을 넣어 값들을 0 기준으로 평준화 시켜주고, 해당 값을 이용하여 큰 값을 산정한다.
 
 3. Binary index tree로 사용할 tree 배열을 $max + 1$ 크기로 정의하고, nums를 역순으로 탐색하여 결과를 세기 위해서 $length - 1$부터 0까지 반복을 수행한다.
-- reulst[idx]에 tree와 nums의 $idx - 1$ 값을 이용하여 갯수를 세서 넣어준다.
+- reulst[idx]에 tree와 nums의 $idx - 1$ 값을 이용하여 개수를 세서 넣어준다.
   - index가 0보다 클 때 까지 반복하여 count에 tree의 index번째 값을 넣어주고, index에 index와 -index 값을 AND(&) 비트 연산하여 더하여 반복을 계속 수행한다.
 - tree에 nums의 idx 값을 이용하여 값을 수정해준다.
   - index가 tree의 길이보다 작을 떄 까지 반복하여 tree의 index번째 값을 증가시키고, index에 index와 -index 값을 AND(&) 비트 연산하여 더하여 반복을 계속 수행한다.
 
-4. 3번을 통해 계산된 특정 위치 이후의 값들 중 자신보다 작은 값의 갯수를 산정한 result를 List로 변환하여 주어진 문제의 결과로 반환한다.
+4. 3번을 통해 계산된 특정 위치 이후의 값들 중 자신보다 작은 값의 개수를 산정한 result를 List로 변환하여 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/CountOfSmallerNumbersAfterSelf.java){:target="_blank"}에서 확인 가능합니다.

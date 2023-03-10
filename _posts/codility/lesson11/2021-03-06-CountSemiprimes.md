@@ -84,8 +84,8 @@ class Solution {
   * 위에서 SemiPrime이 되는 경우가 아닌 경우는 모두 SemiPrime이 아닌 정수이다.
 - idx^2 값에 idx값을 더하여 N이하까지 반복하여 사전 합계를 계산하여 변수 preSum 배열로 저장한다.
   * idx 값을 더하면 idx 값의 배수로 계산이 반복 수행된다.
-- 반복문을 통해 변수 preSum 배열을 활용하여 주어진 배열 P와 Q의 값 사이의 SemiPrime 갯수를 결과를 저장하는 result 배열로 저장한다.
-- 반복이 끝나면 주어진 배열 P와 Q의 값 사이의 SemiPrime 갯수를 저장한 변수 result를 주어진 문제의 결과로 반환한다.
+- 반복문을 통해 변수 preSum 배열을 활용하여 주어진 배열 P와 Q의 값 사이의 SemiPrime 개수를 결과를 저장하는 result 배열로 저장한다.
+- 반복이 끝나면 주어진 배열 P와 Q의 값 사이의 SemiPrime 개수를 저장한 변수 result를 주어진 문제의 결과로 반환한다.
 
 # 결과
 [Link](https://app.codility.com/demo/results/trainingKCBQY4-U9U/){:target="_blank"}

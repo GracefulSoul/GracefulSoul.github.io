@@ -69,7 +69,7 @@ class Solution {
 1. n개의 노드의 연결 정보가 담긴 edges를 이용하여 각 노드의 위치에서 다른 노드의 거리 합을 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- count는 각 노드 위치에서 하위의 모든 노드의 갯수를 저장하기 위한 배열로, n 크기의 정수 배열로 초기화하고 모든 위치에 1을 넣어준다.
+- count는 각 노드 위치에서 하위의 모든 노드의 개수를 저장하기 위한 배열로, n 크기의 정수 배열로 초기화하고 모든 위치에 1을 넣어준다.
 - result는 각 노드 위치에서 하위의 모든 노드의 거리의 합을 저장하기 위한 배열로, n 크기의 정수 배열로 초기화한다.
 - graph는 각 노드가 연결된 노드를 저장하기 위한 List 배열로, n 크기의 배열로 초기화하여 모든 위치에 새 ArrayList를 넣어준다.
 
@@ -80,7 +80,7 @@ class Solution {
   - b가 상위 노드인 parent이면 반복을 계속 수행한다.
   - a의 위치에 b를, parent 위치에 a를 넣고 재귀 호출을 수행한다.
   - count의 a번째 위치에 count의 b번째 값을 더해 하위 노드의 숫자를 더해준다.
-  - result의 a번째 위치에 b의 하위 노드들의 거리 합인 result의 b번째 값과 하위 노드의 갯수인 count의 b번째 값을 더해준다.
+  - result의 a번째 위치에 b의 하위 노드들의 거리 합인 result의 b번째 값과 하위 노드의 개수인 count의 b번째 값을 더해준다.
 
 5. Pre Order 방식으로 DFS를 수행하여 result의 값을 결정하기 위한 preOrderDFS(List<Integer>[] graph, int n, int[] count, int[] result, int a, int parent) 메서드를 정의한다.
 - graph의 a번째 위치의 값들을 각각 b에 넣어 아래를 반복한다.

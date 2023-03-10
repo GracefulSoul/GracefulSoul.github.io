@@ -64,7 +64,7 @@ class Solution {
 
 2. ListNode curr이 null이 아니거나 count가 k보다 작을 때 까지 반복을 통해 ListNode를 이동한다.
 - 이동시킨 ListNode curr은 반전시킬 위치 이후($k + 1$)의 위치까지 이동시켜, 이전 노드들을 반전시킬 수 있도록 한다.
-- count를 증가시켜, 반전시켜야 할 ListNode의 갯수를 파악한다.
+- count를 증가시켜, 반전시켜야 할 ListNode의 개수를 파악한다.
 
 3. count와 k가 동일하면, 재귀 호출을 이용하여 k 배수만큼의 숫자를 반전시킨다.
 - 2번 에서 $k + 1$까지 이동시킨 curr를 이용하여 재귀호출을 통해 다시 k자릿수가 될 경우, 반전시키고 그렇지 않은 경우 curr을 그대로 반환한다.

@@ -44,7 +44,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/610175098/){:target="_blank"}
 
 # 설명
-1. 주어진 정수 배열 coins의 값들로 amount를 만들 수 있는 최소한의 코인의 갯수를 구하는 문제이다.
+1. 주어진 정수 배열 coins의 값들로 amount를 만들 수 있는 최소한의 코인의 개수를 구하는 문제이다.
 - 단, amount를 만들 수 없는 경우 -1을 주어진 문제의 결과로 반환한다.
 
 2. dp 배열을 $amount + 1$ 크기로 정의하고, 첫 값에는 0을 그 외에는 amount + 1 값을 넣어준다.

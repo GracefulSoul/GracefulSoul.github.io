@@ -77,15 +77,15 @@ class Solution {
 
 2. equations와 values를 엮어 저장 할 map을 HashMap으로 초기화한다.
 
-3. 0부터 values의 갯수 이전까지 idx를 증가시키며 map에 값을 넣어준다.
+3. 0부터 values의 개수 이전까지 idx를 증가시키며 map에 값을 넣어준다.
 - equations의 idx번째 List를 equation에 임시로 넣어준다.
 - equations의 각 값들이 key가되는 value가 map에 존재하지 않을 경우, 새 HashMap을 넣어준다.
 - map에서 equation의 첫 번째 값이 key인 Map을 꺼내와서, equation의 두 번째 값과 values의 idx번째 값을 key와 value로 엮어 넣어준다.
 - map에서 equation의 두 번째 값이 key인 Map을 꺼내와서, equation의 첫 번째 값과 values의 idx번째 값을 1로 나눈 결과를 key와 value로 엮어 넣어준다.
 
-4. 결과를 저장할 result 배열을 queries의 갯수의 크기로 초기화한다.
+4. 결과를 저장할 result 배열을 queries의 개수의 크기로 초기화한다.
 
-5. 0부터 queries의 갯수 이전까지 idx를 증가시키며 result에 값을 넣어준다.
+5. 0부터 queries의 개수 이전까지 idx를 증가시키며 result에 값을 넣어준다.
 - queries의 idx번째 List를 query에 넣어준다.
 - result의 idx번째 값에 6번에서 정의한 dfs(Map<String, Map<String, Double>> map, Set<String> set, String q1, String q2, double num) 메서드의 수행 결과를 넣어준다.
 

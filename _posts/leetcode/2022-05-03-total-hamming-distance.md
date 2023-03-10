@@ -50,9 +50,9 @@ class Solution {
 - length는 num의 길이를 저장할 변수로, length의 길이로 초기화한다.
 
 3. 0부터 int의 최대 비트의 수인 32 미만까지 j를 증가시키며 반복을 수행한다.
-- 비트의 갯수를 저장할 bitCount를 0으로 초기화한다.
+- 비트의 개수를 저장할 bitCount를 0으로 초기화한다.
 - nums의 모든 숫자들을 반복하여 num의 비트를 j번 우측으로 이동시킨 값과 1을 AND(&) 비트 연산을 수행한 결과를 bitCount에 더해준다.
-  - nums 내 모든 숫자의 비트 중 우측에서 j번째가 1이 되는 숫자의 갯수를 bitCount에 넣어주는 것이다.
+  - nums 내 모든 숫자의 비트 중 우측에서 j번째가 1이 되는 숫자의 개수를 bitCount에 넣어주는 것이다.
 - count에 bitCount와 $length - bitCount$ 값의 곱을 더해준다.
   - 우측에서 j번째가 모두 동일한 경우 $length - bitCount = 0$으로, 해밍 거리의 합에서 제외된다.
   - 우측에서 j번째가 모두 동일하지 않은 경우, x개에 특정 비트가 있고 (length - x)개에 특정 비트가 없는 경우 $x \times (length - x)$개의 해밍 거리의 합이 계산된다.

@@ -66,7 +66,7 @@ class Solution {
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - charArray는 senate를 문자 배열로 저장한 배열이다.
-- flag는 D가 R보다 큰 갯수를 저장할 변수로, 0으로 초기화한다.
+- flag는 D가 R보다 큰 개수를 저장할 변수로, 0으로 초기화한다.
 - radiant와 dire는 이전 자리의 단어가 R인지 D인지를 구분하기 위한 변수로, true로 초기화한다.
 
 3. radiant와 dire 모두 true일 때 까지 아래를 반복한다.

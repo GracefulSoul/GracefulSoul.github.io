@@ -109,7 +109,7 @@ class TrieNode {
 2. 문제 풀이에 필요한 TrieNode 클래스를 정의한다.
 - wordIndex는 해당 단어의 words 내 위치인 인덱스를 저장하는 변수이다.
 - palindromeWordIndexes는 회문이 되는 words 내 위치인 인덱스를 저장할 변수이다.
-- children은 해당 단어까지의 문자열 이후의 문자열을 이어주기 위한 변수로, 객체 생성 시 다음 문자를 저장하기 위해 알파벳의 갯수인 26 크기의 TrieNode 배열로 초기화 한다.
+- children은 해당 단어까지의 문자열 이후의 문자열을 이어주기 위한 변수로, 객체 생성 시 다음 문자를 저장하기 위해 알파벳의 개수인 26 크기의 TrieNode 배열로 초기화 한다.
 
 3. 문제 풀이에 필요한 전역 변수를 정의한다.
 - root는 주어진 words를 이용하여 [Trie](https://en.wikipedia.org/wiki/Trie){:target="_blank"}를 완성하기 위한 변수이다.

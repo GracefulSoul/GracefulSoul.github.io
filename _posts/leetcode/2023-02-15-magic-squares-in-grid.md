@@ -65,10 +65,10 @@ class Solution {
 [Link](https://leetcode.com/problems/magic-squares-in-grid/submissions/898391158/){:target="_blank"}
 
 # 설명
-1. grid 내에서 $3 \times 3$ 크기의 마법 사각형의 갯수를 반환하는 문제이다.
+1. grid 내에서 $3 \times 3$ 크기의 마법 사각형의 개수를 반환하는 문제이다.
 - 마법 사각형은 [1, 9] 범위의 숫자들로 이루어진 $3 \times 3$ 크기의 사각형의 두 대각선과 세 행과, 열의 합이 모두 같은 사각형을 의미한다.
 
-2. result는 마법 사각형의 갯수를 저장할 변수로, 0으로 초기화한다.
+2. result는 마법 사각형의 개수를 저장할 변수로, 0으로 초기화한다.
 
 3. 0부터 grid의 길이보다 2 작은 값 미만까지 i를, 0부터 grid 첫 행의 길이보다 2 작은 값 미만까지 j를 증가시키며 아래를 수행한다.
 - 4번에서 정의한 isMagicSquare(int[][] grid, int row, int col) 메서드를 수행한 결과가 true면 result를 증가시킨다.
@@ -78,7 +78,7 @@ class Solution {
 - row부터 우측 두 열까지, col부터 아래 두 행까지 [1, 9] 범위 내 값이면서 중복된 값이 있는지 검증하여 만족하지 않으면 false를 반환한다.
 - sum에 대각선 하나의 합을 넣고 다른 대각선과 세 행, 열의 합이 모두 동일한지 검증하여 동일하지 않으면 false를, 동일하면 true를 반환한다.
 
-5. 검증이 완료되면 마법 사각형의 갯수인 result를 주어진 문제의 결과로 반환한다.
+5. 검증이 완료되면 마법 사각형의 개수인 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MagicSquaresInGrid.java){:target="_blank"}에서 확인 가능합니다.

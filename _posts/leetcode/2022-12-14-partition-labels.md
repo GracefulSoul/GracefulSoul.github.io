@@ -58,7 +58,7 @@ class Solution {
 2. 문제 풀이에 필요한 변수를 정의한다.
 - charArray는 s를 문자 배열로 변환하여 저장하는 변수이다.
 - length는 charArray의 길이를 저장하는 변수이다.
-- last는 charArray의 각 문자 별 마지막 위치를 담기 위한 변수로, 알파벳 갯수인 26 크기로 정의하고 charArray를 반복하여 last에 각 문자 별 마지막 위치를 넣어준다.
+- last는 charArray의 각 문자 별 마지막 위치를 담기 위한 변수로, 알파벳 개수인 26 크기로 정의하고 charArray를 반복하여 last에 각 문자 별 마지막 위치를 넣어준다.
 - result는 분리한 문자열의 길이를 저장할 변수로, ArrayList로 초기화한다.
 - start와 end는 각 부분 문자열을 분리하기 위해 사용될 위치 변수로, 모두 0으로 초기화한다.
 

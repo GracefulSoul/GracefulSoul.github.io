@@ -71,7 +71,7 @@ class Solution {
 - graph[result.get(i)] 저장된 값들은 result의 i번째 과목을 수료했을 경우, 수료 가능한 과목의 코드들이다.
 - 위의 해당 값을 반복하여 courses의 값을 감소시키고, result에 해당 과목을 넣어 수강 과목 목록에 추가시키는 것이다.
 
-6. 수료 가능한 과목의 갯수인 result의 크기와 numCourses가 동일한지 여부를 주어진 문제의 결과로 반환한다.
+6. 수료 가능한 과목의 개수인 result의 크기와 numCourses가 동일한지 여부를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/CourseSchedule.java){:target="_blank"}에서 확인 가능합니다.

@@ -90,13 +90,13 @@ class Solution {
 
 4. DFS 방식으로 지뢰를 찾기 위한 dfs(char[][] board, int x, int y, int rowLength, int colLength) 메서드를 정의한다.
 - x가 배열의 x축 범위를 벗어나거나, y가 y축 범위를 벗어나면 수행을 종료한다.
-- num에 5번에서 인접한 지뢰의 갯수를 찾기 위한 findMines(char[][] board, int x, int y, int rowLength, int colLength) 메서드를 수행한 결과를 반환한다.
+- num에 5번에서 인접한 지뢰의 개수를 찾기 위한 findMines(char[][] board, int x, int y, int rowLength, int colLength) 메서드를 수행한 결과를 반환한다.
 - num이 0이면 지뢰가 없으므로, board[x][y]에 'B'를 넣어주고, x와 y 인접 셀을 재귀 호출을 이용하여 탐색한다.
-- num이 0이 아니면 board[x][y]에 인접한 지뢰의 갯수를 넣어준다.
+- num이 0이 아니면 board[x][y]에 인접한 지뢰의 개수를 넣어준다.
 
-5. 지뢰의 갯수를 탐색하기 위한 findMines(char[][] board, int x, int y, int rowLength, int colLength) 메서드를 정의한다.
-- 지뢰의 갯수를 넣을 count를 0으로 정의한다.
-- x와 y축을 1씩 가감하며 'M'의 갯수를 찾아 count를 증가시키고 해당 값을 반환한다.
+5. 지뢰의 개수를 탐색하기 위한 findMines(char[][] board, int x, int y, int rowLength, int colLength) 메서드를 정의한다.
+- 지뢰의 개수를 넣을 count를 0으로 정의한다.
+- x와 y축을 1씩 가감하며 'M'의 개수를 찾아 count를 증가시키고 해당 값을 반환한다.
 
 6. 4 ~ 5번의 수행이 완료되면 지뢰찾기 게임을 완성한 board를 주어진 문제의 결과로 반환한다.
 

@@ -80,7 +80,7 @@ class Solution {
 - 최소 깊이를 계산할 변수 depth를 1로 정의한다.
 
 4. queue가 비어있지 않을 때까지 반복하여 아래를 수행한다.
-- queue에 저장된 갯수를 먼저 임시 저장하고 해당 횟수만큼 반복하여 TreeNode를 검증한다.
+- queue에 저장된 개수를 먼저 임시 저장하고 해당 횟수만큼 반복하여 TreeNode를 검증한다.
 - queue에 저장된 첫 TreeNode를 꺼내온다.
 - 해당 treeNode의 left와 right가 null인 경우 자식이 없는 끝단 노드이므로, depth를 주어진 문제의 결과로 반환한다.
 - treeNode의 left가 null이 아닌 경우, queue에 해당 TreeNode를 넣어준다.

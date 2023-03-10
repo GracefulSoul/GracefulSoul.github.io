@@ -48,7 +48,7 @@ class Solution {
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - result는 누락된 숫자를 넣을 변수로, ArrayList로 초기화한다.
-- count는 nums 내 포함된 숫자의 갯수를 세기 위한 변수로, nums의 길이보다 하나 크게 정의한다.
+- count는 nums 내 포함된 숫자의 개수를 세기 위한 변수로, nums의 길이보다 하나 크게 정의한다.
 
 3. nums를 반복하여 count의 num번째 위치의 값을 증가시킨다.
 

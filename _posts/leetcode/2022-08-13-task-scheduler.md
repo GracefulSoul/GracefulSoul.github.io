@@ -53,16 +53,16 @@ class Solution {
 - 유휴 시간의 전과 후는 동일한 작업을 수행해야 한다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- counts는 tasks 내 각 작업의 갯수를 저장할 변수로, tasks를 반복하여 count의 $task - 'A'$번째 값을 증가시킨다.
+- counts는 tasks 내 각 작업의 개수를 저장할 변수로, tasks를 반복하여 count의 $task - 'A'$번째 값을 증가시킨다.
 - max는 counts내 가장 큰 값을 저장할 변수로, counts를 반복하여 가장 큰 값을 max에 넣어준다.
-- maxCount는 counts 내 max에 해당하는 작업의 갯수를 저장할 변수로, counts를 반복하여 max와 동일한 횟수인 작업의 갯수를 넣어준다.
+- maxCount는 counts 내 max에 해당하는 작업의 개수를 저장할 변수로, counts를 반복하여 max와 동일한 횟수인 작업의 개수를 넣어준다.
 
 3. tasks의 길이와 $(max - 1) \times (n + 1)$의 결과에 maxCount를 더한 결과 중 큰 값을 주어진 문제의 결과로 반환한다.
 - 작업을 수행하는 최소 단위의 수는 tasks의 길이가 되므로, tasks의 길이와 비교한다.
 - $(max - 1) \times (n + 1) + maxCount$은 아래를 뜻한다.
   - 최소 n개의 유휴 시간을 동일한 작업 사이에 넣어야 하므로, 부분 작업의 길이인 $max - 1$를 사용한다.
   - 최소 n개의 유휴 시간을 사용하여 작업을 수행하므로, 부분 작업의 수인 $n + 1$을 사용한다.
-  - 두 경우를 곱하여 경우의 수를 구하고, 최대 작업의 수가 동일한 경우 바꿔 사용이 가능하므로 해당 갯수를 더해준다.
+  - 두 경우를 곱하여 경우의 수를 구하고, 최대 작업의 수가 동일한 경우 바꿔 사용이 가능하므로 해당 개수를 더해준다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/TaskScheduler.java){:target="_blank"}에서 확인 가능합니다.

@@ -44,7 +44,7 @@ class Solution {
 
 3. 마지막 값은 0이므로 무시하고 bits의 길이보다 2 작은 길이부터 idx가 0 이상이고 bits의 idx번째 값이 0이 아닐 때 까지 bit를 증가시킨다.
 
-4. 1비트 문자가 되기 위해선 110, 11110과 같이 bit의 1의 갯수가 짝수가 되어야 하므로 bit가 짝수인지 여부를 주어진 문제의 결과로 반환한다.
+4. 1비트 문자가 되기 위해선 110, 11110과 같이 bit의 1의 개수가 짝수가 되어야 하므로 bit가 짝수인지 여부를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/OneBitAndTwoBitCharacters.java){:target="_blank"}에서 확인 가능합니다.

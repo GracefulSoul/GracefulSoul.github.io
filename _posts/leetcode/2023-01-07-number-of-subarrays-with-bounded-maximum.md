@@ -48,7 +48,7 @@ class Solution {
 
 2. nums 내 bound까지 부분 배열의 수를 계산할 getCount(int[] nums, int bound) 메서드를 정의한다.
 - 부분 배열의 수를 계산할 변수를 정의한다.
-  - total은 bound까지 부분 배열의 총 갯수를 저장할 변수로, 0으로 초기화한다.
+  - total은 bound까지 부분 배열의 총 개수를 저장할 변수로, 0으로 초기화한다.
   - count는 nums 내 연속된 값들을 이용한 부분 배열의 숫자를 저장할 변수로, 0으로 초기화한다.
 - nums의 값들을 차례대로 num에 넣어 아래를 수행한다.
   - num이 bound 이하인 경우 count를 증가시키고, 초과인 경우 범위를 넘었으므로 count를 0으로 초기화한다.

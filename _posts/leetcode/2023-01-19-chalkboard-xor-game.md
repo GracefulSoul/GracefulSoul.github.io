@@ -49,7 +49,7 @@ class Solution {
 - 상대가 지게 만드는 경우는, 다음 턴에 nums의 길이가 홀수인 동일 숫자들을 남기는 것이다.
 - 아래의 두 경우를 합치면 밥이 어떤 선택을 하던지 엘리스는 반드시 지지 않는 선택을 하여 이길 수 있다.
   - nums 내 모든 숫자들이 같지 않다면, 상대는 절대 지지않는 숫자를 지울 수 있다.
-  - 숫자가 모두 같으며 nums 내 숫자의 갯수가 짝수인 경우, 상대가 이기게 된다.
+  - 숫자가 모두 같으며 nums 내 숫자의 개수가 짝수인 경우, 상대가 이기게 된다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/ChalkboardXORGame.java){:target="_blank"}에서 확인 가능합니다.

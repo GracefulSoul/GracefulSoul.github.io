@@ -77,13 +77,13 @@ class Solution {
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - listNode는 생성자를 통해 주입된 ListNode를 저장하기 위한 변수이다.
-- size는 listNode의 갯수를 저장할 변수이다.
+- size는 listNode의 개수를 저장할 변수이다.
 - random은 객체 내 존재하는 값을 임의 확률로 반환하기 위한 객체이다.
 
 3. 생성자인 Solution(ListNode head)을 완성한다.
 - 주입된 head를 listNoad에 넣어준다.
 - size를 0으로 초기화 한다.
-- curr에 head을 임시로 넣어주고 curr이 null이 아닐 때까지 반복을 수행하여 size에 node의 갯수를 넣어준다.
+- curr에 head을 임시로 넣어주고 curr이 null이 아닐 때까지 반복을 수행하여 size에 node의 개수를 넣어준다.
 - random에 Random 객체로 초기화 시켜준다.
 
 4. 메서드인 getRandom()을 완성한다.

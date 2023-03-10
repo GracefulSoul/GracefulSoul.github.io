@@ -80,14 +80,14 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/611895239/){:target="_blank"}
 
 # 설명
-1. 주어진 정수 배열 nums를 이용하여 주어진 정수 lower에서 upper 범위를 포함한 부분 범위 합의 갯수를 반환하는 문제이다.
+1. 주어진 정수 배열 nums를 이용하여 주어진 정수 lower에서 upper 범위를 포함한 부분 범위 합의 개수를 반환하는 문제이다.
 - 범위 합 S(i, j)는 i와 j를 포함한 nums 배열 내 값들의 합으로 정의된다. (단, i <= j이다.)
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - length는 주어진 정수 배열 nums의 길이를 저장하는 변수이다.
 - sum은 주어진 nums를 차례대로 합을 저장하는 배열로, nums를 순회하여 sum에 값을 누계하여 넣어준다.
 
-3. 부분 범위 합의 갯수를 세기 위한 recursive(long[] sum, long[] cache, int low, int high, long lower, long upper) 메서드를 완성한다.
+3. 부분 범위 합의 개수를 세기 위한 recursive(long[] sum, long[] cache, int low, int high, long lower, long upper) 메서드를 완성한다.
 - low가 high보다 크거나 같은 경우, 0을 반환한다.
 - mid에 $\frac{high + 1 - low}{2} + low$의 값을 넣어준다.
 - count는 $mid - 1$로 재귀호출한 값과 mid로 재귀호출한 값을 넣어준다.
@@ -107,7 +107,7 @@ class Solution {
 - right가 high보다 작거나 같을때까지 반복하여 cache[idx]에 sum[right] 값을 넣어주고 idx와 right를 증가시킨다.
 - cache의 low부터 $high + 1 - low$개의 값들을 sum의 low부터 차례대로 값을 넣어준다.
 
-5. 3, 4번을 수행하여 확인한 부분 배열의 갯수인 count를 주어진 문제의 결과로 반환한다.
+5. 3, 4번을 수행하여 확인한 부분 배열의 개수인 count를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/CountOfRangeSum.java){:target="_blank"}에서 확인 가능합니다.

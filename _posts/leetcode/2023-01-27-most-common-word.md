@@ -47,7 +47,7 @@ class Solution {
 2. 문제 풀이에 필요한 변수를 정의한다.
 - banList는 banned를 중복을 제거하여 저장한 변수이다.
 - words는 paragraph를 특수 문자들을 제거한 문자 배열로 저장한 변수이다.
-- map은 words 내 문자열 갯수를 세기 위한 변수로, HashMap으로 초기화하여 words를 반복하여 banList에 없는 word를 키 발생 횟수를 값으로 계산하여 넣어준다.
+- map은 words 내 문자열 개수를 세기 위한 변수로, HashMap으로 초기화하여 words를 반복하여 banList에 없는 word를 키 발생 횟수를 값으로 계산하여 넣어준다.
 
 3. map에서 가장 많이 발생한 변수의 키를 주어진 문제의 결과로 반환한다.
 

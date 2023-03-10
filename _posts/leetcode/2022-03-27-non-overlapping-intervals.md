@@ -45,7 +45,7 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/667891646/){:target="_blank"}
 
 # 설명
-1. 배열 intervals가 주어지면 겹치지 않은 구간을 만들기 위해 제거해야 하는 값들의 갯수를 구하는 문제이다.
+1. 배열 intervals가 주어지면 겹치지 않은 구간을 만들기 위해 제거해야 하는 값들의 개수를 구하는 문제이다.
 - intervals[i] = [start<sub>i</sub>, end<sub>i</sub>]
 
 2. intervals를 end 값 기준으로 오름차순 정렬을 수행한다.
@@ -57,7 +57,7 @@ class Solution {
 4. intervals를 반복하여 count를 계산한다.
 - interval의 첫 값이 end보다 크거나 같은 경우, end에 interval의 두 번째 값을 넣어주고 count를 증가시킨다.
 
-5. intervals의 크기에 중복되지 않은 구간의 갯수인 count를 빼서 주어진 문제의 결과로 반환한다.
+5. intervals의 크기에 중복되지 않은 구간의 개수인 count를 빼서 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/NonOverlappingIntervals.java){:target="_blank"}에서 확인 가능합니다.

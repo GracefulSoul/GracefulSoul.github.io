@@ -80,8 +80,8 @@ class Solution {
 1. 주어진 2차원 배열 matrix를 이용하여 k보다 크지 않은 사각형 모양의 부분 영역 값들의 최대 합을 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- row는 matrix 행의 갯수를 저장하는 변수로, matrix.length로 초기화 한다.
-- col은 matrix 열의 갯수를 저장하는 변수로, matrix[0].length로 초기화 한다.
+- row는 matrix 행의 개수를 저장하는 변수로, matrix.length로 초기화 한다.
+- col은 matrix 열의 개수를 저장하는 변수로, matrix[0].length로 초기화 한다.
 - max는 k보다 크지 않은 부분 합을 저장할 변수로, 정수의 가장 작은 값으로 초기화 한다.
 
 3. 0부터 col까지 i를 증가시키며 반복을 수행한다.

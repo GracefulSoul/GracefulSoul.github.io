@@ -95,7 +95,7 @@ class MagicDictionary {
 5. 메서드인 search(String searchWord)를 정의한다.
 - words에 map 내 searchWord의 길이가 키인 값을 가져온다.
 - words가 null이 아니면 words의 모든 단어를 word에 순차적으로 넣어 아래를 반복한다.
-  - count는 변경된 문자의 갯수를 넣을 변수로, 0으로 초기화한다.
+  - count는 변경된 문자의 개수를 넣을 변수로, 0으로 초기화한다.
   - word와 searchWord를 비교하여 변경할 단어인 count가 1인 경우, true를 반환한다.
 - 반복이 완료되면 한 문자만 변경해서 동일하게 구성할 단어를 찾지 못했으므로, false를 반환한다.
 

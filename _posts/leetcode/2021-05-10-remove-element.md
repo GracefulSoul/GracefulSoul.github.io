@@ -40,10 +40,10 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/491277685/){:target="_blank"}
 
 # 설명
-1. 주어진 배열 nums을 반복으로 주어진 정수 val과 다른 값의 갯수를 파악한다.
+1. 주어진 배열 nums을 반복으로 주어진 정수 val과 다른 값의 개수를 파악한다.
 - 주어진 배열 nums의 내부 값이 val과 다르다면 i의 값을 점층적으로 증가시킨다.
 
-2. 반복이 종료되면 주어진 정수 val과 다른 값의 갯수를 저장한 i의 값을 문제의 결과로 반환한다.
+2. 반복이 종료되면 주어진 정수 val과 다른 값의 개수를 저장한 i의 값을 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RemoveElement.java){:target="_blank"}에서 확인 가능합니다.

@@ -47,7 +47,7 @@ class Solution {
 1. 주어진 문자열 magazine이 주어지면 해당 문자들로 ransomNote를 만들 수 있는지 검증하는 문제이다.
 - 단, magazine의 문자는 한 번만 사용할 수 있다.
 
-2. count 정수 배열을 영문자의 갯수인 26의 크기로 정의한다.
+2. count 정수 배열을 영문자의 개수인 26의 크기로 정의한다.
 
 3. ransomNote의 문자들을 반복하여 검증을 수행한다.
 - num에 ransomNoteChar에 'a'(26)을 뺀 영문자 순서를 넣어준다.

@@ -57,7 +57,7 @@ class Solution {
 1. rooms의 첫 방을 제외한 나머지 방들이 잠길 때, 방 안에 열 수 있는 방의 키를 사용하여 모든 룸을 방문할 수 있는지 검증하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- visited는 방의 방문 여부를 검증하기 위한 변수로, rooms의 방의 갯수만큼의 크기로 초기화한다.
+- visited는 방의 방문 여부를 검증하기 위한 변수로, rooms의 방의 개수만큼의 크기로 초기화한다.
 - firstRoom은 rooms 내 첫 방을 저장한 변수이다.
 
 3. firstRoom의 모든 키를 이용하여 4번에서 정의한 dfs(List<List<Integer>> rooms, boolean[] visited, int index) 메서드의 index에 넣어 수행한다.

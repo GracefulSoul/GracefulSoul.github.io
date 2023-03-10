@@ -51,7 +51,7 @@ class Solution {
 - 단, 자식 노드가 두 개인 노드의 금액은 도둑질이 불가능하다.
 
 2. 재귀 호출을 사용하여 root를 순회할 recursive(TreeNode root) 메서드를 완성한다.
-- 정수 배열인 result를 최대 자식 노드의 갯수인 2의 크기로 초기화 하여 정의한다.
+- 정수 배열인 result를 최대 자식 노드의 개수인 2의 크기로 초기화 하여 정의한다.
 - root가 null인 경우 더 이상 탐색이 불가능하므로, result를 그대로 반환한다.
 - root의 left TreeNode를 재귀 호출한 결과를 left에, right TreeNode를 재귀 호출한 결과를 right에 넣어준다.
 - result에 재귀 호출로 구해진 left와 right를 이용하여 두 값을 넣어준다.

@@ -44,17 +44,17 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/696539387/){:target="_blank"}
 
 # 설명
-1. nums 내 연속된 1의 갯수가 가장 긴 결과를 구하는 문제이다.
+1. nums 내 연속된 1의 개수가 가장 긴 결과를 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- max는 연속된 1의 갯수가 가장 긴 결과를 저장할 변수로, 0으로 초기화한다.
-- curr은 현재 1의 갯수가 몇 개 연속되었는지 저장할 변수로, 0으로 초기화한다.
+- max는 연속된 1의 개수가 가장 긴 결과를 저장할 변수로, 0으로 초기화한다.
+- curr은 현재 1의 개수가 몇 개 연속되었는지 저장할 변수로, 0으로 초기화한다.
 
 3. nums 내 모든 값들을 반복하여 아래를 수행한다.
 - num이 0인 경우, max와 curr 중 가장 큰 값을 max에 넣어주고 curr을 0으로 초기화한다.
 - num이 0이 아닌 경우, curr을 증가시킨다.
 
-4. 마지막 전 까지 연속된 1의 갯수가 가장 긴 max와 마지막으로 연속된 1의 갯수인 curr 중 가장 큰 값을 주어진 문제의 결과로 반환한다.
+4. 마지막 전 까지 연속된 1의 개수가 가장 긴 max와 마지막으로 연속된 1의 개수인 curr 중 가장 큰 값을 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MaxConsecutiveOnes.java){:target="_blank"}에서 확인 가능합니다.

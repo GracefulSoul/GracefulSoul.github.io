@@ -47,9 +47,9 @@ class Solution {
 [Link](https://leetcode.com/problems/unique-morse-code-words/submissions/877714815/){:target="_blank"}
 
 # 설명
-1. words의 문자열들의 각 문자들을 정의된 문장으로 모두 변경하였을 경우, 고유 문자열의 갯수를 구하는 문제이다.
+1. words의 문자열들의 각 문자들을 정의된 문장으로 모두 변경하였을 경우, 고유 문자열의 개수를 구하는 문제이다.
 
-2. set은 고유 문자열의 갯수를 저장할 변수로, HashSet으로 초기화한다.
+2. set은 고유 문자열의 개수를 저장할 변수로, HashSet으로 초기화한다.
 
 3. words의 모든 단어를 word에 순차적으로 넣어 아래를 반복한다.
 - sb는 word의 각 문자들을 주어진 문자열로 변환하여 저장할 변수로, 동적인 문자열 생성을 위해 StringBuilder로 정의한다.

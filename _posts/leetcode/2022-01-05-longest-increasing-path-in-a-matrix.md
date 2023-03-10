@@ -70,8 +70,8 @@ class Solution {
 - 대각선으로 이동하거나 배열 밖으로 움직일 수 없다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- row은 matrix의 행의 갯수를 저장하기 위한 변수로, matirx.length를 넣어준다.
-- col은 matrix의 열의 갯수를 저장하기 위한 변수로, matrix[0].length를 넣어준다.
+- row은 matrix의 행의 개수를 저장하기 위한 변수로, matirx.length를 넣어준다.
+- col은 matrix의 열의 개수를 저장하기 위한 변수로, matrix[0].length를 넣어준다.
 - memory는 matrix를 이용하여 이동하는 경우, 최대 이동 거리를 기억하기 위한 임시 배열이다.
 - result는 matrix를 순회하여 최대 이동 거리를 저장하기 위한 변수이다.
 

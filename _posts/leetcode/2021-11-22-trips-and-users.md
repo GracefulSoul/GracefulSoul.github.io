@@ -47,4 +47,4 @@ GROUP BY request_at;
 
 4. request_at에 대한 날자 별 데이터를 집계하기 위하여 GROUP BY절을 이용한다.
 
-5. 'Cancellation Rate'를 구하기 위해 status가 completed가 아닌 데이터의 갯수와 전체 갯수를 나눈 후, 예제와 동일하게 소수점 2자리까지 반올림 하여 표시한다.
+5. 'Cancellation Rate'를 구하기 위해 status가 completed가 아닌 데이터의 개수와 전체 개수를 나눈 후, 예제와 동일하게 소수점 2자리까지 반올림 하여 표시한다.

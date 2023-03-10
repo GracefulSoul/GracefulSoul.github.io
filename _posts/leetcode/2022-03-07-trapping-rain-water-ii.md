@@ -77,8 +77,8 @@ class Solution {
 1. 주어진 2차원 정수 배열 heightMap을 이용하여 빗물을 가둘 수 있는 물의 양을 반환하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- row는 heightMap의 행의 갯수를 저장하는 변수로, heightMap.length로 초기화한다.
-- col은 heightMap의 열의 갯수를 저장하는 변수로, heightMap[0].length로 초기화한다.
+- row는 heightMap의 행의 개수를 저장하는 변수로, heightMap.length로 초기화한다.
+- col은 heightMap의 열의 개수를 저장하는 변수로, heightMap[0].length로 초기화한다.
 - volume은 주어진 heightMap의 빗물을 가둔 후 최대 높이를 저장할 배열로, heightMap의 값으로 초기화한다.
 - update는 값의 수정 유무를 저장할 변수로, true로 초기화한다.
 - init은 첫 수행 여부를 저장할 변수로, true로 초기화한다.

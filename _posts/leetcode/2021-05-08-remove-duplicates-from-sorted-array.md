@@ -50,12 +50,12 @@ class Solution {
 [Link](https://leetcode.com/submissions/detail/490416459/){:target="_blank"}
 
 # 설명
-1. 주어진 배열 nums는 이미 정렬이 되어 있으므로, 배열 내 이전 index의 값이 다른 경우의 갯수만 확인하면 된다.
-- 문제의 결과는 중복되지 않은 배열의 값의 갯수이므로, 새 배열을 선언하여 넣지 않아도 된다.
+1. 주어진 배열 nums는 이미 정렬이 되어 있으므로, 배열 내 이전 index의 값이 다른 경우의 개수만 확인하면 된다.
+- 문제의 결과는 중복되지 않은 배열의 값의 개수이므로, 새 배열을 선언하여 넣지 않아도 된다.
 - 배열의 첫 값은 무조건 중복되지 않은 값이므로, count를 증가시킨다.
 - 가장 중요한 idx 값을 점층적으로 증가시키면서 nums[idx++] 값에 중복되지 않은 값을 넣는 이유는, 중복되지 않은 값을 비교하면서 count를 세기 위함이다.
 
-2. 반복이 종료되면, 중복되지 않은 값의 갯수를 저장하는 idx를 주어진 문제의 결과로 반환한다.
+2. 반복이 종료되면, 중복되지 않은 값의 개수를 저장하는 idx를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RemoveDuplicatesfromSortedArray.java){:target="_blank"}에서 확인 가능합니다.

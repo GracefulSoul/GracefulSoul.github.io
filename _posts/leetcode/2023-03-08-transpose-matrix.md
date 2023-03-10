@@ -45,8 +45,8 @@ class Solution {
 1. matrix의 행과 열의 인덱스를 전환하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
-- row는 matrix의 행의 갯수를 저장한 변수이다.
-- col은 matrix의 열의 갯수를 저장한 변수이다.
+- row는 matrix의 행의 개수를 저장한 변수이다.
+- col은 matrix의 열의 개수를 저장한 변수이다.
 - result는 matrix의 행과 열의 인덱스를 전환하여 저장할 배열로, $col \times row$ 크기의 2차원 정수 배열로 초기화한다.
 
 3. 0부터 col미만까지 j를 증가시키고, 0부터 row미만까지 i를 증가시키며, result[j][i]의 위치에 matrix[i][j]의 값을 넣어준다.
