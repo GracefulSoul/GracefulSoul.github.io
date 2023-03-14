@@ -51,7 +51,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/problems/leaf-similar-trees/submissions/914341388/){:target="_blank"}
+[Link](https://leetcode.com/problems/length-of-longest-fibonacci-subsequence/submissions/914948793/){:target="_blank"}
 
 # 설명
 1. 최소 3개 이상의 값이 존재하는 arr의 값들을 이용하여 만들 수 있는 피보나치 수열의 최대 길이를 구하는 문제이다.
