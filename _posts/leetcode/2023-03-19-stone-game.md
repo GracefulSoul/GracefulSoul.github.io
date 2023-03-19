@@ -45,7 +45,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/problems/stone-game/submissions/917784230/){:target="_blank"}
+[Link](https://leetcode.com/problems/stone-game/submissions/917864497/){:target="_blank"}
 
 # 설명
 1. piles에 저장된 돌의 수를 앞과 뒤에서 번갈아가며 가져갈 때 처음 시작하는 사람이 이길 수 있는지 검증하는 문제이다.
