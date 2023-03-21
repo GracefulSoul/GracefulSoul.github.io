@@ -53,7 +53,7 @@ class Solution {
 [Link](https://leetcode.com/problems/nth-magical-number/submissions/918686372/){:target="_blank"}
 
 # 설명
-1. a나 b로 나눌 수 있는 n번째 정수를 찾는 문제이다.
+1. a 혹은 b로 나눌 수 있는 n번째 정수를 찾는 문제이다.
 - 단, 값이 매우 클 수 있으므로 모듈러 $10^9 + 7$를 이용한 값으로 반환한다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
