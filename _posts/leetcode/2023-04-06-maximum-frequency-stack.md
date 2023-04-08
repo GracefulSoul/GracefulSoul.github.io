@@ -23,39 +23,39 @@ use_math: true
 ```java
 class FreqStack {
 
-	private int max;
-	private Map<Integer, Integer> frequencyMap;
-	private List<Deque<Integer>> valList;
+  private int max;
+  private Map<Integer, Integer> frequencyMap;
+  private List<Deque<Integer>> valList;
 
-	public FreqStack() {
-		this.max = 0;
-		this.frequencyMap = new HashMap<>();
-		this.valList = new ArrayList<>();
-	}
+  public FreqStack() {
+    this.max = 0;
+    this.frequencyMap = new HashMap<>();
+    this.valList = new ArrayList<>();
+  }
 
-	public void push(int val) {
-		int frequency = this.frequencyMap.getOrDefault(val, 0) + 1;
-		this.frequencyMap.put(val, frequency);
-		this.max = Math.max(this.max, frequency);
-		if (frequency > this.valList.size()) {
-			this.valList.add(new ArrayDeque<>());
-		}
-		this.valList.get(frequency - 1).push(val);
-	}
+  public void push(int val) {
+    int frequency = this.frequencyMap.getOrDefault(val, 0) + 1;
+    this.frequencyMap.put(val, frequency);
+    this.max = Math.max(this.max, frequency);
+    if (frequency > this.valList.size()) {
+      this.valList.add(new ArrayDeque<>());
+    }
+    this.valList.get(frequency - 1).push(val);
+  }
 
-	public int pop() {
-		int val = this.valList.get(this.valList.size() - 1).pop();
-		if (this.max == 1) {
-			this.frequencyMap.remove(val);
-		} else {
-			this.frequencyMap.replace(val, this.max - 1);
-		}
-		if (this.valList.get(this.valList.size() - 1).isEmpty()) {
-			this.valList.remove(this.valList.size() - 1);
-			this.max--;
-		}
-		return val;
-	}
+  public int pop() {
+    int val = this.valList.get(this.valList.size() - 1).pop();
+    if (this.max == 1) {
+      this.frequencyMap.remove(val);
+    } else {
+      this.frequencyMap.replace(val, this.max - 1);
+    }
+    if (this.valList.get(this.valList.size() - 1).isEmpty()) {
+      this.valList.remove(this.valList.size() - 1);
+      this.max--;
+    }
+    return val;
+  }
 
 }
 

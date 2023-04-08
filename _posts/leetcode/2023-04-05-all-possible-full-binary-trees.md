@@ -38,33 +38,33 @@ use_math: true
  */
 class Solution {
 
-	public List<TreeNode> allPossibleFBT(int n) {
-		return this.dfs(n, new HashMap<>());
-	}
+  public List<TreeNode> allPossibleFBT(int n) {
+    return this.dfs(n, new HashMap<>());
+  }
 
-	private List<TreeNode> dfs(int n, Map<Integer, List<TreeNode>> map) {
-		if (!map.containsKey(n)) {
-			List<TreeNode> nodeList = new ArrayList<TreeNode>();
-			if (n == 1) {
-				TreeNode node = new TreeNode(0);
-				nodeList.add(node);
-			} else if (n % 2 == 1) {
-				for (int x = 0; x < n; x++) {
-					int y = n - 1 - x;
-					for (TreeNode left : this.dfs(x, map)) {
-						for (TreeNode right : this.dfs(y, map)) {
-							TreeNode node = new TreeNode(0);
-							node.left = left;
-							node.right = right;
-							nodeList.add(node);
-						}
-					}
-				}
-			}
-			map.put(n, nodeList);
-		}
-		return map.get(n);
-	}
+  private List<TreeNode> dfs(int n, Map<Integer, List<TreeNode>> map) {
+    if (!map.containsKey(n)) {
+      List<TreeNode> nodeList = new ArrayList<TreeNode>();
+      if (n == 1) {
+        TreeNode node = new TreeNode(0);
+        nodeList.add(node);
+      } else if (n % 2 == 1) {
+        for (int x = 0; x < n; x++) {
+          int y = n - 1 - x;
+          for (TreeNode left : this.dfs(x, map)) {
+            for (TreeNode right : this.dfs(y, map)) {
+              TreeNode node = new TreeNode(0);
+              node.left = left;
+              node.right = right;
+              nodeList.add(node);
+            }
+          }
+        }
+      }
+      map.put(n, nodeList);
+    }
+    return map.get(n);
+  }
 
 }
 ```
