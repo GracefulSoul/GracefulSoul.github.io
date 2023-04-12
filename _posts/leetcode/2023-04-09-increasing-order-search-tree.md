@@ -38,20 +38,20 @@ use_math: true
  */
 class Solution {
 
-	public TreeNode increasingBST(TreeNode root) {
-		return this.dfs(root, null);
-	}
+  public TreeNode increasingBST(TreeNode root) {
+    return this.dfs(root, null);
+  }
 
-	private TreeNode dfs(TreeNode root, TreeNode tail) {
-		if (root == null) {
-			return tail;
-		} else {
-			TreeNode temp = this.dfs(root.left, root);
-			root.left = null;
-			root.right = this.dfs(root.right, tail);
-			return temp;
-		}
-	}
+  private TreeNode dfs(TreeNode root, TreeNode tail) {
+    if (root == null) {
+      return tail;
+    } else {
+      TreeNode temp = this.dfs(root.left, root);
+      root.left = null;
+      root.right = this.dfs(root.right, tail);
+      return temp;
+    }
+  }
 
 }
 ```
