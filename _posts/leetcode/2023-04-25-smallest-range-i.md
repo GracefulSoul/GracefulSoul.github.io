@@ -40,7 +40,7 @@ class Solution {
 [Link](https://leetcode.com/problems/smallest-range-i/submissions/938894204/){:target="_blank"}
 
 # 설명
-1. nums의 모든 값에 [-k, k] 범위의 값을 더했을 때, 최댓값과 최솟값의 차이가 가장 작은 값을 구하는 문제이다.
+1. nums의 최소 하나의 값에 [-k, k] 범위의 값을 더했을 때, 최댓값과 최솟값의 차이가 가장 작은 값을 구하는 문제이다.
 
 2. max와 min에 nums의 최댓값과 최솟값을 찾아 넣어준다.
 
