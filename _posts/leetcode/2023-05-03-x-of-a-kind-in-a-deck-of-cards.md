@@ -67,6 +67,5 @@ class Solution {
   - 1은 네 개, 2와 3은 두 개로, 1로 구성된 두 그룹과 2와 3의 그룹으로 이루어질 수 있다.
   - 이는 4, 2, 2의 최대 공약수가 2이므로 구성이 가능하다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/XOfAKindInADeckOfCards.java){:target="_blank"}에서 확인 가능합니다.
