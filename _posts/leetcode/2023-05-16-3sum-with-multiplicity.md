@@ -64,7 +64,7 @@ class Solution {
 3. 0부터 100 이하까지 i를, i부터 100 이하까지 j를 증가시키며 아래를 반복한다.
 - k에 $target - i - j$를 넣어준다.
 - k가 100보다 크거나 0보다 작은 경우, 숫자 범위에서 벗어나므로 다음 반복을 수행한다.
-- i와 j가 같고 j와 k가 같은 경우 세 값이 동일하므로, result에 동일한 세 값을 이용한 경우의 수인 $frac{count[i] \times (count[i] - 1) \times (count[i] - 2)}{6}$의 값을 더해준다.
+- i와 j가 같고 j와 k가 같은 경우 세 값이 동일하므로, result에 동일한 세 값을 이용한 경우의 수인 $\frac{count[i] \times (count[i] - 1) \times (count[i] - 2)}{6}$의 값을 더해준다.
 - 위의 경우가 아니면서 i와 j의 값이 같고 k만 값이 다른 경우, result에 동일한 두 값과 다른 한 값을 이용한 경우의 수인 $\frac{count[i] * (count[i] - 1)}{2} \times count[k]$의 값을 더해준다.
 - 마지막으로 모든 값이 다르면서 j가 k보다 작은 경우, 다른 세 값을 이용한 경우의 수인 $count[i] \times count[j] \times count[k]$의 값을 더해준다.
 
