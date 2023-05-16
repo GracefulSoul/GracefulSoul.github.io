@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Swapping Nodes in a Linked List"
 excerpt: "Leetcode Swapping Nodes in a Linked List Java"
-last_modified_at: 2023-05-15T19:3 0:00
+last_modified_at: 2023-05-15T19:30:00
 header:
   image: /assets/images/leetcode/swapping-nodes-in-a-linked-list.png
 categories:
