@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Maximum Twin Sum of a Linked List"
 excerpt: "Leetcode Maximum Twin Sum of a Linked List Java"
-last_modified_at: 2023-05-18T20:30:00
+last_modified_at: 2023-05-17T20:30:00
 header:
   image: /assets/images/leetcode/maximum-twin-sum-of-a-linked-list.png
 categories:
