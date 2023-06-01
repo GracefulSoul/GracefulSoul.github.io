@@ -25,37 +25,37 @@ import java.util.AbstractMap;
 
 class UndergroundSystem {
 
-	private Map<Integer, Map.Entry<String, Integer>> travel;
-	private Map<Map.Entry<String, String>, Map.Entry<Double, Integer>> averageTime;
+  private Map<Integer, Map.Entry<String, Integer>> travel;
+  private Map<Map.Entry<String, String>, Map.Entry<Double, Integer>> averageTime;
 
-	public UndergroundSystem() {
-		this.travel = new HashMap<>();
-		this.averageTime = new HashMap<>();
-	}
+  public UndergroundSystem() {
+    this.travel = new HashMap<>();
+    this.averageTime = new HashMap<>();
+  }
 
-	public void checkIn(int id, String stationName, int t) {
-		this.travel.putIfAbsent(id, new AbstractMap.SimpleEntry<>(stationName, t));
-	}
+  public void checkIn(int id, String stationName, int t) {
+    this.travel.putIfAbsent(id, new AbstractMap.SimpleEntry<>(stationName, t));
+  }
 
-	public void checkOut(int id, String stationName, int t) {
-		if (!this.travel.containsKey(id)) {
-			return;
-		}
-		Map.Entry<String, Integer> prev = this.travel.remove(id);
-		Map.Entry<String, String> station = new AbstractMap.SimpleEntry<>(prev.getKey(), stationName);
-		double time = t - prev.getValue();
-		if (this.averageTime.containsKey(station)) {
-			Map.Entry<Double, Integer> curr = this.averageTime.get(station);
-			this.averageTime.put(station, new AbstractMap.SimpleEntry<>(curr.getKey() + time, curr.getValue() + 1));
-		} else {
-			this.averageTime.put(station, new AbstractMap.SimpleEntry<>(time, 1));
-		}
-	}
+  public void checkOut(int id, String stationName, int t) {
+    if (!this.travel.containsKey(id)) {
+      return;
+    }
+    Map.Entry<String, Integer> prev = this.travel.remove(id);
+    Map.Entry<String, String> station = new AbstractMap.SimpleEntry<>(prev.getKey(), stationName);
+    double time = t - prev.getValue();
+    if (this.averageTime.containsKey(station)) {
+      Map.Entry<Double, Integer> curr = this.averageTime.get(station);
+      this.averageTime.put(station, new AbstractMap.SimpleEntry<>(curr.getKey() + time, curr.getValue() + 1));
+    } else {
+      this.averageTime.put(station, new AbstractMap.SimpleEntry<>(time, 1));
+    }
+  }
 
-	public double getAverageTime(String startStation, String endStation) {
-		Map.Entry<Double, Integer> curr = this.averageTime.get(new AbstractMap.SimpleEntry<>(startStation, endStation));
-		return curr.getKey() / curr.getValue();
-	}
+  public double getAverageTime(String startStation, String endStation) {
+    Map.Entry<Double, Integer> curr = this.averageTime.get(new AbstractMap.SimpleEntry<>(startStation, endStation));
+    return curr.getKey() / curr.getValue();
+  }
 
 }
 
