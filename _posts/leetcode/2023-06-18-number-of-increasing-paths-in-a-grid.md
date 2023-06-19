@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Increasing Paths in a Grid"
-excerpt: "Leetcode MNumber of Increasing Paths in a Grid Java"
+excerpt: "Leetcode Number of Increasing Paths in a Grid Java"
 last_modified_at: 2023-06-18T09:40:00
 header:
   image: /assets/images/leetcode/number-of-increasing-paths-in-a-grid.png
