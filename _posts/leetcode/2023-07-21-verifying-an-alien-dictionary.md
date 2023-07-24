@@ -23,30 +23,30 @@ use_math: true
 ```java
 class Solution {
 
-	private int[] point = new int[26];
+  private int[] point = new int[26];
 
-	public boolean isAlienSorted(String[] words, String order) {
-		for (int i = 0; i < order.length(); i++) {
-			this.point[order.charAt(i) - 'a'] = i;
-		}
-		for (int i = 1; i < words.length; i++) {
-			if (this.compare(words[i - 1], words[i])) {
-				return false;
-			}
-		}
-		return true;
-	}
+  public boolean isAlienSorted(String[] words, String order) {
+    for (int i = 0; i < order.length(); i++) {
+      this.point[order.charAt(i) - 'a'] = i;
+    }
+    for (int i = 1; i < words.length; i++) {
+      if (this.compare(words[i - 1], words[i])) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-	private boolean compare(String s1, String s2) {
-		int s1Lenth = s1.length();
-		int s2Lenth = s2.length();
-		for (int i = 0; i < s1Lenth && i < s2Lenth; i++) {
-			if (s1.charAt(i) != s2.charAt(i)) {
-				return this.point[s1.charAt(i) - 'a'] > this.point[s2.charAt(i) - 'a'];
-			}
-		}
-		return s1Lenth > s2Lenth;
-	}
+  private boolean compare(String s1, String s2) {
+    int s1Lenth = s1.length();
+    int s2Lenth = s2.length();
+    for (int i = 0; i < s1Lenth && i < s2Lenth; i++) {
+      if (s1.charAt(i) != s2.charAt(i)) {
+        return this.point[s1.charAt(i) - 'a'] > this.point[s2.charAt(i) - 'a'];
+      }
+    }
+    return s1Lenth > s2Lenth;
+  }
 
 }
 ```
