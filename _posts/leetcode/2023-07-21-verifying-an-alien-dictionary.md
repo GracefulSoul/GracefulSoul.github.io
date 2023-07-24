@@ -70,6 +70,5 @@ class Solution {
 
 5. 반복이 완료되면 주어진 조건을 만족하므로 true를 주어진 문제의 결과로 반환한다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/VerifyingAnAlienDictionary.java){:target="_blank"}에서 확인 가능합니다.
