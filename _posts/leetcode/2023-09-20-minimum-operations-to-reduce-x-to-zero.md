@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Minimum Operations to Reduce X to Zero"
 excerpt: "Leetcode Minimum Operations to Reduce X to Zero Java"
-last_modified_at: 2023-09-19T22:40:00
+last_modified_at: 2023-09-20T22:40:00
 header:
   image: /assets/images/leetcode/minimum-operations-to-reduce-x-to-zero.png
 categories:
@@ -63,7 +63,6 @@ class Solution {
 - curr이 $sum - x$와 동일한 경우, max에 max와 $right - left + 1$인 잔여 값의 갯수 중 큰 값을 저장한다.
 
 4. 반복이 완료되면 max가 -1인지 검증하여 -1이면 -1을, 아니면 nums의 길이에서 max를 뺀 최소 횟수를 주어진 문제의 결과로 반환한다.
-
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/MinimumOperationsToReduceXToZero.java){:target="_blank"}에서 확인 가능합니다.
