@@ -57,6 +57,5 @@ class Solution {
 
 4. 반복이 완료되면 경우의 수가 저장된 dp[steps][0]의 값을 주어진 문제의 결과로 반환한다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/NumberOfWaysToStayInTheSamePlaceAfterSomeSteps.java){:target="_blank"}에서 확인 가능합니다.
