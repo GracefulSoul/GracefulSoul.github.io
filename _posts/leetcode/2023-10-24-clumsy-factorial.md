@@ -23,18 +23,18 @@ use_math: true
 ```java
 class Solution {
 
-	public int clumsy(int n) {
-		switch (n) {
-			case 1: case 2: return n;
-			case 3: return 6;
-			case 4: return 7;
-		}
-		switch (n % 4) {
-			case 1: case 2: return n + 2;
-			case 3: return n - 1;
-			default: return n + 1;
-		}
-	}
+  public int clumsy(int n) {
+    switch (n) {
+      case 1: case 2: return n;
+      case 3: return 6;
+      case 4: return 7;
+    }
+    switch (n % 4) {
+      case 1: case 2: return n + 2;
+      case 3: return n - 1;
+      default: return n + 1;
+    }
+  }
 
 }
 ```
