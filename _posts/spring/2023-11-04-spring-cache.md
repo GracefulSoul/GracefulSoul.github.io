@@ -108,4 +108,4 @@ public boolean delete(Long id) {
 # Reference
 [^Cache]: [Caching Data with Spring](https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/integration.html#cache){:target="_blank"}
 
-※ Sample Code는 [여기](https://github.com/GracefulSoul/SpringCache){:target="_blank"}에서 확인 가능합니다.
+※ Sample Code는 [여기](https://github.com/GracefulSoul/spring-cache){:target="_blank"}에서 확인 가능합니다.
