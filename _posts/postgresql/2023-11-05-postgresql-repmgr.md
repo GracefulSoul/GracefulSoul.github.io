@@ -1,7 +1,7 @@
 ---
 title: "PostgreSQL REPMGR"
 excerpt: "PostgreSQL의 REPMGR에 대한 설명과 사용 방법"
-last_modified_at: 2023-11-05T15:30:00
+last_modified_at: 2023-11-05T14:30:00
 header:
   image: /assets/images/postgresql/postgresql-repmgr.png
 categories:
@@ -10,16 +10,37 @@ tags:
   - Programming
   - Database
   - PostgreSQL
-  - REPMGR
+  - Repmgr
 
 toc: true
 toc_ads: true
 toc_sticky: true
 ---
-# REPMGR[^REPMGR]
-- PostgreSQL의 Replication 구성 방법 중 내부 설정만 사용하여 설정하는 방안도 있지만, PostgreSQL기반의 EnterpriseDB("EDB")에서 오픈소스로 개발 및 유지보수하는 REPMGR의 신뢰도와 다수 기능을 제공하는 REPMGR을 추천한다.
+# Repmgr[^Repmgr]
+- PostgreSQL의 Replication 구성 방법 중 내부 설정만 사용하여 설정하는 방안도 있지만, PostgreSQL기반의 EnterpriseDB("EDB")에서 오픈소스로 개발 및 유지보수하는 Repmgr의 신뢰도와 다수 기능을 제공하는 Repmgr을 소개한다.
 
-# SSH Setting
+# Terms
+## Replication Cluster
+- Streaming Replication 연결된 PostgreSQL 서버의 네트워크이다.
+## Node
+- Replication Cluster내 단일 PostgreSQL 서버이다.
+## Upstream Node
+- 통상적으로 Primary 서버로, Standby 서버들과 연결하여 Streaming Replication을 전송하는 역할을 수행하는 노드이다.
+## Failover
+- Primary 서버가 장애가 발생하게 되면 적당한 Standby 서버가 Primary로 승격하는 작업이다.
+- Repmgr Daemon인 Repmgrd는 Downtime의 최소화를 위해 Automatic Failover를 지원한다.
+## Switchover
+- Primary 서버가 오프라인이 필요할 경우, 적당한 Standby 서버가 Primary 서버의 역할을 수행하도록 역할을 전환하는 작업이다.
+- Repmgr 커맨드를 통해 해당 기능을 제공한다.
+## Fencing
+- 장애 조치 상황에서 Standby 서버가 Primary로 승격하고 나서 기존 Pirmary 서버가 다시 온라인 상태가 되어 [Split-Brain](https://en.wikipedia.org/wiki/Split-brain_(computing)){:target="_blank"} 현상이 발생하지 않도록 하는 실패한 Primary 서버를 격리하는 작업이다.
+## Witness Server
+- 노드가 두 대 이상으로 구성하는 경우, 두 대 이상의 Standby 서버가 존재하여 Primary 승격을 판단시켜줄 서버이다.
+- Replication Cluster의 일부는 아니지만 Repmgr 메타데이터 스키마의 복사본을 포함하고 있다.
+- 이 또한 Fencing에서 이야기한 Split-Bran 현상을 방지하기 위한 역할을 수행한다.
+
+# Install
+## SSH Configuration
 - Replication 구성 관리를 위한 SSH 설정을 구성하려는 모든 서버에서 수행해야 한다.
   - 우선 PostgreSQL 관리 계정인 postgres 계정으로 들어가 "/.ssh" 폴더를 만든다.
   - Password 인증을 사용하지 않기 위해 SSH RSA Public & Private Key 파일을 생성한다.
@@ -42,8 +63,8 @@ ssh-copy-id -p 22 postgres@{IP}
 restorecon -Rv ~/.ssh
 ```
 
-# Edit /etc/sudoers
-- REPMGR에서 postgres 계정으로 관리자 명령어를 수행하기 위한 기본 권한 허용하기 위해서 "/etc/sudoers" 파일을 수정한다.
+## Edit /etc/sudoers
+- Repmgr에서 postgres 계정으로 관리자 명령어를 수행하기 위한 기본 권한 허용하기 위해서 "/etc/sudoers" 파일을 수정한다.
 ```shell
 postgres ALL=NOPASSWD: /usr/bin/systemctl stop postgresql-12, \
 /usr/bin/systemctl start postgresql-12, \
@@ -55,8 +76,7 @@ postgres ALL=NOPASSWD: /usr/bin/systemctl stop postgresql-12, \
 /usr/bin/systemctl reload repmgr12
 ```
 
-# PostgreSQL
-## Add repmgr user
+## Add repmgr user in PostgreSQL
 - PostgreSQL Database 내 Replication 관리 계정과 Replication할 데이터베이스를 추가해야한다.
 ```shell
 su postgres
@@ -69,7 +89,7 @@ createdb --owner=repmgr repmgr
 ALTER USER gracefulsoul replication;
 ```
 
-## PostgreSQL Setting
+## PostgreSQL Configuration
 - PostgreSQL 설정 파일인 "postgresql.conf"에 아래 항목을 설정한다.
 - "max_wal_senders"는 연결하려는 $Replication DB Count + 1$로 설정하면 된다.
 ```shell
@@ -87,21 +107,20 @@ shared_preload_libraries = 'repmgr'
 ```shell
 local   replication     repmgr                                  trust
 host    replication     repmgr          127.0.0.1/32            trust
-host    replication     repmgr          10.0.2.1/24             trust
+host    replication     repmgr          10.0.2.0/24             trust
 local   repmgr          repmgr                                  trust
 host    repmgr          repmgr          127.0.0.1/32            trust
-host    repmgr          repmgr          10.0.2.1/24             trust
+host    repmgr          repmgr          10.0.2.0/24             trust
 ```
 
-# REPMGR
-## REPMGR Install
-- REPMGR의 기본적인 설치 방법은 공식 문서인 [Installing repmgr from packages](https://www.repmgr.org/docs/5.3/installation-packages.html){:target="_blank"}를 참조하는 것이 좋다.
+## Repmgr Install
+- Repmgr의 기본적인 설치 방법은 공식 문서인 [Installing repmgr from packages](https://www.repmgr.org/docs/5.3/installation-packages.html){:target="_blank"}를 참조하는 것이 좋다.
 - RPM을 받아 설치하고자 한다면, EDB의 [Public Repository](https://dl.enterprisedb.com/default/release/site/){:target="_blank"}에서 버전에 맞춰 다운로드후 rpm 설치를 수행한다.
 ```shell
 rpm -Uvh repmgr12-5.3.0-1.el7.x86_64.rpm
 ```
 
-## REPMGR Setting
+## Repmgr Configuration
 - RPM을 설치하였다면 "/etc/repmgr/{PostgreSQLVersion}" 경로에 "repmgr.conf" 설정 파일을 수정해야한다.
 
 ```shell
@@ -169,16 +188,16 @@ repmgrd_service_stop_command='sudo systemctl stop repmgr12'
   - "%n" : 신규 Primary로 승격한 노드 번호
   - "%e" : Clustering 구조 내 발생한 이벤트 유형
   - "%d" : Clustering 구조 내 발생한 이벤트 상세 내용
-  - "%e"가 "repmgrd_failover_promote"인 경우, 승격한 노드 번호와 죽은 노드 번호를 확인 가능하므로 "PostgreSQL Stop -> REPMGR Node Rejoin ->  PostgreSQL Start"를 스크립트로 만들면 클러스터링 구조의 빠른 복구가 가능하다.
+  - "%e"가 "repmgrd_failover_promote"인 경우, 승격한 노드 번호와 죽은 노드 번호를 확인 가능하므로 "PostgreSQL Stop -> REPMGR Node Rejoin ->  PostgreSQL Start"를 스크립트로 만들면 클러스터링 구조의 Recovery Point를 내에서 빠른 복구가 가능하다.
 - 저 외에도 다양한 설정들이 있으나, 글이 너무 길어질 수 있으므로 미사용 설정과 주석은 모두 삭제하였다.
 
-## REPMGR service enable
+## Repmgr service enable
 - 최종 설정된 REPMGR service를 등록하여 서버 재시작에도 자동 실행되도록 설정한다.
 ```shell
 systemctl enable repgmr12
 ```
 
-# REPMGR Clustering
+# Repmgr Clustering
 ## primary DB Register
 - 기존 사용하던 Database를 Primary로 등록한다.
 ```shell
@@ -226,4 +245,4 @@ systemctl stop postgresql-12
 - 데이터베이스는 서비스의 가장 중요한 부분으로, 장애가 발생하여 복구가 불가능한 최악의 상황에도 대처 가능하도록 백업 도구를 적극적으로 활용하는 것을 추천한다.
 
 # Reference
-[^REPMGR]: [repmgr 5.3.3 Documentation](https://www.repmgr.org/docs/5.3/index.html){:target="_blank"}
+[^Repmgr]: [repmgr Home](https://www.repmgr.org/){:target="_blank"}
