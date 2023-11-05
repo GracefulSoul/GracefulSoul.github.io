@@ -176,6 +176,8 @@ host    all     streaming_barman        10.0.2.0/24        trust
 ## Repmgr Configuration
 - Repmgr 설정 내 "/etc/repmgr/{POSTGRESQL_VERSION}/repmgr.conf" 파일에 Barman 서버 설정을 수행한다.
 ```shell
+restore_command='/usr/bin/barman-wal-restore -U postgres 10.0.2.20 primary %f %p'
+
 barman_host=barmanserver
 barman_server=10.0.2.1
 restore_command=/usr/bin/barman-wal-restore barmanserver 10.0.2.1 %f %p
