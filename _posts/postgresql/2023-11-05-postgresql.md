@@ -1,7 +1,7 @@
 ---
 title: "PostgreSQL"
 excerpt: "PostgreSQL에 대한 설명"
-last_modified_at: 2023-11-05T15:30:00
+last_modified_at: 2023-11-05T10:30:00
 header:
   image: /assets/images/postgresql/postgresql.png
 categories:
@@ -19,7 +19,9 @@ toc_sticky: true
 - PostgreSQL은 대중적으로 MySQL과 동시에 많이 사용하는 확장 가능 및 표준 준수를 강조하는 Open Source ORDMBS로, 다양한 기능들을 제공하며 여러 나라의 개발자들의 자발적인 노력으로 꾸준히 발전하고 있다.
 - 캘리포니아 대학교 버클리 캠퍼스의 POSTGRES 프로젝트로 시작한 PostgreSQL은 1986년부터 35년이 넘는 시간동안 꾸준히 발전해왔으며, 현재도 3개월 단위의 릴리즈가 2024년 8월까지 확정되어있다.
 - 잡설로, PostgreSQL의 로고인 'Slonik'이라는 이름의 코끼리는 아가사 크리스티의 소설 '코끼리는 기억한다'에서 착안해 제안했다는 이야기도 있다.
-![elephant](../../assets/images/postgresql/elephant.png)
+<p align="center">
+  <img src="../../assets/images/postgresql/elephant.png" style="width:300px;" alt="process"/>
+</p>
 
 # Why use it?
 - 오픈 소스이기 때문에 개발 및 운영에 대한 <b>비용 절감</b>을 추구할 수 있으며, 다양한 시스템들간 <b>유연한 연동</b>이 가능하다.
