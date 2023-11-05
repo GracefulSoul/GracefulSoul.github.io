@@ -23,27 +23,27 @@ use_math: true
 ```java
 class NumArray {
 
-	private int[] nums;
-	
-	public NumArray(int[] nums) {
-		int length = nums.length;
-		this.nums = new int[length];
-		for (int idx = 0; idx < length; idx++) {
-			if (idx == 0) {
-				this.nums[idx] = nums[idx];
-			} else {
-				this.nums[idx] = this.nums[idx - 1] + nums[idx];
-			}
-		}
-	}
+  private int[] nums;
+  
+  public NumArray(int[] nums) {
+    int length = nums.length;
+    this.nums = new int[length];
+    for (int idx = 0; idx < length; idx++) {
+      if (idx == 0) {
+        this.nums[idx] = nums[idx];
+      } else {
+        this.nums[idx] = this.nums[idx - 1] + nums[idx];
+      }
+    }
+  }
 
-	public int sumRange(int left, int right) {
-		if (left == 0) {
-			return nums[right];
-		} else {
-			return nums[right] - nums[left - 1];
-		}
-	}
+  public int sumRange(int left, int right) {
+    if (left == 0) {
+      return nums[right];
+    } else {
+      return nums[right] - nums[left - 1];
+    }
+  }
 
 }
 

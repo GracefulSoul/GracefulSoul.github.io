@@ -23,24 +23,24 @@ use_math: true
 ```java
 class KthLargest {
 
-	private Queue<Integer> queue;
-	private int k;
+  private Queue<Integer> queue;
+  private int k;
 
-	public KthLargest(int k, int[] nums) {
-		this.k = k;
-		this.queue = new PriorityQueue<Integer>(k);
-		for (int num : nums) {
-			this.add(num);
-		}
-	}
+  public KthLargest(int k, int[] nums) {
+    this.k = k;
+    this.queue = new PriorityQueue<Integer>(k);
+    for (int num : nums) {
+      this.add(num);
+    }
+  }
 
-	public int add(int val) {
-		this.queue.offer(val);
-		if (this.queue.size() > k) {
-			this.queue.poll();
-		}
-		return this.queue.peek();
-	}
+  public int add(int val) {
+    this.queue.offer(val);
+    if (this.queue.size() > k) {
+      this.queue.poll();
+    }
+    return this.queue.peek();
+  }
 
 }
 

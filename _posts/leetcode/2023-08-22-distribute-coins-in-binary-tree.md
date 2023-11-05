@@ -38,24 +38,24 @@ use_math: true
  */
 class Solution {
 
-	private int result;
+  private int result;
 
-	public int distributeCoins(TreeNode root) {
-		this.result = 0;
-		this.dfs(root);
-		return this.result;
-	}
+  public int distributeCoins(TreeNode root) {
+    this.result = 0;
+    this.dfs(root);
+    return this.result;
+  }
 
-	private int dfs(TreeNode root) {
-		if (root == null) {
-			return 0;
-		} else {
-			int left = this.dfs(root.left);
-			int right = this.dfs(root.right);
-			this.result += Math.abs(left) + Math.abs(right);
-			return root.val + left + right - 1;
-		}
-	}
+  private int dfs(TreeNode root) {
+    if (root == null) {
+      return 0;
+    } else {
+      int left = this.dfs(root.left);
+      int right = this.dfs(root.right);
+      this.result += Math.abs(left) + Math.abs(right);
+      return root.val + left + right - 1;
+    }
+  }
 
 }
 ```

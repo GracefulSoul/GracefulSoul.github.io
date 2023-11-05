@@ -38,28 +38,28 @@ use_math: true
  */
 class Solution {
 
-	public TreeNode subtreeWithAllDeepest(TreeNode root) {
-		if (root == null) {
-			return null;
-		}
-		int left = this.getDepth(root.left);
-		int right = this.getDepth(root.right);
-		if (left > right) {
-			return this.subtreeWithAllDeepest(root.left);
-		} else if (left < right) {
-			return this.subtreeWithAllDeepest(root.right);
-		} else {
-			return root;
-		}
-	}
+  public TreeNode subtreeWithAllDeepest(TreeNode root) {
+    if (root == null) {
+      return null;
+    }
+    int left = this.getDepth(root.left);
+    int right = this.getDepth(root.right);
+    if (left > right) {
+      return this.subtreeWithAllDeepest(root.left);
+    } else if (left < right) {
+      return this.subtreeWithAllDeepest(root.right);
+    } else {
+      return root;
+    }
+  }
 
-	private int getDepth(TreeNode root) {
-		if (root == null) {
-			return 0;
-		} else {
-			return Math.max(this.getDepth(root.left), this.getDepth(root.right)) + 1;
-		}
-	}
+  private int getDepth(TreeNode root) {
+    if (root == null) {
+      return 0;
+    } else {
+      return Math.max(this.getDepth(root.left), this.getDepth(root.right)) + 1;
+    }
+  }
 
 }
 ```

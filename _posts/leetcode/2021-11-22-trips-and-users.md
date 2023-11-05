@@ -23,14 +23,14 @@ use_math: true
 ```sql
 # Write your MySQL query statement below
 SELECT request_at AS 'Day',
-	ROUND(COUNT(IF(status != 'completed', TRUE, NULL)) / COUNT(*), 2) AS 'Cancellation Rate'
+  ROUND(COUNT(IF(status != 'completed', TRUE, NULL)) / COUNT(*), 2) AS 'Cancellation Rate'
 FROM Trips
 WHERE request_at BETWEEN '2013-10-01' AND '2013-10-03'
 AND client_id NOT IN (
-	SELECT users_Id FROM Users WHERE banned = 'Yes'
+  SELECT users_Id FROM Users WHERE banned = 'Yes'
 )
 AND driver_id NOT IN (
-	SELECT users_Id FROM Users WHERE banned = 'Yes'
+  SELECT users_Id FROM Users WHERE banned = 'Yes'
 )
 GROUP BY request_at;
 ```

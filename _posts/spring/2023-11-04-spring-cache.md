@@ -44,12 +44,12 @@ toc_sticky: true
 @Configuration
 public class CacheConfiguration {
 
-	@Bean
-	public CacheManager cacheManager() {
-		SimpleCacheManager cacheManager = new SimpleCacheManager();
-		cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("users")));
-		return cacheManager;
-	}
+  @Bean
+  public CacheManager cacheManager() {
+    SimpleCacheManager cacheManager = new SimpleCacheManager();
+    cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("users")));
+    return cacheManager;
+  }
 
 }
 ```

@@ -38,30 +38,30 @@ use_math: true
  */
 class Solution {
 
-	private String str;
+  private String str;
 
-	public String smallestFromLeaf(TreeNode root) {
-		this.str = null;
-		this.dfs(root, new StringBuilder());
-		return this.str;
-	}
+  public String smallestFromLeaf(TreeNode root) {
+    this.str = null;
+    this.dfs(root, new StringBuilder());
+    return this.str;
+  }
 
-	public void dfs(TreeNode root, StringBuilder sb) {
-		if (root != null) {
-			char c = (char) (root.val + 97);
-			sb.append(c);
-			if (root.left == null && root.right == null) {
-				String s = sb.reverse().toString();
-				if (this.str == null || this.str.compareTo(s) > 0) {
-					this.str = s;
-				}
-				sb.reverse();
-			}
-			this.dfs(root.left, sb);
-			this.dfs(root.right, sb);
-			sb.deleteCharAt(sb.length() - 1);
-		}
-	}
+  public void dfs(TreeNode root, StringBuilder sb) {
+    if (root != null) {
+      char c = (char) (root.val + 97);
+      sb.append(c);
+      if (root.left == null && root.right == null) {
+        String s = sb.reverse().toString();
+        if (this.str == null || this.str.compareTo(s) > 0) {
+          this.str = s;
+        }
+        sb.reverse();
+      }
+      this.dfs(root.left, sb);
+      this.dfs(root.right, sb);
+      sb.deleteCharAt(sb.length() - 1);
+    }
+  }
 
 }
 ```

@@ -38,17 +38,17 @@ use_math: true
  */
 class Solution {
 
-	public boolean isUnivalTree(TreeNode root) {
-		return this.isUnivalTree(root.left, root.val) && this.isUnivalTree(root.right, root.val);
-	}
+  public boolean isUnivalTree(TreeNode root) {
+    return this.isUnivalTree(root.left, root.val) && this.isUnivalTree(root.right, root.val);
+  }
 
-	private boolean isUnivalTree(TreeNode root, int value) {
-		if (root != null) {
-			return root.val == value && this.isUnivalTree(root.left, value) && this.isUnivalTree(root.right, value);
-		} else {
-			return true;
-		}
-	}
+  private boolean isUnivalTree(TreeNode root, int value) {
+    if (root != null) {
+      return root.val == value && this.isUnivalTree(root.left, value) && this.isUnivalTree(root.right, value);
+    } else {
+      return true;
+    }
+  }
 
 }
 ```

@@ -23,24 +23,24 @@ use_math: true
 ```java
 class Solution {
 
-	public int[] dailyTemperatures(int[] temperatures) {
-		int length = temperatures.length;
-		int lastTemperature = 0;
-		int[] result = new int[length];
-		for (int idx = length - 1; idx >= 0; idx--) {
-			int currentTemperature = temperatures[idx];
-			if (currentTemperature >= lastTemperature) {
-				lastTemperature = currentTemperature;
-				continue;
-			}
-			int days = 1;
-			while (temperatures[idx + days] <= currentTemperature) {
-				days += result[idx + days];
-			}
-			result[idx] = days;
-		}
-		return result;
-	}
+  public int[] dailyTemperatures(int[] temperatures) {
+    int length = temperatures.length;
+    int lastTemperature = 0;
+    int[] result = new int[length];
+    for (int idx = length - 1; idx >= 0; idx--) {
+      int currentTemperature = temperatures[idx];
+      if (currentTemperature >= lastTemperature) {
+        lastTemperature = currentTemperature;
+        continue;
+      }
+      int days = 1;
+      while (temperatures[idx + days] <= currentTemperature) {
+        days += result[idx + days];
+      }
+      result[idx] = days;
+    }
+    return result;
+  }
 
 }
 ```

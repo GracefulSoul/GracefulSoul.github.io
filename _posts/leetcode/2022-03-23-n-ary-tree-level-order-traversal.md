@@ -41,23 +41,23 @@ class Node {
 */
 
 class Solution {
-	public List<List<Integer>> levelOrder(Node root) {
-		List<List<Integer>> list = new ArrayList<>();
-		if (root != null) {
-			this.recursive(root, list, 0);
-		}
-		return list;
-	}
+  public List<List<Integer>> levelOrder(Node root) {
+    List<List<Integer>> list = new ArrayList<>();
+    if (root != null) {
+      this.recursive(root, list, 0);
+    }
+    return list;
+  }
 
-	private void recursive(Node root, List<List<Integer>> list, int level) {
-		if (list.size() <= level) {
-			list.add(new ArrayList<>());
-		}
-		list.get(level).add(root.val);
-		for (Node node : root.children) {
-			this.recursive(node, list, level + 1);
-		}
-	}
+  private void recursive(Node root, List<List<Integer>> list, int level) {
+    if (list.size() <= level) {
+      list.add(new ArrayList<>());
+    }
+    list.get(level).add(root.val);
+    for (Node node : root.children) {
+      this.recursive(node, list, level + 1);
+    }
+  }
 }
 ```
 

@@ -23,34 +23,34 @@ use_math: true
 ```java
 class MedianFinder {
 
-	private Queue<Integer> queue;
-	private Queue<Integer> reverse;
-	private boolean isEven;
+  private Queue<Integer> queue;
+  private Queue<Integer> reverse;
+  private boolean isEven;
 
-	public MedianFinder() {
-		this.queue = new PriorityQueue<>();
-		this.reverse = new PriorityQueue<>((a, b) -> b - a);
-		this.isEven = true;
-	}
+  public MedianFinder() {
+    this.queue = new PriorityQueue<>();
+    this.reverse = new PriorityQueue<>((a, b) -> b - a);
+    this.isEven = true;
+  }
 
-	public void addNum(int num) {
-		if (this.isEven) {
-			this.queue.add(num);
-			this.reverse.add(this.queue.poll());
-		} else {
-			this.reverse.add(num);
-			this.queue.add(this.reverse.poll());
-		}
-		this.isEven = !this.isEven;
-	}
+  public void addNum(int num) {
+    if (this.isEven) {
+      this.queue.add(num);
+      this.reverse.add(this.queue.poll());
+    } else {
+      this.reverse.add(num);
+      this.queue.add(this.reverse.poll());
+    }
+    this.isEven = !this.isEven;
+  }
 
-	public double findMedian() {
-		if (this.isEven) {
-			return (this.queue.peek() + this.reverse.peek()) / 2.0;
-		} else {
-			return this.reverse.peek();
-		}
-	}
+  public double findMedian() {
+    if (this.isEven) {
+      return (this.queue.peek() + this.reverse.peek()) / 2.0;
+    } else {
+      return this.reverse.peek();
+    }
+  }
 
 }
 

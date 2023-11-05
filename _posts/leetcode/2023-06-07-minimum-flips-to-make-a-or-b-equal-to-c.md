@@ -29,7 +29,7 @@ class Solution {
       if ((c & 1) == 0) {
         result += (a & 1) + (b & 1);
       } else if ((a & 1) == 0 && (b & 1) == 0) {
-				result++;
+        result++;
       }
       a >>= 1;
       b >>= 1;

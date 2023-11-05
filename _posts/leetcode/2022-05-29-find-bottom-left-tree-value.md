@@ -38,23 +38,23 @@ use_math: true
  */
 class Solution {
 
-	public int findBottomLeftValue(TreeNode root) {
-		return this.dfs(root, 1, new int[] { 0, 0 });
-	}
+  public int findBottomLeftValue(TreeNode root) {
+    return this.dfs(root, 1, new int[] { 0, 0 });
+  }
 
-	private int dfs(TreeNode root, int depth, int[] result) {
-		if (result[1] < depth) {
-			result[0] = root.val;
-			result[1] = depth;
-		}
-		if (root.left != null) {
-			this.dfs(root.left, depth + 1, result);
-		}
-		if (root.right != null) {
-			this.dfs(root.right, depth + 1, result);
-		}
-		return result[0];
-	}
+  private int dfs(TreeNode root, int depth, int[] result) {
+    if (result[1] < depth) {
+      result[0] = root.val;
+      result[1] = depth;
+    }
+    if (root.left != null) {
+      this.dfs(root.left, depth + 1, result);
+    }
+    if (root.right != null) {
+      this.dfs(root.right, depth + 1, result);
+    }
+    return result[0];
+  }
 
 }
 ```
