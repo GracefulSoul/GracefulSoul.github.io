@@ -96,6 +96,7 @@ retention_policy = RECOVERY WINDOW OF 1 WEEKS
 - retention_policy는 백업 보관 기간을 설정하는 옵션으로, Repmgr 구성에서 오류가 발생하여 복구하기 위한 Recovery Point를 확장하기 위한 기간을 고려하여 설정하면 된다.
 
 - 백업을 위한 Primary 서버의 설정 파일 "/etc/barman/conf.d/repmgr-primary-server.conf"을 만들어준다.
+
 ```shell
 [primary]
 description =  "Repmgr Primary Server"
