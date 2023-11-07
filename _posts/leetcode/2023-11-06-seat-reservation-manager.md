@@ -65,7 +65,7 @@ class SeatManager {
 ```
 
 # 결과
-[Link](https://leetcode.com/problems/seat-reservation-manager/submissions/SeatReservationManager/){:target="_blank"}
+[Link](https://leetcode.com/problems/seat-reservation-manager/submissions/1092716384/){:target="_blank"}
 
 # 설명
 1. [1, n] 범위의 자석의 예약 관리하는 SeatManager 클래스를 완성하는 문제이다.
