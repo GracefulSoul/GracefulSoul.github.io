@@ -23,19 +23,19 @@ use_math: true
 ```java
 class Solution {
 
-	public int eliminateMaximum(int[] dist, int[] speed) {
-		int length = dist.length;
-		for (int i = 0; i < length; i++) {
-			dist[i] = (dist[i] - 1) / speed[i];
-		}
-		Arrays.sort(dist);
-		for (int i = 0; i < length; i++) {
-			if (dist[i] < i) {
-				return i;
-			}
-		}
-		return length;
-	}
+  public int eliminateMaximum(int[] dist, int[] speed) {
+    int length = dist.length;
+    for (int i = 0; i < length; i++) {
+      dist[i] = (dist[i] - 1) / speed[i];
+    }
+    Arrays.sort(dist);
+    for (int i = 0; i < length; i++) {
+      if (dist[i] < i) {
+        return i;
+      }
+    }
+    return length;
+  }
 
 }
 ```
