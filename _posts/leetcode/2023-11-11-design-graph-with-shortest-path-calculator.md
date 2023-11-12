@@ -23,45 +23,45 @@ use_math: true
 ```java
 class Graph {
 
-	private int n;
-	private int[][] costs;
+  private int n;
+  private int[][] costs;
 
-	public Graph(int n, int[][] edges) {
-		this.costs = new int[n][n];
-		this.n = n;
-		for (int[] a : this.costs) {
-			Arrays.fill(a, (int) 1e9);
-		}
-		for (int[] e : edges) {
-			this.costs[e[0]][e[1]] = e[2];
-		}
-		for (int i = 0; i < n; i++) {
-			this.costs[i][i] = 0;
-		}
-		for (int k = 0; k < n; k++) {
-			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < n; j++) {
-					this.costs[i][j] = Math.min(this.costs[i][j], this.costs[i][k] + this.costs[k][j]);
-				}
-			}
-		}
-	}
+  public Graph(int n, int[][] edges) {
+    this.costs = new int[n][n];
+    this.n = n;
+    for (int[] a : this.costs) {
+      Arrays.fill(a, (int) 1e9);
+    }
+    for (int[] e : edges) {
+      this.costs[e[0]][e[1]] = e[2];
+    }
+    for (int i = 0; i < n; i++) {
+      this.costs[i][i] = 0;
+    }
+    for (int k = 0; k < n; k++) {
+      for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+          this.costs[i][j] = Math.min(this.costs[i][j], this.costs[i][k] + this.costs[k][j]);
+        }
+      }
+    }
+  }
 
-	public void addEdge(int[] e) {
-		for (int i = 0; i < this.n; i++) {
-			for (int j = 0; j < this.n; j++) {
-				this.costs[i][j] = Math.min(this.costs[i][j], this.costs[i][e[0]] + this.costs[e[1]][j] + e[2]);
-			}
-		}
-	}
+  public void addEdge(int[] e) {
+    for (int i = 0; i < this.n; i++) {
+      for (int j = 0; j < this.n; j++) {
+        this.costs[i][j] = Math.min(this.costs[i][j], this.costs[i][e[0]] + this.costs[e[1]][j] + e[2]);
+      }
+    }
+  }
 
-	public int shortestPath(int node1, int node2) {
-		if (this.costs[node1][node2] >= (int) 1e9) {
-			return -1;
-		} else {
-			return this.costs[node1][node2];
-		}
-	}
+  public int shortestPath(int node1, int node2) {
+    if (this.costs[node1][node2] >= (int) 1e9) {
+      return -1;
+    } else {
+      return this.costs[node1][node2];
+    }
+  }
 
 }
 
