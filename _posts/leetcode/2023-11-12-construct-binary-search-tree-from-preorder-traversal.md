@@ -52,7 +52,6 @@ class Solution {
     return root;
   }
 
-
 }
 ```
 
