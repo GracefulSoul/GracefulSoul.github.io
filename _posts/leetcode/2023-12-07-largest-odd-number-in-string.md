@@ -37,7 +37,7 @@ class Solution {
 ```
 
 # 결과
-[Link](htthttps://leetcode.com/problems/largest-odd-number-in-string/submissions/1114259533/){:target="_blank"}
+[Link](https://leetcode.com/problems/largest-odd-number-in-string/submissions/1114259533/){:target="_blank"}
 
 # 설명
 1. num의 연속된 숫자들을 이용하여 가장 큰 홀수 숫자를 탐색하는 문제이다.
