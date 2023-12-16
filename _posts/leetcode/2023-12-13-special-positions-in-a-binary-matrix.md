@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Special Positions in a Binary Matrix"
-excerpt: "Leetcode MaxiSpecial Positions in a Binary Matrix Java"
+excerpt: "Leetcode Special Positions in a Binary Matrix Java"
 last_modified_at: 2023-12-13T22:50:00
 header:
   image: /assets/images/leetcode/special-positions-in-a-binary-matrix.png
