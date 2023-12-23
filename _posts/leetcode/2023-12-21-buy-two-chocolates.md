@@ -52,4 +52,4 @@ class Solution {
 3. leftover는 money에서 두 초콜릿의 가격을 뺀 잔돈으로, 주어진 문제의 결과로 0 이상이면 leftover를 아니면 money를 반환한다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/leftover .java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/BuyTwoChocolates.java){:target="_blank"}에서 확인 가능합니다.
