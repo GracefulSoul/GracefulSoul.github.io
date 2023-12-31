@@ -69,6 +69,5 @@ class Solution {
 
 4. 반복이 완료되면 동일한 문자열로 동일하게 구성할 수 있으므로, true를 주어진 문제의 결과로 반환한다.
 
-
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RedistributeCharactersToMakeAllStringsEqual.java){:target="_blank"}에서 확인 가능합니다.
