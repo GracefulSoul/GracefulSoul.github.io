@@ -22,6 +22,7 @@ use_math: true
 # 코드
 ```java
 class Solution {
+
   public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
     int length = startTime.length;
     Job[] jobs = new Job[length];
