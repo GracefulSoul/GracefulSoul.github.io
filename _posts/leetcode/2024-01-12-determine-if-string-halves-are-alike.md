@@ -23,16 +23,16 @@ use_math: true
 ```java
 class Solution {
 
-	public boolean halvesAreAlike(String s) {
-		String vowels = "aeiouAEIOU";
-		int a = 0;
-		int b = 0;
-		for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
-			a += vowels.indexOf(s.charAt(i)) > -1 ? 1 : 0;
-			b += vowels.indexOf(s.charAt(j)) > -1 ? 1 : 0;
-		}
-		return a == b;
-	}
+  public boolean halvesAreAlike(String s) {
+    String vowels = "aeiouAEIOU";
+    int a = 0;
+    int b = 0;
+    for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+      a += vowels.indexOf(s.charAt(i)) > -1 ? 1 : 0;
+      b += vowels.indexOf(s.charAt(j)) > -1 ? 1 : 0;
+    }
+    return a == b;
+  }
 
 }
 ```
