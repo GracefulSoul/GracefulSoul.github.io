@@ -22,6 +22,7 @@ use_math: true
 # 코드
 ```java
 class Solution {
+
   public int videoStitching(int[][] clips, int time) {
     int min = 0;
     int max = 0;
@@ -41,7 +42,6 @@ class Solution {
     }
     return result;
   }
-}
 
 }
 ```
