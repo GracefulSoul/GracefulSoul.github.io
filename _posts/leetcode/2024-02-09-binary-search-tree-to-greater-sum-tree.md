@@ -38,20 +38,20 @@ use_math: true
  */
 class Solution {
 
-	public TreeNode bstToGst(TreeNode root) {
-		this.bstToGst(root, new TreeNode(0));
-		return root;
-	}
+  public TreeNode bstToGst(TreeNode root) {
+    this.bstToGst(root, new TreeNode(0));
+    return root;
+  }
 
-	private void bstToGst(TreeNode node, TreeNode sum) {
-		if (node == null) {
-			return;
-		}
-		this.bstToGst(node.right, sum);
-		sum.val += node.val;
-		node.val = sum.val;
-		this.bstToGst(node.left, sum);
-	}
+  private void bstToGst(TreeNode node, TreeNode sum) {
+    if (node == null) {
+      return;
+    }
+    this.bstToGst(node.right, sum);
+    sum.val += node.val;
+    node.val = sum.val;
+    this.bstToGst(node.left, sum);
+  }
 
 }
 ```
