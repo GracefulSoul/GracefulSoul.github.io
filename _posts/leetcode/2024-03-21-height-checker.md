@@ -61,7 +61,7 @@ class Solution {
 - i와 height가 다른 경우 현재 위치에 맞지 않는 높이이므로, result를 증가시킨다.
 - 값을 차감한 count[i]의 값을 감소시킨다.
 
-4. 반복이 완료되면 result를 주어진 문제의 결과로 반환한다.
+4. 반복이 완료되면 정렬되지 않은 값의 갯수가 저장된 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/HeightChecker.java){:target="_blank"}에서 확인 가능합니다.
