@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/longest-duplicate-substring/){:target="_blank"}
+[Link](https://leetcode.com/problems/customers-who-bought-all-products/){:target="_blank"}
 
 # 코드
 ```sql
