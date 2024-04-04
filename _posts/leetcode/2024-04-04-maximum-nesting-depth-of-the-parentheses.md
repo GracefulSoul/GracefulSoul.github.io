@@ -40,7 +40,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/submissions/1222925951/){:target="_blank"}
+[Link](https://leetcode.com/problems/maximum-nesting-depth-of-the-parentheses/submissions/1222934960/){:target="_blank"}
 
 # 설명
 1. 아래의 규칙을 만족하는 유효한 괄호 문자열의 최대 깊이를 반환하는 문제이다.
