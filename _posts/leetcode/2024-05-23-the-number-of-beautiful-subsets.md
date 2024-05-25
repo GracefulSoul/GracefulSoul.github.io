@@ -56,7 +56,7 @@ class Solution {
   - counts[nums[j]]의 값을 증가시켜 부분 배열의 갯수를 증가시켜준다.
   - count에 i 자리에 $j + 1$을, count 자리에 $count + 1$을 넣어 재귀 호출한 결과를 넣어준다.
   - counts[nums[j]]의 값을 감소시켜, 위에서 계산한 경우에 대해서 원복해준다.
-- 반보깅 완료되면 계산된 부분 배열의 수인 count를 반환한다.
+- 반복이 완료되면 계산된 부분 배열의 수인 count를 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/TheNumberOfBeautifulSubsets.java){:target="_blank"}에서 확인 가능합니다.
