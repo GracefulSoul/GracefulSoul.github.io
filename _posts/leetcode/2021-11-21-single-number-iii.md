@@ -23,7 +23,7 @@ use_math: true
 ```java
 class Solution {
 
-  public int addDigits(int num) {
+  public int[] singleNumber(int[] nums) {
     int bit = 0;
     for (int num : nums) {
       bit ^= num;
