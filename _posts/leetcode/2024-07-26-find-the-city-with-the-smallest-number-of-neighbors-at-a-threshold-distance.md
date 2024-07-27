@@ -88,4 +88,4 @@ class Solution {
 - 여느 문제와 같이 도시의 숫자가 작은 값부터 이동 가능한 도시의 갯수가 동일한 경우를 포함하는 이유는, 문제의 조건인 도시의 숫자가 큰 경우만 남기기 위함이다.
 
 # 소스
-Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/BinaryTreeColoringGame.java){:target="_blank"}에서 확인 가능합니다.
+Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/FindTheCityWithTheSmallestNumberOfNeighborsAtAThresholdDistance.java){:target="_blank"}에서 확인 가능합니다.
