@@ -1,6 +1,6 @@
 ---
-title: "Leetcode Java Minimum Deletions to Make String Balanced"
-excerpt: "Leetcode Minimum Deletions to Make String Balanced Java"
+title: "Leetcode Java Snapshot Array"
+excerpt: "Leetcode Snapshot Array Java"
 last_modified_at: 2024-07-31T17:40:00
 header:
   image: /assets/images/leetcode/snapshot-array.png
