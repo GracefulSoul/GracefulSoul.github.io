@@ -62,8 +62,12 @@ class Solution {
 3. 1부터 right 미만까지 i를 증가시키며 아래를 수행한다.
 - pair에 queue에서 값을 꺼내 넣어준다.
 - i가 left 이상인 경우, result에 pair의 값을 더해 mod로 나눈 나머지 값을 넣어준다.
-- pair[1]의 값이 $n - 1$인 범위 내인 경우, pair[1]인 위치 값을 증가시켜주고 pair[0]인 값의 위치에 pair[0]과 nums[pair[1]]의 값을 더해준 후 mod로 나눈 값을 넣어준다.
-- queue에 pair[0]pair[1]
+- pair[1]의 값이 $n - 1$인 범위 내인 경우, 아래를 수행한다.
+  - pair[1]인 위치 값을 증가시켜준다.
+  - pair[0]인 값의 위치에 pair[0]과 nums[pair[1]]의 값을 더해준 후 mod로 나눈 값을 넣어준다.
+  - queue에 수정된 pair를 다시 넣어준다.
+
+4. 반복이 완료되면 결과가 저장된 result를 주어진 문제의 결과로 반환한다.
 
 # 소스
 Sample Code는 [여기](https://github.com/GracefulSoul/leetcode/blob/master/src/main/java/gracefulsoul/problems/RangeSumofSortedSubarraySums.java){:target="_blank"}에서 확인 가능합니다.
