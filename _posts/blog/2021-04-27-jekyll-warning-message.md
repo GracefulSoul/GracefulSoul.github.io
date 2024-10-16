@@ -1,6 +1,6 @@
 ---
 title: "Jekyll Warning: Using the last argument as keyword parameters is deprecated"
-excerpt: "Jekyll Build 시, Warning 메시지 제거를 위한 처리와 방법"
+excerpt: "Jekyll Build 시, 'Warning: Using the last argument as keyword parameters is deprecated' 메시지 제거를 위한 처리와 방법"
 last_modified_at: 2021-04-27T23:50:00
 header:
   image: /assets/images/blog/jekyll-warning-message/jekyll-warning-message.png
