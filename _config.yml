@@ -261,8 +261,8 @@ compress_html:
 defaults:
   # _posts -> _site
   - scope:
-      path: ""
-      type: site
+      path: "_site"
+      type: posts
     values:
       layout: single
       author_profile: true
