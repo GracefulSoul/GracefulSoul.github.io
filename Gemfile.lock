@@ -81,6 +81,7 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
+    mini_portile2 (2.8.7)
     minimal-mistakes-jekyll (4.22.0)
       jekyll (>= 3.7, < 5.0)
       jekyll-feed (~> 0.1)
@@ -89,6 +90,9 @@ GEM
       jekyll-paginate (~> 1.1)
       jekyll-sitemap (~> 1.3)
     multipart-post (2.1.1)
+    nokogiri (1.13.8)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.13.8-x64-mingw32)
       racc (~> 1.4)
     nokogiri (1.13.8-x86_64-linux)
@@ -101,7 +105,7 @@ GEM
     progressbar (1.11.0)
     public_suffix (4.0.6)
     racc (1.6.0)
-    rake (12.3.3)
+    rake (13.2.1)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -122,11 +126,12 @@ GEM
     webrick (1.7.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
   x86_64-linux
 
 DEPENDENCIES
-  faraday (< 1.0)
+  faraday
   jekyll!
   jekyll-algolia
   jekyll-feed (~> 0.11)
@@ -135,7 +140,7 @@ DEPENDENCIES
   jekyll-seo-tag
   jekyll-sitemap
   minimal-mistakes-jekyll
-  rake (~> 12.3.0)
+  rake
 
 BUNDLED WITH
    2.1.4

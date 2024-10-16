@@ -3,8 +3,8 @@ source "https://rubygems.org"
 gem "minimal-mistakes-jekyll"
 
 gem "jekyll", github: "jekyll/jekyll"
-gem "rake", "~> 12.3.0"
-gem "faraday", "< 1.0"
+gem "rake"
+gem "faraday"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.11"
