@@ -259,10 +259,10 @@ compress_html:
 
 # Defaults
 defaults:
-  # _posts
+  # _posts -> _site
   - scope:
       path: ""
-      type: posts
+      type: site
     values:
       layout: single
       author_profile: true
