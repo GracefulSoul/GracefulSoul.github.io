@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Customers Who Bought All Products"
-excerpt: "Leetcode Customers Who Bought All Products MySQL 풀이"
+excerpt: "Leetcode Medium - 'Customers Who Bought All Products MySQL 풀이"
 last_modified_at: 2024-03-15T10:00:00
 header:
   image: /assets/images/leetcode/customers-who-bought-all-products.png

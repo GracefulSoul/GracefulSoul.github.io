@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Swap Salary"
-excerpt: "Leetcode Swap Salary MySQL 풀이"
+excerpt: "Leetcode - 'Swap Salary MySQL 풀이"
 last_modified_at: 2022-08-18T19:00:00
 header:
   image: /assets/images/leetcode/swap-salary.png

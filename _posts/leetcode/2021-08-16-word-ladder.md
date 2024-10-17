@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Word Ladder"
-excerpt: "Leetcode Word Ladder Java 풀이"
+excerpt: "Leetcode - 'Word Ladder' 문제 Java 풀이"
 last_modified_at: 2021-08-16T14:40:00
 header:
   image: /assets/images/leetcode/word-ladder.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Construct the Rectangle"
-excerpt: "Leetcode Construct the Rectangle Java 풀이"
+excerpt: "Leetcode - 'Construct the Rectangle' 문제 Java 풀이"
 last_modified_at: 2022-05-13T09:00:00
 header:
   image: /assets/images/leetcode/construct-the-rectangle.png

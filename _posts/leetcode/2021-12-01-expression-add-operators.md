@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Expression Add Operators"
-excerpt: "Leetcode Expression Add Operators Java 풀이"
+excerpt: "Leetcode - 'Expression Add Operators' 문제 Java 풀이"
 last_modified_at: 2021-12-01T22:00:00
 header:
   image: /assets/images/leetcode/expression-add-operators.png

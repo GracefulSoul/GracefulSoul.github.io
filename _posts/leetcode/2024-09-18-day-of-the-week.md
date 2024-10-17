@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Day of the Week"
-excerpt: "Leetcode Day of the Week Java"
+excerpt: "Leetcode Easy - 'Day of the Week' 문제 Java 풀이"
 last_modified_at: 2024-09-18T10:30:00
 header:
   image: /assets/images/leetcode/day-of-the-week.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java First Missing Positive"
-excerpt: "Leetcode First Missing Positive Java 풀이"
+excerpt: "Leetcode - 'First Missing Positive' 문제 Java 풀이"
 last_modified_at: 2021-05-22T11:40:00
 header:
   image: /assets/images/leetcode/first-missing-positive.png

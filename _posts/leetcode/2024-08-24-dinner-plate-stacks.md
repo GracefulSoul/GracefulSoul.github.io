@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Dinner Plate Stacks"
-excerpt: "Leetcode Dinner Plate Stacks Java"
+excerpt: "Leetcode Hard - 'Dinner Plate Stacks' 문제 Java 풀이"
 last_modified_at: 2024-08-24T18:10:00
 header:
   image: /assets/images/leetcode/dinner-plate-stacks.png

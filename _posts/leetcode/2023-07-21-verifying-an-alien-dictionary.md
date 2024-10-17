@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Verifying an Alien Dictionary"
-excerpt: "Leetcode Verifying an Alien Dictionary Java"
+excerpt: "Leetcode Easy - 'Verifying an Alien Dictionary' 문제 Java 풀이"
 last_modified_at: 2023-07-21T19:30:00
 header:
   image: /assets/images/leetcode/verifying-an-alien-dictionary.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Friends Of Appropriate Ages"
-excerpt: "Leetcode Friends Of Appropriate Ages Java"
+excerpt: "Leetcode - 'Friends Of Appropriate Ages' 문제 Java 풀이"
 last_modified_at: 2023-02-01T20:20:00
 header:
   image: /assets/images/leetcode/friends-of-appropriate-ages.png

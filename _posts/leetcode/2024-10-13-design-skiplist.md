@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Skiplist"
-excerpt: "Leetcode Design Skiplist Java"
+excerpt: "Leetcode Hard - 'Design Skiplist' 문제 Java 풀이"
 last_modified_at: 2024-10-13T10:40:00
 header:
   image: /assets/images/leetcode/design-skiplist.png

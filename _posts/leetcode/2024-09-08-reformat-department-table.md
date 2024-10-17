@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Reformat Department Table"
-excerpt: "Leetcode Reformat Department Table PostgreSQL"
+excerpt: "Leetcode Easy - 'Reformat Department Table' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-09-08T10:50:00
 header:
   image: /assets/images/leetcode/reformat-department-table.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Escape The Ghosts"
-excerpt: "Leetcode Escape The Ghosts Java"
+excerpt: "Leetcode - 'Escape The Ghosts' 문제 Java 풀이"
 last_modified_at: 2022-12-31T11:20:00
 header:
   image: /assets/images/leetcode/escape-the-ghosts.png

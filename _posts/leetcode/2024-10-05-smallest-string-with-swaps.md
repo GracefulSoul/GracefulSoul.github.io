@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest String With Swaps"
-excerpt: "Leetcode Smallest String With Swaps Java"
+excerpt: "Leetcode Medium - 'Smallest String With Swaps' 문제 Java 풀이"
 last_modified_at: 2024-10-05T10:30:00
 header:
   image: /assets/images/leetcode/smallest-string-with-swaps.png

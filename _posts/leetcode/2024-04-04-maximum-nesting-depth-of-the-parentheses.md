@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Nesting Depth of the Parentheses"
-excerpt: "Leetcode Maximum Nesting Depth of the Parentheses Java"
+excerpt: "Leetcode Easy - 'Maximum Nesting Depth of the Parentheses' 문제 Java 풀이"
 last_modified_at: 2024-04-04T18:20:00
 header:
   image: /assets/images/leetcode/maximum-nesting-depth-of-the-parentheses.png

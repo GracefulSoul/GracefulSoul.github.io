@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Step-By-Step Directions From a Binary Tree Node to Another"
-excerpt: "Leetcode Step-By-Step Directions From a Binary Tree Node to Another Java"
+excerpt: "Leetcode Medium - 'Step-By-Step Directions From a Binary Tree Node to Another' 문제 Java 풀이"
 last_modified_at: 2024-07-16T18:30:00
 header:
   image: /assets/images/leetcode/step-by-step-directions-from-a-binary-tree-node-to-another.png

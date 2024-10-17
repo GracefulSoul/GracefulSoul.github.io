@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Last Moment Before All Ants Fall Out of a Plank"
-excerpt: "Leetcode Last Moment Before All Ants Fall Out of a Plank Java"
+excerpt: "Leetcode Medium - 'Last Moment Before All Ants Fall Out of a Plank' 문제 Java 풀이"
 last_modified_at: 2023-11-04T17:00:00
 header:
   image: /assets/images/leetcode/last-moment-before-all-ants-fall-out-of-a-plank.png

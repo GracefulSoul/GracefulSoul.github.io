@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Trees With Factors"
-excerpt: "Leetcode Binary Trees With Factors Java"
+excerpt: "Leetcode Medium - 'Binary Trees With Factors' 문제 Java 풀이"
 last_modified_at: 2023-10-26T20:30:00
 header:
   image: /assets/images/leetcode/binary-trees-with-factors.png

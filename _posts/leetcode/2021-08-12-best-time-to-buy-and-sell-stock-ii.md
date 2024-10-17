@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Best Time to Buy and Sell Stock II"
-excerpt: "Leetcode Best Time to Buy and Sell Stock II Java 풀이"
+excerpt: "Leetcode - 'Best Time to Buy and Sell Stock II' 문제 Java 풀이"
 last_modified_at: 2021-08-12T12:00:00
 header:
   image: /assets/images/leetcode/best-time-to-buy-and-sell-stock-ii.png

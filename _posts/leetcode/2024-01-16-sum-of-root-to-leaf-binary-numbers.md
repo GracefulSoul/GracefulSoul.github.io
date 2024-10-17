@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Root To Leaf Binary Numbers"
-excerpt: "Leetcode Sum of Root To Leaf Binary Numbers Java"
+excerpt: "Leetcode Easy - 'Sum of Root To Leaf Binary Numbers' 문제 Java 풀이"
 last_modified_at: 2024-01-16T18:20:00
 header:
   image: /assets/images/leetcode/sum-of-root-to-leaf-binary-numbers.png

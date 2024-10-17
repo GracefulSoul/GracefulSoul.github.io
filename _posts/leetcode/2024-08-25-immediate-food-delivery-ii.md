@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Immediate Food Delivery II"
-excerpt: "Leetcode Immediate Food Delivery II PostgreSQL"
+excerpt: "Leetcode Medium - 'Immediate Food Delivery II' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-08-25T14:50:00
 header:
   image: /assets/images/leetcode/immediate-food-delivery-ii.png

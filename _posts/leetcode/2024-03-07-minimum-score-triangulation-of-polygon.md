@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Score Triangulation of Polygon"
-excerpt: "Leetcode Minimum Score Triangulation of Polygon Java"
+excerpt: "Leetcode Medium - 'Minimum Score Triangulation of Polygon' 문제 Java 풀이"
 last_modified_at: 2024-03-07T19:00:00
 header:
   image: /assets/images/leetcode/minimum-score-triangulation-of-polygon.png

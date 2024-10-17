@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Permutation Sequence"
-excerpt: "Leetcode Permutation Sequence Java 풀이"
+excerpt: "Leetcode - 'Permutation Sequence' 문제 Java 풀이"
 last_modified_at: 2021-06-10T12:20:00
 header:
   image: /assets/images/leetcode/permutation-sequence.png

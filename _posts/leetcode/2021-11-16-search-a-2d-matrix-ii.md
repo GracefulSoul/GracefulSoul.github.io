@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Search a 2D Matrix II"
-excerpt: "Leetcode Search a 2D Matrix II Java 풀이"
+excerpt: "Leetcode - 'Search a 2D Matrix II' 문제 Java 풀이"
 last_modified_at: 2021-11-16T23:00:00
 header:
   image: /assets/images/leetcode/search-a-2d-matrix-ii.png

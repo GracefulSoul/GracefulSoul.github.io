@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Random Pick with Weight"
-excerpt: "Leetcode Random Pick with Weight Java"
+excerpt: "Leetcode - 'Random Pick with Weight' 문제 Java 풀이"
 last_modified_at: 2022-06-13T19:30:00
 header:
   image: /assets/images/leetcode/random-pick-with-weight.png

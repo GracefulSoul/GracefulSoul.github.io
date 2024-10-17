@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Validate IP Address"
-excerpt: "Leetcode Validate IP Address Java 풀이"
+excerpt: "Leetcode - 'Validate IP Address' 문제 Java 풀이"
 last_modified_at: 2022-04-26T12:00:00
 header:
   image: /assets/images/leetcode/validate-ip-address.png

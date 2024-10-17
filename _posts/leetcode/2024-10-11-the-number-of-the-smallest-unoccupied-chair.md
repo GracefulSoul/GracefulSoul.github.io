@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java The Number of the Smallest Unoccupied Chair"
-excerpt: "Leetcode The Number of the Smallest Unoccupied Chair Java"
+excerpt: "Leetcode Medium - 'The Number of the Smallest Unoccupied Chair' 문제 Java 풀이"
 last_modified_at: 2024-10-11T22:00:00
 header:
   image: /assets/images/leetcode/the-number-of-the-smallest-unoccupied-chair.png

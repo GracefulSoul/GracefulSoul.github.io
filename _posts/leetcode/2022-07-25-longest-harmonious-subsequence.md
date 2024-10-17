@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Harmonious Subsequence"
-excerpt: "Leetcode Longest Harmonious Subsequence Java"
+excerpt: "Leetcode - 'Longest Harmonious Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-07-25T19:00:00
 header:
   image: /assets/images/leetcode/longest-harmonious-subsequence.png

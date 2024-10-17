@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reconstruct Itinerary"
-excerpt: "Leetcode Reconstruct Itinerary Java 풀이"
+excerpt: "Leetcode - 'Reconstruct Itinerary' 문제 Java 풀이"
 last_modified_at: 2022-01-09T19:00:00
 header:
   image: /assets/images/leetcode/reconstruct-itinerary.png

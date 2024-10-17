@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Bag of Tokens"
-excerpt: "Leetcode Bag of Tokens Java"
+excerpt: "Leetcode Medium - 'Bag of Tokens' 문제 Java 풀이"
 last_modified_at: 2023-07-17T19:10:00
 header:
   image: /assets/images/leetcode/bag-of-tokens.png

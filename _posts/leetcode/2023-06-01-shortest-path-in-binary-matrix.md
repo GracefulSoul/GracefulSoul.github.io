@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Path in Binary Matrix"
-excerpt: "Leetcode Shortest Path in Binary Matrix Java"
+excerpt: "Leetcode Medium - 'Shortest Path in Binary Matrix' 문제 Java 풀이"
 last_modified_at: 2023-06-01T19:40:00
 header:
   image: /assets/images/leetcode/shortest-path-in-binary-matrix.png

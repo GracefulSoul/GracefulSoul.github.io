@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Is Subsequence"
-excerpt: "Leetcode Is Subsequence Java 풀이"
+excerpt: "Leetcode - 'Is Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-02-20T15:00:00
 header:
   image: /assets/images/leetcode/is-subsequence.png

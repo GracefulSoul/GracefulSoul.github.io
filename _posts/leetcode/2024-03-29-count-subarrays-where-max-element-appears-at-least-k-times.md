@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Length of Longest Subarray With at Most K Frequency"
-excerpt: "Leetcode Length of Longest Subarray With at Most K Frequency Java"
+excerpt: "Leetcode Medium - 'Length of Longest Subarray With at Most K Frequency' 문제 Java 풀이"
 last_modified_at: 2024-03-29T18:50:00
 header:
   image: /assets/images/leetcode/count-subarrays-where-max-element-appears-at-least-k-times.png

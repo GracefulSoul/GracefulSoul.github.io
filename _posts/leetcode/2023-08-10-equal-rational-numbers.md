@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Equal Rational Numbers"
-excerpt: "Leetcode Equal Rational Numbers Java"
+excerpt: "Leetcode Hard - 'Equal Rational Numbers' 문제 Java 풀이"
 last_modified_at: 2023-08-10T16:30:00
 header:
   image: /assets/images/leetcode/equal-rational-numbers.png

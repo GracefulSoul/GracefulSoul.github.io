@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Three Consecutive Odds"
-excerpt: "Leetcode Three Consecutive Odds Java"
+excerpt: "Leetcode Easy - 'Three Consecutive Odds' 문제 Java 풀이"
 last_modified_at: 2024-07-01T17:40:00
 header:
   image: /assets/images/leetcode/three-consecutive-odds.png

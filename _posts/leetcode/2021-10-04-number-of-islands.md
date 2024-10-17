@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Islands"
-excerpt: "Leetcode Number of Islands Java 풀이"
+excerpt: "Leetcode - 'Number of Islands' 문제 Java 풀이"
 last_modified_at: 2021-10-04T10:00:00
 header:
   image: /assets/images/leetcode/number-of-islands.png

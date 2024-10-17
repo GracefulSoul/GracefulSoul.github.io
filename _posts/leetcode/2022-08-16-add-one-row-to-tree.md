@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add One Row to Tree"
-excerpt: "Leetcode Add One Row to Tree Java"
+excerpt: "Leetcode - 'Add One Row to Tree' 문제 Java 풀이"
 last_modified_at: 2022-08-16T19:00:00
 header:
   image: /assets/images/leetcode/add-one-row-to-tree.png

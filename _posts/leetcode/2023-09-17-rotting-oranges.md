@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotting Oranges"
-excerpt: "Leetcode Rotting Oranges Java"
+excerpt: "Leetcode Medium - 'Rotting Oranges' 문제 Java 풀이"
 last_modified_at: 2023-09-17T15:20:00
 header:
   image: /assets/images/leetcode/rotting-oranges.png

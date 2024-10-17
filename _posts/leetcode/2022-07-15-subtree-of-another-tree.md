@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subtree of Another Tree"
-excerpt: "Leetcode Subtree of Another Tree Java"
+excerpt: "Leetcode - 'Subtree of Another Tree' 문제 Java 풀이"
 last_modified_at: 2022-07-15T20:00:00
 header:
   image: /assets/images/leetcode/subtree-of-another-tree.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Product Subarray"
-excerpt: "Leetcode Maximum Product Subarray Java 풀이"
+excerpt: "Leetcode - 'Maximum Product Subarray' 문제 Java 풀이"
 last_modified_at: 2021-09-09T12:00:00
 header:
   image: /assets/images/leetcode/maximum-product-subarray.png

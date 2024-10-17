@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Letter Tile Possibilities"
-excerpt: "Leetcode Letter Tile Possibilities Java"
+excerpt: "Leetcode Medium - 'Letter Tile Possibilities' 문제 Java 풀이"
 last_modified_at: 2024-04-13T09:30:00
 header:
   image: /assets/images/leetcode/letter-tile-possibilities.png

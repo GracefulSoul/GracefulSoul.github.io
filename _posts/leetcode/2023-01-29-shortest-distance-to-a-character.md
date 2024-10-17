@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Distance to a Character"
-excerpt: "Leetcode Shortest Distance to a Character Java"
+excerpt: "Leetcode - 'Shortest Distance to a Character' 문제 Java 풀이"
 last_modified_at: 2023-01-29T09:00:00
 header:
   image: /assets/images/leetcode/shortest-distance-to-a-character.png

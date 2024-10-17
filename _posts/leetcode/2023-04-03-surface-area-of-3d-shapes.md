@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Surface Area of 3D Shapes"
-excerpt: "Leetcode Surface Area of 3D Shapes Java"
+excerpt: "Leetcode - 'Surface Area of 3D Shapes' 문제 Java 풀이"
 last_modified_at: 2023-04-03T20:20:00
 header:
   image: /assets/images/leetcode/surface-area-of-3d-shapes.png

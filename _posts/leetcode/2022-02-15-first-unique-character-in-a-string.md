@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java First Unique Character in a String"
-excerpt: "Leetcode First Unique Character in a String Java 풀이"
+excerpt: "Leetcode - 'First Unique Character in a String' 문제 Java 풀이"
 last_modified_at: 2022-02-15T17:00:00
 header:
   image: /assets/images/leetcode/first-unique-character-in-a-string.png

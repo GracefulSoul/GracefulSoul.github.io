@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Path In Zigzag Labelled Binary Tree"
-excerpt: "Leetcode Path In Zigzag Labelled Binary Tree Java"
+excerpt: "Leetcode Medium - 'Path In Zigzag Labelled Binary Tree' 문제 Java 풀이"
 last_modified_at: 2024-05-08T19:50:00
 header:
   image: /assets/images/leetcode/path-in-zigzag-labelled-binary-tree.png

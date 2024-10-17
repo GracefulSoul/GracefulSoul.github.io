@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Product Sales Analysis I"
-excerpt: "Leetcode Product Sales Analysis I PostgreSQL"
+excerpt: "Leetcode Easy - 'Product Sales Analysis I PostgreSQL"
 last_modified_at: 2024-03-27T19:00:00
 header:
   image: /assets/images/leetcode/product-sales-analysis-i.png

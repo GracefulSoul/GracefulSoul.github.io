@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Length of the Longest Common Prefix"
-excerpt: "Leetcode Find the Length of the Longest Common Prefix Java"
+excerpt: "Leetcode Medium - 'Find the Length of the Longest Common Prefix' 문제 Java 풀이"
 last_modified_at: 2024-09-24T18:40:00
 header:
   image: /assets/images/leetcode/find-the-length-of-the-longest-common-prefix.png

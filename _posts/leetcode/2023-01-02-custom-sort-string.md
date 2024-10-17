@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Custom Sort String"
-excerpt: "Leetcode Custom Sort String Java"
+excerpt: "Leetcode - 'Custom Sort String' 문제 Java 풀이"
 last_modified_at: 2023-01-02T20:45:00
 header:
   image: /assets/images/leetcode/custom-sort-string.png

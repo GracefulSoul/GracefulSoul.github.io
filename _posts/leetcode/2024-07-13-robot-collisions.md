@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Robot Collisions"
-excerpt: "Leetcode Robot Collisions Java"
+excerpt: "Leetcode Hard - 'Robot Collisions' 문제 Java 풀이"
 last_modified_at: 2024-07-13T13:40:00
 header:
   image: /assets/images/leetcode/robot-collisions.png

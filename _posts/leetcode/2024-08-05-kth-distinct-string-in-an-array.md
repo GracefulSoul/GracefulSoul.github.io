@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Kth Distinct String in an Array"
-excerpt: "Leetcode Kth Distinct String in an Array Java"
+excerpt: "Leetcode Easy - 'Kth Distinct String in an Array' 문제 Java 풀이"
 last_modified_at: 2024-08-05T18:30:00
 header:
   image: /assets/images/leetcode/kth-distinct-string-in-an-array.png

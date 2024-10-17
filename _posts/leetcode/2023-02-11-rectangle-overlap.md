@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rectangle Overlap"
-excerpt: "Leetcode Rectangle Overlap Java"
+excerpt: "Leetcode - 'Rectangle Overlap' 문제 Java 풀이"
 last_modified_at: 2023-02-11T12:30:00
 header:
   image: /assets/images/leetcode/rectangle-overlap.png

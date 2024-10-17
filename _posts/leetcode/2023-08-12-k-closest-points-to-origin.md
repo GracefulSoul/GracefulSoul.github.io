@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K Closest Points to Origin"
-excerpt: "Leetcode K Closest Points to Origin Java"
+excerpt: "Leetcode Medium - 'K Closest Points to Origin' 문제 Java 풀이"
 last_modified_at: 2023-08-12T13:40:00
 header:
   image: /assets/images/leetcode/k-closest-points-to-origin.png

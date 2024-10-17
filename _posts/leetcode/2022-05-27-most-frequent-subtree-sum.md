@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Most Frequent Subtree Sum"
-excerpt: "Leetcode Most Frequent Subtree Sum Java"
+excerpt: "Leetcode - 'Most Frequent Subtree Sum' 문제 Java 풀이"
 last_modified_at: 2022-05-27T09:00:00
 header:
   image: /assets/images/leetcode/most-frequent-subtree-sum.png

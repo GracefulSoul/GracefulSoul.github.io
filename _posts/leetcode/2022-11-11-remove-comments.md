@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Comments"
-excerpt: "Leetcode Remove Comments Java"
+excerpt: "Leetcode - 'Remove Comments' 문제 Java 풀이"
 last_modified_at: 2022-11-11T19:50:00
 header:
   image: /assets/images/leetcode/remove-comments.png

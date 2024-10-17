@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Group Anagrams"
-excerpt: "Leetcode Group Anagrams Java 풀이"
+excerpt: "Leetcode - 'Group Anagrams' 문제 Java 풀이"
 last_modified_at: 2021-05-30T18:20:00
 header:
   image: /assets/images/leetcode/group-anagrams.png

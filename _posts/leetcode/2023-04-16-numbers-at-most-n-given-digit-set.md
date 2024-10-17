@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Numbers At Most N Given Digit Set"
-excerpt: "Leetcode Numbers At Most N Given Digit Set Java"
+excerpt: "Leetcode - 'Numbers At Most N Given Digit Set' 문제 Java 풀이"
 last_modified_at: 2023-04-16T13:50:00
 header:
   image: /assets/images/leetcode/numbers-at-most-n-given-digit-set.png

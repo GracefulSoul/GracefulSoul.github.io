@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Additive Number"
-excerpt: "Leetcode Additive Number Java 풀이"
+excerpt: "Leetcode - 'Additive Number' 문제 Java 풀이"
 last_modified_at: 2021-12-18T13:00:00
 header:
   image: /assets/images/leetcode/additive-number.png

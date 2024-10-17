@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Happy String"
-excerpt: "Leetcode Longest Happy String Java"
+excerpt: "Leetcode Medium - 'Longest Happy String' 문제 Java 풀이"
 last_modified_at: 2024-10-16T18:50:00
 header:
   image: /assets/images/leetcode/longest-happy-string.png

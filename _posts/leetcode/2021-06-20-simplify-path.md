@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Simplify Path"
-excerpt: "Leetcode Simplify Path Java 풀이"
+excerpt: "Leetcode - 'Simplify Path' 문제 Java 풀이"
 last_modified_at: 2021-06-20T14:40:00
 header:
   image: /assets/images/leetcode/simplify-path.png

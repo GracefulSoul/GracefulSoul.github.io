@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Time Difference"
-excerpt: "Leetcode Minimum Time Difference Java"
+excerpt: "Leetcode - 'Minimum Time Difference' 문제 Java 풀이"
 last_modified_at: 2022-06-21T19:40:00
 header:
   image: /assets/images/leetcode/minimum-time-difference.png

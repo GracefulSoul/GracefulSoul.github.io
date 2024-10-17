@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Sales Person"
-excerpt: "Leetcode Sales Person MySQL 풀이"
+excerpt: "Leetcode - 'Sales Person MySQL 풀이"
 last_modified_at: 2022-08-04T20:20:00
 header:
   image: /assets/images/leetcode/sales-person.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Student that Will Replace the Chalk"
-excerpt: "Leetcode Find the Student that Will Replace the Chalk Java"
+excerpt: "Leetcode Medium - 'Find the Student that Will Replace the Chalk' 문제 Java 풀이"
 last_modified_at: 2024-09-02T18:00:00
 header:
   image: /assets/images/leetcode/find-the-student-that-will-replace-the-chalk.png

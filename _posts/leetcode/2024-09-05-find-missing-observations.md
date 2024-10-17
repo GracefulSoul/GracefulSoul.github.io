@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Missing Observations"
-excerpt: "Leetcode Find Missing Observations Java"
+excerpt: "Leetcode Medium - 'Find Missing Observations' 문제 Java 풀이"
 last_modified_at: 2024-09-05T19:40:00
 header:
   image: /assets/images/leetcode/find-missing-observations.png

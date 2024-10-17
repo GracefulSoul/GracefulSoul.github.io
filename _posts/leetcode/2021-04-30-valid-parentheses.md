@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Parentheses"
-excerpt: "Leetcode Valid Parentheses Java 풀이"
+excerpt: "Leetcode - 'Valid Parentheses' 문제 Java 풀이"
 last_modified_at: 2021-04-30T22:00:00
 header:
   image: /assets/images/leetcode/valid-parentheses.png

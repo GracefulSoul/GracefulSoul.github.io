@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Cheapest Flights Within K Stops"
-excerpt: "Leetcode Cheapest Flights Within K Stops Java"
+excerpt: "Leetcode - 'Cheapest Flights Within K Stops' 문제 Java 풀이"
 last_modified_at: 2022-12-30T12:50:00
 header:
   image: /assets/images/leetcode/cheapest-flights-within-k-stops.png

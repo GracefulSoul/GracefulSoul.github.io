@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Substrings Between Each Pair of Parentheses"
-excerpt: "Leetcode Reverse Substrings Between Each Pair of Parentheses Java"
+excerpt: "Leetcode Medium - 'Reverse Substrings Between Each Pair of Parentheses' 문제 Java 풀이"
 last_modified_at: 2024-07-11T18:00:00
 header:
   image: /assets/images/leetcode/reverse-substrings-between-each-pair-of-parentheses.png

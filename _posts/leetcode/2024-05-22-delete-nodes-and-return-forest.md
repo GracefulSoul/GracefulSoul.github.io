@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Nodes And Return Forest"
-excerpt: "Leetcode Delete Nodes And Return Forest Java"
+excerpt: "Leetcode Medium - 'Delete Nodes And Return Forest' 문제 Java 풀이"
 last_modified_at: 2024-05-22T20:10:00
 header:
   image: /assets/images/leetcode/delete-nodes-and-return-forest.png

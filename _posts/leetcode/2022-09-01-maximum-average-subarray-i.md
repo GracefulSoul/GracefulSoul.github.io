@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Average Subarray I"
-excerpt: "Leetcode Maximum Average Subarray I Java"
+excerpt: "Leetcode - 'Maximum Average Subarray I' 문제 Java 풀이"
 last_modified_at: 2022-09-01T20:20:00
 header:
   image: /assets/images/leetcode/maximum-average-subarray-i.png

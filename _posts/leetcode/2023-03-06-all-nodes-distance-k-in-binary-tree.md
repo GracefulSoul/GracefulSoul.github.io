@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java All Nodes Distance K in Binary Tree"
-excerpt: "Leetcode All Nodes Distance K in Binary Tree Java"
+excerpt: "Leetcode - 'All Nodes Distance K in Binary Tree' 문제 Java 풀이"
 last_modified_at: 2023-03-06T18:55:00
 header:
   image: /assets/images/leetcode/all-nodes-distance-k-in-binary-tree.png

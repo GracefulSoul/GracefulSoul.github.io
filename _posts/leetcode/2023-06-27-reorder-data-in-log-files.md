@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reorder Data in Log Files"
-excerpt: "Leetcode Reorder Data in Log Files Java"
+excerpt: "Leetcode Medium - 'Reorder Data in Log Files' 문제 Java 풀이"
 last_modified_at: 2023-06-27T20:00:00
 header:
   image: /assets/images/leetcode/reorder-data-in-log-files.png

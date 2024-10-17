@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Decode Ways"
-excerpt: "Leetcode Decode Ways Java 풀이"
+excerpt: "Leetcode - 'Decode Ways' 문제 Java 풀이"
 last_modified_at: 2021-07-10T17:00:00
 header:
   image: /assets/images/leetcode/decode-ways.png

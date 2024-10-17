@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Flowers in Full Bloom"
-excerpt: "Leetcode Number of Flowers in Full Bloom Java"
+excerpt: "Leetcode Hard - 'Number of Flowers in Full Bloom' 문제 Java 풀이"
 last_modified_at: 2023-10-11T18:30:00
 header:
   image: /assets/images/leetcode/number-of-flowers-in-full-bloom.png

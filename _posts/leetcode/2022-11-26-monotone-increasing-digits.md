@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Monotone Increasing Digits"
-excerpt: "Leetcode Monotone Increasing Digits Java"
+excerpt: "Leetcode - 'Monotone Increasing Digits' 문제 Java 풀이"
 last_modified_at: 2022-11-26T10:30:00
 header:
   image: /assets/images/leetcode/monotone-increasing-digits.png

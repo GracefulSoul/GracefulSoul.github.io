@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Element"
-excerpt: "Leetcode Remove Element Java 풀이"
+excerpt: "Leetcode - 'Remove Element' 문제 Java 풀이"
 last_modified_at: 2021-05-10T21:10:00
 header:
   image: /assets/images/leetcode/remove-element.png

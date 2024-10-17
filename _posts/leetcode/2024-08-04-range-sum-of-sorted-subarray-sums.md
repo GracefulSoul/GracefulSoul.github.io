@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Range Sum of Sorted Subarray Sums"
-excerpt: "Leetcode Range Sum of Sorted Subarray Sums Java"
+excerpt: "Leetcode Medium - 'Range Sum of Sorted Subarray Sums' 문제 Java 풀이"
 last_modified_at: 2024-08-04T09:20:00
 header:
   image: /assets/images/leetcode/range-sum-of-sorted-subarray-sums.png

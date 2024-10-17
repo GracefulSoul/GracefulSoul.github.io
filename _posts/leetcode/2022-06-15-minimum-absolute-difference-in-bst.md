@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Absolute Difference in BST"
-excerpt: "Leetcode Minimum Absolute Difference in BST Java"
+excerpt: "Leetcode - 'Minimum Absolute Difference in BST' 문제 Java 풀이"
 last_modified_at: 2022-06-16T20:00:00
 header:
   image: /assets/images/leetcode/minimum-absolute-difference-in-bst.png

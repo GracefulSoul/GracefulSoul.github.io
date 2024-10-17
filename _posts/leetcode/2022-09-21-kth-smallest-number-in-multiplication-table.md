@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Kth Smallest Number in Multiplication Table"
-excerpt: "Leetcode Kth Smallest Number in Multiplication Table Java"
+excerpt: "Leetcode - 'Kth Smallest Number in Multiplication Table' 문제 Java 풀이"
 last_modified_at: 2022-09-21T19:30:00
 header:
   image: /assets/images/leetcode/kth-smallest-number-in-multiplication-table.png

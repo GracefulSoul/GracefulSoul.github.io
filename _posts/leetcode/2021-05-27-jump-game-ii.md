@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Jump Game II"
-excerpt: "Leetcode Jump Game II Java 풀이"
+excerpt: "Leetcode - 'Jump Game II' 문제 Java 풀이"
 last_modified_at: 2021-05-26T17:00:00
 header:
   image: /assets/images/leetcode/jump-game-ii.png

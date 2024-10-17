@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Permutation in String"
-excerpt: "Leetcode Permutation in String Java"
+excerpt: "Leetcode - 'Permutation in String' 문제 Java 풀이"
 last_modified_at: 2022-07-13T19:00:00
 header:
   image: /assets/images/leetcode/permutation-in-string.png

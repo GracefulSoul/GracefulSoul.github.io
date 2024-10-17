@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find and Replace Pattern"
-excerpt: "Leetcode Find and Replace Pattern Java"
+excerpt: "Leetcode - 'Find and Replace Pattern' 문제 Java 풀이"
 last_modified_at: 2023-03-31T19:40:00
 header:
   image: /assets/images/leetcode/find-and-replace-pattern.png

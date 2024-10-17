@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Patching Array"
-excerpt: "Leetcode Patching Array Java 풀이"
+excerpt: "Leetcode - 'Patching Array' 문제 Java 풀이"
 last_modified_at: 2022-01-07T12:00:00
 header:
   image: /assets/images/leetcode/patching-array.png

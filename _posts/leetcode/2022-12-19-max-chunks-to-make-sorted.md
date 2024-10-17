@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Max Chunks To Make Sorted"
-excerpt: "Leetcode Max Chunks To Make Sorted Java"
+excerpt: "Leetcode - 'Max Chunks To Make Sorted' 문제 Java 풀이"
 last_modified_at: 2022-12-19T11:40:00
 header:
   image: /assets/images/leetcode/max-chunks-to-make-sorted.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Complement of Base 10 Integer"
-excerpt: "Leetcode Complement of Base 10 Integer Java"
+excerpt: "Leetcode Easy - 'Complement of Base 10 Integer' 문제 Java 풀이"
 last_modified_at: 2023-11-27T19:40:00
 header:
   image: /assets/images/leetcode/complement-of-base-10-integer.png

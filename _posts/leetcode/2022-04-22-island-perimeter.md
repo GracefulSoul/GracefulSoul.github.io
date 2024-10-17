@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Island Perimeter"
-excerpt: "Leetcode Island Perimeter Java 풀이"
+excerpt: "Leetcode - 'Island Perimeter' 문제 Java 풀이"
 last_modified_at: 2022-04-22T12:00:00
 header:
   image: /assets/images/leetcode/island-perimeter.png

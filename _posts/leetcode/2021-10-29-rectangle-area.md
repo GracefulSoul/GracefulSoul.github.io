@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rectangle Area"
-excerpt: "Leetcode Rectangle Area Java 풀이"
+excerpt: "Leetcode - 'Rectangle Area' 문제 Java 풀이"
 last_modified_at: 2021-10-29T12:00:00
 header:
   image: /assets/images/leetcode/rectangle-area.png

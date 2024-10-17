@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Running Time of N Computers"
-excerpt: "Leetcode Maximum Running Time of N Computers Java"
+excerpt: "Leetcode Hard - 'Maximum Running Time of N Computers' 문제 Java 풀이"
 last_modified_at: 2023-07-26T20:50:00
 header:
   image: /assets/images/leetcode/maximum-running-time-of-n-computers.png

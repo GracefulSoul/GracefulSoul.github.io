@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Determine if a Cell Is Reachable at a Given Time"
-excerpt: "Leetcode Determine if a Cell Is Reachable at a Given Time Java"
+excerpt: "Leetcode Medium - 'Determine if a Cell Is Reachable at a Given Time' 문제 Java 풀이"
 last_modified_at: 2023-11-08T18:50:00
 header:
   image: /assets/images/leetcode/determine-if-a-cell-is-reachable-at-a-given-time.png

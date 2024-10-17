@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find in Mountain Array"
-excerpt: "Leetcode Find in Mountain Array Java"
+excerpt: "Leetcode Hard - 'Find in Mountain Array' 문제 Java 풀이"
 last_modified_at: 2023-10-12T19:50:00
 header:
   image: /assets/images/leetcode/find-in-mountain-array.png

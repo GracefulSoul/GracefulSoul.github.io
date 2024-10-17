@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Range Sum Query - Mutable"
-excerpt: "Leetcode Range Sum Query - Mutable Java 풀이"
+excerpt: "Leetcode - 'Range Sum Query - Mutable' 문제 Java 풀이"
 last_modified_at: 2021-12-19T13:00:00
 header:
   image: /assets/images/leetcode/range-sum-query-mutable.png

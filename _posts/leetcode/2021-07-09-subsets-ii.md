@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subsets II"
-excerpt: "Leetcode Subsets II Java 풀이"
+excerpt: "Leetcode - 'Subsets II' 문제 Java 풀이"
 last_modified_at: 2021-07-09T18:00:00
 header:
   image: /assets/images/leetcode/subsets-ii.png

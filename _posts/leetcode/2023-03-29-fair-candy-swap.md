@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Fair Candy Swap"
-excerpt: "Leetcode Fair Candy Swap Java"
+excerpt: "Leetcode - 'Fair Candy Swap' 문제 Java 풀이"
 last_modified_at: 2023-03-29T20:50:00
 header:
   image: /assets/images/leetcode/fair-candy-swap.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Spiral Matrix IV"
-excerpt: "Leetcode Spiral Matrix IV Java"
+excerpt: "Leetcode Medium - 'Spiral Matrix IV' 문제 Java 풀이"
 last_modified_at: 2024-09-09T21:10:00
 header:
   image: /assets/images/leetcode/spiral-matrix-iv.png

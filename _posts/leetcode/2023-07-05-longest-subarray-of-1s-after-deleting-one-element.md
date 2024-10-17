@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Subarray of 1's After Deleting One Element"
-excerpt: "Leetcode Longest Subarray of 1's After Deleting One Element Java"
+excerpt: "Leetcode Medium - 'Longest Subarray of 1's After Deleting One Element' 문제 Java 풀이"
 last_modified_at: 2023-07-05T19:20:00
 header:
   image: /assets/images/leetcode/longest-subarray-of-1s-after-deleting-one-element.png

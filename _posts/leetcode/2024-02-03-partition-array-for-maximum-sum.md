@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition Array for Maximum Sum"
-excerpt: "Leetcode Partition Array for Maximum Sum Java"
+excerpt: "Leetcode Medium - 'Partition Array for Maximum Sum' 문제 Java 풀이"
 last_modified_at: 2024-02-03T09:30:00
 header:
   image: /assets/images/leetcode/partition-array-for-maximum-sum.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Tilt"
-excerpt: "Leetcode Binary Tree Tilt Java"
+excerpt: "Leetcode - 'Binary Tree Tilt' 문제 Java 풀이"
 last_modified_at: 2022-07-09T12:00:00
 header:
   image: /assets/images/leetcode/binary-tree-tilt.png

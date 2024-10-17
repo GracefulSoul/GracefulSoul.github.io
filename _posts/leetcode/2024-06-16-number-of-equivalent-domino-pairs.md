@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Equivalent Domino Pairs"
-excerpt: "Leetcode Number of Equivalent Domino Pairs Java"
+excerpt: "Leetcode Easy - 'Number of Equivalent Domino Pairs' 문제 Java 풀이"
 last_modified_at: 2024-06-16T12:50:00
 header:
   image: /assets/images/leetcode/number-of-equivalent-domino-pairs.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-th Smallest Prime Fraction"
-excerpt: "Leetcode K-th Smallest Prime Fraction Java"
+excerpt: "Leetcode - 'K-th Smallest Prime Fraction' 문제 Java 풀이"
 last_modified_at: 2022-12-29T10:20:00
 header:
   image: /assets/images/leetcode/k-th-smallest-prime-fraction.png

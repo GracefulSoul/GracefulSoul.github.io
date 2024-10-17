@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Product of Word Lengths"
-excerpt: "Leetcode Maximum Product of Word Lengths Java 풀이"
+excerpt: "Leetcode - 'Maximum Product of Word Lengths' 문제 Java 풀이"
 last_modified_at: 2021-12-26T15:00:00
 header:
   image: /assets/images/leetcode/maximum-product-of-word-lengths.png

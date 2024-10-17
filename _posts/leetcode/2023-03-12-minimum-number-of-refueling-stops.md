@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Refueling Stops"
-excerpt: "Leetcode Minimum Number of Refueling Stops Java"
+excerpt: "Leetcode - 'Minimum Number of Refueling Stops' 문제 Java 풀이"
 last_modified_at: 2023-03-12T07:50:00
 header:
   image: /assets/images/leetcode/minimum-number-of-refueling-stops.png

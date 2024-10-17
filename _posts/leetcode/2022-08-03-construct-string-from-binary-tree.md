@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Construct String from Binary Tree"
-excerpt: "Leetcode Construct String from Binary Tree Java"
+excerpt: "Leetcode - 'Construct String from Binary Tree' 문제 Java 풀이"
 last_modified_at: 2022-08-03T20:00:00
 header:
   image: /assets/images/leetcode/construct-string-from-binary-tree.png

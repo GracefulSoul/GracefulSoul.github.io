@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flood Fill"
-excerpt: "Leetcode Flood Fill Java"
+excerpt: "Leetcode - 'Flood Fill' 문제 Java 풀이"
 last_modified_at: 2022-11-23T19:20:00
 header:
   image: /assets/images/leetcode/flood-fill.png

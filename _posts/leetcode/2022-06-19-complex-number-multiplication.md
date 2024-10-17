@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Complex Number Multiplication"
-excerpt: "Leetcode Complex Number Multiplication Java"
+excerpt: "Leetcode - 'Complex Number Multiplication' 문제 Java 풀이"
 last_modified_at: 2022-06-19T17:00:00
 header:
   image: /assets/images/leetcode/complex-number-multiplication.png

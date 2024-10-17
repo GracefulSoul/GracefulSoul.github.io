@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Difference Between Largest and Smallest Value in Three Moves"
-excerpt: "Leetcode Minimum Difference Between Largest and Smallest Value in Three Moves Java"
+excerpt: "Leetcode Medium - 'Minimum Difference Between Largest and Smallest Value in Three Moves' 문제 Java 풀이"
 last_modified_at: 2024-07-03T18:10:00
 header:
   image: /assets/images/leetcode/minimum-difference-between-largest-and-smallest-value-in-three-moves.png

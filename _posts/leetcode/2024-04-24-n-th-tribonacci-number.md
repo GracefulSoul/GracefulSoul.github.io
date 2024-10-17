@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java N-th Tribonacci Number"
-excerpt: "Leetcode N-th Tribonacci Number Java"
+excerpt: "Leetcode Easy - 'N-th Tribonacci Number' 문제 Java 풀이"
 last_modified_at: 2024-04-24T18:20:00
 header:
   image: /assets/images/leetcode/n-th-tribonacci-number.png

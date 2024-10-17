@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Baseball Game"
-excerpt: "Leetcode Baseball Game Java"
+excerpt: "Leetcode - 'Baseball Game' 문제 Java 풀이"
 last_modified_at: 2022-10-04T08:10:00
 header:
   image: /assets/images/leetcode/baseball-game.png

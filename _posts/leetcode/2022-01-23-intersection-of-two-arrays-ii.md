@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Intersection of Two Arrays II"
-excerpt: "Leetcode Intersection of Two Arrays II Java 풀이"
+excerpt: "Leetcode - 'Intersection of Two Arrays II' 문제 Java 풀이"
 last_modified_at: 2022-01-23T15:00:00
 header:
   image: /assets/images/leetcode/intersection-of-two-arrays-ii.png

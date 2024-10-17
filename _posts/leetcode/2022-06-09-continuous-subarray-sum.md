@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Continuous Subarray Sum"
-excerpt: "Leetcode Continuous Subarray Sum Java"
+excerpt: "Leetcode - 'Continuous Subarray Sum' 문제 Java 풀이"
 last_modified_at: 2022-06-09T19:00:00
 header:
   image: /assets/images/leetcode/continuous-subarray-sum.png

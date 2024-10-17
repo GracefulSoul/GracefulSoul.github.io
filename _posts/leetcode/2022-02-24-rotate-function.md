@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotate Function"
-excerpt: "Leetcode Rotate Function Java 풀이"
+excerpt: "Leetcode - 'Rotate Function' 문제 Java 풀이"
 last_modified_at: 2022-02-24T20:00:00
 header:
   image: /assets/images/leetcode/rotate-function.png

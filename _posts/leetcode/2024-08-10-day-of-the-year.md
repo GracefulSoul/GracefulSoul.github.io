@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Day of the Year"
-excerpt: "Leetcode Day of the Year Java"
+excerpt: "Leetcode Easy - 'Day of the Year' 문제 Java 풀이"
 last_modified_at: 2024-08-10T18:30:00
 header:
   image: /assets/images/leetcode/day-of-the-year.png

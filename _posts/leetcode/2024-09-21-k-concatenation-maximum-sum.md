@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-Concatenation Maximum Sum"
-excerpt: "Leetcode K-Concatenation Maximum Sum Java"
+excerpt: "Leetcode Medium - 'K-Concatenation Maximum Sum' 문제 Java 풀이"
 last_modified_at: 2024-09-21T10:00:00
 header:
   image: /assets/images/leetcode/k-concatenation-maximum-sum.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Greatest Common Divisor of Strings"
-excerpt: "Leetcode Greatest Common Divisor of Strings Java"
+excerpt: "Leetcode Easy - 'Greatest Common Divisor of Strings' 문제 Java 풀이"
 last_modified_at: 2024-04-02T18:05:00
 header:
   image: /assets/images/leetcode/greatest-common-divisor-of-strings.png

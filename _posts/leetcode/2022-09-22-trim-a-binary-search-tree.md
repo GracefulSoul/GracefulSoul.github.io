@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Trim a Binary Search Tree"
-excerpt: "Leetcode Trim a Binary Search Tree Java"
+excerpt: "Leetcode - 'Trim a Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2022-09-22T19:00:00
 header:
   image: /assets/images/leetcode/trim-a-binary-search-tree.png

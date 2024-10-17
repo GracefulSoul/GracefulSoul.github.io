@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Score of a String"
-excerpt: "Leetcode Score of a String Java"
+excerpt: "Leetcode Easy - 'Score of a String' 문제 Java 풀이"
 last_modified_at: 2024-06-01T12:40:00
 header:
   image: /assets/images/leetcode/score-of-a-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition Array Into Three Parts With Equal Sum"
-excerpt: "Leetcode Partition Array Into Three Parts With Equal Sum Java"
+excerpt: "Leetcode Easy - 'Partition Array Into Three Parts With Equal Sum' 문제 Java 풀이"
 last_modified_at: 2023-12-16T10:00:00
 header:
   image: /assets/images/leetcode/partition-array-into-three-parts-with-equal-sum.png

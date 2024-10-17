@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert an Array Into a 2D Array With Conditions"
-excerpt: "Leetcode Convert an Array Into a 2D Array With Conditions Java"
+excerpt: "Leetcode Medium - 'Convert an Array Into a 2D Array With Conditions' 문제 Java 풀이"
 last_modified_at: 2024-01-02T12:50:00
 header:
   image: /assets/images/leetcode/convert-an-array-into-a-2d-array-with-conditions.png

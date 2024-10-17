@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Peeking Iterator"
-excerpt: "Leetcode Peeking Iterator Java 풀이"
+excerpt: "Leetcode - 'Peeking Iterator' 문제 Java 풀이"
 last_modified_at: 2021-12-05T10:00:00
 header:
   image: /assets/images/leetcode/peeking-iterator.png

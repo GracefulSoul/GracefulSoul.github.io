@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distribute Coins in Binary Tree"
-excerpt: "Leetcode Distribute Coins in Binary Tree Java"
+excerpt: "Leetcode Medium - 'Distribute Coins in Binary Tree' 문제 Java 풀이"
 last_modified_at: 2023-08-22T18:55:00
 header:
   image: /assets/images/leetcode/distribute-coins-in-binary-tree.png

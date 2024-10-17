@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximize the Confusion of an Exam"
-excerpt: "Leetcode Maximize the Confusion of an Exam Java"
+excerpt: "Leetcode Medium - 'Maximize the Confusion of an Exam' 문제 Java 풀이"
 last_modified_at: 2023-07-07T20:10:00
 header:
   image: /assets/images/leetcode/maximize-the-confusion-of-an-exam.png

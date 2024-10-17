@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Time Visiting All Points"
-excerpt: "Leetcode Minimum Time Visiting All Points Java"
+excerpt: "Leetcode Easy - 'Minimum Time Visiting All Points' 문제 Java 풀이"
 last_modified_at: 2023-12-03T09:40:00
 header:
   image: /assets/images/leetcode/minimum-time-visiting-all-points.png

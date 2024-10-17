@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Graph With Shortest Path Calculator"
-excerpt: "Leetcode Design Graph With Shortest Path Calculator Java"
+excerpt: "Leetcode Hard - 'Design Graph With Shortest Path Calculator' 문제 Java 풀이"
 last_modified_at: 2023-11-11T12:00:00
 header:
   image: /assets/images/leetcode/design-graph-with-shortest-path-calculator.png

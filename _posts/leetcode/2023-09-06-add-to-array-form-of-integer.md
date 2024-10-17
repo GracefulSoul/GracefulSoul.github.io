@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add to Array-Form of Integer"
-excerpt: "Leetcode Add to Array-Form of Integer Java"
+excerpt: "Leetcode Easy - 'Add to Array-Form of Integer' 문제 Java 풀이"
 last_modified_at: 2023-09-06T19:00:00
 header:
   image: /assets/images/leetcode/add-to-array-form-of-integer.png

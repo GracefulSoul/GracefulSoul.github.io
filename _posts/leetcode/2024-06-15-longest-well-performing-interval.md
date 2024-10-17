@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Well-Performing Interval"
-excerpt: "Leetcode Longest Well-Performing Interval Java"
+excerpt: "Leetcode Medium - 'Longest Well-Performing Interval' 문제 Java 풀이"
 last_modified_at: 2024-06-15T09:50:00
 header:
   image: /assets/images/leetcode/longest-well-performing-interval.png

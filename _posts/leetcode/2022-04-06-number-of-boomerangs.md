@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Boomerangs"
-excerpt: "Leetcode Number of Boomerangs Java 풀이"
+excerpt: "Leetcode - 'Number of Boomerangs' 문제 Java 풀이"
 last_modified_at: 2022-04-06T12:00:00
 header:
   image: /assets/images/leetcode/number-of-boomerangs.png

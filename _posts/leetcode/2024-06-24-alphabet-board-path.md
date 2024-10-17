@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Alphabet Board Path"
-excerpt: "Leetcode Alphabet Board Path Java"
+excerpt: "Leetcode Medium - 'Alphabet Board Path' 문제 Java 풀이"
 last_modified_at: 2024-06-24T18:10:00
 header:
   image: /assets/images/leetcode/alphabet-board-path.png

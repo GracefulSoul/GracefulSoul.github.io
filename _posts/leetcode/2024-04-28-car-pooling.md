@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Car Pooling"
-excerpt: "Leetcode Car Pooling Java"
+excerpt: "Leetcode Medium - 'Car Pooling' 문제 Java 풀이"
 last_modified_at: 2024-04-28T10:10:00
 header:
   image: /assets/images/leetcode/car-pooling.png

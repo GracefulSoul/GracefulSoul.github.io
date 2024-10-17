@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Moves to Equal Array Elements II"
-excerpt: "Leetcode Minimum Moves to Equal Array Elements II Java 풀이"
+excerpt: "Leetcode - 'Minimum Moves to Equal Array Elements II' 문제 Java 풀이"
 last_modified_at: 2022-04-21T12:00:00
 header:
   image: /assets/images/leetcode/minimum-moves-to-equal-array-elements-ii.png

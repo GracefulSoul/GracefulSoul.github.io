@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Number of Teams"
-excerpt: "Leetcode Count Number of Teams Java"
+excerpt: "Leetcode Medium - 'Count Number of Teams' 문제 Java 풀이"
 last_modified_at: 2024-07-29T18:10:00
 header:
   image: /assets/images/leetcode/count-number-of-teams.png

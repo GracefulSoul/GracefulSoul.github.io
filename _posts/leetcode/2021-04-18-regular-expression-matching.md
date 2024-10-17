@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Regular Expression Matching"
-excerpt: "Leetcode Regular Expression Matching Java 풀이"
+excerpt: "Leetcode - 'Regular Expression Matching' 문제 Java 풀이"
 last_modified_at: 2021-04-18T12:50:00
 header:
   image: /assets/images/leetcode/regular-expression-matching.png

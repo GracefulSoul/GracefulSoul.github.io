@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary String With Substrings Representing 1 To N"
-excerpt: "Leetcode Binary String With Substrings Representing 1 To N Java"
+excerpt: "Leetcode Medium - 'Binary String With Substrings Representing 1 To N' 문제 Java 풀이"
 last_modified_at: 2023-12-28T11:45:00
 header:
   image: /assets/images/leetcode/binary-string-with-substrings-representing-1-to-n.png

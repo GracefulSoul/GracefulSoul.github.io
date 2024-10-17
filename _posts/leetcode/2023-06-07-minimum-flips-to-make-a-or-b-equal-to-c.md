@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Flips to Make a OR b Equal to c"
-excerpt: "Leetcode Minimum Flips to Make a OR b Equal to c Java"
+excerpt: "Leetcode Medium - 'Minimum Flips to Make a OR b Equal to c' 문제 Java 풀이"
 last_modified_at: 2023-06-07T19:50:00
 header:
   image: /assets/images/leetcode/minimum-flips-to-make-a-or-b-equal-to-c.png

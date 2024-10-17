@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Swaps To Make Sequences Increasing"
-excerpt: "Leetcode Minimum Swaps To Make Sequences Increasing Java"
+excerpt: "Leetcode - 'Minimum Swaps To Make Sequences Increasing' 문제 Java 풀이"
 last_modified_at: 2023-01-12T21:15:00
 header:
   image: /assets/images/leetcode/minimum-swaps-to-make-sequences-increasing.png

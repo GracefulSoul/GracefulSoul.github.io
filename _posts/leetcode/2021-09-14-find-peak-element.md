@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Peak Element"
-excerpt: "Leetcode Find Peak Element Java 풀이"
+excerpt: "Leetcode - 'Find Peak Element' 문제 Java 풀이"
 last_modified_at: 2021-09-14T12:00:00
 header:
   image: /assets/images/leetcode/find-peak-element.png

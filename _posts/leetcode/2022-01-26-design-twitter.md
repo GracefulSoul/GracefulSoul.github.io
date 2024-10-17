@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Twitter"
-excerpt: "Leetcode Design Twitter Java 풀이"
+excerpt: "Leetcode - 'Design Twitter' 문제 Java 풀이"
 last_modified_at: 2022-01-26T13:00:00
 header:
   image: /assets/images/leetcode/design-twitter.png

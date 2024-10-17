@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Implement Rand10() Using Rand7()"
-excerpt: "Leetcode Implement Rand10() Using Rand7() Java 풀이"
+excerpt: "Leetcode - 'Implement Rand10() Using Rand7()' 문제 Java 풀이"
 last_modified_at: 2022-04-27T09:00:00
 header:
   image: /assets/images/leetcode/implement-rand10-using-rand7.png

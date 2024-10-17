@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Insert into a Binary Search Tree"
-excerpt: "Leetcode Insert into a Binary Search Tree Java"
+excerpt: "Leetcode - 'Insert into a Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2022-10-23T17:50:00
 header:
   image: /assets/images/leetcode/insert-into-a-binary-search-tree.png

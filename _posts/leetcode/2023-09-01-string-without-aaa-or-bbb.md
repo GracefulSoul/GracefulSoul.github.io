@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java String Without AAA or BBB"
-excerpt: "Leetcode String Without AAA or BBB Java"
+excerpt: "Leetcode Medium - 'String Without AAA or BBB' 문제 Java 풀이"
 last_modified_at: 2023-09-01T18:40:00
 header:
   image: /assets/images/leetcode/string-without-aaa-or-bbb.png

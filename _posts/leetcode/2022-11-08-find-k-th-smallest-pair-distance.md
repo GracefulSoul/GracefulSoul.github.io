@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find K-th Smallest Pair Distance"
-excerpt: "Leetcode Find K-th Smallest Pair Distance Java"
+excerpt: "Leetcode - 'Find K-th Smallest Pair Distance' 문제 Java 풀이"
 last_modified_at: 2022-11-08T16:30:00
 header:
   image: /assets/images/leetcode/find-k-th-smallest-pair-distance.png

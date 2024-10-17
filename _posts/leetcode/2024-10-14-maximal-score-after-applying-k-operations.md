@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximal Score After Applying K Operations"
-excerpt: "Leetcode Maximal Score After Applying K Operations Java"
+excerpt: "Leetcode Medium - 'Maximal Score After Applying K Operations' 문제 Java 풀이"
 last_modified_at: 2024-10-14T22:40:00
 header:
   image: /assets/images/leetcode/maximal-score-after-applying-k-operations.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Senior Citizens"
-excerpt: "Leetcode Number of Senior Citizens Java"
+excerpt: "Leetcode Easy - 'Number of Senior Citizens' 문제 Java 풀이"
 last_modified_at: 2024-08-01T17:50:00
 header:
   image: /assets/images/leetcode/number-of-senior-citizens.png

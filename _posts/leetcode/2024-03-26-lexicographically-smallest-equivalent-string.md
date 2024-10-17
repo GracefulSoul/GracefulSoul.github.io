@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lexicographically Smallest Equivalent String"
-excerpt: "Leetcode Lexicographically Smallest Equivalent String Java"
+excerpt: "Leetcode Medium - 'Lexicographically Smallest Equivalent String' 문제 Java 풀이"
 last_modified_at: 2024-03-26T18:30:00
 header:
   image: /assets/images/leetcode/lexicographically-smallest-equivalent-string.png

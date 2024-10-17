@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Implement Queue using Stacks"
-excerpt: "Leetcode Implement Queue using Stacks Java 풀이"
+excerpt: "Leetcode - 'Implement Queue using Stacks' 문제 Java 풀이"
 last_modified_at: 2021-11-07T01:30:00
 header:
   image: /assets/images/leetcode/implement-queue-using-stacks.png

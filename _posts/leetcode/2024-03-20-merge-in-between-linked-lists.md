@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge In Between Linked Lists"
-excerpt: "Leetcode Merge In Between Linked Lists Java"
+excerpt: "Leetcode Medium - 'Merge In Between Linked Lists' 문제 Java 풀이"
 last_modified_at: 2024-03-20T21:45:00
 header:
   image: /assets/images/leetcode/merge-in-between-linked-lists.png

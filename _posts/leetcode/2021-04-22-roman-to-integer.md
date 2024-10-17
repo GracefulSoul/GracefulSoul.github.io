@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Roman to Integer"
-excerpt: "Leetcode Roman to Integer Java 풀이"
+excerpt: "Leetcode - 'Roman to Integer' 문제 Java 풀이"
 last_modified_at: 2021-04-22T18:10:00
 header:
   image: /assets/images/leetcode/roman-to-integer.png

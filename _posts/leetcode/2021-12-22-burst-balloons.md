@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Burst Balloons"
-excerpt: "Leetcode Burst Balloons Java 풀이"
+excerpt: "Leetcode - 'Burst Balloons' 문제 Java 풀이"
 last_modified_at: 2021-12-22T15:00:00
 header:
   image: /assets/images/leetcode/burst-balloons.png

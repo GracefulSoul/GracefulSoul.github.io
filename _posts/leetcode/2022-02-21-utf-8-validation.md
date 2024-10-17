@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java UTF-8 Validation"
-excerpt: "Leetcode UTF-8 Validation Java 풀이"
+excerpt: "Leetcode - 'UTF-8 Validation' 문제 Java 풀이"
 last_modified_at: 2022-02-21T18:00:00
 header:
   image: /assets/images/leetcode/utf-8-validation.png

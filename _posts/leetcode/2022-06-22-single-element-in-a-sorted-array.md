@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Single Element in a Sorted Array"
-excerpt: "Leetcode Single Element in a Sorted Array Java"
+excerpt: "Leetcode - 'Single Element in a Sorted Array' 문제 Java 풀이"
 last_modified_at: 2022-06-22T20:00:00
 header:
   image: /assets/images/leetcode/single-element-in-a-sorted-array.png

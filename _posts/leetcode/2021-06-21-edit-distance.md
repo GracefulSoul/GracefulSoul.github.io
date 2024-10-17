@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Edit Distance"
-excerpt: "Leetcode Edit Distance Java 풀이"
+excerpt: "Leetcode - 'Edit Distance' 문제 Java 풀이"
 last_modified_at: 2021-06-21T17:40:00
 header:
   image: /assets/images/leetcode/edit-distance.png

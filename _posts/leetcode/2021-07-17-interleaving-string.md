@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Interleaving String"
-excerpt: "Leetcode Interleaving String Java 풀이"
+excerpt: "Leetcode - 'Interleaving String' 문제 Java 풀이"
 last_modified_at: 2021-07-17T20:00:00
 header:
   image: /assets/images/leetcode/interleaving-string.png

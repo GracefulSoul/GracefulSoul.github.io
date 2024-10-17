@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Nodes From Linked List Present in Array"
-excerpt: "Leetcode Delete Nodes From Linked List Present in Array Java"
+excerpt: "Leetcode Medium - 'Delete Nodes From Linked List Present in Array' 문제 Java 풀이"
 last_modified_at: 2024-09-06T18:40:00
 header:
   image: /assets/images/leetcode/delete-nodes-from-linked-list-present-in-array.png

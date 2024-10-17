@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotate Image"
-excerpt: "Leetcode Rotate Image Java 풀이"
+excerpt: "Leetcode - 'Rotate Image' 문제 Java 풀이"
 last_modified_at: 2021-05-30T18:20:00
 header:
   image: /assets/images/leetcode/rotate-image.png

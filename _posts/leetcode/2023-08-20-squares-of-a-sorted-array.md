@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Squares of a Sorted Array"
-excerpt: "Leetcode Squares of a Sorted Array Java"
+excerpt: "Leetcode Easy - 'Squares of a Sorted Array' 문제 Java 풀이"
 last_modified_at: 2023-08-20T11:00:00
 header:
   image: /assets/images/leetcode/squares-of-a-sorted-array.png

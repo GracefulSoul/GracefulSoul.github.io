@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of K Consecutive Bit Flips"
-excerpt: "Leetcode Minimum Number of K Consecutive Bit Flips Java"
+excerpt: "Leetcode Hard - 'Minimum Number of K Consecutive Bit Flips' 문제 Java 풀이"
 last_modified_at: 2023-09-22T18:50:00
 header:
   image: /assets/images/leetcode/minimum-number-of-k-consecutive-bit-flips.png

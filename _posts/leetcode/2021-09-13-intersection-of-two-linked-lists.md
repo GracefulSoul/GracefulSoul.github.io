@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Intersection of Two Linked Lists"
-excerpt: "Leetcode Intersection of Two Linked Lists Java 풀이"
+excerpt: "Leetcode - 'Intersection of Two Linked Lists' 문제 Java 풀이"
 last_modified_at: 2021-09-13T13:00:00
 header:
   image: /assets/images/leetcode/intersection-of-two-linked-lists.png

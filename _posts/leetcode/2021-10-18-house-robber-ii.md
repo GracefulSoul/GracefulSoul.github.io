@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java House Robber II"
-excerpt: "Leetcode House Robber II Java 풀이"
+excerpt: "Leetcode - 'House Robber II' 문제 Java 풀이"
 last_modified_at: 2021-10-18T13:00:00
 header:
   image: /assets/images/leetcode/house-robber-ii.png

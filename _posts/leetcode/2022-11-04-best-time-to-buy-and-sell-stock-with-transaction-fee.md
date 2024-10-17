@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Best Time to Buy and Sell Stock with Transaction Fee"
-excerpt: "Leetcode Best Time to Buy and Sell Stock with Transaction Fee Java"
+excerpt: "Leetcode - 'Best Time to Buy and Sell Stock with Transaction Fee' 문제 Java 풀이"
 last_modified_at: 2022-11-04T10:00:00
 header:
   image: /assets/images/leetcode/best-time-to-buy-and-sell-stock-with-transaction-fee.png

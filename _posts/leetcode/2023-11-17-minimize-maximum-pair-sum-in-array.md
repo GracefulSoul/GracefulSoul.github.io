@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimize Maximum Pair Sum in Array"
-excerpt: "Leetcode Minimize Maximum Pair Sum in Array Java"
+excerpt: "Leetcode Medium - 'Minimize Maximum Pair Sum in Array' 문제 Java 풀이"
 last_modified_at: 2023-11-17T22:40:00
 header:
   image: /assets/images/leetcode/minimize-maximum-pair-sum-in-array.png

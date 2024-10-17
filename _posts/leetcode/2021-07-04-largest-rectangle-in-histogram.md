@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Rectangle in Histogram"
-excerpt: "Leetcode Largest Rectangle in Histogram Java 풀이"
+excerpt: "Leetcode - 'Largest Rectangle in Histogram' 문제 Java 풀이"
 last_modified_at: 2021-07-04T16:30:00
 header:
   image: /assets/images/leetcode/largest-rectangle-in-histogram.png

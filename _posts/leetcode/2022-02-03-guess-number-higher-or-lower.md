@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Guess Number Higher or Lower"
-excerpt: "Leetcode Guess Number Higher or Lower Java 풀이"
+excerpt: "Leetcode - 'Guess Number Higher or Lower' 문제 Java 풀이"
 last_modified_at: 2022-02-03T13:00:00
 header:
   image: /assets/images/leetcode/guess-number-higher-or-lower.png

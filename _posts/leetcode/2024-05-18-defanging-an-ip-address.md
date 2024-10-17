@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Defanging an IP Address"
-excerpt: "Leetcode Defanging an IP Address Java"
+excerpt: "Leetcode Easy - 'Defanging an IP Address' 문제 Java 풀이"
 last_modified_at: 2024-05-18T10:30:00
 header:
   image: /assets/images/leetcode/defanging-an-ip-address.png

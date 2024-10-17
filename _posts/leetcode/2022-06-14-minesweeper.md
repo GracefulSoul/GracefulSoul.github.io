@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minesweeper"
-excerpt: "Leetcode Minesweeper Java"
+excerpt: "Leetcode - 'Minesweeper' 문제 Java 풀이"
 last_modified_at: 2022-06-14T21:00:00
 header:
   image: /assets/images/leetcode/minesweeper.png

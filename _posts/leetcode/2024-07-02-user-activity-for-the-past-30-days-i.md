@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL User Activity for the Past 30 Days I"
-excerpt: "Leetcode User Activity for the Past 30 Days I PostgreSQL"
+excerpt: "Leetcode Easy - 'User Activity for the Past 30 Days I' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-07-02T18:30:00
 header:
   image: /assets/images/leetcode/user-activity-for-the-past-30-days-i.png

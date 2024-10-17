@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Swap Nodes in Pairs"
-excerpt: "Leetcode Swap Nodes in Pairs Java 풀이"
+excerpt: "Leetcode - 'Swap Nodes in Pairs' 문제 Java 풀이"
 last_modified_at: 2021-05-05T10:10:00
 header:
   image: /assets/images/leetcode/swap-nodes-in-pairs.png

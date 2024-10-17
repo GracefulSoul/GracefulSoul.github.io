@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java XOR Queries of a Subarray"
-excerpt: "Leetcode XOR Queries of a Subarray Java"
+excerpt: "Leetcode Medium - 'XOR Queries of a Subarray' 문제 Java 풀이"
 last_modified_at: 2024-09-13T18:00:00
 header:
   image: /assets/images/leetcode/xor-queries-of-a-subarray.png

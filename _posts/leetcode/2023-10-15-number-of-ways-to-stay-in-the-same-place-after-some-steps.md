@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Ways to Stay in the Same Place After Some Steps"
-excerpt: "Leetcode Number of Ways to Stay in the Same Place After Some Steps Java"
+excerpt: "Leetcode Hard - 'Number of Ways to Stay in the Same Place After Some Steps' 문제 Java 풀이"
 last_modified_at: 2023-10-15T16:20:00
 header:
   image: /assets/images/leetcode/number-of-ways-to-stay-in-the-same-place-after-some-steps.png

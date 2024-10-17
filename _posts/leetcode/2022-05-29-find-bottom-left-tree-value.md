@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Bottom Left Tree Value"
-excerpt: "Leetcode Find Bottom Left Tree Value Java"
+excerpt: "Leetcode - 'Find Bottom Left Tree Value' 문제 Java 풀이"
 last_modified_at: 2022-05-29T06:00:00
 header:
   image: /assets/images/leetcode/find-bottom-left-tree-value.png

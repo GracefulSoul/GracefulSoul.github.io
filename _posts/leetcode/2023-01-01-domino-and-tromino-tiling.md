@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Domino and Tromino Tiling"
-excerpt: "Leetcode Domino and Tromino Tiling Java"
+excerpt: "Leetcode - 'Domino and Tromino Tiling' 문제 Java 풀이"
 last_modified_at: 2023-01-01T17:40:00
 header:
   image: /assets/images/leetcode/domino-and-tromino-tiling.png

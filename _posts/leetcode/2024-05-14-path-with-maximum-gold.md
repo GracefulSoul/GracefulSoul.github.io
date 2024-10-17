@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Path with Maximum Gold"
-excerpt: "Leetcode Path with Maximum Gold Java"
+excerpt: "Leetcode Medium - 'Path with Maximum Gold' 문제 Java 풀이"
 last_modified_at: 2024-05-14T22:00:00
 header:
   image: /assets/images/leetcode/path-with-maximum-gold.png

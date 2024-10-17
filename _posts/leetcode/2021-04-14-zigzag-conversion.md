@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java ZigZag Conversion"
-excerpt: "Leetcode ZigZag Conversion Java 풀이"
+excerpt: "Leetcode - 'ZigZag Conversion' 문제 Java 풀이"
 last_modified_at: 2021-04-14T20:40:00
 header:
   image: /assets/images/leetcode/zigzag-conversion.png

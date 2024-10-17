@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java First Bad Version"
-excerpt: "Leetcode First Bad Version Java 풀이"
+excerpt: "Leetcode - 'First Bad Version' 문제 Java 풀이"
 last_modified_at: 2021-11-29T20:00:00
 header:
   image: /assets/images/leetcode/first-bad-version.png

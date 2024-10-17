@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Optimal Division"
-excerpt: "Leetcode Optimal Division Java"
+excerpt: "Leetcode - 'Optimal Division' 문제 Java 풀이"
 last_modified_at: 2022-06-29T20:30:00
 header:
   image: /assets/images/leetcode/optimal-division.png

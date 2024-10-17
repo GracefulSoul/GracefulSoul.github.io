@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Increasing Subsequences"
-excerpt: "Leetcode Increasing Subsequences Java 풀이"
+excerpt: "Leetcode - 'Increasing Subsequences' 문제 Java 풀이"
 last_modified_at: 2022-05-12T22:00:00
 header:
   image: /assets/images/leetcode/increasing-subsequences.png

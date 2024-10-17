@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Binary Substrings"
-excerpt: "Leetcode Count Binary Substrings Java"
+excerpt: "Leetcode - 'Count Binary Substrings' 문제 Java 풀이"
 last_modified_at: 2022-10-20T19:00:00
 header:
   image: /assets/images/leetcode/degree-of-an-array.png

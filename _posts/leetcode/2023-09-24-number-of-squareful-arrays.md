@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Squareful Arrays"
-excerpt: "Leetcode Number of Squareful Arrays Java"
+excerpt: "Leetcode Hard - 'Number of Squareful Arrays' 문제 Java 풀이"
 last_modified_at: 2023-09-24T12:00:00
 header:
   image: /assets/images/leetcode/number-of-squareful-arrays.png

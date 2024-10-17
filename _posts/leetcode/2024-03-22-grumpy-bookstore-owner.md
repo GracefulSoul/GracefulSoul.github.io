@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Grumpy Bookstore Owner"
-excerpt: "Leetcode Grumpy Bookstore Owner Java"
+excerpt: "Leetcode Medium - 'Grumpy Bookstore Owner' 문제 Java 풀이"
 last_modified_at: 2024-03-22T19:10:00
 header:
   image: /assets/images/leetcode/grumpy-bookstore-owner.png

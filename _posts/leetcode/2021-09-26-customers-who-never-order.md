@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Customers Who Never Order"
-excerpt: "Leetcode Customers Who Never Order MySQL 풀이"
+excerpt: "Leetcode - 'Customers Who Never Order MySQL 풀이"
 last_modified_at: 2021-09-26T12:00:00
 header:
   image: /assets/images/leetcode/customers-who-never-order.png

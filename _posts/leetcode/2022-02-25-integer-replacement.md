@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Integer Replacement"
-excerpt: "Leetcode Integer Replacement Java 풀이"
+excerpt: "Leetcode - 'Integer Replacement' 문제 Java 풀이"
 last_modified_at: 2022-02-25T13:00:00
 header:
   image: /assets/images/leetcode/integer-replacement.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Linked List Cycle II"
-excerpt: "Leetcode Linked List Cycle II Java 풀이"
+excerpt: "Leetcode - 'Linked List Cycle II' 문제 Java 풀이"
 last_modified_at: 2021-08-31T09:00:00
 header:
   image: /assets/images/leetcode/linked-list-cycle-ii.png

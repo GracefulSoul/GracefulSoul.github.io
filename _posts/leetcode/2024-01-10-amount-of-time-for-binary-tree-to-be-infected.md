@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Amount of Time for Binary Tree to Be Infected"
-excerpt: "Leetcode Amount of Time for Binary Tree to Be Infected Java"
+excerpt: "Leetcode Medium - 'Amount of Time for Binary Tree to Be Infected' 문제 Java 풀이"
 last_modified_at: 2024-01-10T11:00:00
 header:
   image: /assets/images/leetcode/amount-of-time-for-binary-tree-to-be-infected.png

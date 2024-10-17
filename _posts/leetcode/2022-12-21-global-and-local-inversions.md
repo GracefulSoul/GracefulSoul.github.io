@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Global and Local Inversions"
-excerpt: "Leetcode Global and Local Inversions Java"
+excerpt: "Leetcode - 'Global and Local Inversions' 문제 Java 풀이"
 last_modified_at: 2022-12-21T14:50:00
 header:
   image: /assets/images/leetcode/global-and-local-inversions.png

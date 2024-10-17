@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Consecutive Numbers Sum"
-excerpt: "Leetcode Consecutive Numbers Sum Java"
+excerpt: "Leetcode - 'Consecutive Numbers Sum' 문제 Java 풀이"
 last_modified_at: 2023-02-05T14:50:00
 header:
   image: /assets/images/leetcode/consecutive-numbers-sum.png

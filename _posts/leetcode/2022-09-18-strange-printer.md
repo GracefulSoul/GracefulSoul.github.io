@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Strange Printer"
-excerpt: "Leetcode Strange Printer Java"
+excerpt: "Leetcode - 'Strange Printer' 문제 Java 풀이"
 last_modified_at: 2022-09-18T11:30:00
 header:
   image: /assets/images/leetcode/strange-printer.png

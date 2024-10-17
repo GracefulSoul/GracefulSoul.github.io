@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Target Sum"
-excerpt: "Leetcode Target Sum Java 풀이"
+excerpt: "Leetcode - 'Target Sum' 문제 Java 풀이"
 last_modified_at: 2022-05-15T09:00:00
 header:
   image: /assets/images/leetcode/target-sum.png

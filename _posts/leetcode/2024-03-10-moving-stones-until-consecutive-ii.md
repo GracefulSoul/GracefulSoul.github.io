@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Moving Stones Until Consecutive II"
-excerpt: "Leetcode Moving Stones Until Consecutive II Java"
+excerpt: "Leetcode Medium - 'Moving Stones Until Consecutive II' 문제 Java 풀이"
 last_modified_at: 2024-03-10T11:30:00
 header:
   image: /assets/images/leetcode/moving-stones-until-consecutive-ii.png

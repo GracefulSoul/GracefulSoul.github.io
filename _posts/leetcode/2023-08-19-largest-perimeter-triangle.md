@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Perimeter Triangle"
-excerpt: "Leetcode Largest Perimeter Triangle Java"
+excerpt: "Leetcode Easy - 'Largest Perimeter Triangle' 문제 Java 풀이"
 last_modified_at: 2023-08-19T22:10:00
 header:
   image: /assets/images/leetcode/largest-perimeter-triangle.png

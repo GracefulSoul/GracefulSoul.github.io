@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add Strings"
-excerpt: "Leetcode Add Strings Java 풀이"
+excerpt: "Leetcode - 'Add Strings' 문제 Java 풀이"
 last_modified_at: 2022-03-15T12:00:00
 header:
   image: /assets/images/leetcode/add-strings.png

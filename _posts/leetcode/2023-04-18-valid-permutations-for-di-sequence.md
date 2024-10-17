@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Permutations for DI Sequence"
-excerpt: "Leetcode Valid Permutations for DI Sequence Java"
+excerpt: "Leetcode - 'Valid Permutations for DI Sequence' 문제 Java 풀이"
 last_modified_at: 2023-04-18T20:30:00
 header:
   image: /assets/images/leetcode/valid-permutations-for-di-sequence.png

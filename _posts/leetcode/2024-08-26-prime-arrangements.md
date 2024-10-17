@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Prime Arrangements"
-excerpt: "Leetcode Prime Arrangements Java"
+excerpt: "Leetcode Easy - 'Prime Arrangements' 문제 Java 풀이"
 last_modified_at: 2024-08-26T18:50:00
 header:
   image: /assets/images/leetcode/prime-arrangements.png

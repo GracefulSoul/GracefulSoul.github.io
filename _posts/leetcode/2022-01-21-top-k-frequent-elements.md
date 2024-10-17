@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Top K Frequent Elements"
-excerpt: "Leetcode Top K Frequent Elements Java 풀이"
+excerpt: "Leetcode - 'Top K Frequent Elements' 문제 Java 풀이"
 last_modified_at: 2022-01-21T21:00:00
 header:
   image: /assets/images/leetcode/top-k-frequent-elements.png

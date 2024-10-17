@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Peak Index in a Mountain Array"
-excerpt: "Leetcode Peak Index in a Mountain Array Java"
+excerpt: "Leetcode - 'Peak Index in a Mountain Array' 문제 Java 풀이"
 last_modified_at: 2023-02-25T14:30:00
 header:
   image: /assets/images/leetcode/peak-index-in-a-mountain-array.png

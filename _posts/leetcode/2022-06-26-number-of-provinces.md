@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Provinces"
-excerpt: "Leetcode Number of Provinces Java"
+excerpt: "Leetcode - 'Number of Provinces' 문제 Java 풀이"
 last_modified_at: 2022-06-27T19:00:00
 header:
   image: /assets/images/leetcode/number-of-provinces.png

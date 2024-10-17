@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Numbers With Same Consecutive Differences"
-excerpt: "Leetcode Numbers With Same Consecutive Differences Java"
+excerpt: "Leetcode Medium - 'Numbers With Same Consecutive Differences' 문제 Java 풀이"
 last_modified_at: 2023-08-04T19:20:00
 header:
   image: /assets/images/leetcode/numbers-with-same-consecutive-differences.png

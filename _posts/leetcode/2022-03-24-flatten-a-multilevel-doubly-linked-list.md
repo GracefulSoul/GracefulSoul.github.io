@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flatten a Multilevel Doubly Linked List"
-excerpt: "Leetcode Flatten a Multilevel Doubly Linked List Java 풀이"
+excerpt: "Leetcode - 'Flatten a Multilevel Doubly Linked List' 문제 Java 풀이"
 last_modified_at: 2022-03-24T12:00:00
 header:
   image: /assets/images/leetcode/flatten-a-multilevel-doubly-linked-list.png

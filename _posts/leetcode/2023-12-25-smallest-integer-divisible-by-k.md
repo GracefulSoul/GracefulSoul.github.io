@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Integer Divisible by K"
-excerpt: "Leetcode Smallest Integer Divisible by K Java"
+excerpt: "Leetcode Medium - 'Smallest Integer Divisible by K' 문제 Java 풀이"
 last_modified_at: 2023-12-25T14:15:00
 header:
   image: /assets/images/leetcode/smallest-integer-divisible-by-k.png

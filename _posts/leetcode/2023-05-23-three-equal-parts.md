@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Three Equal Parts"
-excerpt: "Leetcode Three Equal Parts Java"
+excerpt: "Leetcode - 'Three Equal Parts' 문제 Java 풀이"
 last_modified_at: 2023-05-23T18:55:00
 header:
   image: /assets/images/leetcode/three-equal-parts.png

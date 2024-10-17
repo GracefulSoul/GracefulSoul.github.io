@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Integer"
-excerpt: "Leetcode Reverse Integer Java 풀이"
+excerpt: "Leetcode - 'Reverse Integer' 문제 Java 풀이"
 last_modified_at: 2021-04-15T21:10:00
 header:
   image: /assets/images/leetcode/zigzag-conversion.png

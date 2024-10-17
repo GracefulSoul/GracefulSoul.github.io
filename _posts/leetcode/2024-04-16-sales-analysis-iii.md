@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Sales Analysis III"
-excerpt: "Leetcode Sales Analysis III PostgreSQL"
+excerpt: "Leetcode Easy - 'Sales Analysis III PostgreSQL"
 last_modified_at: 2024-04-16T18:50:00
 header:
   image: /assets/images/leetcode/sales-analysis-iii.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Level Sum of a Binary Tree"
-excerpt: "Leetcode Maximum Level Sum of a Binary Tree Java"
+excerpt: "Leetcode Medium - 'Maximum Level Sum of a Binary Tree' 문제 Java 풀이"
 last_modified_at: 2024-08-14T17:50:00
 header:
   image: /assets/images/leetcode/maximum-level-sum-of-a-binary-tree.png

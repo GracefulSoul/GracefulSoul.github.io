@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Palindrome"
-excerpt: "Leetcode Shortest Palindrome Java 풀이"
+excerpt: "Leetcode - 'Shortest Palindrome' 문제 Java 풀이"
 last_modified_at: 2021-10-19T09:00:00
 header:
   image: /assets/images/leetcode/shortest-palindrome.png

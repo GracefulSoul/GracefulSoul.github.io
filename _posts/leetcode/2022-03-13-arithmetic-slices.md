@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Arithmetic Slices"
-excerpt: "Leetcode Arithmetic Slices Java 풀이"
+excerpt: "Leetcode - 'Arithmetic Slices' 문제 Java 풀이"
 last_modified_at: 2022-03-13T15:00:00
 header:
   image: /assets/images/leetcode/arithmetic-slices.png

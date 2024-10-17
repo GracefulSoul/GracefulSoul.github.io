@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Subarray with Sum at Least K"
-excerpt: "Leetcode Shortest Subarray with Sum at Least K Java"
+excerpt: "Leetcode - 'Shortest Subarray with Sum at Least K' 문제 Java 풀이"
 last_modified_at: 2023-03-05T18:30:00
 header:
   image: /assets/images/leetcode/shortest-subarray-with-sum-at-least-k.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Coin Change"
-excerpt: "Leetcode Coin Change Java 풀이"
+excerpt: "Leetcode - 'Coin Change' 문제 Java 풀이"
 last_modified_at: 2021-12-31T13:00:00
 header:
   image: /assets/images/leetcode/coin-change.png

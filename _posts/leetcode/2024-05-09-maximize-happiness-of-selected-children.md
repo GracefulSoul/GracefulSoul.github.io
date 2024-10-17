@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximize Happiness of Selected Children"
-excerpt: "Leetcode Maximize Happiness of Selected Children Java"
+excerpt: "Leetcode Medium - 'Maximize Happiness of Selected Children' 문제 Java 풀이"
 last_modified_at: 2024-05-09T19:50:00
 header:
   image: /assets/images/leetcode/maximize-happiness-of-selected-children.png

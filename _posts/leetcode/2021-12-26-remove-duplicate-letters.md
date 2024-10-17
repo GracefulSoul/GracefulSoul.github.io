@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Duplicate Letters"
-excerpt: "Leetcode Remove Duplicate Letters Java 풀이"
+excerpt: "Leetcode - 'Remove Duplicate Letters' 문제 Java 풀이"
 last_modified_at: 2021-12-26T15:00:00
 header:
   image: /assets/images/leetcode/remove-duplicate-letters.png

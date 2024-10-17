@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Copy List with Random Pointer"
-excerpt: "Leetcode Copy List with Random Pointer Java 풀이"
+excerpt: "Leetcode - 'Copy List with Random Pointer' 문제 Java 풀이"
 last_modified_at: 2021-08-26T17:00:00
 header:
   image: /assets/images/leetcode/copy-list-with-random-pointer.png

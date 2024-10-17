@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java X of a Kind in a Deck of Card"
-excerpt: "Leetcode X of a Kind in a Deck of Card Java"
+excerpt: "Leetcode - 'X of a Kind in a Deck of Card' 문제 Java 풀이"
 last_modified_at: 2023-05-03T20:50:00
 header:
   image: /assets/images/leetcode/x-of-a-kind-in-a-deck-of-cards.png

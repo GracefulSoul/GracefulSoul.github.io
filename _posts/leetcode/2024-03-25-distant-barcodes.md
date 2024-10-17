@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distant Barcodes"
-excerpt: "Leetcode Distant Barcodes Java"
+excerpt: "Leetcode Medium - 'Distant Barcodes' 문제 Java 풀이"
 last_modified_at: 2024-03-25T19:00:00
 header:
   image: /assets/images/leetcode/distant-barcodes.png

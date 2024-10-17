@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Redundant Connection"
-excerpt: "Leetcode Redundant Connection Java"
+excerpt: "Leetcode - 'Redundant Connection' 문제 Java 풀이"
 last_modified_at: 2022-10-05T21:20:00
 header:
   image: /assets/images/leetcode/redundant-connection.png

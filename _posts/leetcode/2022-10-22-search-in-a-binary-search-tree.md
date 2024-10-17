@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Search in a Binary Search Tree"
-excerpt: "Leetcode Search in a Binary Search Tree Java"
+excerpt: "Leetcode - 'Search in a Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2022-10-22T09:00:00
 header:
   image: /assets/images/leetcode/search-in-a-binary-search-tree.png

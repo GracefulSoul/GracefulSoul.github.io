@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Generate Parentheses"
-excerpt: "Leetcode Generate Parentheses Java 풀이"
+excerpt: "Leetcode - 'Generate Parentheses' 문제 Java 풀이"
 last_modified_at: 2021-05-03T20:10:00
 header:
   image: /assets/images/leetcode/generate-parentheses.png

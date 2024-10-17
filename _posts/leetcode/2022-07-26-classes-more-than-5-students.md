@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Big Countries"
-excerpt: "Leetcode Big Countries MySQL 풀이"
+excerpt: "Leetcode - 'Big Countries MySQL 풀이"
 last_modified_at: 2022-07-26T19:30:00
 header:
   image: /assets/images/leetcode/classes-more-than-5-students.png

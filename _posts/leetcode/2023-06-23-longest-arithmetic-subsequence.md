@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Arithmetic Subsequence"
-excerpt: "Leetcode Longest Arithmetic Subsequence Java"
+excerpt: "Leetcode Medium - 'Longest Arithmetic Subsequence' 문제 Java 풀이"
 last_modified_at: 2023-06-23T19:05:00
 header:
   image: /assets/images/leetcode/longest-arithmetic-subsequence.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java All Possible Full Binary Trees"
-excerpt: "Leetcode All Possible Full Binary Trees Java"
+excerpt: "Leetcode - 'All Possible Full Binary Trees' 문제 Java 풀이"
 last_modified_at: 2023-04-05T19:20:00
 header:
   image: /assets/images/leetcode/all-possible-full-binary-trees.png

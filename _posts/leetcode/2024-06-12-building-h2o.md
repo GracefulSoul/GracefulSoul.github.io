@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Building H2O"
-excerpt: "Leetcode Building H2O Java"
+excerpt: "Leetcode Medium - 'Building H2O' 문제 Java 풀이"
 last_modified_at: 2024-06-12T18:20:00
 header:
   image: /assets/images/leetcode/building-h2o.png

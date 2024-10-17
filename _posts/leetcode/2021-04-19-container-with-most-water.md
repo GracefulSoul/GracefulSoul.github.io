@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Container With Most Water"
-excerpt: "Leetcode Container With Most Water Java 풀이"
+excerpt: "Leetcode - 'Container With Most Water' 문제 Java 풀이"
 last_modified_at: 2021-04-19T20:20:00
 header:
   image: /assets/images/leetcode/container-with-most-water.png

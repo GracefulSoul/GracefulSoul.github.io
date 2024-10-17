@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Minimum String Length After Removing Substrings"
-excerpt: "Leetcode Minimum String Length After Removing Substrings Java"
+excerpt: "Leetcode Easy - 'Minimum String Length After Removing Substrings' 문제 Java 풀이"
 last_modified_at: 2024-10-07T18:30:00
 header:
   image: /assets/images/leetcode/minimum-string-length-after-removing-substrings.png

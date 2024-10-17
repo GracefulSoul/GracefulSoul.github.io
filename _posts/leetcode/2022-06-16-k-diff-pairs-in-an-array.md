@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-diff Pairs in an Array"
-excerpt: "Leetcode K-diff Pairs in an Array Java"
+excerpt: "Leetcode - 'K-diff Pairs in an Array' 문제 Java 풀이"
 last_modified_at: 2022-06-16T20:00:00
 header:
   image: /assets/images/leetcode/k-diff-pairs-in-an-array.png

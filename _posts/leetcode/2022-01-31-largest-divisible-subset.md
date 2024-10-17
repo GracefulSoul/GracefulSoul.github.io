@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Divisible Subset"
-excerpt: "Leetcode Largest Divisible Subset Java 풀이"
+excerpt: "Leetcode - 'Largest Divisible Subset' 문제 Java 풀이"
 last_modified_at: 2022-01-31T12:00:00
 header:
   image: /assets/images/leetcode/largest-divisible-subset.png

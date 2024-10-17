@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java 2 Keys Keyboard"
-excerpt: "Leetcode 2 Keys Keyboard Java"
+excerpt: "Leetcode - '2 Keys Keyboard' 문제 Java 풀이"
 last_modified_at: 2022-09-07T19:30:00
 header:
   image: /assets/images/leetcode/2-keys-keyboard.png

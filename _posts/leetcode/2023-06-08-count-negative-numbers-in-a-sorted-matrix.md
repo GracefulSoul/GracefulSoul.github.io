@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Negative Numbers in a Sorted Matrix"
-excerpt: "Leetcode Count Negative Numbers in a Sorted Matrix Java"
+excerpt: "Leetcode Easy - 'Count Negative Numbers in a Sorted Matrix' 문제 Java 풀이"
 last_modified_at: 2023-06-08T19:50:00
 header:
   image: /assets/images/leetcode/count-negative-numbers-in-a-sorted-matrix.png

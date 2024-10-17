@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Tic-Tac-Toe State"
-excerpt: "Leetcode Valid Tic-Tac-Toe State Java"
+excerpt: "Leetcode - 'Valid Tic-Tac-Toe State' 문제 Java 풀이"
 last_modified_at: 2023-01-05T20:45:00
 header:
   image: /assets/images/leetcode/valid-tic-tac-toe-state.png

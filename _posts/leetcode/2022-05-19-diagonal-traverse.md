@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Diagonal Traverse"
-excerpt: "Leetcode Diagonal Traverse Java"
+excerpt: "Leetcode - 'Diagonal Traverse' 문제 Java 풀이"
 last_modified_at: 2022-05-19T19:00:00
 header:
   image: /assets/images/leetcode/diagonal-traverse.png

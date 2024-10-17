@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Operations to Make Array XOR Equal to K"
-excerpt: "Leetcode Minimum Number of Operations to Make Array XOR Equal to K Java"
+excerpt: "Leetcode Medium - 'Minimum Number of Operations to Make Array XOR Equal to K' 문제 Java 풀이"
 last_modified_at: 2024-04-29T19:30:00
 header:
   image: /assets/images/leetcode/minimum-number-of-operations-to-make-array-xor-equal-to-k.png

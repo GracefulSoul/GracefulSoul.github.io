@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java 3Sum With Multiplicity"
-excerpt: "Leetcode 3Sum With Multiplicity Java"
+excerpt: "Leetcode - '3Sum With Multiplicity' 문제 Java 풀이"
 last_modified_at: 2023-05-16T19:30:00
 header:
   image: /assets/images/leetcode/3sum-with-multiplicity.png

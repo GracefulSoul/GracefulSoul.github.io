@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add Digits"
-excerpt: "Leetcode Add Digits Java 풀이"
+excerpt: "Leetcode - 'Add Digits' 문제 Java 풀이"
 last_modified_at: 2021-11-20T10:00:00
 header:
   image: /assets/images/leetcode/add-digits.png

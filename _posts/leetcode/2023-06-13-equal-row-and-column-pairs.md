@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Equal Row and Column Pairs"
-excerpt: "Leetcode Equal Row and Column Pairs Java"
+excerpt: "Leetcode Medium - 'Equal Row and Column Pairs' 문제 Java 풀이"
 last_modified_at: 2023-06-13T19:00:00
 header:
   image: /assets/images/leetcode/equal-row-and-column-pairs.png

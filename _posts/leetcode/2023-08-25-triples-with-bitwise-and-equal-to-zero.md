@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Triples with Bitwise AND Equal To Zero"
-excerpt: "Leetcode Triples with Bitwise AND Equal To Zero Java"
+excerpt: "Leetcode Hard - 'Triples with Bitwise AND Equal To Zero' 문제 Java 풀이"
 last_modified_at: 2023-08-26T06:35:00
 header:
   image: /assets/images/leetcode/triples-with-bitwise-and-equal-to-zero.png

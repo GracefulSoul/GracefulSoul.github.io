@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reconstruct Original Digits from English"
-excerpt: "Leetcode Reconstruct Original Digits from English Java 풀이"
+excerpt: "Leetcode - 'Reconstruct Original Digits from English' 문제 Java 풀이"
 last_modified_at: 2022-03-20T12:00:00
 header:
   image: /assets/images/leetcode/reconstruct-original-digits-from-english.png

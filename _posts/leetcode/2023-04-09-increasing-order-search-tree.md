@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Increasing Order Search Tree"
-excerpt: "Leetcode Increasing Order Search Tree Java"
+excerpt: "Leetcode - 'Increasing Order Search Tree' 문제 Java 풀이"
 last_modified_at: 2023-04-09T10:10:00
 header:
   image: /assets/images/leetcode/increasing-order-search-tree.png

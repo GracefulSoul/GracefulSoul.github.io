@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Highest Altitude"
-excerpt: "Leetcode Find the Highest Altitude Java"
+excerpt: "Leetcode Easy - 'Find the Highest Altitude' 문제 Java 풀이"
 last_modified_at: 2023-06-19T19:00:00
 header:
   image: /assets/images/leetcode/find-the-highest-altitude.png

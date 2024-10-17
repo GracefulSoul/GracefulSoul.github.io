@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Bitwise ORs of Subarrays"
-excerpt: "Leetcode Bitwise ORs of Subarrays Java"
+excerpt: "Leetcode - 'Bitwise ORs of Subarrays' 문제 Java 풀이"
 last_modified_at: 2023-04-11T19:45:00
 header:
   image: /assets/images/leetcode/bitwise-ors-of-subarrays.png

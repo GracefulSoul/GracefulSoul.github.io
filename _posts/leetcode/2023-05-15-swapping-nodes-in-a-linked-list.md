@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Swapping Nodes in a Linked List"
-excerpt: "Leetcode Swapping Nodes in a Linked List Java"
+excerpt: "Leetcode - 'Swapping Nodes in a Linked List' 문제 Java 풀이"
 last_modified_at: 2023-05-15T19:30:00
 header:
   image: /assets/images/leetcode/swapping-nodes-in-a-linked-list.png

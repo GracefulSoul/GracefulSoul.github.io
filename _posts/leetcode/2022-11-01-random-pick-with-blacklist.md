@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Random Pick with Blacklist"
-excerpt: "Leetcode Random Pick with Blacklist Java"
+excerpt: "Leetcode - 'Random Pick with Blacklist' 문제 Java 풀이"
 last_modified_at: 2022-11-01T22:20:00
 header:
   image: /assets/images/leetcode/random-pick-with-blacklist.png

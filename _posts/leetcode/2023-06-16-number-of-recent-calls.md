@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Recent Calls"
-excerpt: "Leetcode Number of Recent Calls Java"
+excerpt: "Leetcode Easy - 'Number of Recent Calls' 문제 Java 풀이"
 last_modified_at: 2023-06-16T20:10:00
 header:
   image: /assets/images/leetcode/number-of-recent-calls.png

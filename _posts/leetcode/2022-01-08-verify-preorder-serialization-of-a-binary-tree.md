@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Verify Preorder Serialization of a Binary Tree"
-excerpt: "Leetcode Verify Preorder Serialization of a Binary Tree Java 풀이"
+excerpt: "Leetcode - 'Verify Preorder Serialization of a Binary Tree' 문제 Java 풀이"
 last_modified_at: 2022-01-08T15:00:00
 header:
   image: /assets/images/leetcode/verify-preorder-serialization-of-a-binary-tree.png

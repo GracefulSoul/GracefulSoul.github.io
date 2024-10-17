@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximal Network Rank"
-excerpt: "Leetcode Maximal Network Rank Java"
+excerpt: "Leetcode Medium - 'Maximal Network Rank' 문제 Java 풀이"
 last_modified_at: 2023-08-18T20:50:00
 header:
   image: /assets/images/leetcode/maximal-network-rank.png

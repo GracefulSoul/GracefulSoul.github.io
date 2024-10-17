@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Arranging Coins"
-excerpt: "Leetcode Arranging Coins Java 풀이"
+excerpt: "Leetcode - 'Arranging Coins' 문제 Java 풀이"
 last_modified_at: 2022-04-01T17:00:00
 header:
   image: /assets/images/leetcode/arranging-coins.png

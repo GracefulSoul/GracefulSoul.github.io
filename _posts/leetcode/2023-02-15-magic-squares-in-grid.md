@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Magic Squares In Grid"
-excerpt: "Leetcode Magic Squares In Grid Java"
+excerpt: "Leetcode - 'Magic Squares In Grid' 문제 Java 풀이"
 last_modified_at: 2023-02-15T18:40:00
 header:
   image: /assets/images/leetcode/magic-squares-in-grid.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Paths"
-excerpt: "Leetcode Binary Tree Paths Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Paths' 문제 Java 풀이"
 last_modified_at: 2021-11-19T10:40:00
 header:
   image: /assets/images/leetcode/binary-tree-paths.png

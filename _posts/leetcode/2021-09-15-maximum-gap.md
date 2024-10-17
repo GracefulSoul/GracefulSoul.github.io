@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Gap"
-excerpt: "Leetcode Maximum Gap Java 풀이"
+excerpt: "Leetcode - 'Maximum Gap' 문제 Java 풀이"
 last_modified_at: 2021-09-15T12:00:00
 header:
   image: /assets/images/leetcode/maximum-gap.png

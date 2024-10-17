@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Image Overlap"
-excerpt: "Leetcode Image Overlap Java"
+excerpt: "Leetcode - 'Image Overlap' 문제 Java 풀이"
 last_modified_at: 2023-02-10T21:11:00
 header:
   image: /assets/images/leetcode/image-overlap.png

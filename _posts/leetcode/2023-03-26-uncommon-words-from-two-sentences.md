@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Uncommon Words from Two Sentences"
-excerpt: "Leetcode Uncommon Words from Two Sentences Java"
+excerpt: "Leetcode - 'Uncommon Words from Two Sentences' 문제 Java 풀이"
 last_modified_at: 2023-03-26T12:50:00
 header:
   image: /assets/images/leetcode/uncommon-words-from-two-sentences.png

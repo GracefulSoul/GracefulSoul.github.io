@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Cost to Make Array Equal"
-excerpt: "Leetcode Minimum Cost to Make Array Equal Java"
+excerpt: "Leetcode Hard - 'Minimum Cost to Make Array Equal' 문제 Java 풀이"
 last_modified_at: 2023-06-21T19:00:00
 header:
   image: /assets/images/leetcode/minimum-cost-to-make-array-equal.png

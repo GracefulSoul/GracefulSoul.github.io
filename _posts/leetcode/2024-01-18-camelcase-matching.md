@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Camelcase Matching"
-excerpt: "Leetcode Camelcase Matching Java"
+excerpt: "Leetcode Medium - 'Camelcase Matching' 문제 Java 풀이"
 last_modified_at: 2024-01-18T18:15:00
 header:
   image: /assets/images/leetcode/camelcase-matching.png

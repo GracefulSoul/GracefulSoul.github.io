@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Decoded String at Index"
-excerpt: "Leetcode Decoded String at Index Java"
+excerpt: "Leetcode - 'Decoded String at Index' 문제 Java 풀이"
 last_modified_at: 2023-03-22T20:00:00
 header:
   image: /assets/images/leetcode/decoded-string-at-index.png

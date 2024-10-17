@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Minimum in Rotated Sorted Array II"
-excerpt: "Leetcode Find Minimum in Rotated Sorted Array II Java 풀이"
+excerpt: "Leetcode - 'Find Minimum in Rotated Sorted Array II' 문제 Java 풀이"
 last_modified_at: 2021-09-11T17:00:00
 header:
   image: /assets/images/leetcode/find-minimum-in-rotated-sorted-array-ii.png

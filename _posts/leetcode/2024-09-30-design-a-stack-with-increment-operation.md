@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design a Stack With Increment Operation"
-excerpt: "Leetcode Design a Stack With Increment Operation Java"
+excerpt: "Leetcode Medium - 'Design a Stack With Increment Operation' 문제 Java 풀이"
 last_modified_at: 2024-09-30T17:40:00
 header:
   image: /assets/images/leetcode/design-a-stack-with-increment-operation.png

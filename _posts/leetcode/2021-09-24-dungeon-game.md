@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Dungeon Game"
-excerpt: "Leetcode Dungeon Game Java 풀이"
+excerpt: "Leetcode - 'Dungeon Game' 문제 Java 풀이"
 last_modified_at: 2021-09-24T12:00:00
 header:
   image: /assets/images/leetcode/dungeon-game.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Dota2 Senate"
-excerpt: "Leetcode Dota2 Senate Java"
+excerpt: "Leetcode - 'Dota2 Senate' 문제 Java 풀이"
 last_modified_at: 2022-09-06T12:00:00
 header:
   image: /assets/images/leetcode/dota2-senate.png

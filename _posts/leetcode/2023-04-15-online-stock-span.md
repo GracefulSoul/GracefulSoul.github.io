@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Online Stock Span"
-excerpt: "Leetcode Online Stock Span Java"
+excerpt: "Leetcode - 'Online Stock Span' 문제 Java 풀이"
 last_modified_at: 2023-04-15T15:00:00
 header:
   image: /assets/images/leetcode/online-stock-span.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Split Array Largest Sum"
-excerpt: "Leetcode Split Array Largest Sum Java 풀이"
+excerpt: "Leetcode - 'Split Array Largest Sum' 문제 Java 풀이"
 last_modified_at: 2022-03-09T11:00:00
 header:
   image: /assets/images/leetcode/split-array-largest-sum.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Russian Doll Envelopes"
-excerpt: "Leetcode Russian Doll Envelopes Java 풀이"
+excerpt: "Leetcode - 'Russian Doll Envelopes' 문제 Java 풀이"
 last_modified_at: 2022-01-25T13:00:00
 header:
   image: /assets/images/leetcode/russian-doll-envelopes.png

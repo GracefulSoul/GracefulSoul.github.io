@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Check If Word Is Valid After Substitutions"
-excerpt: "Leetcode Check If Word Is Valid After Substitutions Java"
+excerpt: "Leetcode Medium - 'Check If Word Is Valid After Substitutions' 문제 Java 풀이"
 last_modified_at: 2023-10-16T19:45:00
 header:
   image: /assets/images/leetcode/check-if-word-is-valid-after-substitutions.png

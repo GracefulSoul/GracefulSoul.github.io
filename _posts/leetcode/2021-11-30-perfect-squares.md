@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Perfect Squares"
-excerpt: "Leetcode Perfect Squares Java 풀이"
+excerpt: "Leetcode - 'Perfect Squares' 문제 Java 풀이"
 last_modified_at: 2021-11-30T12:00:00
 header:
   image: /assets/images/leetcode/perfect-squares.png

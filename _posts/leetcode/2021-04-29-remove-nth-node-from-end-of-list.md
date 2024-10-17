@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Nth Node From End of List"
-excerpt: "Leetcode Remove Nth Node From End of List Java 풀이"
+excerpt: "Leetcode - 'Remove Nth Node From End of List' 문제 Java 풀이"
 last_modified_at: 2021-04-29T23:50:00
 header:
   image: /assets/images/leetcode/remove-nth-node-from-end-of-list.png

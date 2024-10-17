@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Evaluate Division"
-excerpt: "Leetcode Evaluate Division Java 풀이"
+excerpt: "Leetcode - 'Evaluate Division' 문제 Java 풀이"
 last_modified_at: 2022-02-27T12:00:00
 header:
   image: /assets/images/leetcode/evaluate-division.png

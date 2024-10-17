@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java The Skyline Problem"
-excerpt: "Leetcode The Skyline Problem Java 풀이"
+excerpt: "Leetcode - 'The Skyline Problem' 문제 Java 풀이"
 last_modified_at: 2021-10-24T13:00:00
 header:
   image: /assets/images/leetcode/the-skyline-problem.png

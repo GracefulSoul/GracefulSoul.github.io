@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Preimage Size of Factorial Zeroes Function"
-excerpt: "Leetcode Preimage Size of Factorial Zeroes Function Java"
+excerpt: "Leetcode - 'Preimage Size of Factorial Zeroes Function' 문제 Java 풀이"
 last_modified_at: 2023-01-04T19:50:00
 header:
   image: /assets/images/leetcode/preimage-size-of-factorial-zeroes-function.png

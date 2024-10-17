@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Fruit Into Baskets"
-excerpt: "Leetcode Fruit Into Baskets Java"
+excerpt: "Leetcode - 'Fruit Into Baskets' 문제 Java 풀이"
 last_modified_at: 2023-04-19T19:20:00
 header:
   image: /assets/images/leetcode/fruit-into-baskets.png

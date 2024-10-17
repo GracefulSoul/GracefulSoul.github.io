@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Univalued Binary Tree"
-excerpt: "Leetcode Univalued Binary Tree Java"
+excerpt: "Leetcode Easy - 'Univalued Binary Tree' 문제 Java 풀이"
 last_modified_at: 2023-08-03T19:30:00
 header:
   image: /assets/images/leetcode/univalued-binary-tree.png

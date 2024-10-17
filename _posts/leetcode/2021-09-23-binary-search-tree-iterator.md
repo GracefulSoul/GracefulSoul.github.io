@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Search Tree Iterator"
-excerpt: "Leetcode Binary Search Tree Iterator Java 풀이"
+excerpt: "Leetcode - 'Binary Search Tree Iterator' 문제 Java 풀이"
 last_modified_at: 2021-09-23T12:00:00
 header:
   image: /assets/images/leetcode/binary-search-tree-iterator.png

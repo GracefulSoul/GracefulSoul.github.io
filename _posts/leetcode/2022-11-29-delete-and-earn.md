@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete and Earn"
-excerpt: "Leetcode Delete and Earn Java"
+excerpt: "Leetcode - 'Delete and Earn' 문제 Java 풀이"
 last_modified_at: 2022-11-29T13:20:00
 header:
   image: /assets/images/leetcode/delete-and-earn.png

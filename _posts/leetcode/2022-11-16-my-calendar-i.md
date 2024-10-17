@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java My Calendar I"
-excerpt: "Leetcode My Calendar I Java"
+excerpt: "Leetcode - 'My Calendar I' 문제 Java 풀이"
 last_modified_at: 2022-11-16T20:00:00
 header:
   image: /assets/images/leetcode/my-calendar-i.png

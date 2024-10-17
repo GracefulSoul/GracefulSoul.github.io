@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Restore the Array From Adjacent Pairs"
-excerpt: "Leetcode Restore the Array From Adjacent Pairs Java"
+excerpt: "Leetcode Medium - 'Restore the Array From Adjacent Pairs' 문제 Java 풀이"
 last_modified_at: 2023-11-10T19:00:00
 header:
   image: /assets/images/leetcode/restore-the-array-from-adjacent-pairs.png

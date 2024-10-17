@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shuffle an Array"
-excerpt: "Leetcode Shuffle an Array Java 풀이"
+excerpt: "Leetcode - 'Shuffle an Array' 문제 Java 풀이"
 last_modified_at: 2022-02-12T13:00:00
 header:
   image: /assets/images/leetcode/shuffle-an-array.png

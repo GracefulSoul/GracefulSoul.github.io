@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java House Robber III"
-excerpt: "Leetcode House Robber III Java 풀이"
+excerpt: "Leetcode - 'House Robber III' 문제 Java 풀이"
 last_modified_at: 2022-01-13T12:00:00
 header:
   image: /assets/images/leetcode/house-robber-iii.png

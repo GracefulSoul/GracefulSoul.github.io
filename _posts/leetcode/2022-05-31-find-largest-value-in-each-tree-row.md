@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Largest Value in Each Tree Row"
-excerpt: "Leetcode Find Largest Value in Each Tree Row Java"
+excerpt: "Leetcode - 'Find Largest Value in Each Tree Row' 문제 Java 풀이"
 last_modified_at: 2022-05-31T12:00:00
 header:
   image: /assets/images/leetcode/find-largest-value-in-each-tree-row.png

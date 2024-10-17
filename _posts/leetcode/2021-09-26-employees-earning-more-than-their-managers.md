@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Employees Earning More Than Their Managers"
-excerpt: "Leetcode Employees Earning More Than Their Managers MySQL 풀이"
+excerpt: "Leetcode - 'Employees Earning More Than Their Managers MySQL 풀이"
 last_modified_at: 2021-09-26T12:00:00
 header:
   image: /assets/images/leetcode/employees-earning-more-than-their-managers.png

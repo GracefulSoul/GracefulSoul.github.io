@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition Labels"
-excerpt: "Leetcode Partition Labels Java"
+excerpt: "Leetcode - 'Partition Labels' 문제 Java 풀이"
 last_modified_at: 2022-12-14T05:10:00
 header:
   image: /assets/images/leetcode/partition-labels.png

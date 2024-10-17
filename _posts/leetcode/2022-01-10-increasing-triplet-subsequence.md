@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Increasing Triplet Subsequence"
-excerpt: "Leetcode Increasing Triplet Subsequence Java 풀이"
+excerpt: "Leetcode - 'Increasing Triplet Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-01-10T13:00:00
 header:
   image: /assets/images/leetcode/increasing-triplet-subsequence.png

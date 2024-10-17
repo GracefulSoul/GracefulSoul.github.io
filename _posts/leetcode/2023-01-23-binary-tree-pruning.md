@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Pruning"
-excerpt: "Leetcode Binary Tree Pruning Java"
+excerpt: "Leetcode - 'Binary Tree Pruning' 문제 Java 풀이"
 last_modified_at: 2023-01-23T19:15:00
 header:
   image: /assets/images/leetcode/binary-tree-pruning.png

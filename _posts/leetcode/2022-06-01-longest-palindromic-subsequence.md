@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Palindromic Subsequence"
-excerpt: "Leetcode Longest Palindromic Subsequence Java"
+excerpt: "Leetcode - 'Longest Palindromic Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-06-01T12:00:00
 header:
   image: /assets/images/leetcode/longest-palindromic-subsequence.png

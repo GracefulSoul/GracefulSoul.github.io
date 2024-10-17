@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Compare Strings by Frequency of the Smallest Character"
-excerpt: "Leetcode Compare Strings by Frequency of the Smallest Character Java"
+excerpt: "Leetcode Medium - 'Compare Strings by Frequency of the Smallest Character' 문제 Java 풀이"
 last_modified_at: 2024-08-23T21:20:00
 header:
   image: /assets/images/leetcode/compare-strings-by-frequency-of-the-smallest-character.png

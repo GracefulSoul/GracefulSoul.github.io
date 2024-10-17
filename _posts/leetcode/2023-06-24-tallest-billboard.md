@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Tallest Billboard"
-excerpt: "Leetcode Tallest Billboard Java"
+excerpt: "Leetcode Hard - 'Tallest Billboard' 문제 Java 풀이"
 last_modified_at: 2023-06-24T10:50:00
 header:
   image: /assets/images/leetcode/tallest-billboard.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Postorder Traversal"
-excerpt: "Leetcode Binary Tree Postorder Traversal Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Postorder Traversal' 문제 Java 풀이"
 last_modified_at: 2021-09-03T09:00:00
 header:
   image: /assets/images/leetcode/binary-tree-postorder-traversal.png

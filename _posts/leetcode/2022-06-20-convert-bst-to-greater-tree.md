@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert BST to Greater Tree"
-excerpt: "Leetcode Convert BST to Greater Tree Java"
+excerpt: "Leetcode - 'Convert BST to Greater Tree' 문제 Java 풀이"
 last_modified_at: 2022-06-20T19:50:00
 header:
   image: /assets/images/leetcode/convert-bst-to-greater-tree.png

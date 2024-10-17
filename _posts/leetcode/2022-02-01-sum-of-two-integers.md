@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Two Integers"
-excerpt: "Leetcode Sum of Two Integers Java 풀이"
+excerpt: "Leetcode - 'Sum of Two Integers' 문제 Java 풀이"
 last_modified_at: 2022-02-01T20:00:00
 header:
   image: /assets/images/leetcode/sum-of-two-integers.png

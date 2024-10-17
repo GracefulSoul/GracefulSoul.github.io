@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Uncommon Subsequence II"
-excerpt: "Leetcode Longest Uncommon Subsequence II Java"
+excerpt: "Leetcode - 'Longest Uncommon Subsequence II' 문제 Java 풀이"
 last_modified_at: 2022-06-08T21:00:00
 header:
   image: /assets/images/leetcode/longest-uncommon-subsequence-ii.png

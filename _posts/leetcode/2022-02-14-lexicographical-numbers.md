@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lexicographical Numbers"
-excerpt: "Leetcode Lexicographical Numbers Java 풀이"
+excerpt: "Leetcode - 'Lexicographical Numbers' 문제 Java 풀이"
 last_modified_at: 2022-02-14T13:00:00
 header:
   image: /assets/images/leetcode/lexicographical-numbers.png

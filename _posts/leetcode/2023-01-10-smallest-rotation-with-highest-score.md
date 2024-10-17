@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Rotation with Highest Score"
-excerpt: "Leetcode Smallest Rotation with Highest Score Java"
+excerpt: "Leetcode - 'Smallest Rotation with Highest Score' 문제 Java 풀이"
 last_modified_at: 2023-01-10T20:50:00
 header:
   image: /assets/images/leetcode/smallest-rotation-with-highest-score.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition List"
-excerpt: "Leetcode Partition List Java 풀이"
+excerpt: "Leetcode - 'Partition List' 문제 Java 풀이"
 last_modified_at: 2021-07-06T18:00:00
 header:
   image: /assets/images/leetcode/partition-list.png

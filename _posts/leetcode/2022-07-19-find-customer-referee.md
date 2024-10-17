@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Find Customer Referee"
-excerpt: "Leetcode Find Customer Referee MySQL 풀이"
+excerpt: "Leetcode - 'Find Customer Referee MySQL 풀이"
 last_modified_at: 2022-07-19T19:00:00
 header:
   image: /assets/images/leetcode/find-customer-referee.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Median of Two Sorted Arrays"
-excerpt: "Leetcode Median of Two Sorted Arrays Java 풀이"
+excerpt: "Leetcode - 'Median of Two Sorted Arrays' 문제 Java 풀이"
 last_modified_at: 2021-04-12T20:00:00
 header:
   image: /assets/images/leetcode/median-of-two-sorted-arrays.png

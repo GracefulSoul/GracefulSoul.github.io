@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Subsequence of Distinct Characters"
-excerpt: "Leetcode Smallest Subsequence of Distinct Characters Java"
+excerpt: "Leetcode Medium - 'Smallest Subsequence of Distinct Characters' 문제 Java 풀이"
 last_modified_at: 2024-04-15T19:00:00
 header:
   image: /assets/images/leetcode/smallest-subsequence-of-distinct-characters.png

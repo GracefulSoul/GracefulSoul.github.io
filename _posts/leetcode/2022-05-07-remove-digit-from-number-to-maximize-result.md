@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Digit From Number to Maximize Result"
-excerpt: "Leetcode Remove Digit From Number to Maximize Result Java 풀이"
+excerpt: "Leetcode - 'Remove Digit From Number to Maximize Result' 문제 Java 풀이"
 last_modified_at: 2022-05-07T18:00:00
 header:
   image: /assets/images/leetcode/remove-digit-from-number-to-maximize-result.png

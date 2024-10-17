@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Seat Reservation Manager"
-excerpt: "Leetcode Seat Reservation Manager Java"
+excerpt: "Leetcode Medium - 'Seat Reservation Manager' 문제 Java 풀이"
 last_modified_at: 2023-11-06T19:20:00
 header:
   image: /assets/images/leetcode/seat-reservation-manager.png

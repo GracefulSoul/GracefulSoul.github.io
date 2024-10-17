@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest String Starting From Leaf"
-excerpt: "Leetcode Smallest String Starting From Leaf Java"
+excerpt: "Leetcode Medium - 'Smallest String Starting From Leaf' 문제 Java 풀이"
 last_modified_at: 2023-09-05T19:20:00
 header:
   image: /assets/images/leetcode/smallest-string-starting-from-leaf.png

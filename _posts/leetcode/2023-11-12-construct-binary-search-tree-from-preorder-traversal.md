@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Construct Binary Search Tree from Preorder Traversal"
-excerpt: "Leetcode Construct Binary Search Tree from Preorder Traversal Java"
+excerpt: "Leetcode Medium - 'Construct Binary Search Tree from Preorder Traversal' 문제 Java 풀이"
 last_modified_at: 2023-11-12T13:00:00
 header:
   image: /assets/images/leetcode/construct-binary-search-tree-from-preorder-traversal.png

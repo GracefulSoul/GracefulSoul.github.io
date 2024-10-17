@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count of Matches in Tournament"
-excerpt: "Leetcode Count of Matches in Tournament Java"
+excerpt: "Leetcode Easy - 'Count of Matches in Tournament' 문제 Java 풀이"
 last_modified_at: 2023-12-05T19:20:00
 header:
   image: /assets/images/leetcode/count-of-matches-in-tournament.png

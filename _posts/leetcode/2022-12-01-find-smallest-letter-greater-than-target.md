@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Smallest Letter Greater Than Target"
-excerpt: "Leetcode Find Smallest Letter Greater Than Target Java"
+excerpt: "Leetcode - 'Find Smallest Letter Greater Than Target' 문제 Java 풀이"
 last_modified_at: 2022-12-01T12:50:00
 header:
   image: /assets/images/leetcode/find-smallest-letter-greater-than-target.png

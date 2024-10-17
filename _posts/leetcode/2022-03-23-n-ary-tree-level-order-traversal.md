@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java N-ary Tree Level Order Traversal"
-excerpt: "Leetcode N-ary Tree Level Order Traversal Java 풀이"
+excerpt: "Leetcode - 'N-ary Tree Level Order Traversal' 문제 Java 풀이"
 last_modified_at: 2022-03-23T13:00:00
 header:
   image: /assets/images/leetcode/n-ary-tree-level-order-traversal.png

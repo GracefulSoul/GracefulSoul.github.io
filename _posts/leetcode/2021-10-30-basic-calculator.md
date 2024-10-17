@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Basic Calculator"
-excerpt: "Leetcode Basic Calculator Java 풀이"
+excerpt: "Leetcode - 'Basic Calculator' 문제 Java 풀이"
 last_modified_at: 2021-10-30T13:00:00
 header:
   image: /assets/images/leetcode/basic-calculator.png

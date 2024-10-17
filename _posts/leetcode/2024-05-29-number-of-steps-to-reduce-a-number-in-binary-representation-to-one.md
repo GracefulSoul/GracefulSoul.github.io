@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Steps to Reduce a Number in Binary Representation to One"
-excerpt: "Leetcode Number of Steps to Reduce a Number in Binary Representation to One Java"
+excerpt: "Leetcode Medium - 'Number of Steps to Reduce a Number in Binary Representation to One' 문제 Java 풀이"
 last_modified_at: 2024-05-29T18:40:00
 header:
   image: /assets/images/leetcode/number-of-steps-to-reduce-a-number-in-binary-representation-to-one.png

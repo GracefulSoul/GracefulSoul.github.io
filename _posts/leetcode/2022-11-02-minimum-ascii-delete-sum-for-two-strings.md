@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum ASCII Delete Sum for Two Strings"
-excerpt: "Leetcode Minimum ASCII Delete Sum for Two Strings Java"
+excerpt: "Leetcode - 'Minimum ASCII Delete Sum for Two Strings' 문제 Java 풀이"
 last_modified_at: 2022-11-02T19:40:00
 header:
   image: /assets/images/leetcode/minimum-ascii-delete-sum-for-two-strings.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Distance in Arrays"
-excerpt: "Leetcode Maximum Distance in Arrays Java"
+excerpt: "Leetcode Medium - 'Maximum Distance in Arrays' 문제 Java 풀이"
 last_modified_at: 2024-08-16T14:50:00
 header:
   image: /assets/images/leetcode/maximum-distance-in-arrays.png

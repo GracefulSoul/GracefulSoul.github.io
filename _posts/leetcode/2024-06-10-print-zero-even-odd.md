@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Print Zero Even Odd"
-excerpt: "Leetcode Print Zero Even Odd Java"
+excerpt: "Leetcode Medium - 'Print Zero Even Odd' 문제 Java 풀이"
 last_modified_at: 2024-06-10T18:50:00
 header:
   image: /assets/images/leetcode/print-zero-even-odd.png

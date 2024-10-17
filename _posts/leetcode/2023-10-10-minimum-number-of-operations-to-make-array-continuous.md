@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Operations to Make Array Continuous"
-excerpt: "Leetcode Minimum Number of Operations to Make Array Continuous Java"
+excerpt: "Leetcode Hard - 'Minimum Number of Operations to Make Array Continuous' 문제 Java 풀이"
 last_modified_at: 2023-10-10T19:00:00
 header:
   image: /assets/images/leetcode/minimum-number-of-operations-to-make-array-continuous.png

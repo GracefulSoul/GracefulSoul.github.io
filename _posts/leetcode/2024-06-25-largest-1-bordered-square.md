@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest 1-Bordered Square"
-excerpt: "Leetcode Largest 1-Bordered Square Java"
+excerpt: "Leetcode Medium - 'Largest 1-Bordered Square' 문제 Java 풀이"
 last_modified_at: 2024-06-25T21:40:00
 header:
   image: /assets/images/leetcode/largest-1-bordered-square.png

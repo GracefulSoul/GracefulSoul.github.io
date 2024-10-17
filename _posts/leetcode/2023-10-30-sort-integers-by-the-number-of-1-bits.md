@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Integers by The Number of 1 Bits"
-excerpt: "Leetcode Sort Integers by The Number of 1 Bits Java"
+excerpt: "Leetcode Easy - 'Sort Integers by The Number of 1 Bits' 문제 Java 풀이"
 last_modified_at: 2023-10-30T12:20:00
 header:
   image: /assets/images/leetcode/sort-integers-by-the-number-of-1-bits.png

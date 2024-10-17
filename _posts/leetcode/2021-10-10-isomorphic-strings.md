@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Isomorphic Strings"
-excerpt: "Leetcode Isomorphic Strings Java 풀이"
+excerpt: "Leetcode - 'Isomorphic Strings' 문제 Java 풀이"
 last_modified_at: 2021-10-10T12:00:00
 header:
   image: /assets/images/leetcode/isomorphic-strings.png

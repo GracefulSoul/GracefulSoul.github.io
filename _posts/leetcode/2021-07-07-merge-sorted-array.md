@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge Sorted Array"
-excerpt: "Leetcode Merge Sorted Array Java 풀이"
+excerpt: "Leetcode - 'Merge Sorted Array' 문제 Java 풀이"
 last_modified_at: 2021-07-07T18:00:00
 header:
   image: /assets/images/leetcode/merge-sorted-array.png

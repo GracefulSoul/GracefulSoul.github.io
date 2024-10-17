@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Construct Binary Tree from Inorder and Postorder Traversal"
-excerpt: "Leetcode Construct Binary Tree from Inorder and Postorder Traversal Java 풀이"
+excerpt: "Leetcode - 'Construct Binary Tree from Inorder and Postorder Traversal' 문제 Java 풀이"
 last_modified_at: 2021-07-27T13:00:00
 header:
   image: /assets/images/leetcode/construct-binary-tree-from-inorder-and-postorder-traversal.png

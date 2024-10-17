@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Serialize and Deserialize BST"
-excerpt: "Leetcode Serialize and Deserialize BST Java 풀이"
+excerpt: "Leetcode - 'Serialize and Deserialize BST' 문제 Java 풀이"
 last_modified_at: 2022-04-08T13:00:00
 header:
   image: /assets/images/leetcode/serialize-and-deserialize-bst.png

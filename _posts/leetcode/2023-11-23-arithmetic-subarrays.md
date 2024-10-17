@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Arithmetic Subarrays"
-excerpt: "Leetcode Arithmetic Subarrays II Java"
+excerpt: "Leetcode Medium - 'Arithmetic Subarrays II' 문제 Java 풀이"
 last_modified_at: 2023-11-23T20:20:00
 header:
   image: /assets/images/leetcode/arithmetic-subarrays.png

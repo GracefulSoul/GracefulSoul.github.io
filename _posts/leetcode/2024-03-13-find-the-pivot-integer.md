@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Pivot Integer"
-excerpt: "Leetcode Find the Pivot Integer Java"
+excerpt: "Leetcode Easy - 'Find the Pivot Integer' 문제 Java 풀이"
 last_modified_at: 2024-03-13T19:10:00
 header:
   image: /assets/images/leetcode/find-the-pivot-integer.png

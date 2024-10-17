@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Time Needed to Inform All Employees"
-excerpt: "Leetcode Time Needed to Inform All Employees Java"
+excerpt: "Leetcode Medium - 'Time Needed to Inform All Employees' 문제 Java 풀이"
 last_modified_at: 2023-06-02T10:50:00
 header:
   image: /assets/images/leetcode/time-needed-to-inform-all-employees.png

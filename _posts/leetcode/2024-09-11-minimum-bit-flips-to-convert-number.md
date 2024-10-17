@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Bit Flips to Convert Number"
-excerpt: "Leetcode Minimum Bit Flips to Convert Number Java"
+excerpt: "Leetcode Easy - 'Minimum Bit Flips to Convert Number' 문제 Java 풀이"
 last_modified_at: 2024-09-11T18:00:00
 header:
   image: /assets/images/leetcode/minimum-bit-flips-to-convert-number.png

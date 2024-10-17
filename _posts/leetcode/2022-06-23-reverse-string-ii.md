@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse String II"
-excerpt: "Leetcode Reverse String II Java"
+excerpt: "Leetcode - 'Reverse String II' 문제 Java 풀이"
 last_modified_at: 2022-06-23T19:00:00
 header:
   image: /assets/images/leetcode/reverse-string-ii.png

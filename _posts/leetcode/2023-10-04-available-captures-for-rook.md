@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Available Captures for Rook"
-excerpt: "Leetcode Available Captures for Rook Java"
+excerpt: "Leetcode Easy - 'Available Captures for Rook' 문제 Java 풀이"
 last_modified_at: 2023-10-04T19:10:00
 header:
   image: /assets/images/leetcode/available-captures-for-rook.png

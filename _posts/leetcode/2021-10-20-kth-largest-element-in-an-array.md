@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Kth Largest Element in an Array"
-excerpt: "Leetcode Kth Largest Element in an Array Java 풀이"
+excerpt: "Leetcode - 'Kth Largest Element in an Array' 문제 Java 풀이"
 last_modified_at: 2021-10-20T13:00:00
 header:
   image: /assets/images/leetcode/kth-largest-element-in-an-array.png

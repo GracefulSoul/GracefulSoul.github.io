@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Calculate Money in Leetcode Bank"
-excerpt: "Leetcode Calculate Money in Leetcode Bank Java"
+excerpt: "Leetcode Easy - 'Calculate Money in Leetcode Bank' 문제 Java 풀이"
 last_modified_at: 2023-12-06T20:20:00
 header:
   image: /assets/images/leetcode/calculate-money-in-leetcode-bank.png

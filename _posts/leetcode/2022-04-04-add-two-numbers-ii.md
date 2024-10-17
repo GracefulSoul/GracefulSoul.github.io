@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add Two Numbers II"
-excerpt: "Leetcode Add Two Numbers II Java 풀이"
+excerpt: "Leetcode - 'Add Two Numbers II' 문제 Java 풀이"
 last_modified_at: 2022-04-04T18:00:00
 header:
   image: /assets/images/leetcode/add-two-numbers-ii.png

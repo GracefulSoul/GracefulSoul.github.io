@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Beautiful Array"
-excerpt: "Leetcode Beautiful Array Java"
+excerpt: "Leetcode Medium - 'Beautiful Array' 문제 Java 풀이"
 last_modified_at: 2023-06-14T19:00:00
 header:
   image: /assets/images/leetcode/beautiful-array.png

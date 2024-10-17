@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Append Characters to String to Make Subsequence"
-excerpt: "Leetcode Append Characters to String to Make Subsequence Java"
+excerpt: "Leetcode Medium - 'Append Characters to String to Make Subsequence' 문제 Java 풀이"
 last_modified_at: 2024-06-03T18:40:00
 header:
   image: /assets/images/leetcode/append-characters-to-string-to-make-subsequence.png

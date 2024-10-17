@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Winner of an Array Game"
-excerpt: "Leetcode Find the Winner of an Array Game Java"
+excerpt: "Leetcode Medium - 'Find the Winner of an Array Game' 문제 Java 풀이"
 last_modified_at: 2023-11-05T17:00:00
 header:
   image: /assets/images/leetcode/find-the-winner-of-an-array-game.png

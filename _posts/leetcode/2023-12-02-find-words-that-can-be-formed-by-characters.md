@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Words That Can Be Formed by Characters"
-excerpt: "Leetcode Find Words That Can Be Formed by Characters Java"
+excerpt: "Leetcode Easy - 'Find Words That Can Be Formed by Characters' 문제 Java 풀이"
 last_modified_at: 2023-12-02T15:00:00
 header:
   image: /assets/images/leetcode/find-words-that-can-be-formed-by-characters.png

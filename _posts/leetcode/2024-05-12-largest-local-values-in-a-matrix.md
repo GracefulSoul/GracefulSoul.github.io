@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Local Values in a Matrix"
-excerpt: "Leetcode Largest Local Values in a Matrix Java"
+excerpt: "Leetcode Easy - 'Largest Local Values in a Matrix' 문제 Java 풀이"
 last_modified_at: 2024-05-12T12:10:00
 header:
   image: /assets/images/leetcode/largest-local-values-in-a-matrix.png

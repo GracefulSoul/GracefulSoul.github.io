@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Summary Ranges"
-excerpt: "Leetcode Summary Ranges Java 풀이"
+excerpt: "Leetcode - 'Summary Ranges' 문제 Java 풀이"
 last_modified_at: 2021-11-03T12:00:00
 header:
   image: /assets/images/leetcode/summary-ranges.png

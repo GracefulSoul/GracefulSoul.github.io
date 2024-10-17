@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Mini Parser"
-excerpt: "Leetcode Mini Parser Java 풀이"
+excerpt: "Leetcode - 'Mini Parser' 문제 Java 풀이"
 last_modified_at: 2022-02-13T17:00:00
 header:
   image: /assets/images/leetcode/mini-parser.png

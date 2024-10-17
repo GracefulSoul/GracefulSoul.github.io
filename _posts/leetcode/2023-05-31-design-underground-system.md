@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Underground System"
-excerpt: "Leetcode Design Underground System Java"
+excerpt: "Leetcode - 'Design Underground System' 문제 Java 풀이"
 last_modified_at: 2023-05-31T20:05:00
 header:
   image: /assets/images/leetcode/design-underground-system.png

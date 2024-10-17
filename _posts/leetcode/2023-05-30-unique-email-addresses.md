@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Email Addresses"
-excerpt: "Leetcode Unique Email Addresses Java"
+excerpt: "Leetcode - 'Unique Email Addresses' 문제 Java 풀이"
 last_modified_at: 2023-05-30T20:25:00
 header:
   image: /assets/images/leetcode/unique-email-addresses.png

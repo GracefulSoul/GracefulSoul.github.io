@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Operation for Two Strings"
-excerpt: "Leetcode Delete Operation for Two Strings Java"
+excerpt: "Leetcode - 'Delete Operation for Two Strings' 문제 Java 풀이"
 last_modified_at: 2022-07-18T19:30:00
 header:
   image: /assets/images/leetcode/delete-operation-for-two-strings.png

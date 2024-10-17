@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Super Washing Machines"
-excerpt: "Leetcode Super Washing Machines Java"
+excerpt: "Leetcode - 'Super Washing Machines' 문제 Java 풀이"
 last_modified_at: 2022-06-03T06:00:00
 header:
   image: /assets/images/leetcode/super-washing-machines.png

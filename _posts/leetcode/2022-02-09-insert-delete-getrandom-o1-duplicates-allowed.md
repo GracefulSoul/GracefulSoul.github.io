@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Insert Delete GetRandom O(1) - Duplicates allowed"
-excerpt: "Leetcode Insert Delete GetRandom O(1) - Duplicates allowed Java 풀이"
+excerpt: "Leetcode - 'Insert Delete GetRandom O(1) - Duplicates allowed' 문제 Java 풀이"
 last_modified_at: 2022-02-09T18:00:00
 header:
   image: /assets/images/leetcode/insert-delete-getrandom-o1-duplicates-allowed.png

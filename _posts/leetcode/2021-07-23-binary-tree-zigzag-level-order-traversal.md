@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Zigzag Level Order Traversal"
-excerpt: "Leetcode Binary Tree Zigzag Level Order Traversal Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Zigzag Level Order Traversal' 문제 Java 풀이"
 last_modified_at: 2021-07-23T08:40:00
 header:
   image: /assets/images/leetcode/binary-tree-zigzag-level-order-traversal.png

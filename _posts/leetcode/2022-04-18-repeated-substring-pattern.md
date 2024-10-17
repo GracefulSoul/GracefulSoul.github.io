@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Repeated Substring Pattern"
-excerpt: "Leetcode Repeated Substring Pattern Java 풀이"
+excerpt: "Leetcode - 'Repeated Substring Pattern' 문제 Java 풀이"
 last_modified_at: 2022-04-18T13:00:00
 header:
   image: /assets/images/leetcode/repeated-substring-pattern.png

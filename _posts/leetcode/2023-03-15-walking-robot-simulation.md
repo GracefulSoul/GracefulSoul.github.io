@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Walking Robot Simulation"
-excerpt: "Leetcode Walking Robot Simulation Java"
+excerpt: "Leetcode - 'Walking Robot Simulation' 문제 Java 풀이"
 last_modified_at: 2023-03-15T08:30:00
 header:
   image: /assets/images/leetcode/walking-robot-simulation.png

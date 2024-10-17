@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Encode and Decode TinyURL"
-excerpt: "Leetcode Encode and Decode TinyURL Java"
+excerpt: "Leetcode - 'Encode and Decode TinyURL' 문제 Java 풀이"
 last_modified_at: 2022-06-17T19:00:00
 header:
   image: /assets/images/leetcode/encode-and-decode-tinyurl.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Is Graph Bipartite?"
-excerpt: "Leetcode Is Graph Bipartite? Java"
+excerpt: "Leetcode - 'Is Graph Bipartite?' 문제 Java 풀이"
 last_modified_at: 2022-12-28T16:00:00
 header:
   image: /assets/images/leetcode/is-graph-bipartite.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Minimum Number of Pushes to Type Word II"
-excerpt: "Leetcode Minimum Number of Pushes to Type Word II Java"
+excerpt: "Leetcode Medium - 'Minimum Number of Pushes to Type Word II' 문제 Java 풀이"
 last_modified_at: 2024-08-06T18:10:00
 header:
   image: /assets/images/leetcode/minimum-number-of-pushes-to-type-word-ii.png

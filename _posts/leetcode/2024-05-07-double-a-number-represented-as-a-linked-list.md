@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Double a Number Represented as a Linked List"
-excerpt: "Leetcode Double a Number Represented as a Linked List Java"
+excerpt: "Leetcode Medium - 'Double a Number Represented as a Linked List' 문제 Java 풀이"
 last_modified_at: 2024-05-07T18:20:00
 header:
   image: /assets/images/leetcode/double-a-number-represented-as-a-linked-list.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Repeating Character Replacement"
-excerpt: "Leetcode Longest Repeating Character Replacement Java 풀이"
+excerpt: "Leetcode - 'Longest Repeating Character Replacement' 문제 Java 풀이"
 last_modified_at: 2022-03-21T13:00:00
 header:
   image: /assets/images/leetcode/longest-repeating-character-replacement.png

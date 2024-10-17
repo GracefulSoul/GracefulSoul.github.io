@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sliding Window Median"
-excerpt: "Leetcode Sliding Window Median Java 풀이"
+excerpt: "Leetcode - 'Sliding Window Median' 문제 Java 풀이"
 last_modified_at: 2022-05-07T18:00:00
 header:
   image: /assets/images/leetcode/sliding-window-median.png

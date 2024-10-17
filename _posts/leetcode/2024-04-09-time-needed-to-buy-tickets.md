@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Time Needed to Buy Tickets"
-excerpt: "Leetcode Time Needed to Buy Tickets Java"
+excerpt: "Leetcode Easy - 'Time Needed to Buy Tickets' 문제 Java 풀이"
 last_modified_at: 2024-04-09T18:00:00
 header:
   image: /assets/images/leetcode/time-needed-to-buy-tickets.png

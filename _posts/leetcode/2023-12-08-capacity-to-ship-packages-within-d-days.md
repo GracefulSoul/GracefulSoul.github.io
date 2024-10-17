@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Capacity To Ship Packages Within D Days"
-excerpt: "Leetcode Capacity To Ship Packages Within D Days Java"
+excerpt: "Leetcode Medium - 'Capacity To Ship Packages Within D Days' 문제 Java 풀이"
 last_modified_at: 2023-12-09T10:40:00
 header:
   image: /assets/images/leetcode/capacity-to-ship-packages-within-d-days.png

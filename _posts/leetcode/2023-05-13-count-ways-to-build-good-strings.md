@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Ways To Build Good Strings"
-excerpt: "Leetcode Count Ways To Build Good Strings Java"
+excerpt: "Leetcode - 'Count Ways To Build Good Strings' 문제 Java 풀이"
 last_modified_at: 2023-05-13T12:55:00
 header:
   image: /assets/images/leetcode/count-ways-to-build-good-strings.png

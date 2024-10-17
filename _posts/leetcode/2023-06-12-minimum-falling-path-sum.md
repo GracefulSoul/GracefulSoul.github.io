@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Falling Path Sum"
-excerpt: "Leetcode Minimum Falling Path Sum Java"
+excerpt: "Leetcode Medium - 'Minimum Falling Path Sum' 문제 Java 풀이"
 last_modified_at: 2023-06-12T21:50:00
 header:
   image: /assets/images/leetcode/minimum-falling-path-sum.png

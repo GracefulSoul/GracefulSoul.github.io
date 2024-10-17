@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Coloring Game"
-excerpt: "Leetcode Binary Tree Coloring Game Java"
+excerpt: "Leetcode Medium - 'Binary Tree Coloring Game' 문제 Java 풀이"
 last_modified_at: 2024-07-25T19:40:00
 header:
   image: /assets/images/leetcode/binary-tree-coloring-game.png

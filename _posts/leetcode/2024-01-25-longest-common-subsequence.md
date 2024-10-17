@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Common Subsequence"
-excerpt: "Leetcode PseuLongest Common Subsequence Java"
+excerpt: "Leetcode Medium - 'PseuLongest Common Subsequence' 문제 Java 풀이"
 last_modified_at: 2024-01-25T19:00:00
 header:
   image: /assets/images/leetcode/longest-common-subsequence.png

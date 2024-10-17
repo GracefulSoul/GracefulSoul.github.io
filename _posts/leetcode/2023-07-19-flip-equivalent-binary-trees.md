@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flip Equivalent Binary Trees"
-excerpt: "Leetcode Flip Equivalent Binary Trees Java"
+excerpt: "Leetcode Medium - 'Flip Equivalent Binary Trees' 문제 Java 풀이"
 last_modified_at: 2023-07-19T19:50:00
 header:
   image: /assets/images/leetcode/flip-equivalent-binary-trees.png

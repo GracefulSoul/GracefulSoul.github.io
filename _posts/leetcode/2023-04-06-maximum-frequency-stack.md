@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Frequency Stack"
-excerpt: "Leetcode Maximum Frequency Stack Java"
+excerpt: "Leetcode - 'Maximum Frequency Stack' 문제 Java 풀이"
 last_modified_at: 2023-04-06T20:20:00
 header:
   image: /assets/images/leetcode/maximum-frequency-stack.png

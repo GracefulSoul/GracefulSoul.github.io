@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shifting Letters"
-excerpt: "Leetcode Shifting Letters Java"
+excerpt: "Leetcode - 'Shifting Letters' 문제 Java 풀이"
 last_modified_at: 2023-02-21T20:20:00
 header:
   image: /assets/images/leetcode/shifting-letters.png

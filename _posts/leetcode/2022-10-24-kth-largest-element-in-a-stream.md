@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Kth Largest Element in a Stream"
-excerpt: "Leetcode Kth Largest Element in a Stream Java"
+excerpt: "Leetcode - 'Kth Largest Element in a Stream' 문제 Java 풀이"
 last_modified_at: 2022-10-24T20:30:00
 header:
   image: /assets/images/leetcode/kth-largest-element-in-a-stream.png

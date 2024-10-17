@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Get Equal Substrings Within Budget"
-excerpt: "Leetcode Get Equal Substrings Within Budget Java"
+excerpt: "Leetcode Medium - 'Get Equal Substrings Within Budget' 문제 Java 풀이"
 last_modified_at: 2024-05-28T20:40:00
 header:
   image: /assets/images/leetcode/get-equal-substrings-within-budget.png

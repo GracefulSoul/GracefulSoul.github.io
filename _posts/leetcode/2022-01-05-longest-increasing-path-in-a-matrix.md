@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Increasing Path in a Matrix"
-excerpt: "Leetcode Longest Increasing Path in a Matrix Java 풀이"
+excerpt: "Leetcode - 'Longest Increasing Path in a Matrix' 문제 Java 풀이"
 last_modified_at: 2022-01-05T18:00:00
 header:
   image: /assets/images/leetcode/longest-increasing-path-in-a-matrix.png

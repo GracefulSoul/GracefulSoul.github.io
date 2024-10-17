@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Operations to Reduce X to Zero"
-excerpt: "Leetcode Minimum Operations to Reduce X to Zero Java"
+excerpt: "Leetcode Medium - 'Minimum Operations to Reduce X to Zero' 문제 Java 풀이"
 last_modified_at: 2023-09-20T22:40:00
 header:
   image: /assets/images/leetcode/minimum-operations-to-reduce-x-to-zero.png

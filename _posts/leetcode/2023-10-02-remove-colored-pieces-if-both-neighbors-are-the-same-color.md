@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Colored Pieces if Both Neighbors are the Same Color"
-excerpt: "Leetcode Remove Colored Pieces if Both Neighbors are the Same Color Java"
+excerpt: "Leetcode Medium - 'Remove Colored Pieces if Both Neighbors are the Same Color' 문제 Java 풀이"
 last_modified_at: 2023-10-02T10:05:00
 header:
   image: /assets/images/leetcode/remove-colored-pieces-if-both-neighbors-are-the-same-color.png

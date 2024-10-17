@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Town Judge"
-excerpt: "Leetcode Find the Town Judge Java"
+excerpt: "Leetcode Easy - 'Find the Town Judge' 문제 Java 풀이"
 last_modified_at: 2023-09-30T10:20:00
 header:
   image: /assets/images/leetcode/find-the-town-judge.png

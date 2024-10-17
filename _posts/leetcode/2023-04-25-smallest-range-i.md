@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Range I"
-excerpt: "Leetcode Smallest Range I Java"
+excerpt: "Leetcode - 'Smallest Range I' 문제 Java 풀이"
 last_modified_at: 2023-04-25T18:50:00
 header:
   image: /assets/images/leetcode/smallest-range-i.png

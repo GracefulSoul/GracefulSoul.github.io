@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Right Side View"
-excerpt: "Leetcode Binary Tree Right Side View Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Right Side View' 문제 Java 풀이"
 last_modified_at: 2021-10-03T15:00:00
 header:
   image: /assets/images/leetcode/binary-tree-right-side-view.png

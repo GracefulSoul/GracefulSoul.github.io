@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Min Cost Climbing Stairs"
-excerpt: "Leetcode Min Cost Climbing Stairs Java"
+excerpt: "Leetcode - 'Min Cost Climbing Stairs' 문제 Java 풀이"
 last_modified_at: 2022-12-03T10:30:00
 header:
   image: /assets/images/leetcode/min-cost-climbing-stairs.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Keys and Rooms"
-excerpt: "Leetcode Keys and Rooms Java"
+excerpt: "Leetcode - 'Keys and Rooms' 문제 Java 풀이"
 last_modified_at: 2023-02-16T19:20:00
 header:
   image: /assets/images/leetcode/keys-and-rooms.png

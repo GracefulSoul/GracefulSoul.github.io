@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java As Far from Land as Possible"
-excerpt: "Leetcode As Far from Land as Possible Java"
+excerpt: "Leetcode Medium - 'As Far from Land as Possible' 문제 Java 풀이"
 last_modified_at: 2024-08-15T21:50:00
 header:
   image: /assets/images/leetcode/as-far-from-land-as-possible.png

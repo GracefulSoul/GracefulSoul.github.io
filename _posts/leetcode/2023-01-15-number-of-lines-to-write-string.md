@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Lines To Write String"
-excerpt: "Leetcode Number of Lines To Write String Java"
+excerpt: "Leetcode - 'Number of Lines To Write String' 문제 Java 풀이"
 last_modified_at: 2023-01-15T10:00:00
 header:
   image: /assets/images/leetcode/number-of-lines-to-write-string.png

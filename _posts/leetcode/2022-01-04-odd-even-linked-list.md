@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Odd Even Linked List"
-excerpt: "Leetcode Odd Even Linked List Java 풀이"
+excerpt: "Leetcode - 'Odd Even Linked List' 문제 Java 풀이"
 last_modified_at: 2022-01-04T20:00:00
 header:
   image: /assets/images/leetcode/odd-even-linked-list.png

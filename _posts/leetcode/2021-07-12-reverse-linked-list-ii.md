@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Linked List II"
-excerpt: "Leetcode Reverse Linked List II Java 풀이"
+excerpt: "Leetcode - 'Reverse Linked List II' 문제 Java 풀이"
 last_modified_at: 2021-07-12T18:00:00
 header:
   image: /assets/images/leetcode/reverse-linked-list-ii.png

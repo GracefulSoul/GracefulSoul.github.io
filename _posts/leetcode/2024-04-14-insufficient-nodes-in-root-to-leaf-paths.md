@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Insufficient Nodes in Root to Leaf Paths"
-excerpt: "Leetcode Insufficient Nodes in Root to Leaf Paths Java"
+excerpt: "Leetcode Medium - 'Insufficient Nodes in Root to Leaf Paths' 문제 Java 풀이"
 last_modified_at: 2024-04-14T10:00:00
 header:
   image: /assets/images/leetcode/insufficient-nodes-in-root-to-leaf-paths.png

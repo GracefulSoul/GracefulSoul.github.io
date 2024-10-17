@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Word Search"
-excerpt: "Leetcode Word Search Java 풀이"
+excerpt: "Leetcode - 'Word Search' 문제 Java 풀이"
 last_modified_at: 2021-06-28T13:00:00
 header:
   image: /assets/images/leetcode/word-search.png

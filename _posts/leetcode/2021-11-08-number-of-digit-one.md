@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Digit One"
-excerpt: "Leetcode Number of Digit One Java 풀이"
+excerpt: "Leetcode - 'Number of Digit One' 문제 Java 풀이"
 last_modified_at: 2021-11-08T12:00:00
 header:
   image: /assets/images/leetcode/number-of-digit-one.png

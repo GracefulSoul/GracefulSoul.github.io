@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Linked List Components"
-excerpt: "Leetcode Linked List Components Java"
+excerpt: "Leetcode - 'Linked List Components' 문제 Java 풀이"
 last_modified_at: 2023-01-26T20:40:00
 header:
   image: /assets/images/leetcode/linked-list-components.png

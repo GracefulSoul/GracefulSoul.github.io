@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximize Distance to Closest Person"
-excerpt: "Leetcode Maximize Distance to Closest Person Java"
+excerpt: "Leetcode - 'Maximize Distance to Closest Person' 문제 Java 풀이"
 last_modified_at: 2023-02-22T19:50:00
 header:
   image: /assets/images/leetcode/maximize-distance-to-closest-person.png

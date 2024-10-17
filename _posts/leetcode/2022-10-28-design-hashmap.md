@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design HashMap"
-excerpt: "Leetcode Design HashMap Java"
+excerpt: "Leetcode - 'Design HashMap' 문제 Java 풀이"
 last_modified_at: 2022-10-28T19:00:00
 header:
   image: /assets/images/leetcode/design-hashmap.png

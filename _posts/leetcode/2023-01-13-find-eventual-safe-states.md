@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Eventual Safe States"
-excerpt: "Leetcode Find Eventual Safe States Java"
+excerpt: "Leetcode - 'Find Eventual Safe States' 문제 Java 풀이"
 last_modified_at: 2023-01-13T19:30:00
 header:
   image: /assets/images/leetcode/find-eventual-safe-states.png

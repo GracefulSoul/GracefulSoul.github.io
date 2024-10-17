@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Map Sum Pairs"
-excerpt: "Leetcode Map Sum Pairs Java"
+excerpt: "Leetcode - 'Map Sum Pairs' 문제 Java 풀이"
 last_modified_at: 2022-09-30T20:50:00
 header:
   image: /assets/images/leetcode/map-sum-pairs.png

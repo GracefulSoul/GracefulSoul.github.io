@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Check Completeness of a Binary Tree"
-excerpt: "Leetcode Check Completeness of a Binary Tree Java"
+excerpt: "Leetcode Medium - 'Check Completeness of a Binary Tree' 문제 Java 풀이"
 last_modified_at: 2023-07-25T19:40:00
 header:
   image: /assets/images/leetcode/check-completeness-of-a-binary-tree.png

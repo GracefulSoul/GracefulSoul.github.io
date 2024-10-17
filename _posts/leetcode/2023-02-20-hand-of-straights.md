@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Hand of Straights"
-excerpt: "Leetcode Hand of Straights Java"
+excerpt: "Leetcode - 'Hand of Straights' 문제 Java 풀이"
 last_modified_at: 2023-02-20T19:20:00
 header:
   image: /assets/images/leetcode/hand-of-straights.png

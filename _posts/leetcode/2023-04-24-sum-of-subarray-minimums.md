@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Subarray Minimums"
-excerpt: "Leetcode Sum of Subarray Minimums Java"
+excerpt: "Leetcode - 'Sum of Subarray Minimums' 문제 Java 풀이"
 last_modified_at: 2023-04-24T19:50:00
 header:
   image: /assets/images/leetcode/sum-of-subarray-minimums.png

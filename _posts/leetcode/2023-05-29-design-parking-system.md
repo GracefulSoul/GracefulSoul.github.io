@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Parking System"
-excerpt: "Leetcode Design Parking System Java"
+excerpt: "Leetcode - 'Design Parking System' 문제 Java 풀이"
 last_modified_at: 2023-05-29T14:45:00
 header:
   image: /assets/images/leetcode/design-parking-system.png

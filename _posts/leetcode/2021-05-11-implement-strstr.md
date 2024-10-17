@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Implement strStr() Array"
-excerpt: "Leetcode Implement strStr() Java 풀이"
+excerpt: "Leetcode - 'Implement strStr()' 문제 Java 풀이"
 last_modified_at: 2021-05-10T21:10:00
 header:
   image: /assets/images/leetcode/implement-strstr.png

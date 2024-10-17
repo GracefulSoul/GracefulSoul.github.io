@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum Root to Leaf Numbers"
-excerpt: "Leetcode Sum Root to Leaf Numbers Java 풀이"
+excerpt: "Leetcode - 'Sum Root to Leaf Numbers' 문제 Java 풀이"
 last_modified_at: 2021-08-18T12:00:00
 header:
   image: /assets/images/leetcode/sum-root-to-leaf-numbers.png

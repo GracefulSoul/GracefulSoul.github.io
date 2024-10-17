@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Number of Points with Cost"
-excerpt: "Leetcode Maximum Number of Points with Cost Java"
+excerpt: "Leetcode Medium - 'Maximum Number of Points with Cost' 문제 Java 풀이"
 last_modified_at: 2024-08-17T10:00:00
 header:
   image: /assets/images/leetcode/maximum-number-of-points-with-cost.png

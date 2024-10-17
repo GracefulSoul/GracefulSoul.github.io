@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Queries Quality and Percentage"
-excerpt: "Leetcode Queries Quality and Percentage PostgreSQL"
+excerpt: "Leetcode Easy - 'Queries Quality and Percentage' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-10-17T18:40:00
 header:
   image: /assets/images/leetcode/queries-quality-and-percentage.png

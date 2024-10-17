@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Make Sum Divisible by P"
-excerpt: "Leetcode Make Sum Divisible by P Java"
+excerpt: "Leetcode Medium - 'Make Sum Divisible by P' 문제 Java 풀이"
 last_modified_at: 2024-10-03T10:20:00
 header:
   image: /assets/images/leetcode/make-sum-divisible-by-p.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest String Chain"
-excerpt: "Leetcode Longest String Chain Java"
+excerpt: "Leetcode Medium - 'Longest String Chain' 문제 Java 풀이"
 last_modified_at: 2023-09-23T14:55:00
 header:
   image: /assets/images/leetcode/longest-string-chain.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Sum Circular Subarray"
-excerpt: "Leetcode Maximum Sum Circular Subarray Java"
+excerpt: "Leetcode - 'Maximum Sum Circular Subarray' 문제 Java 풀이"
 last_modified_at: 2023-05-07T07:20:00
 header:
   image: /assets/images/leetcode/maximum-sum-circular-subarray.png

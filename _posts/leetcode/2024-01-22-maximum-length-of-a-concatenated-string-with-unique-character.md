@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Length of a Concatenated String with Unique Characters"
-excerpt: "Leetcode Maximum Length of a Concatenated String with Unique Characters Java"
+excerpt: "Leetcode Medium - 'Maximum Length of a Concatenated String with Unique Characters' 문제 Java 풀이"
 last_modified_at: 2024-01-23T20:00:00
 header:
   image: /assets/images/leetcode/maximum-length-of-a-concatenated-string-with-unique-character.png
@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-character){:target="_blank"}
+[Link](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters){:target="_blank"}
 
 # 코드
 ```java

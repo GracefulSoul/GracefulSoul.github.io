@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Contains Duplicate III"
-excerpt: "Leetcode Contains Duplicate III Java 풀이"
+excerpt: "Leetcode - 'Contains Duplicate III' 문제 Java 풀이"
 last_modified_at: 2021-10-26T12:00:00
 header:
   image: /assets/images/leetcode/contains-duplicate-iii.png

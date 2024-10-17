@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Swap"
-excerpt: "Leetcode Maximum Swap Java"
+excerpt: "Leetcode - 'Maximum Swap' 문제 Java 풀이"
 last_modified_at: 2022-09-23T19:30:00
 header:
   image: /assets/images/leetcode/maximum-swap.png

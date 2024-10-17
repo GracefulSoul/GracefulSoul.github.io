@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Subsequence Widths"
-excerpt: "Leetcode Sum of Subsequence Widths Java"
+excerpt: "Leetcode - 'Sum of Subsequence Widths' 문제 Java 풀이"
 last_modified_at: 2023-04-02T14:40:00
 header:
   image: /assets/images/leetcode/sum-of-subsequence-widths.png

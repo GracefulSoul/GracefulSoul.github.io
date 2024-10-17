@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java All Ancestors of a Node in a Directed Acyclic Graph"
-excerpt: "Leetcode All Ancestors of a Node in a Directed Acyclic Graph Java"
+excerpt: "Leetcode Medium - 'All Ancestors of a Node in a Directed Acyclic Graph' 문제 Java 풀이"
 last_modified_at: 2024-06-29T09:50:00
 header:
   image: /assets/images/leetcode/all-ancestors-of-a-node-in-a-directed-acyclic-graph.png

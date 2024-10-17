@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximal Square"
-excerpt: "Leetcode Maximal Square Java 풀이"
+excerpt: "Leetcode - 'Maximal Square' 문제 Java 풀이"
 last_modified_at: 2021-10-27T12:00:00
 header:
   image: /assets/images/leetcode/maximal-square.png

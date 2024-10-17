@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Integer Break"
-excerpt: "Leetcode Integer Break Java 풀이"
+excerpt: "Leetcode - 'Integer Break' 문제 Java 풀이"
 last_modified_at: 2022-01-18T16:00:00
 header:
   image: /assets/images/leetcode/integer-break.png

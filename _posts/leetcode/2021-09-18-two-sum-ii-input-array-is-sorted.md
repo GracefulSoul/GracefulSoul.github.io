@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Two Sum II - Input array is sorted"
-excerpt: "Leetcode Two Sum II - Input array is sorted Java 풀이"
+excerpt: "Leetcode - 'Two Sum II - Input array is sorted' 문제 Java 풀이"
 last_modified_at: 2021-09-18T16:00:00
 header:
   image: /assets/images/leetcode/two-sum-ii-input-array-is-sorted.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Mountain Array"
-excerpt: "Leetcode Valid Mountain Array Java"
+excerpt: "Leetcode Easy - 'Valid Mountain Array' 문제 Java 풀이"
 last_modified_at: 2023-07-04T19:20:00
 header:
   image: /assets/images/leetcode/valid-mountain-array.png

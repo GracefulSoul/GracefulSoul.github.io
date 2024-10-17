@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Swap Adjacent in LR String"
-excerpt: "Leetcode Swap Adjacent in LR String Java"
+excerpt: "Leetcode - 'Swap Adjacent in LR String' 문제 Java 풀이"
 last_modified_at: 2022-12-22T12:55:00
 header:
   image: /assets/images/leetcode/swap-adjacent-in-lr-string.png

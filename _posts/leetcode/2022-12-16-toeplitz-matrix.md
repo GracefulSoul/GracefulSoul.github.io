@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Toeplitz Matrix"
-excerpt: "Leetcode Toeplitz Matrix Java"
+excerpt: "Leetcode - 'Toeplitz Matrix' 문제 Java 풀이"
 last_modified_at: 2022-12-16T13:00:00
 header:
   image: /assets/images/leetcode/toeplitz-matrix.png

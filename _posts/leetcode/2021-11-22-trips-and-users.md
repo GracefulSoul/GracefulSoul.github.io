@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Trips and Users"
-excerpt: "Leetcode Trips and Users MySQL 풀이"
+excerpt: "Leetcode - 'Trips and Users MySQL 풀이"
 last_modified_at: 2021-11-22T12:00:00
 header:
   image: /assets/images/leetcode/trips-and-users.png

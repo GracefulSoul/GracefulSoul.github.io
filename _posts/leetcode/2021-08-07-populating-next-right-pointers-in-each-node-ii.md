@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Populating Next Right Pointers in Each Node II"
-excerpt: "Leetcode Populating Next Right Pointers in Each Node II Java 풀이"
+excerpt: "Leetcode - 'Populating Next Right Pointers in Each Node II' 문제 Java 풀이"
 last_modified_at: 2021-08-07T12:00:00
 header:
   image: /assets/images/leetcode/populating-next-right-pointers-in-each-node-ii.png

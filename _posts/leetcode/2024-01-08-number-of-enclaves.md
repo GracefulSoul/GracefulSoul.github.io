@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Enclaves"
-excerpt: "Leetcode Number of Enclaves Java"
+excerpt: "Leetcode Medium - 'Number of Enclaves' 문제 Java 풀이"
 last_modified_at: 2024-01-08T11:20:00
 header:
   image: /assets/images/leetcode/number-of-enclaves.png

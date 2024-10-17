@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Implement Trie (Prefix Tree)"
-excerpt: "Leetcode Implement Trie (Prefix Tree) Java 풀이"
+excerpt: "Leetcode - 'Implement Trie (Prefix Tree)' 문제 Java 풀이"
 last_modified_at: 2021-10-13T13:00:00
 header:
   image: /assets/images/leetcode/implement-trie-prefix-tree.png

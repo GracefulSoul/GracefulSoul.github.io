@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Players With Zero or One Losses"
-excerpt: "Leetcode Find Players With Zero or One Losses Java"
+excerpt: "Leetcode Medium - 'Find Players With Zero or One Losses' 문제 Java 풀이"
 last_modified_at: 2024-01-15T18:50:00
 header:
   image: /assets/images/leetcode/find-players-with-zero-or-one-losses.png

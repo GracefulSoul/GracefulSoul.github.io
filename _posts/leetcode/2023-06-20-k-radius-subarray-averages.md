@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K Radius Subarray Averages"
-excerpt: "Leetcode K Radius Subarray Averages Java"
+excerpt: "Leetcode Medium - 'K Radius Subarray Averages' 문제 Java 풀이"
 last_modified_at: 2023-06-20T19:00:00
 header:
   image: /assets/images/leetcode/k-radius-subarray-averages.png

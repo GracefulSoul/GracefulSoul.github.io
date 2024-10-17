@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Sudoku"
-excerpt: "Leetcode Valid Sudoku Java 풀이"
+excerpt: "Leetcode - 'Valid Sudoku' 문제 Java 풀이"
 last_modified_at: 2021-05-17T20:20:00
 header:
   image: /assets/images/leetcode/valid-sudoku.png

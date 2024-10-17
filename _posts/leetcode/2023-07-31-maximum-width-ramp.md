@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Width Ramp"
-excerpt: "Leetcode Maximum Width Ramp Java"
+excerpt: "Leetcode Medium - 'Maximum Width Ramp' 문제 Java 풀이"
 last_modified_at: 2023-07-31T19:20:00
 header:
   image: /assets/images/leetcode/maximum-width-ramp.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Product Price at a Given Date"
-excerpt: "Leetcode Product Price at a Given Date PostgreSQL"
+excerpt: "Leetcode Medium - 'Product Price at a Given Date' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-08-21T18:50:00
 header:
   image: /assets/images/leetcode/product-price-at-a-given-date.png

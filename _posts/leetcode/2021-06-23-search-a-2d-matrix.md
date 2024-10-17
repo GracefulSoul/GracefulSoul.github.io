@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Set Search a 2D Matrix"
-excerpt: "Leetcode Set Search a 2D Matrix Java 풀이"
+excerpt: "Leetcode - 'Set Search a 2D Matrix' 문제 Java 풀이"
 last_modified_at: 2021-06-23T18:30:00
 header:
   image: /assets/images/leetcode/search-a-2d-matrix.png

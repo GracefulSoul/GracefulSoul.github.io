@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java All O`one Data Structure"
-excerpt: "Leetcode All O`one Data Structure Java 풀이"
+excerpt: "Leetcode - 'All O`one Data Structure' 문제 Java 풀이"
 last_modified_at: 2022-03-25T12:00:00
 header:
   image: /assets/images/leetcode/all-oone-data-structure.png

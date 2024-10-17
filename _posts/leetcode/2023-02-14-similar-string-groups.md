@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Similar String Groups"
-excerpt: "Leetcode Similar String Groups Java"
+excerpt: "Leetcode - 'Similar String Groups' 문제 Java 풀이"
 last_modified_at: 2023-02-14T19:00:00
 header:
   image: /assets/images/leetcode/similar-string-groups.png

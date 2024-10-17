@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Distances in Tree"
-excerpt: "Leetcode Sum of Distances in Tree Java"
+excerpt: "Leetcode - 'Sum of Distances in Tree' 문제 Java 풀이"
 last_modified_at: 2023-02-09T21:15:00
 header:
   image: /assets/images/leetcode/sum-of-distances-in-tree.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Average Waiting Time"
-excerpt: "Leetcode Average Waiting Time Java"
+excerpt: "Leetcode Medium - 'Average Waiting Time' 문제 Java 풀이"
 last_modified_at: 2024-07-09T18:00:00
 header:
   image: /assets/images/leetcode/average-waiting-time.png

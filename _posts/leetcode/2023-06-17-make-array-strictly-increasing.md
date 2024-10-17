@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Make Array Strictly Increasing"
-excerpt: "Leetcode Make Array Strictly Increasing Java"
+excerpt: "Leetcode Hard - 'Make Array Strictly Increasing' 문제 Java 풀이"
 last_modified_at: 2023-06-17T14:00:00
 header:
   image: /assets/images/leetcode/make-array-strictly-increasing.png

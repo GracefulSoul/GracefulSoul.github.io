@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Contains Duplicate"
-excerpt: "Leetcode Contains Duplicate Java 풀이"
+excerpt: "Leetcode - 'Contains Duplicate' 문제 Java 풀이"
 last_modified_at: 2021-10-22T12:00:00
 header:
   image: /assets/images/leetcode/contains-duplicate.png

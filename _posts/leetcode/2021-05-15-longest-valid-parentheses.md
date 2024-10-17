@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Valid Parentheses"
-excerpt: "Leetcode Longest Valid Parentheses Java 풀이"
+excerpt: "Leetcode - 'Longest Valid Parentheses' 문제 Java 풀이"
 last_modified_at: 2021-05-15T09:00:00
 header:
   image: /assets/images/leetcode/longest-valid-parentheses.png

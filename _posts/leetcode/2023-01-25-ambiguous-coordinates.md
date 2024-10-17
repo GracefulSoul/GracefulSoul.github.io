@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Ambiguous Coordinates"
-excerpt: "Leetcode Ambiguous Coordinates Java"
+excerpt: "Leetcode - 'Ambiguous Coordinates' 문제 Java 풀이"
 last_modified_at: 2023-01-25T19:45:00
 header:
   image: /assets/images/leetcode/ambiguous-coordinates.png

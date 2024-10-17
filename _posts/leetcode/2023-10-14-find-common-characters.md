@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Common Characters"
-excerpt: "Leetcode Find Common Characters Java"
+excerpt: "Leetcode Easy - 'Find Common Characters' 문제 Java 풀이"
 last_modified_at: 2023-10-14T14:30:00
 header:
   image: /assets/images/leetcode/find-common-characters.png

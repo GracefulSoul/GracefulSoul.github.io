@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Unsorted Continuous Subarray"
-excerpt: "Leetcode Shortest Unsorted Continuous Subarray Java"
+excerpt: "Leetcode - 'Shortest Unsorted Continuous Subarray' 문제 Java 풀이"
 last_modified_at: 2022-07-17T22:00:00
 header:
   image: /assets/images/leetcode/shortest-unsorted-continuous-subarray.png

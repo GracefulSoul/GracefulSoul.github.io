@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Missing Number"
-excerpt: "Leetcode Missing Number Java 풀이"
+excerpt: "Leetcode - 'Missing Number' 문제 Java 풀이"
 last_modified_at: 2021-11-24T09:00:00
 header:
   image: /assets/images/leetcode/missing-number.png

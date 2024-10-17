@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Common Prefix"
-excerpt: "Leetcode Longest Common Prefix Java 풀이"
+excerpt: "Leetcode - 'Longest Common Prefix' 문제 Java 풀이"
 last_modified_at: 2021-04-24T17:00:00
 header:
   image: /assets/images/leetcode/longest-common-prefix.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Remove to Make Valid Parentheses"
-excerpt: "Leetcode Minimum Remove to Make Valid Parentheses Java"
+excerpt: "Leetcode Medium - 'Minimum Remove to Make Valid Parentheses' 문제 Java 풀이"
 last_modified_at: 2024-04-06T16:00:00
 header:
   image: /assets/images/leetcode/minimum-remove-to-make-valid-parentheses.png

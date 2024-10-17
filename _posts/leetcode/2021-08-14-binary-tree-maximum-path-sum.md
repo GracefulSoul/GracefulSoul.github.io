@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Maximum Path Sum"
-excerpt: "Leetcode Binary Tree Maximum Path Sum Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Maximum Path Sum' 문제 Java 풀이"
 last_modified_at: 2021-08-14T11:00:00
 header:
   image: /assets/images/leetcode/binary-tree-maximum-path-sum.png

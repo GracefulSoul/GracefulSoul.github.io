@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Video Stitching"
-excerpt: "Leetcode Video Stitching Java"
+excerpt: "Leetcode Medium - 'Video Stitching' 문제 Java 풀이"
 last_modified_at: 2024-01-19T19:20:00
 header:
   image: /assets/images/leetcode/video-stitching.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge Two Sorted Lists"
-excerpt: "Leetcode Merge Two Sorted Lists Java 풀이"
+excerpt: "Leetcode - 'Merge Two Sorted Lists' 문제 Java 풀이"
 last_modified_at: 2021-05-01T17:30:00
 header:
   image: /assets/images/leetcode/merge-two-sorted-lists.png

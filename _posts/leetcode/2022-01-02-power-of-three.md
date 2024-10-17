@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Power of Three"
-excerpt: "Leetcode Power of Three Java 풀이"
+excerpt: "Leetcode - 'Power of Three' 문제 Java 풀이"
 last_modified_at: 2022-01-02T22:00:00
 header:
   image: /assets/images/leetcode/power-of-three.png

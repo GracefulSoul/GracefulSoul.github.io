@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Palindrome Number"
-excerpt: "Leetcode Palindrome Number Java 풀이"
+excerpt: "Leetcode - 'Palindrome Number' 문제 Java 풀이"
 last_modified_at: 2021-04-17T12:50:00
 header:
   image: /assets/images/leetcode/palindrome-number.png

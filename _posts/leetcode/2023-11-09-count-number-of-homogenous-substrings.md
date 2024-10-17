@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Number of Homogenous Substrings"
-excerpt: "Leetcode Count Number of Homogenous Substrings Java"
+excerpt: "Leetcode Medium - 'Count Number of Homogenous Substrings' 문제 Java 풀이"
 last_modified_at: 2023-11-09T18:40:00
 header:
   image: /assets/images/leetcode/count-number-of-homogenous-substrings.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flip Binary Tree To Match Preorder Traversal"
-excerpt: "Leetcode Flip Binary Tree To Match Preorder Traversal Java"
+excerpt: "Leetcode Medium - 'Flip Binary Tree To Match Preorder Traversal' 문제 Java 풀이"
 last_modified_at: 2023-08-08T18:50:00
 header:
   image: /assets/images/leetcode/flip-binary-tree-to-match-preorder-traversal.png

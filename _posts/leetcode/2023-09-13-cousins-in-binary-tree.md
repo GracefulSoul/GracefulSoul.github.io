@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Cousins in Binary Tree"
-excerpt: "Leetcode Cousins in Binary Tree Java"
+excerpt: "Leetcode Easy - 'Cousins in Binary Tree' 문제 Java 풀이"
 last_modified_at: 2023-09-13T18:30:00
 header:
   image: /assets/images/leetcode/cousins-in-binary-tree.png

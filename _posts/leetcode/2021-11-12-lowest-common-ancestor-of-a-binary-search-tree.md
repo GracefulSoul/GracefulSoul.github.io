@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lowest Common Ancestor of a Binary Search Tree"
-excerpt: "Leetcode Lowest Common Ancestor of a Binary Search Tree Java 풀이"
+excerpt: "Leetcode - 'Lowest Common Ancestor of a Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2021-11-12T12:00:00
 header:
   image: /assets/images/leetcode/lowest-common-ancestor-of-a-binary-search-tree.png

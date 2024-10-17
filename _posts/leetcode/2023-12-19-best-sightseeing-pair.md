@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Best Sightseeing Pair"
-excerpt: "Leetcode Best Sightseeing Pair Java"
+excerpt: "Leetcode Medium - 'Best Sightseeing Pair' 문제 Java 풀이"
 last_modified_at: 2023-12-19T21:30:00
 header:
   image: /assets/images/leetcode/best-sightseeing-pair.png

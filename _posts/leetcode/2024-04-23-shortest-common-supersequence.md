@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Common Supersequence"
-excerpt: "Leetcode Shortest Common Supersequence Java"
+excerpt: "Leetcode Hard - 'Shortest Common Supersequence' 문제 Java 풀이"
 last_modified_at: 2024-04-23T18:50:00
 header:
   image: /assets/images/leetcode/shortest-common-supersequence.png

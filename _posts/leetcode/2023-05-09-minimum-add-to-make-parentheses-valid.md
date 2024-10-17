@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Add to Make Parentheses Valid"
-excerpt: "Leetcode Minimum Add to Make Parentheses Valid Java"
+excerpt: "Leetcode - 'Minimum Add to Make Parentheses Valid' 문제 Java 풀이"
 last_modified_at: 2023-05-09T19:25:00
 header:
   image: /assets/images/leetcode/minimum-add-to-make-parentheses-valid.png

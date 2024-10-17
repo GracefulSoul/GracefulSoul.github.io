@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Product of Three Numbers"
-excerpt: "Leetcode Maximum Product of Three Numbers Java"
+excerpt: "Leetcode - 'Maximum Product of Three Numbers' 문제 Java 풀이"
 last_modified_at: 2022-08-18T19:20:00
 header:
   image: /assets/images/leetcode/maximum-product-of-three-numbers.png

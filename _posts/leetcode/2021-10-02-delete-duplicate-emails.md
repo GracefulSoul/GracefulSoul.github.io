@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Delete Duplicate Emails"
-excerpt: "Leetcode Delete Duplicate Emails MySQL 풀이"
+excerpt: "Leetcode - 'Delete Duplicate Emails MySQL 풀이"
 last_modified_at: 2021-10-02T11:00:00
 header:
   image: /assets/images/leetcode/delete-duplicate-emails.png

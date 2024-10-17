@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Anagram"
-excerpt: "Leetcode Valid Anagram Java 풀이"
+excerpt: "Leetcode - 'Valid Anagram' 문제 Java 풀이"
 last_modified_at: 2021-11-18T20:00:00
 header:
   image: /assets/images/leetcode/valid-anagram.png

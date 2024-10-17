@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java License Key Formatting"
-excerpt: "Leetcode License Key Formatting Java 풀이"
+excerpt: "Leetcode - 'License Key Formatting' 문제 Java 풀이"
 last_modified_at: 2022-05-09T13:00:00
 header:
   image: /assets/images/leetcode/license-key-formatting.png

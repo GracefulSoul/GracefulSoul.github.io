@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Decrease Elements To Make Array Zigzag"
-excerpt: "Leetcode Decrease Elements To Make Array Zigzag Java"
+excerpt: "Leetcode Medium - 'Decrease Elements To Make Array Zigzag' 문제 Java 풀이"
 last_modified_at: 2024-07-17T18:30:00
 header:
   image: /assets/images/leetcode/decrease-elements-to-make-array-zigzag.png

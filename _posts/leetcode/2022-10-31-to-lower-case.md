@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java To Lower Case"
-excerpt: "Leetcode To Lower Case Java"
+excerpt: "Leetcode - 'To Lower Case' 문제 Java 풀이"
 last_modified_at: 2022-10-31T18:50:00
 header:
   image: /assets/images/leetcode/to-lower-case.png

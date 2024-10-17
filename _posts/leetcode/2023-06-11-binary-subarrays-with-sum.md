@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Subarrays With Sum"
-excerpt: "Leetcode Binary Subarrays With Sum Java"
+excerpt: "Leetcode Medium - 'Binary Subarrays With Sum' 문제 Java 풀이"
 last_modified_at: 2023-06-11T08:00:00
 header:
   image: /assets/images/leetcode/binary-subarrays-with-sum.png

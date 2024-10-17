@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Prison Cells After N Days"
-excerpt: "Leetcode Prison Cells After N Days Java"
+excerpt: "Leetcode Medium - 'Prison Cells After N Days' 문제 Java 풀이"
 last_modified_at: 2023-07-24T19:40:00
 header:
   image: /assets/images/leetcode/prison-cells-after-n-days.png

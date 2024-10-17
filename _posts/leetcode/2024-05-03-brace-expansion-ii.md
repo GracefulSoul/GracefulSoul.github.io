@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Brace Expansion II"
-excerpt: "Leetcode Brace Expansion II Java"
+excerpt: "Leetcode Hard - 'Brace Expansion II' 문제 Java 풀이"
 last_modified_at: 2024-05-03T19:40:00
 header:
   image: /assets/images/leetcode/brace-expansion-ii.png

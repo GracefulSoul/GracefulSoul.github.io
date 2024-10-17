@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Search"
-excerpt: "Leetcode Binary Search Java"
+excerpt: "Leetcode - 'Binary Search' 문제 Java 풀이"
 last_modified_at: 2022-10-25T19:40:00
 header:
   image: /assets/images/leetcode/binary-search.png

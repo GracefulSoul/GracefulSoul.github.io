@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Group the People Given the Group Size They Belong To"
-excerpt: "Leetcode Group the People Given the Group Size They Belong To Java"
+excerpt: "Leetcode Medium - 'Group the People Given the Group Size They Belong To' 문제 Java 풀이"
 last_modified_at: 2023-09-11T18:40:00
 header:
   image: /assets/images/leetcode/group-the-people-given-the-group-size-they-belong-to.png

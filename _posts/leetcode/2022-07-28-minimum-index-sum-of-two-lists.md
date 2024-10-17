@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Index Sum of Two Lists"
-excerpt: "Leetcode Minimum Index Sum of Two Lists Java"
+excerpt: "Leetcode - 'Minimum Index Sum of Two Lists' 문제 Java 풀이"
 last_modified_at: 2022-07-28T19:20:00
 header:
   image: /assets/images/leetcode/minimum-index-sum-of-two-lists.png

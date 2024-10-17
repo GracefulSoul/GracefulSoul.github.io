@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Last Substring in Lexicographical Order"
-excerpt: "Leetcode Last Substring in Lexicographical Order Java"
+excerpt: "Leetcode Hard - 'Last Substring in Lexicographical Order' 문제 Java 풀이"
 last_modified_at: 2024-08-19T18:30:00
 header:
   image: /assets/images/leetcode/last-substring-in-lexicographical-order.png

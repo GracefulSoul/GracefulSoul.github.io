@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Asteroid Collision"
-excerpt: "Leetcode Asteroid Collision Java"
+excerpt: "Leetcode - 'Asteroid Collision' 문제 Java 풀이"
 last_modified_at: 2022-11-24T19:00:00
 header:
   image: /assets/images/leetcode/asteroid-collision.png

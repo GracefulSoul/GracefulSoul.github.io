@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Invalid Transactions"
-excerpt: "Leetcode Invalid Transactions Java"
+excerpt: "Leetcode Medium - 'Invalid Transactions' 문제 Java 풀이"
 last_modified_at: 2024-08-22T17:50:00
 header:
   image: /assets/images/leetcode/invalid-transactions.png

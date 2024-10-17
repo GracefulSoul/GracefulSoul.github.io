@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum One Bit Operations to Make Integers Zero"
-excerpt: "Leetcode Minimum One Bit Operations to Make Integers Zero Java"
+excerpt: "Leetcode Hard - 'Minimum One Bit Operations to Make Integers Zero' 문제 Java 풀이"
 last_modified_at: 2023-11-30T20:10:00
 header:
   image: /assets/images/leetcode/minimum-one-bit-operations-to-make-integers-zero.png

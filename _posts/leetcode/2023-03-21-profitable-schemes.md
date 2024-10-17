@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Profitable Schemes"
-excerpt: "Leetcode Profitable Schemes Java"
+excerpt: "Leetcode - 'Profitable Schemes' 문제 Java 풀이"
 last_modified_at: 2023-03-21T20:00:00
 header:
   image: /assets/images/leetcode/profitable-schemes.png

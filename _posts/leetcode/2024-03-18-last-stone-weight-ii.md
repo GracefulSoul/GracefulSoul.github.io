@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Last Stone Weight II"
-excerpt: "Leetcode Last Stone Weight II Java"
+excerpt: "Leetcode Medium - 'Last Stone Weight II' 문제 Java 풀이"
 last_modified_at: 2024-03-18T19:20:00
 header:
   image: /assets/images/leetcode/last-stone-weight-ii.png

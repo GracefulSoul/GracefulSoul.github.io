@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Split Array into Fibonacci Sequence"
-excerpt: "Leetcode Split Array into Fibonacci Sequence Java"
+excerpt: "Leetcode - 'Split Array into Fibonacci Sequence' 문제 Java 풀이"
 last_modified_at: 2023-02-17T19:30:00
 header:
   image: /assets/images/leetcode/split-array-into-fibonacci-sequence.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Check If Array Pairs Are Divisible by k"
-excerpt: "Leetcode Check If Array Pairs Are Divisible by k Java"
+excerpt: "Leetcode Medium - 'Check If Array Pairs Are Divisible by k' 문제 Java 풀이"
 last_modified_at: 2024-10-01T15:20:00
 header:
   image: /assets/images/leetcode/check-if-array-pairs-are-divisible-by-k.png

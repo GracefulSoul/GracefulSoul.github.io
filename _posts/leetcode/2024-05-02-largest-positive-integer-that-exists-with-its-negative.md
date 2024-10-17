@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Positive Integer That Exists With Its Negative"
-excerpt: "Leetcode Largest Positive Integer That Exists With Its Negative Java"
+excerpt: "Leetcode Easy - 'Largest Positive Integer That Exists With Its Negative' 문제 Java 풀이"
 last_modified_at: 2024-05-02T18:20:00
 header:
   image: /assets/images/leetcode/largest-positive-integer-that-exists-with-its-negative.png

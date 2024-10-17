@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Nice Pairs in an Array"
-excerpt: "Leetcode Count Nice Pairs in an Array Java"
+excerpt: "Leetcode Medium - 'Count Nice Pairs in an Array' 문제 Java 풀이"
 last_modified_at: 2023-11-21T18:50:00
 header:
   image: /assets/images/leetcode/count-nice-pairs-in-an-array.png

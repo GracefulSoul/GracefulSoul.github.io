@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Students Unable to Eat Lunch"
-excerpt: "Leetcode Number of Students Unable to Eat Lunch Java"
+excerpt: "Leetcode Easy - 'Number of Students Unable to Eat Lunch' 문제 Java 풀이"
 last_modified_at: 2024-04-08T19:20:00
 header:
   image: /assets/images/leetcode/number-of-students-unable-to-eat-lunch.png

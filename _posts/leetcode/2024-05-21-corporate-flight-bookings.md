@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Corporate Flight Bookings"
-excerpt: "Leetcode Corporate Flight Bookings Java"
+excerpt: "Leetcode Medium - 'Corporate Flight Bookings' 문제 Java 풀이"
 last_modified_at: 2024-05-21T19:00:00
 header:
   image: /assets/images/leetcode/corporate-flight-bookings.png

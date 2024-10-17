@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Distance Between BST Nodes"
-excerpt: "Leetcode Minimum Distance Between BST Nodes Java"
+excerpt: "Leetcode - 'Minimum Distance Between BST Nodes' 문제 Java 풀이"
 last_modified_at: 2022-12-26T13:55:00
 header:
   image: /assets/images/leetcode/minimum-distance-between-bst-nodes.png

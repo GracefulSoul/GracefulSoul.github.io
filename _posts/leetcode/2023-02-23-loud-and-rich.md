@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Loud and Rich"
-excerpt: "Leetcode Loud and Rich Java"
+excerpt: "Leetcode - 'Loud and Rich' 문제 Java 풀이"
 last_modified_at: 2023-02-23T21:00:00
 header:
   image: /assets/images/leetcode/loud-and-rich.png

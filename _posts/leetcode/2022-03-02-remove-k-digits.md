@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove K Digits"
-excerpt: "Leetcode Remove K Digits Java 풀이"
+excerpt: "Leetcode - 'Remove K Digits' 문제 Java 풀이"
 last_modified_at: 2022-03-02T13:00:00
 header:
   image: /assets/images/leetcode/remove-k-digits.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Freedom Trail"
-excerpt: "Leetcode Freedom Trail Java"
+excerpt: "Leetcode - 'Freedom Trail' 문제 Java 풀이"
 last_modified_at: 2022-05-30T18:00:00
 header:
   image: /assets/images/leetcode/freedom-trail.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Domino Rotations For Equal Row"
-excerpt: "Leetcode Minimum Domino Rotations For Equal Row Java"
+excerpt: "Leetcode Medium - 'Minimum Domino Rotations For Equal Row' 문제 Java 풀이"
 last_modified_at: 2023-10-25T20:30:00
 header:
   image: /assets/images/leetcode/minimum-domino-rotations-for-equal-row.png

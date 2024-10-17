@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Deletions to Make Character Frequencies Unique"
-excerpt: "Leetcode Minimum Deletions to Make Character Frequencies Unique Java"
+excerpt: "Leetcode Medium - 'Minimum Deletions to Make Character Frequencies Unique' 문제 Java 풀이"
 last_modified_at: 2023-09-12T18:30:00
 header:
   image: /assets/images/leetcode/minimum-deletions-to-make-character-frequencies-unique.png

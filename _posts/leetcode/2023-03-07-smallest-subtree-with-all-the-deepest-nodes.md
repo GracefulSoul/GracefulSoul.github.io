@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Subtree with all the Deepest Nodes"
-excerpt: "Leetcode Smallest Subtree with all the Deepest Nodes Java"
+excerpt: "Leetcode - 'Smallest Subtree with all the Deepest Nodes' 문제 Java 풀이"
 last_modified_at: 2023-03-07T19:30:00
 header:
   image: /assets/images/leetcode/smallest-subtree-with-all-the-deepest-nodes.png

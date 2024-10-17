@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Palindrome Product"
-excerpt: "Leetcode Largest Palindrome Product Java 풀이"
+excerpt: "Leetcode - 'Largest Palindrome Product' 문제 Java 풀이"
 last_modified_at: 2022-05-06T12:00:00
 header:
   image: /assets/images/leetcode/largest-palindrome-product.png

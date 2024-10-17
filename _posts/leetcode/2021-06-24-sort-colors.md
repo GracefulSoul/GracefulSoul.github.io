@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Colors"
-excerpt: "Leetcode Sort Colors Java 풀이"
+excerpt: "Leetcode - 'Sort Colors' 문제 Java 풀이"
 last_modified_at: 2021-06-24T21:20:00
 header:
   image: /assets/images/leetcode/sort-colors.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Occurrences After Bigram"
-excerpt: "Leetcode Occurrences After Bigram Java"
+excerpt: "Leetcode Easy - 'Occurrences After Bigram' 문제 Java 풀이"
 last_modified_at: 2024-04-12T18:10:00
 header:
   image: /assets/images/leetcode/occurrences-after-bigram.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Relative Sort Array"
-excerpt: "Leetcode Relative Sort Array Java"
+excerpt: "Leetcode Easy - 'Relative Sort Array' 문제 Java 풀이"
 last_modified_at: 2024-06-11T19:00:00
 header:
   image: /assets/images/leetcode/relative-sort-array.png

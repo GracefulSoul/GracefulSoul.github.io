@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Self Dividing Numbers"
-excerpt: "Leetcode Self Dividing Numbers Java"
+excerpt: "Leetcode - 'Self Dividing Numbers' 문제 Java 풀이"
 last_modified_at: 2022-11-15T18:55:00
 header:
   image: /assets/images/leetcode/self-dividing-numbers.png

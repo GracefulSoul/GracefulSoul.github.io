@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Word in Dictionary"
-excerpt: "Leetcode Longest Word in Dictionary Java"
+excerpt: "Leetcode - 'Longest Word in Dictionary' 문제 Java 풀이"
 last_modified_at: 2022-11-09T19:30:00
 header:
   image: /assets/images/leetcode/longest-word-in-dictionary.png

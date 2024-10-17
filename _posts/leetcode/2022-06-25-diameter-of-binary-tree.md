@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Diameter of Binary Tree"
-excerpt: "Leetcode Diameter of Binary Tree Java"
+excerpt: "Leetcode - 'Diameter of Binary Tree' 문제 Java 풀이"
 last_modified_at: 2022-06-25T13:00:00
 header:
   image: /assets/images/leetcode/diameter-of-binary-tree.png

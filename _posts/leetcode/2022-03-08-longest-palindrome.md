@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Palindrome"
-excerpt: "Leetcode Longest Palindrome Java 풀이"
+excerpt: "Leetcode - 'Longest Palindrome' 문제 Java 풀이"
 last_modified_at: 2022-03-08T12:00:00
 header:
   image: /assets/images/leetcode/longest-palindrome.png

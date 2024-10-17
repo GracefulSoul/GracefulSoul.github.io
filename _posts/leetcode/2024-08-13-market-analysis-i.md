@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Market Analysis I"
-excerpt: "Leetcode Market Analysis I PostgreSQL"
+excerpt: "Leetcode Medium - 'Market Analysis I' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-08-13T19:20:00
 header:
   image: /assets/images/leetcode/market-analysis-i.png

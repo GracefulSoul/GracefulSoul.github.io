@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Divide Intervals Into Minimum Number of Groups"
-excerpt: "Leetcode Divide Intervals Into Minimum Number of Groups Java"
+excerpt: "Leetcode Medium - 'Divide Intervals Into Minimum Number of Groups' 문제 Java 풀이"
 last_modified_at: 2024-10-12T09:10:00
 header:
   image: /assets/images/leetcode/divide-intervals-into-minimum-number-of-groups.png

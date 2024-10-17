@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java RLE Iterator"
-excerpt: "Leetcode RLE Iterator Java"
+excerpt: "Leetcode - 'RLE Iterator' 문제 Java 풀이"
 last_modified_at: 2023-04-13T20:30:00
 header:
   image: /assets/images/leetcode/rle-iterator.png

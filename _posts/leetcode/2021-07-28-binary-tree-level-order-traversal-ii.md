@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Level Order Traversal II"
-excerpt: "Leetcode Binary Tree Level Order Traversal II Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Level Order Traversal II' 문제 Java 풀이"
 last_modified_at: 2021-07-28T12:00:00
 header:
   image: /assets/images/leetcode/binary-tree-level-order-traversal-ii.png

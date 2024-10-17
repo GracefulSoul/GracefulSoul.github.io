@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Buy Two Chocolates"
-excerpt: "Leetcode Buy Two Chocolates Java"
+excerpt: "Leetcode Easy - 'Buy Two Chocolates' 문제 Java 풀이"
 last_modified_at: 2023-12-21T19:40:00
 header:
   image: /assets/images/leetcode/buy-two-chocolates.png

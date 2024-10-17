@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Positions of Large Groups"
-excerpt: "Leetcode Positions of Large Groups Java"
+excerpt: "Leetcode - 'Positions of Large Groups' 문제 Java 풀이"
 last_modified_at: 2023-02-06T19:10:00
 header:
   image: /assets/images/leetcode/positions-of-large-groups.png

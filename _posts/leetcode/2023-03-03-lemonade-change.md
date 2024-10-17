@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lemonade Change"
-excerpt: "Leetcode Lemonade Change Java"
+excerpt: "Leetcode - 'Lemonade Change' 문제 Java 풀이"
 last_modified_at: 2023-03-03T20:40:00
 header:
   image: /assets/images/leetcode/lemonade-change.png

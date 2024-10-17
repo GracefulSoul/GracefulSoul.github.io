@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Article Views I"
-excerpt: "Leetcode Article Views I PostgreSQL"
+excerpt: "Leetcode Easy - 'Article Views I' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-08-09T18:50:00
 header:
   image: /assets/images/leetcode/article-views-i.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Magnetic Force Between Two Balls"
-excerpt: "Leetcode Magnetic Force Between Two Balls Java"
+excerpt: "Leetcode Medium - 'Magnetic Force Between Two Balls' 문제 Java 풀이"
 last_modified_at: 2024-06-20T21:10:00
 header:
   image: /assets/images/leetcode/magnetic-force-between-two-balls.png

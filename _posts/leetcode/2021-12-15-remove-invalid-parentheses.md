@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Invalid Parentheses"
-excerpt: "Leetcode Remove Invalid Parentheses Java 풀이"
+excerpt: "Leetcode - 'Remove Invalid Parentheses' 문제 Java 풀이"
 last_modified_at: 2021-12-15T13:00:00
 header:
   image: /assets/images/leetcode/remove-invalid-parentheses.png

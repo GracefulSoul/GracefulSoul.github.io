@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Odd Even Jump"
-excerpt: "Leetcode Odd Even Jump Java"
+excerpt: "Leetcode Hard - 'Odd Even Jump' 문제 Java 풀이"
 last_modified_at: 2023-08-16T20:00:00
 header:
   image: /assets/images/leetcode/odd-even-jump.png

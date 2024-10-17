@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Word Break"
-excerpt: "Leetcode Word Break Java 풀이"
+excerpt: "Leetcode - 'Word Break' 문제 Java 풀이"
 last_modified_at: 2021-08-27T12:00:00
 header:
   image: /assets/images/leetcode/word-break.png

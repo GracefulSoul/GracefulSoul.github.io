@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Cost to Merge Stones"
-excerpt: "Leetcode Minimum Cost to Merge Stones Java"
+excerpt: "Leetcode Hard - 'Minimum Cost to Merge Stones' 문제 Java 풀이"
 last_modified_at: 2023-10-05T20:35:00
 header:
   image: /assets/images/leetcode/minimum-cost-to-merge-stones.png

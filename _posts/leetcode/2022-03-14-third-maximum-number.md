@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Third Maximum Number"
-excerpt: "Leetcode Third Maximum Number Java 풀이"
+excerpt: "Leetcode - 'Third Maximum Number' 문제 Java 풀이"
 last_modified_at: 2022-03-14T12:00:00
 header:
   image: /assets/images/leetcode/third-maximum-number.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distance Between Bus Stops"
-excerpt: "Leetcode Distance Between Bus Stops Java"
+excerpt: "Leetcode Easy - 'Distance Between Bus Stops' 문제 Java 풀이"
 last_modified_at: 2024-09-17T09:50:00
 header:
   image: /assets/images/leetcode/distance-between-bus-stops.png

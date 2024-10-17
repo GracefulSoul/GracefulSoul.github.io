@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Number of Occurrences"
-excerpt: "Leetcode Unique Number of Occurrences Java"
+excerpt: "Leetcode Easy - 'Unique Number of Occurrences' 문제 Java 풀이"
 last_modified_at: 2024-01-17T18:40:00
 header:
   image: /assets/images/leetcode/unique-number-of-occurrences.png

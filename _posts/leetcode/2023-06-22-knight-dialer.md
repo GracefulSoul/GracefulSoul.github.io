@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Knight Dialer"
-excerpt: "Leetcode Knight Dialer Java"
+excerpt: "Leetcode Medium - 'Knight Dialer' 문제 Java 풀이"
 last_modified_at: 2023-06-22T18:35:00
 header:
   image: /assets/images/leetcode/knight-dialer.png

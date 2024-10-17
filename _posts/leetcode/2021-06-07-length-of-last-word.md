@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Length of Last Word"
-excerpt: "Leetcode Length of Last Word Java 풀이"
+excerpt: "Leetcode - 'Length of Last Word' 문제 Java 풀이"
 last_modified_at: 2021-06-07T12:20:00
 header:
   image: /assets/images/leetcode/length-of-last-word.png

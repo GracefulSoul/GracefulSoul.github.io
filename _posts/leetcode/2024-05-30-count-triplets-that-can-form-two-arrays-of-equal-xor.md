@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Triplets That Can Form Two Arrays of Equal XOR"
-excerpt: "Leetcode Count Triplets That Can Form Two Arrays of Equal XOR Java"
+excerpt: "Leetcode Medium - 'Count Triplets That Can Form Two Arrays of Equal XOR' 문제 Java 풀이"
 last_modified_at: 2024-05-29T18:40:00
 header:
   image: /assets/images/leetcode/count-triplets-that-can-form-two-arrays-of-equal-xor.png

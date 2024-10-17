@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Speed to Arrive on Time"
-excerpt: "Leetcode Minimum Speed to Arrive on Time Java"
+excerpt: "Leetcode Medium - 'Minimum Speed to Arrive on Time' 문제 Java 풀이"
 last_modified_at: 2023-07-26T20:50:00
 header:
   image: /assets/images/leetcode/minimum-speed-to-arrive-on-time.png

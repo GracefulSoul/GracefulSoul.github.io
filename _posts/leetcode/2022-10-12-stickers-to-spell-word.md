@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Stickers to Spell Word"
-excerpt: "Leetcode Stickers to Spell Word Java"
+excerpt: "Leetcode - 'Stickers to Spell Word' 문제 Java 풀이"
 last_modified_at: 2022-10-12T20:07:00
 header:
   image: /assets/images/leetcode/stickers-to-spell-word.png

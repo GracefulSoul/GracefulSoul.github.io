@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Duplicate Number"
-excerpt: "Leetcode Find the Duplicate Number Java 풀이"
+excerpt: "Leetcode - 'Find the Duplicate Number' 문제 Java 풀이"
 last_modified_at: 2021-12-06T13:00:00
 header:
   image: /assets/images/leetcode/find-the-duplicate-number.png

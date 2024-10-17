@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the City With the Smallest Number of Neighbors at a Threshold Distance"
-excerpt: "Leetcode Find the City With the Smallest Number of Neighbors at a Threshold Distance Java"
+excerpt: "Leetcode Medium - 'Find the City With the Smallest Number of Neighbors at a Threshold Distance' 문제 Java 풀이"
 last_modified_at: 2024-07-26T18:30:00
 header:
   image: /assets/images/leetcode/find-the-city-with-the-smallest-number-of-neighbors-at-a-threshold-distance.png

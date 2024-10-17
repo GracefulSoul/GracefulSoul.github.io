@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Binary Tree II"
-excerpt: "Leetcode Maximum Binary Tree II Java"
+excerpt: "Leetcode Medium - 'Maximum Binary Tree II' 문제 Java 풀이"
 last_modified_at: 2023-10-01T12:45:00
 header:
   image: /assets/images/leetcode/maximum-binary-tree-ii.png

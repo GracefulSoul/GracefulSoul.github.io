@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Total Importance of Roads"
-excerpt: "Leetcode Maximum Total Importance of Roads Java"
+excerpt: "Leetcode Medium - 'Maximum Total Importance of Roads' 문제 Java 풀이"
 last_modified_at: 2024-06-28T20:00:00
 header:
   image: /assets/images/leetcode/maximum-total-importance-of-roads.png

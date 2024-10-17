@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Special Array With X Elements Greater Than or Equal X"
-excerpt: "Leetcode Special Array With X Elements Greater Than or Equal X Java"
+excerpt: "Leetcode Easy - 'Special Array With X Elements Greater Than or Equal X' 문제 Java 풀이"
 last_modified_at: 2024-05-27T18:40:00
 header:
   image: /assets/images/leetcode/special-array-with-x-elements-greater-than-or-equal-x.png

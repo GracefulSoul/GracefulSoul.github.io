@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pascal's Triangle II"
-excerpt: "Leetcode Pascal's Triangle II Java 풀이"
+excerpt: "Leetcode - 'Pascal's Triangle II' 문제 Java 풀이"
 last_modified_at: 2021-08-09T13:00:00
 header:
   image: /assets/images/leetcode/pascals-triangle-ii.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Columns to Make Sorted III"
-excerpt: "Leetcode Delete Columns to Make Sorted III Java"
+excerpt: "Leetcode Hard - 'Delete Columns to Make Sorted III' 문제 Java 풀이"
 last_modified_at: 2023-07-29T10:00:00
 header:
   image: /assets/images/leetcode/delete-columns-to-make-sorted-iii.png

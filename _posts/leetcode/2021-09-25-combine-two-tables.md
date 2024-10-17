@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Combine Two Tables"
-excerpt: "Leetcode Combine Two Tables MySQL 풀이"
+excerpt: "Leetcode - 'Combine Two Tables MySQL 풀이"
 last_modified_at: 2021-09-25T12:00:00
 header:
   image: /assets/images/leetcode/combine-two-tables.png

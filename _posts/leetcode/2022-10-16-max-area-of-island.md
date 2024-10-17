@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Max Area of Island"
-excerpt: "Leetcode Max Area of Island Java"
+excerpt: "Leetcode - 'Max Area of Island' 문제 Java 풀이"
 last_modified_at: 2022-10-16T18:00:00
 header:
   image: /assets/images/leetcode/max-area-of-island.png

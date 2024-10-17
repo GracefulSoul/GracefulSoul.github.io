@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Duplicate File in System"
-excerpt: "Leetcode Find Duplicate File in System Java"
+excerpt: "Leetcode - 'Find Duplicate File in System' 문제 Java 풀이"
 last_modified_at: 2022-08-08T09:00:00
 header:
   image: /assets/images/leetcode/find-duplicate-file-in-system.png

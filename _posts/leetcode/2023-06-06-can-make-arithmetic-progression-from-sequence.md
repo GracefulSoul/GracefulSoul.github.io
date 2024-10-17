@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Can Make Arithmetic Progression From Sequence"
-excerpt: "Leetcode Can Make Arithmetic Progression From Sequence Java"
+excerpt: "Leetcode Easy - 'Can Make Arithmetic Progression From Sequence' 문제 Java 풀이"
 last_modified_at: 2023-06-06T09:30:00
 header:
   image: /assets/images/leetcode/can-make-arithmetic-progression-from-sequence.png

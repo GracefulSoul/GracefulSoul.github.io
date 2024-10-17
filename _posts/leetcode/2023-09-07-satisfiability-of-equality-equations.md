@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Satisfiability of Equality Equations"
-excerpt: "Leetcode Satisfiability of Equality Equations Java"
+excerpt: "Leetcode Medium - 'Satisfiability of Equality Equations' 문제 Java 풀이"
 last_modified_at: 2023-09-07T18:40:00
 header:
   image: /assets/images/leetcode/satisfiability-of-equality-equations.png

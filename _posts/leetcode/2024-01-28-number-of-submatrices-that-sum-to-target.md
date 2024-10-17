@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Submatrices That Sum to Target"
-excerpt: "Leetcode Number of Submatrices That Sum to Target Java"
+excerpt: "Leetcode Hard - 'Number of Submatrices That Sum to Target' 문제 Java 풀이"
 last_modified_at: 2024-01-28T10:20:00
 header:
   image: /assets/images/leetcode/number-of-submatrices-that-sum-to-target.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flatten Binary Tree to Linked List"
-excerpt: "Leetcode Flatten Binary Tree to Linked List Java 풀이"
+excerpt: "Leetcode - 'Flatten Binary Tree to Linked List' 문제 Java 풀이"
 last_modified_at: 2021-08-04T12:00:00
 header:
   image: /assets/images/leetcode/flatten-binary-tree-to-linked-list.png

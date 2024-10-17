@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Nodes From Linked List"
-excerpt: "Leetcode Remove Nodes From Linked List Java"
+excerpt: "Leetcode Medium - 'Remove Nodes From Linked List' 문제 Java 풀이"
 last_modified_at: 2024-05-06T10:40:00
 header:
   image: /assets/images/leetcode/remove-nodes-from-linked-list.png

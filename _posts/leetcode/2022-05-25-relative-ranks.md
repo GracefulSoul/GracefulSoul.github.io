@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Relative Ranks"
-excerpt: "Leetcode Relative Ranks Java"
+excerpt: "Leetcode - 'Relative Ranks' 문제 Java 풀이"
 last_modified_at: 2022-05-25T13:00:00
 header:
   image: /assets/images/leetcode/relative-ranks.png

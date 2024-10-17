@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Eliminate Maximum Number of Monsters"
-excerpt: "Leetcode Eliminate Maximum Number of Monsters Java"
+excerpt: "Leetcode Medium - 'Eliminate Maximum Number of Monsters' 문제 Java 풀이"
 last_modified_at: 2023-11-07T19:00:00
 header:
   image: /assets/images/leetcode/eliminate-maximum-number-of-monsters.png

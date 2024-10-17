@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Task Scheduler"
-excerpt: "Leetcode Task Scheduler Java"
+excerpt: "Leetcode - 'Task Scheduler' 문제 Java 풀이"
 last_modified_at: 2022-08-13T11:00:00
 header:
   image: /assets/images/leetcode/task-scheduler.png

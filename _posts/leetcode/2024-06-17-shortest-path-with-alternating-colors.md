@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Path with Alternating Colors"
-excerpt: "Leetcode Shortest Path with Alternating Colors Java"
+excerpt: "Leetcode Medium - 'Shortest Path with Alternating Colors' 문제 Java 풀이"
 last_modified_at: 2024-06-17T19:00:00
 header:
   image: /assets/images/leetcode/shortest-path-with-alternating-colors.png

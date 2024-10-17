@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Make The String Great"
-excerpt: "Leetcode Make The String Great Java"
+excerpt: "Leetcode Easy - 'Make The String Great' 문제 Java 풀이"
 last_modified_at: 2024-04-05T18:30:00
 header:
   image: /assets/images/leetcode/make-the-string-great.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Course Schedule II"
-excerpt: "Leetcode Course Schedule II Java 풀이"
+excerpt: "Leetcode - 'Course Schedule II' 문제 Java 풀이"
 last_modified_at: 2021-10-15T12:00:00
 header:
   image: /assets/images/leetcode/course-schedule-ii.png

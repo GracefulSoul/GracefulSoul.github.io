@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Extra Characters in a String"
-excerpt: "Leetcode Extra Characters in a String Java"
+excerpt: "Leetcode Medium - 'Extra Characters in a String' 문제 Java 풀이"
 last_modified_at: 2023-09-02T17:40:00
 header:
   image: /assets/images/leetcode/extra-characters-in-a-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count of Range Sum"
-excerpt: "Leetcode Count of Range Sum Java 풀이"
+excerpt: "Leetcode - 'Count of Range Sum' 문제 Java 풀이"
 last_modified_at: 2022-01-03T13:00:00
 header:
   image: /assets/images/leetcode/count-of-range-sum.png

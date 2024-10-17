@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Bulb Switcher"
-excerpt: "Leetcode Bulb Switcher Java 풀이"
+excerpt: "Leetcode - 'Bulb Switcher' 문제 Java 풀이"
 last_modified_at: 2021-12-29T15:00:00
 header:
   image: /assets/images/leetcode/bulb-switcher.png

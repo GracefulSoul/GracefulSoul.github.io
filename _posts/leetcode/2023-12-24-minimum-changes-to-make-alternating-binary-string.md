@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Changes To Make Alternating Binary String"
-excerpt: "Leetcode Minimum Changes To Make Alternating Binary String Java"
+excerpt: "Leetcode Easy - 'Minimum Changes To Make Alternating Binary String' 문제 Java 풀이"
 last_modified_at: 2023-12-24T09:10:00
 header:
   image: /assets/images/leetcode/minimum-changes-to-make-alternating-binary-string.png

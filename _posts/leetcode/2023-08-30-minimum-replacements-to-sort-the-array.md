@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Replacements to Sort the Array"
-excerpt: "Leetcode Minimum Replacements to Sort the Array Java"
+excerpt: "Leetcode Hard - 'Minimum Replacements to Sort the Array' 문제 Java 풀이"
 last_modified_at: 2023-08-30T20:20:00
 header:
   image: /assets/images/leetcode/minimum-replacements-to-sort-the-array.png

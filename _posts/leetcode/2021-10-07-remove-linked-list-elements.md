@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Linked List Elements"
-excerpt: "Leetcode Remove Linked List Elements Java 풀이"
+excerpt: "Leetcode - 'Remove Linked List Elements' 문제 Java 풀이"
 last_modified_at: 2021-10-07T08:30:00
 header:
   image: /assets/images/leetcode/remove-linked-list-elements.png

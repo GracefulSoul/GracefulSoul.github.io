@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Game Play Analysis I"
-excerpt: "Leetcode Game Play Analysis I MySQL 풀이"
+excerpt: "Leetcode - 'Game Play Analysis I MySQL 풀이"
 last_modified_at: 2022-05-29T06:00:00
 header:
   image: /assets/images/leetcode/game-play-analysis-i.png

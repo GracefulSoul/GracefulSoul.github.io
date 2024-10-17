@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Frequency of the Most Frequent Element"
-excerpt: "Leetcode Frequency of the Most Frequent Element Java"
+excerpt: "Leetcode Medium - 'Frequency of the Most Frequent Element' 문제 Java 풀이"
 last_modified_at: 2023-11-18T17:50:00
 header:
   image: /assets/images/leetcode/frequency-of-the-most-frequent-element.png

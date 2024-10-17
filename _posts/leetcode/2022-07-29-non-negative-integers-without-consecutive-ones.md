@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Non-negative Integers without Consecutive Ones"
-excerpt: "Leetcode Non-negative Integers without Consecutive Ones Java"
+excerpt: "Leetcode - 'Non-negative Integers without Consecutive Ones' 문제 Java 풀이"
 last_modified_at: 2022-07-29T21:00:00
 header:
   image: /assets/images/leetcode/non-negative-integers-without-consecutive-ones.png

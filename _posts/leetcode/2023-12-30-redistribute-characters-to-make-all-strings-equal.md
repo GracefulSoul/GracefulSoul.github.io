@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Redistribute Characters to Make All Strings Equal"
-excerpt: "Leetcode Redistribute Characters to Make All Strings Equal Java"
+excerpt: "Leetcode Easy - 'Redistribute Characters to Make All Strings Equal' 문제 Java 풀이"
 last_modified_at: 2023-12-30T09:55:00
 header:
   image: /assets/images/leetcode/redistribute-characters-to-make-all-strings-equal.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Height Trees"
-excerpt: "Leetcode Minimum Height Trees Java 풀이"
+excerpt: "Leetcode - 'Minimum Height Trees' 문제 Java 풀이"
 last_modified_at: 2021-12-21T18:00:00
 header:
   image: /assets/images/leetcode/minimum-height-trees.png

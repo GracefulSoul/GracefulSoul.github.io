@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Insert Greatest Common Divisors in Linked List"
-excerpt: "Leetcode Insert Greatest Common Divisors in Linked List Java"
+excerpt: "Leetcode Medium - 'Insert Greatest Common Divisors in Linked List' 문제 Java 풀이"
 last_modified_at: 2024-09-10T17:50:00
 header:
   image: /assets/images/leetcode/insert-greatest-common-divisors-in-linked-list.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Length of String After Deleting Similar Ends"
-excerpt: "Leetcode Minimum Length of String After Deleting Similar Ends Java"
+excerpt: "Leetcode Medium - 'Minimum Length of String After Deleting Similar Ends' 문제 Java 풀이"
 last_modified_at: 2024-03-05T20:10:00
 header:
   image: /assets/images/leetcode/minimum-length-of-string-after-deleting-similar-ends.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Ideal Subsequence"
-excerpt: "Leetcode Longest Ideal Subsequence Java"
+excerpt: "Leetcode Medium - 'Longest Ideal Subsequence' 문제 Java 풀이"
 last_modified_at: 2024-04-25T18:30:00
 header:
   image: /assets/images/leetcode/longest-ideal-subsequence.png

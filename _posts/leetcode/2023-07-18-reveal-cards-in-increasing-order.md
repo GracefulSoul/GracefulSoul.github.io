@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reveal Cards In Increasing Order"
-excerpt: "Leetcode Reveal Cards In Increasing Order Java"
+excerpt: "Leetcode Medium - 'Reveal Cards In Increasing Order' 문제 Java 풀이"
 last_modified_at: 2023-07-18T19:20:00
 header:
   image: /assets/images/leetcode/reveal-cards-in-increasing-order.png

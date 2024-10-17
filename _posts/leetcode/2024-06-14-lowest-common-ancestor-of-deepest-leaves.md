@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lowest Common Ancestor of Deepest Leaves"
-excerpt: "Leetcode Lowest Common Ancestor of Deepest Leaves Java"
+excerpt: "Leetcode Medium - 'Lowest Common Ancestor of Deepest Leaves' 문제 Java 풀이"
 last_modified_at: 2024-06-14T17:50:00
 header:
   image: /assets/images/leetcode/lowest-common-ancestor-of-deepest-leaves.png

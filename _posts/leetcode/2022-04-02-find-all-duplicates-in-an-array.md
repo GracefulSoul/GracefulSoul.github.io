@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find All Duplicates in an Array"
-excerpt: "Leetcode Find All Duplicates in an Array Java 풀이"
+excerpt: "Leetcode - 'Find All Duplicates in an Array' 문제 Java 풀이"
 last_modified_at: 2022-04-02T13:00:00
 header:
   image: /assets/images/leetcode/find-all-duplicates-in-an-array.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Magical String"
-excerpt: "Leetcode Magical String Java 풀이"
+excerpt: "Leetcode - 'Magical String' 문제 Java 풀이"
 last_modified_at: 2022-05-08T19:00:00
 header:
   image: /assets/images/leetcode/magical-string.png

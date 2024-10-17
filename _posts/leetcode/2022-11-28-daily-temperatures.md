@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Daily Temperatures"
-excerpt: "Leetcode Daily Temperatures Java"
+excerpt: "Leetcode - 'Daily Temperatures' 문제 Java 풀이"
 last_modified_at: 2022-11-28T14:30:00
 header:
   image: /assets/images/leetcode/daily-temperatures.png

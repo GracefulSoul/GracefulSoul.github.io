@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Prefix Divisible By 5"
-excerpt: "Leetcode Binary Prefix Divisible By 5 Java"
+excerpt: "Leetcode Easy - 'Binary Prefix Divisible By 5' 문제 Java 풀이"
 last_modified_at: 2024-01-05T12:30:00
 header:
   image: /assets/images/leetcode/binary-prefix-divisible-by-5.png

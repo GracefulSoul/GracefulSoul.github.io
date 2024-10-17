@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Customer Placing the Largest Number of Orders"
-excerpt: "Leetcode Customer Placing the Largest Number of Orders MySQL 풀이"
+excerpt: "Leetcode - 'Customer Placing the Largest Number of Orders MySQL 풀이"
 last_modified_at: 2022-07-19T19:00:00
 header:
   image: /assets/images/leetcode/customer-placing-the-largest-number-of-orders.png

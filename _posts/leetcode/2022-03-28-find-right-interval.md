@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Right Interval"
-excerpt: "Leetcode Find Right Interval Java 풀이"
+excerpt: "Leetcode - 'Find Right Interval' 문제 Java 풀이"
 last_modified_at: 2022-03-28T17:00:00
 header:
   image: /assets/images/leetcode/find-right-interval.png

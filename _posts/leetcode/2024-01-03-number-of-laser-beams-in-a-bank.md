@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Laser Beams in a Bank"
-excerpt: "Leetcode Number of Laser Beams in a Bank Java"
+excerpt: "Leetcode Medium - 'Number of Laser Beams in a Bank' 문제 Java 풀이"
 last_modified_at: 2024-01-03T11:10:00
 header:
   image: /assets/images/leetcode/number-of-laser-beams-in-a-bank.png

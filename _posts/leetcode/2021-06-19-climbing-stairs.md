@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Climbing Stairs"
-excerpt: "Leetcode Climbing Stairs Java 풀이"
+excerpt: "Leetcode - 'Climbing Stairs' 문제 Java 풀이"
 last_modified_at: 2021-06-19T17:00:00
 header:
   image: /assets/images/leetcode/climbing-stairs.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Expressive Words"
-excerpt: "Leetcode Expressive Words Java"
+excerpt: "Leetcode - 'Expressive Words' 문제 Java 풀이"
 last_modified_at: 2023-01-18T19:40:00
 header:
   image: /assets/images/leetcode/expressive-words.png

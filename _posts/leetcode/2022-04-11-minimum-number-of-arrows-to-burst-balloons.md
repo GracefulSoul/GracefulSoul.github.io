@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Arrows to Burst Balloons"
-excerpt: "Leetcode Minimum Number of Arrows to Burst Balloons Java 풀이"
+excerpt: "Leetcode - 'Minimum Number of Arrows to Burst Balloons' 문제 Java 풀이"
 last_modified_at: 2022-04-11T12:00:00
 header:
   image: /assets/images/leetcode/minimum-number-of-arrows-to-burst-balloons.png

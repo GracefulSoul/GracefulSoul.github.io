@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Permutations"
-excerpt: "Leetcode Permutations Java 풀이"
+excerpt: "Leetcode - 'Permutations' 문제 Java 풀이"
 last_modified_at: 2021-05-28T20:50:00
 header:
   image: /assets/images/leetcode/permutations.png

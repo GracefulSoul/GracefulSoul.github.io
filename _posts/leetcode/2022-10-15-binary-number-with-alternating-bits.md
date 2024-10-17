@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Number with Alternating Bits"
-excerpt: "Leetcode Binary Number with Alternating Bits Java"
+excerpt: "Leetcode - 'Binary Number with Alternating Bits' 문제 Java 풀이"
 last_modified_at: 2022-10-15T18:00:00
 header:
   image: /assets/images/leetcode/binary-number-with-alternating-bits.png

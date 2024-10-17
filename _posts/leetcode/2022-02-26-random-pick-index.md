@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Random Pick Index"
-excerpt: "Leetcode Random Pick Index Java 풀이"
+excerpt: "Leetcode - 'Random Pick Index' 문제 Java 풀이"
 last_modified_at: 2022-02-26T14:00:00
 header:
   image: /assets/images/leetcode/random-pick-index.png

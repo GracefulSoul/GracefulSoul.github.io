@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find The Original Array of Prefix Xor"
-excerpt: "Leetcode Find The Original Array of Prefix Xor Java"
+excerpt: "Leetcode Medium - 'Find The Original Array of Prefix Xor' 문제 Java 풀이"
 last_modified_at: 2023-10-31T19:10:00
 header:
   image: /assets/images/leetcode/find-the-original-array-of-prefix-xor.png

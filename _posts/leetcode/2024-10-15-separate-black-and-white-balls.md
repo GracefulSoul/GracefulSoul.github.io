@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Separate Black and White Balls"
-excerpt: "Leetcode Separate Black and White Balls Java"
+excerpt: "Leetcode Medium - 'Separate Black and White Balls' 문제 Java 풀이"
 last_modified_at: 2024-10-15T19:10:00
 header:
   image: /assets/images/leetcode/separate-black-and-white-balls.png

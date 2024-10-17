@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Range Sum of BST"
-excerpt: "Leetcode Range Sum of BST Java"
+excerpt: "Leetcode Easy - 'Range Sum of BST' 문제 Java 풀이"
 last_modified_at: 2023-06-29T19:30:00
 header:
   image: /assets/images/leetcode/range-sum-of-bst.png

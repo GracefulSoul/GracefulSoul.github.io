@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Dice Rolls With Target Sum"
-excerpt: "Leetcode Number of Dice Rolls With Target Sum Java"
+excerpt: "Leetcode Medium - 'Number of Dice Rolls With Target Sum' 문제 Java 풀이"
 last_modified_at: 2023-12-26T11:45:00
 header:
   image: /assets/images/leetcode/number-of-dice-rolls-with-target-sum.png

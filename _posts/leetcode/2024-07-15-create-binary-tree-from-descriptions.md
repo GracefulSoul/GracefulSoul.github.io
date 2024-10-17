@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Create Binary Tree From Descriptions"
-excerpt: "Leetcode Create Binary Tree From Descriptions Java"
+excerpt: "Leetcode Medium - 'Create Binary Tree From Descriptions' 문제 Java 풀이"
 last_modified_at: 2024-07-14T23:30:00
 header:
   image: /assets/images/leetcode/create-binary-tree-from-descriptions.png

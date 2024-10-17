@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Center of Star Graph"
-excerpt: "Leetcode Find Center of Star Graph Java"
+excerpt: "Leetcode Easy - 'Find Center of Star Graph' 문제 Java 풀이"
 last_modified_at: 2024-06-27T19:50:00
 header:
   image: /assets/images/leetcode/find-center-of-star-graph.png

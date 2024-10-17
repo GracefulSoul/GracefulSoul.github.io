@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subarray Sums Divisible by K"
-excerpt: "Leetcode Subarray Sums Divisible by K Java"
+excerpt: "Leetcode Medium - 'Subarray Sums Divisible by K' 문제 Java 풀이"
 last_modified_at: 2023-08-14T20:30:00
 header:
   image: /assets/images/leetcode/subarray-sums-divisible-by-k.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Statistics from a Large Sample"
-excerpt: "Leetcode Statistics from a Large Sample Java"
+excerpt: "Leetcode Medium - 'Statistics from a Large Sample' 문제 Java 풀이"
 last_modified_at: 2024-04-27T18:40:00
 header:
   image: /assets/images/leetcode/statistics-from-a-large-sample.png

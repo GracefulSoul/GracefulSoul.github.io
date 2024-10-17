@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Square"
-excerpt: "Leetcode Valid Square Java"
+excerpt: "Leetcode - 'Valid Square' 문제 Java 풀이"
 last_modified_at: 2022-07-24T13:30:00
 header:
   image: /assets/images/leetcode/nvalid-square.png

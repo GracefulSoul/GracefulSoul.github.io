@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Elements With Maximum Frequency"
-excerpt: "Leetcode Count Elements With Maximum Frequency Java"
+excerpt: "Leetcode Easy - 'Count Elements With Maximum Frequency' 문제 Java 풀이"
 last_modified_at: 2024-03-08T19:30:00
 header:
   image: /assets/images/leetcode/count-elements-with-maximum-frequency.png

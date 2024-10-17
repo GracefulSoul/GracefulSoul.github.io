@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Boomerang"
-excerpt: "Leetcode Valid Boomerang Java"
+excerpt: "Leetcode Easy - 'Valid Boomerang' 문제 Java 풀이"
 last_modified_at: 2024-02-06T21:20:00
 header:
   image: /assets/images/leetcode/valid-boomerang.png

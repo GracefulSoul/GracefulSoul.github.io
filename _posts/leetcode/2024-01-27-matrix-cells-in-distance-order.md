@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Matrix Cells in Distance Order"
-excerpt: "Leetcode Matrix Cells in Distance Order Java"
+excerpt: "Leetcode Easy - 'Matrix Cells in Distance Order' 문제 Java 풀이"
 last_modified_at: 2024-01-27T19:30:00
 header:
   image: /assets/images/leetcode/matrix-cells-in-distance-order.png

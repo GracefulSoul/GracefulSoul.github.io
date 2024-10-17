@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert Sorted Array to Binary Search Tree"
-excerpt: "Leetcode Convert Sorted Array to Binary Search Tree Java 풀이"
+excerpt: "Leetcode - 'Convert Sorted Array to Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2021-07-29T12:40:00
 header:
   image: /assets/images/leetcode/convert-sorted-array-to-binary-search-tree.png

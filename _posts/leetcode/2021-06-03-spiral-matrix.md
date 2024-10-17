@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Spiral Matrix"
-excerpt: "Leetcode Spiral Matrix Java 풀이"
+excerpt: "Leetcode - 'Spiral Matrix' 문제 Java 풀이"
 last_modified_at: 2021-06-03T19:40:00
 header:
   image: /assets/images/leetcode/spiral-matrix.png

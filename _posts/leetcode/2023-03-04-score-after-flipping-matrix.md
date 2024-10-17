@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Score After Flipping Matrix"
-excerpt: "Leetcode Score After Flipping Matrix Java"
+excerpt: "Leetcode - 'Score After Flipping Matrix' 문제 Java 풀이"
 last_modified_at: 2023-03-04T06:50:00
 header:
   image: /assets/images/leetcode/score-after-flipping-matrix.png

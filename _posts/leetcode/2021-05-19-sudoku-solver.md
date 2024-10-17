@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sudoku Solver"
-excerpt: "Leetcode Sudoku Solver Java 풀이"
+excerpt: "Leetcode - 'Sudoku Solver' 문제 Java 풀이"
 last_modified_at: 2021-05-19T11:40:00
 header:
   image: /assets/images/leetcode/find-first-and-last-position-of-element-in-sorted-array.png

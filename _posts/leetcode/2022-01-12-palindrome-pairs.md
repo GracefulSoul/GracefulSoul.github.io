@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Palindrome Pairs"
-excerpt: "Leetcode Palindrome Pairs Java 풀이"
+excerpt: "Leetcode - 'Palindrome Pairs' 문제 Java 풀이"
 last_modified_at: 2022-01-12T12:00:00
 header:
   image: /assets/images/leetcode/palindrome-pairs.png

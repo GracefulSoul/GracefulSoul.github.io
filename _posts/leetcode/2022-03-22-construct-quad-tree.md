@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Construct Quad Tree"
-excerpt: "Leetcode Construct Quad Tree Java 풀이"
+excerpt: "Leetcode - 'Construct Quad Tree' 문제 Java 풀이"
 last_modified_at: 2022-03-22T12:00:00
 header:
   image: /assets/images/leetcode/construct-quad-tree.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Mirror Reflection"
-excerpt: "Leetcode Mirror Reflection Java"
+excerpt: "Leetcode - 'Mirror Reflection' 문제 Java 풀이"
 last_modified_at: 2023-03-02T19:40:00
 header:
   image: /assets/images/leetcode/mirror-reflection.png

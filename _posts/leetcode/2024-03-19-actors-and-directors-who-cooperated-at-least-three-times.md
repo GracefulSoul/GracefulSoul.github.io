@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Actors and Directors Who Cooperated At Least Three Times"
-excerpt: "Leetcode Actors and Directors Who Cooperated At Least Three Times MySQL 풀이"
+excerpt: "Leetcode Easy - 'Actors and Directors Who Cooperated At Least Three Times MySQL 풀이"
 last_modified_at: 2024-03-19T18:50:00
 header:
   image: /assets/images/leetcode/actors-and-directors-who-cooperated-at-least-three-times.png

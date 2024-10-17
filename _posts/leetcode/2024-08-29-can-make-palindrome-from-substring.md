@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Can Make Palindrome from Substring"
-excerpt: "Leetcode Can Make Palindrome from Substring Java"
+excerpt: "Leetcode Medium - 'Can Make Palindrome from Substring' 문제 Java 풀이"
 last_modified_at: 2024-08-29T18:20:00
 header:
   image: /assets/images/leetcode/can-make-palindrome-from-substring.png

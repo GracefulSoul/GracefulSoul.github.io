@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Add Binary"
-excerpt: "Leetcode Add Binary Java 풀이"
+excerpt: "Leetcode - 'Add Binary' 문제 Java 풀이"
 last_modified_at: 2021-06-17T18:00:00
 header:
   image: /assets/images/leetcode/add-binary.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Paths III"
-excerpt: "Leetcode Unique Paths III Java"
+excerpt: "Leetcode Hard - 'Unique Paths III' 문제 Java 풀이"
 last_modified_at: 2023-08-23T18:45:00
 header:
   image: /assets/images/leetcode/unique-paths-iii.png

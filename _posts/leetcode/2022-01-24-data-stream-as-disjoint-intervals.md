@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Data Stream as Disjoint Intervals"
-excerpt: "Leetcode Data Stream as Disjoint Intervals Java 풀이"
+excerpt: "Leetcode - 'Data Stream as Disjoint Intervals' 문제 Java 풀이"
 last_modified_at: 2022-01-24T17:00:00
 header:
   image: /assets/images/leetcode/data-stream-as-disjoint-intervals.png

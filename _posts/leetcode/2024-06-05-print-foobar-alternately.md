@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Print FooBar Alternately"
-excerpt: "Leetcode Print FooBar Alternately Java"
+excerpt: "Leetcode Medium - 'Print FooBar Alternately' 문제 Java 풀이"
 last_modified_at: 2024-06-05T20:10:00
 header:
   image: /assets/images/leetcode/print-foobar-alternately.png

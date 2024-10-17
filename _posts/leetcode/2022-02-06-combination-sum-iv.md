@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Combination Sum IV"
-excerpt: "Leetcode Combination Sum IV Java 풀이"
+excerpt: "Leetcode - 'Combination Sum IV' 문제 Java 풀이"
 last_modified_at: 2022-02-06T11:00:00
 header:
   image: /assets/images/leetcode/combination-sum-iv.png

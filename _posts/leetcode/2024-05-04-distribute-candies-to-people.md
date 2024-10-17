@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distribute Candies to People"
-excerpt: "Leetcode Distribute Candies to People Java"
+excerpt: "Leetcode Easy - 'Distribute Candies to People' 문제 Java 풀이"
 last_modified_at: 2024-05-04T20:40:00
 header:
   image: /assets/images/leetcode/distribute-candies-to-people.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Path With Minimum Effort"
-excerpt: "Leetcode Path With Minimum Effort Java"
+excerpt: "Leetcode Medium - 'Path With Minimum Effort' 문제 Java 풀이"
 last_modified_at: 2023-09-16T09:50:00
 header:
   image: /assets/images/leetcode/path-with-minimum-effort.png

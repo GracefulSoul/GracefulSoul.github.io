@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Critical Connections in a Network"
-excerpt: "Leetcode Critical Connections in a Network Java"
+excerpt: "Leetcode Hard - 'Critical Connections in a Network' 문제 Java 풀이"
 last_modified_at: 2024-09-23T20:30:00
 header:
   image: /assets/images/leetcode/critical-connections-in-a-network.png

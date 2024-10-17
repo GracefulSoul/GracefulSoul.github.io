@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java The Number of Beautiful Subsets"
-excerpt: "Leetcode The Number of Beautiful Subsets Java"
+excerpt: "Leetcode Medium - 'The Number of Beautiful Subsets' 문제 Java 풀이"
 last_modified_at: 2024-05-23T20:00:00
 header:
   image: /assets/images/leetcode/the-number-of-beautiful-subsets.png

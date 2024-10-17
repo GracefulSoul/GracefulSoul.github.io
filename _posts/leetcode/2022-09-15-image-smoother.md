@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Image Smoother"
-excerpt: "Leetcode Image Smoother Java"
+excerpt: "Leetcode - 'Image Smoother' 문제 Java 풀이"
 last_modified_at: 2022-09-15T19:40:00
 header:
   image: /assets/images/leetcode/image-smoother.png

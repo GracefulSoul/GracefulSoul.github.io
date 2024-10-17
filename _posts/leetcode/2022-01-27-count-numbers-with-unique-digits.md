@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Numbers with Unique Digits"
-excerpt: "Leetcode Count Numbers with Unique Digits Java 풀이"
+excerpt: "Leetcode - 'Count Numbers with Unique Digits' 문제 Java 풀이"
 last_modified_at: 2022-01-27T17:00:00
 header:
   image: /assets/images/leetcode/count-numbers-with-unique-digits.png

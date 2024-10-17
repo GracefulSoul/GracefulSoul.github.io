@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge k Sorted Lists"
-excerpt: "Leetcode Merge k Sorted Lists Java 풀이"
+excerpt: "Leetcode - 'Merge k Sorted Lists' 문제 Java 풀이"
 last_modified_at: 2021-05-02T12:40:00
 header:
   image: /assets/images/leetcode/merge-k-sorted-lists.png

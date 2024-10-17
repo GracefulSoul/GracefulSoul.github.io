@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Substring with At Least K Repeating Characters"
-excerpt: "Leetcode Longest Substring with At Least K Repeating Characters Java 풀이"
+excerpt: "Leetcode - 'Longest Substring with At Least K Repeating Characters' 문제 Java 풀이"
 last_modified_at: 2022-02-23T18:00:00
 header:
   image: /assets/images/leetcode/longest-substring-with-at-least-k-repeating-characters.png

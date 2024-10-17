@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sliding Window Maximum"
-excerpt: "Leetcode Sliding Window Maximum Java 풀이"
+excerpt: "Leetcode - 'Sliding Window Maximum' 문제 Java 풀이"
 last_modified_at: 2021-11-15T12:00:00
 header:
   image: /assets/images/leetcode/sliding-window-maximum.png

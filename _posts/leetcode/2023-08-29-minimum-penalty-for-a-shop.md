@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Penalty for a Shop"
-excerpt: "Leetcode Minimum Penalty for a Shop Java"
+excerpt: "Leetcode Medium - 'Minimum Penalty for a Shop' 문제 Java 풀이"
 last_modified_at: 2023-08-29T18:40:00
 header:
   image: /assets/images/leetcode/minimum-penalty-for-a-shop.png

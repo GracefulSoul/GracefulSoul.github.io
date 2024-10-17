@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java The K Weakest Rows in a Matrix"
-excerpt: "Leetcode The K Weakest Rows in a Matrix Java"
+excerpt: "Leetcode Easy - 'The K Weakest Rows in a Matrix' 문제 Java 풀이"
 last_modified_at: 2023-09-19T18:40:00
 header:
   image: /assets/images/leetcode/the-k-weakest-rows-in-a-matrix.png

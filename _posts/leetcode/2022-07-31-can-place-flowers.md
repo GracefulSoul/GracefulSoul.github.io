@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Can Place Flowers"
-excerpt: "Leetcode Can Place Flowers Java"
+excerpt: "Leetcode - 'Can Place Flowers' 문제 Java 풀이"
 last_modified_at: 2022-07-31T09:00:00
 header:
   image: /assets/images/leetcode/can-place-flowers.png

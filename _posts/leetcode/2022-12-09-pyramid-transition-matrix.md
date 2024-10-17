@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pyramid Transition Matrix"
-excerpt: "Leetcode Pyramid Transition Matrix Java"
+excerpt: "Leetcode - 'Pyramid Transition Matrix' 문제 Java 풀이"
 last_modified_at: 2022-12-09T11:30:00
 header:
   image: /assets/images/leetcode/pyramid-transition-matrix.png

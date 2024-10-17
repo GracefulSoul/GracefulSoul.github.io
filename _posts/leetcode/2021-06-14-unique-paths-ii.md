@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Paths II"
-excerpt: "Leetcode Unique Paths II Java 풀이"
+excerpt: "Leetcode - 'Unique Paths II' 문제 Java 풀이"
 last_modified_at: 2021-06-14T15:00:00
 header:
   image: /assets/images/leetcode/unique-paths-ii.png

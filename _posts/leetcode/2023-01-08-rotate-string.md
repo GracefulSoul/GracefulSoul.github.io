@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotate String"
-excerpt: "Leetcode Rotate String Java"
+excerpt: "Leetcode - 'Rotate String' 문제 Java 풀이"
 last_modified_at: 2023-01-08T09:50:00
 header:
   image: /assets/images/leetcode/rotate-string.png

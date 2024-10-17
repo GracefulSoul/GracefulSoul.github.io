@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Elimination Game"
-excerpt: "Leetcode Elimination Game Java 풀이"
+excerpt: "Leetcode - 'Elimination Game' 문제 Java 풀이"
 last_modified_at: 2022-02-18T17:00:00
 header:
   image: /assets/images/leetcode/elimination-game.png

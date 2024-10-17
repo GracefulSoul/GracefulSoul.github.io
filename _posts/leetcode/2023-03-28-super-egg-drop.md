@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Super Egg Drop"
-excerpt: "Leetcode Super Egg Drop Java"
+excerpt: "Leetcode - 'Super Egg Drop' 문제 Java 풀이"
 last_modified_at: 2023-03-28T23:10:00
 header:
   image: /assets/images/leetcode/super-egg-drop.png

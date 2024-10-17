@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge Two Binary Trees"
-excerpt: "Leetcode Merge Two Binary Trees Java"
+excerpt: "Leetcode - 'Merge Two Binary Trees' 문제 Java 풀이"
 last_modified_at: 2022-08-10T18:00:00
 header:
   image: /assets/images/leetcode/merge-two-binary-trees.png

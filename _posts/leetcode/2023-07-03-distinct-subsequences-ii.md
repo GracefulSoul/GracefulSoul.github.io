@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distinct Subsequences II"
-excerpt: "Leetcode Distinct Subsequences II Java"
+excerpt: "Leetcode Hard - 'Distinct Subsequences II' 문제 Java 풀이"
 last_modified_at: 2023-07-03T19:20:00
 header:
   image: /assets/images/leetcode/distinct-subsequences-ii.png

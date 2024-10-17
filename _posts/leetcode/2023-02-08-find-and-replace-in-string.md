@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find And Replace in String"
-excerpt: "Leetcode Find And Replace in String Java"
+excerpt: "Leetcode - 'Find And Replace in String' 문제 Java 풀이"
 last_modified_at: 2023-02-08T19:40:00
 header:
   image: /assets/images/leetcode/find-and-replace-in-string.png

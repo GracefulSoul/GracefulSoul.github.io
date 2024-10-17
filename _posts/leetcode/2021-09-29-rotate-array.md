@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotate Array"
-excerpt: "Leetcode Rotate Array Java 풀이"
+excerpt: "Leetcode - 'Rotate Array' 문제 Java 풀이"
 last_modified_at: 2021-09-29T12:00:00
 header:
   image: /assets/images/leetcode/rotate-array.png

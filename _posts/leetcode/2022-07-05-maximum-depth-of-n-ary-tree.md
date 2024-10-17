@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Depth of N-ary Tree"
-excerpt: "Leetcode Maximum Depth of N-ary Tree Java"
+excerpt: "Leetcode - 'Maximum Depth of N-ary Tree' 문제 Java 풀이"
 last_modified_at: 2022-07-05T19:30:00
 header:
   image: /assets/images/leetcode/maximum-depth-of-n-ary-tree.png

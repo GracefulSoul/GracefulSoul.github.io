@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Water and Jug Problem"
-excerpt: "Leetcode Water and Jug Problem Java 풀이"
+excerpt: "Leetcode - 'Water and Jug Problem' 문제 Java 풀이"
 last_modified_at: 2022-01-28T13:00:00
 header:
   image: /assets/images/leetcode/water-and-jug-problem.png

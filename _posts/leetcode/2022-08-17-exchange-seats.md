@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Exchange Seats"
-excerpt: "Leetcode Exchange Seats MySQL 풀이"
+excerpt: "Leetcode - 'Exchange Seats MySQL 풀이"
 last_modified_at: 2022-08-17T19:10:00
 header:
   image: /assets/images/leetcode/exchange-seats.png

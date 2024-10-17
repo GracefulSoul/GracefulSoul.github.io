@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Matchsticks to Square"
-excerpt: "Leetcode Matchsticks to Square Java 풀이"
+excerpt: "Leetcode - 'Matchsticks to Square' 문제 Java 풀이"
 last_modified_at: 2022-04-29T13:00:00
 header:
   image: /assets/images/leetcode/matchsticks-to-square.png

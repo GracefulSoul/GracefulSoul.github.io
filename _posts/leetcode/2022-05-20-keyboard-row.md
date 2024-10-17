@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Keyboard Row"
-excerpt: "Leetcode Keyboard Row Java"
+excerpt: "Leetcode - 'Keyboard Row' 문제 Java 풀이"
 last_modified_at: 2022-05-20T12:00:00
 header:
   image: /assets/images/leetcode/keyboard-row.png

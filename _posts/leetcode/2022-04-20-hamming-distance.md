@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Hamming Distance"
-excerpt: "Leetcode Hamming Distance Java 풀이"
+excerpt: "Leetcode - 'Hamming Distance' 문제 Java 풀이"
 last_modified_at: 2022-04-20T17:00:00
 header:
   image: /assets/images/leetcode/hamming-distance.png

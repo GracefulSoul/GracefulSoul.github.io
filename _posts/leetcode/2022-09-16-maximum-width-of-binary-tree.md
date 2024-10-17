@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Width of Binary Tree"
-excerpt: "Leetcode Maximum Width of Binary Tree Java"
+excerpt: "Leetcode - 'Maximum Width of Binary Tree' 문제 Java 풀이"
 last_modified_at: 2022-09-16T10:30:00
 header:
   image: /assets/images/leetcode/maximum-width-of-binary-tree.png

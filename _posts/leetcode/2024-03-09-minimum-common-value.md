@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Common Value"
-excerpt: "Leetcode Minimum Common Value Java"
+excerpt: "Leetcode Easy - 'Minimum Common Value' 문제 Java 풀이"
 last_modified_at: 2024-03-09T10:00:00
 header:
   image: /assets/images/leetcode/minimum-common-value.png

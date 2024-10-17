@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Brick Wall"
-excerpt: "Leetcode Brick Wall Java"
+excerpt: "Leetcode - 'Brick Wall' 문제 Java 풀이"
 last_modified_at: 2022-07-02T17:00:00
 header:
   image: /assets/images/leetcode/brick-wall.png

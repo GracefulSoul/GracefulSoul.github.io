@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Ones and Zeroes"
-excerpt: "Leetcode Ones and Zeroes Java 풀이"
+excerpt: "Leetcode - 'Ones and Zeroes' 문제 Java 풀이"
 last_modified_at: 2022-04-30T18:00:00
 header:
   image: /assets/images/leetcode/ones-and-zeroes.png

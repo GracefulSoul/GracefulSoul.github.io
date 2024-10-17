@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Letter Combinations of a Phone Number"
-excerpt: "Leetcode Letter Combinations of a Phone Number Java 풀이"
+excerpt: "Leetcode - 'Letter Combinations of a Phone Number' 문제 Java 풀이"
 last_modified_at: 2021-04-28T12:40:00
 header:
   image: /assets/images/leetcode/letter-combinations-of-a-phone-number.png

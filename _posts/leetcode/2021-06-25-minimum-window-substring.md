@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Window Substring"
-excerpt: "Leetcode Minimum Window Substring Java 풀이"
+excerpt: "Leetcode - 'Minimum Window Substring' 문제 Java 풀이"
 last_modified_at: 2021-06-25T07:10:00
 header:
   image: /assets/images/leetcode/minimum-window-substring.png

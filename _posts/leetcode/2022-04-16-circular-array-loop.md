@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Circular Array Loop"
-excerpt: "Leetcode Circular Array Loop Java 풀이"
+excerpt: "Leetcode - 'Circular Array Loop' 문제 Java 풀이"
 last_modified_at: 2022-04-16T13:00:00
 header:
   image: /assets/images/leetcode/circular-array-loop.png

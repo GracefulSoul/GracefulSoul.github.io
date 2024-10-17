@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Lucky Numbers in a Matrix"
-excerpt: "Leetcode Lucky Numbers in a Matrix Java"
+excerpt: "Leetcode Easy - 'Lucky Numbers in a Matrix' 문제 Java 풀이"
 last_modified_at: 2024-07-22T18:20:00
 header:
   image: /assets/images/leetcode/sort-the-people.png

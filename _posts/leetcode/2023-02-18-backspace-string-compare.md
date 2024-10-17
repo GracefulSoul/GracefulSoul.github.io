@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Split Backspace String Compare"
-excerpt: "Leetcode Split Backspace String Compare Java"
+excerpt: "Leetcode - 'Split Backspace String Compare' 문제 Java 풀이"
 last_modified_at: 2023-02-18T09:00:00
 header:
   image: /assets/images/leetcode/backspace-string-compare.png

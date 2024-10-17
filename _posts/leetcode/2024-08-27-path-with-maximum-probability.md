@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Path with Maximum Probability"
-excerpt: "Leetcode Path with Maximum Probability Java"
+excerpt: "Leetcode Medium - 'Path with Maximum Probability' 문제 Java 풀이"
 last_modified_at: 2024-08-27T18:40:00
 header:
   image: /assets/images/leetcode/path-with-maximum-probability.png

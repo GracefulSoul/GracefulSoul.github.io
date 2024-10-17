@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java String to Integer (atoi)"
-excerpt: "Leetcode String to Integer (atoi) Java 풀이"
+excerpt: "Leetcode - 'String to Integer (atoi)' 문제 Java 풀이"
 last_modified_at: 2021-04-16T18:10:00
 header:
   image: /assets/images/leetcode/string-to-integer-atoi.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Square Numbers"
-excerpt: "Leetcode Sum of Square Numbers Java"
+excerpt: "Leetcode - 'Sum of Square Numbers' 문제 Java 풀이"
 last_modified_at: 2022-08-22T19:30:00
 header:
   image: /assets/images/leetcode/sum-of-square-numbers.png

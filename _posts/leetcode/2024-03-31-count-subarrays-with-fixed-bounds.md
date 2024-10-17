@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Subarrays With Fixed Bounds"
-excerpt: "Leetcode Count Subarrays With Fixed Bounds Java"
+excerpt: "Leetcode Hard - 'Count Subarrays With Fixed Bounds' 문제 Java 풀이"
 last_modified_at: 2024-03-31T17:30:00
 header:
   image: /assets/images/leetcode/count-subarrays-with-fixed-bounds.png

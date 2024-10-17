@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Fraction to Recurring Decimal"
-excerpt: "Leetcode Fraction to Recurring Decimal Java 풀이"
+excerpt: "Leetcode - 'Fraction to Recurring Decimal' 문제 Java 풀이"
 last_modified_at: 2021-09-17T12:00:00
 header:
   image: /assets/images/leetcode/fraction-to-recurring-decimal.png

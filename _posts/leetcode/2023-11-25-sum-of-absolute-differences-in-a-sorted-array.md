@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Absolute Differences in a Sorted Array"
-excerpt: "Leetcode Sum of Absolute Differences in a Sorted Array Java"
+excerpt: "Leetcode Medium - 'Sum of Absolute Differences in a Sorted Array' 문제 Java 풀이"
 last_modified_at: 2023-11-25T18:40:00
 header:
   image: /assets/images/leetcode/sum-of-absolute-differences-in-a-sorted-array.png

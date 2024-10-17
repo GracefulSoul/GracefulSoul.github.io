@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Balanced Binary Tree"
-excerpt: "Leetcode Balanced Binary Tree Java 풀이"
+excerpt: "Leetcode - 'Balanced Binary Tree' 문제 Java 풀이"
 last_modified_at: 2021-07-31T15:50:00
 header:
   image: /assets/images/leetcode/balanced-binary-tree.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Repeated String Match"
-excerpt: "Leetcode Repeated String Match Java"
+excerpt: "Leetcode - 'Repeated String Match' 문제 Java 풀이"
 last_modified_at: 2022-10-07T19:50:00
 header:
   image: /assets/images/leetcode/repeated-string-match.png

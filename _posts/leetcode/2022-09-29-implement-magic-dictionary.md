@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Implement Magic Dictionary"
-excerpt: "Leetcode Implement Magic Dictionary Java"
+excerpt: "Leetcode - 'Implement Magic Dictionary' 문제 Java 풀이"
 last_modified_at: 2022-09-29T19:40:00
 header:
   image: /assets/images/leetcode/implement-magic-dictionary.png

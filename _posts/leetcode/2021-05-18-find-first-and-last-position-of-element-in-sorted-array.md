@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find First and Last Position of Element in Sorted Array"
-excerpt: "Leetcode Find First and Last Position of Element in Sorted Array Java 풀이"
+excerpt: "Leetcode - 'Find First and Last Position of Element in Sorted Array' 문제 Java 풀이"
 last_modified_at: 2021-05-18T18:20:00
 header:
   image: /assets/images/leetcode/find-first-and-last-position-of-element-in-sorted-array.png

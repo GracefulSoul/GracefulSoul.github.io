@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Robot Return to Origin"
-excerpt: "Leetcode Robot Return to Origin Java"
+excerpt: "Leetcode - 'Robot Return to Origin' 문제 Java 풀이"
 last_modified_at: 2022-09-13T19:00:00
 header:
   image: /assets/images/leetcode/robot-return-to-origin.png

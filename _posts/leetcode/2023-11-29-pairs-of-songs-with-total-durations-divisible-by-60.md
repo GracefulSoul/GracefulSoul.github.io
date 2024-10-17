@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pairs of Songs With Total Durations Divisible by 60"
-excerpt: "Leetcode Pairs of Songs With Total Durations Divisible by 60 Java"
+excerpt: "Leetcode Medium - 'Pairs of Songs With Total Durations Divisible by 60' 문제 Java 풀이"
 last_modified_at: 2023-11-29T20:20:00
 header:
   image: /assets/images/leetcode/pairs-of-songs-with-total-durations-divisible-by-60.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Subsequence Score"
-excerpt: "Leetcode Maximum Subsequence Score Java"
+excerpt: "Leetcode - 'Maximum Subsequence Score' 문제 Java 풀이"
 last_modified_at: 2023-05-24T20:20:00
 header:
   image: /assets/images/leetcode/maximum-subsequence-score.png

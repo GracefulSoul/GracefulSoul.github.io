@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert 1D Array Into 2D Array"
-excerpt: "Leetcode Convert 1D Array Into 2D Array Java"
+excerpt: "Leetcode Easy - 'Convert 1D Array Into 2D Array' 문제 Java 풀이"
 last_modified_at: 2024-09-01T09:50:00
 header:
   image: /assets/images/leetcode/convert-1d-array-into-2d-array.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rotate List"
-excerpt: "Leetcode Rotate List Java 풀이"
+excerpt: "Leetcode - 'Rotate List' 문제 Java 풀이"
 last_modified_at: 2021-06-11T22:10:00
 header:
   image: /assets/images/leetcode/rotate-list.png

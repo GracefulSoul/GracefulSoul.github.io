@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Chalkboard XOR Game"
-excerpt: "Leetcode Chalkboard XOR Game Java"
+excerpt: "Leetcode - 'Chalkboard XOR Game' 문제 Java 풀이"
 last_modified_at: 2023-01-19T19:10:00
 header:
   image: /assets/images/leetcode/chalkboard-xor-game.png

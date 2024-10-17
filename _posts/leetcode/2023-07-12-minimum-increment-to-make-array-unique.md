@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Increment to Make Array Unique"
-excerpt: "Leetcode Minimum Increment to Make Array Unique Java"
+excerpt: "Leetcode Medium - 'Minimum Increment to Make Array Unique' 문제 Java 풀이"
 last_modified_at: 2023-07-12T19:30:00
 header:
   image: /assets/images/leetcode/minimum-increment-to-make-array-unique.png

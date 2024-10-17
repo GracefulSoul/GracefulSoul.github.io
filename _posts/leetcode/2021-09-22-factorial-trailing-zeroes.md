@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Factorial Trailing Zeroes"
-excerpt: "Leetcode Factorial Trailing Zeroes Java 풀이"
+excerpt: "Leetcode - 'Factorial Trailing Zeroes' 문제 Java 풀이"
 last_modified_at: 2021-09-22T07:30:00
 header:
   image: /assets/images/leetcode/factorial-trailing-zeroes.png

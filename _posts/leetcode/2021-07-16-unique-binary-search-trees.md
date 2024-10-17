@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Binary Search Trees"
-excerpt: "Leetcode Unique Binary Search Trees Java 풀이"
+excerpt: "Leetcode - 'Unique Binary Search Trees' 문제 Java 풀이"
 last_modified_at: 2021-07-16T18:00:00
 header:
   image: /assets/images/leetcode/unique-binary-search-trees.png

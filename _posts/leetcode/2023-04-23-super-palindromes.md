@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Super Palindromes"
-excerpt: "Leetcode Super Palindromes Java"
+excerpt: "Leetcode - 'Super Palindromes' 문제 Java 풀이"
 last_modified_at: 2023-04-23T14:30:00
 header:
   image: /assets/images/leetcode/super-palindromes.png

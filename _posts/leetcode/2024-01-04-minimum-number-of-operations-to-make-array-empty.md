@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Operations to Make Array Empty"
-excerpt: "Leetcode Minimum Number of Operations to Make Array Empty Java"
+excerpt: "Leetcode Medium - 'Minimum Number of Operations to Make Array Empty' 문제 Java 풀이"
 last_modified_at: 2024-01-04T12:10:00
 header:
   image: /assets/images/leetcode/minimum-number-of-operations-to-make-array-empty.png

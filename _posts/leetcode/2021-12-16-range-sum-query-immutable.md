@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Range Sum Query - Immutable"
-excerpt: "Leetcode Range Sum Query - Immutable Java 풀이"
+excerpt: "Leetcode - 'Range Sum Query - Immutable' 문제 Java 풀이"
 last_modified_at: 2021-12-16T13:00:00
 header:
   image: /assets/images/leetcode/range-sum-query-immutable.png

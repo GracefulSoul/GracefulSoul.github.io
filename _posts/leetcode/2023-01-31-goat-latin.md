@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Goat Latin"
-excerpt: "Leetcode Goat Latin Java"
+excerpt: "Leetcode - 'Goat Latin' 문제 Java 풀이"
 last_modified_at: 2023-01-31T23:00:00
 header:
   image: /assets/images/leetcode/goat-latin.png

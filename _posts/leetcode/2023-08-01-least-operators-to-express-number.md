@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Least Operators to Express Number"
-excerpt: "Leetcode Least Operators to Express Number Java"
+excerpt: "Leetcode Hard - 'Least Operators to Express Number' 문제 Java 풀이"
 last_modified_at: 2023-08-01T19:40:00
 header:
   image: /assets/images/leetcode/least-operators-to-express-number.png

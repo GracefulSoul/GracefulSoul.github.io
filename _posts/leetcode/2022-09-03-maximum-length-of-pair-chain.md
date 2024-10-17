@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Length of Pair Chain"
-excerpt: "Leetcode Maximum Length of Pair Chain Java"
+excerpt: "Leetcode - 'Maximum Length of Pair Chain' 문제 Java 풀이"
 last_modified_at: 2022-09-03T09:30:00
 header:
   image: /assets/images/leetcode/maximum-length-of-pair-chain.png

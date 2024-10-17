@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Rank Scores"
-excerpt: "Leetcode Rank Scores MySQL 풀이"
+excerpt: "Leetcode - 'Rank Scores MySQL 풀이"
 last_modified_at: 2021-09-25T12:00:00
 header:
   image: /assets/images/leetcode/rank-scores.png

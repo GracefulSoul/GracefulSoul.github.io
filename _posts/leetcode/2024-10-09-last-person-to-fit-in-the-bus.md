@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Last Person to Fit in the Bus"
-excerpt: "Leetcode Last Person to Fit in the Bus PostgreSQL"
+excerpt: "Leetcode Medium - 'Last Person to Fit in the Bus' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-10-09T12:20:00
 header:
   image: /assets/images/leetcode/last-person-to-fit-in-the-bus.png

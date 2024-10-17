@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Jewels and Stones"
-excerpt: "Leetcode Jewels and Stones Java"
+excerpt: "Leetcode - 'Jewels and Stones' 문제 Java 풀이"
 last_modified_at: 2022-12-20T02:30:00
 header:
   image: /assets/images/leetcode/jewels-and-stones.png

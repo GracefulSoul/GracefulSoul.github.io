@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Circular Deque"
-excerpt: "Leetcode Design Circular Deque Java"
+excerpt: "Leetcode - 'Design Circular Deque' 문제 Java 풀이"
 last_modified_at: 2022-08-31T19:20:00
 header:
   image: /assets/images/leetcode/design-circular-deque.png

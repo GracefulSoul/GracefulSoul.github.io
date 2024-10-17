@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Difference Between Node and Ancestor"
-excerpt: "Leetcode Maximum Difference Between Node and Ancestor Java"
+excerpt: "Leetcode Medium - 'Maximum Difference Between Node and Ancestor' 문제 Java 풀이"
 last_modified_at: 2024-01-11T09:40:00
 header:
   image: /assets/images/leetcode/maximum-difference-between-node-and-ancestor.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Champagne Tower"
-excerpt: "Leetcode Champagne Tower Java"
+excerpt: "Leetcode - 'Champagne Tower' 문제 Java 풀이"
 last_modified_at: 2023-01-11T20:30:00
 header:
   image: /assets/images/leetcode/champagne-tower.png

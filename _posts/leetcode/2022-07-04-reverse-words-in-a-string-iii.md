@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Words in a String III"
-excerpt: "Leetcode Reverse Words in a String III Java"
+excerpt: "Leetcode - 'Reverse Words in a String III' 문제 Java 풀이"
 last_modified_at: 2022-07-04T19:30:00
 header:
   image: /assets/images/leetcode/reverse-words-in-a-string-iii.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Gap"
-excerpt: "Leetcode Binary Gap Java"
+excerpt: "Leetcode - 'Binary Gap' 문제 Java 풀이"
 last_modified_at: 2023-03-09T19:20:00
 header:
   image: /assets/images/leetcode/binary-gap.png

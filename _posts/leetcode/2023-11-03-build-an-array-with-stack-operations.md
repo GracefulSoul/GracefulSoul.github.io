@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Build an Array With Stack Operations"
-excerpt: "Leetcode Build an Array With Stack Operations Java"
+excerpt: "Leetcode Medium - 'Build an Array With Stack Operations' 문제 Java 풀이"
 last_modified_at: 2023-11-03T19:10:00
 header:
   image: /assets/images/leetcode/build-an-array-with-stack-operations.png

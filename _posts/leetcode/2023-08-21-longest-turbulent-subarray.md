@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Turbulent Subarray"
-excerpt: "Leetcode Longest Turbulent Subarray Java"
+excerpt: "Leetcode Medium - 'Longest Turbulent Subarray' 문제 Java 풀이"
 last_modified_at: 2023-08-21T19:00:00
 header:
   image: /assets/images/leetcode/longest-turbulent-subarray.png

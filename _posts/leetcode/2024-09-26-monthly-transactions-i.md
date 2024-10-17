@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Monthly Transactions I"
-excerpt: "Leetcode Monthly Transactions I PostgreSQL"
+excerpt: "Leetcode Medium - 'Monthly Transactions I' 문제 PostgreSQL 풀이"
 last_modified_at: 2024-09-26T19:20:00
 header:
   image: /assets/images/leetcode/monthly-transactions-i.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find the Maximum Sum of Node Values"
-excerpt: "Leetcode Find the Maximum Sum of Node Values Java"
+excerpt: "Leetcode Hard - 'Find the Maximum Sum of Node Values' 문제 Java 풀이"
 last_modified_at: 2024-05-19T12:10:00
 header:
   image: /assets/images/leetcode/find-the-maximum-sum-of-node-values.png

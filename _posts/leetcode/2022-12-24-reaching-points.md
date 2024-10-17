@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reaching Points"
-excerpt: "Leetcode Reaching Points Java"
+excerpt: "Leetcode - 'Reaching Points' 문제 Java 풀이"
 last_modified_at: 2022-12-24T10:30:00
 header:
   image: /assets/images/leetcode/reaching-points.png

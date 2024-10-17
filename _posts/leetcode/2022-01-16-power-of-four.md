@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Power of Four"
-excerpt: "Leetcode Power of Four Java 풀이"
+excerpt: "Leetcode - 'Power of Four' 문제 Java 풀이"
 last_modified_at: 2022-01-16T16:00:00
 header:
   image: /assets/images/leetcode/power-of-four.png

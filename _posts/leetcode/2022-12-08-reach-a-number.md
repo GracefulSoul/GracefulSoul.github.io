@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reach a Number"
-excerpt: "Leetcode Reach a Number Java"
+excerpt: "Leetcode - 'Reach a Number' 문제 Java 풀이"
 last_modified_at: 2022-12-08T12:30:00
 header:
   image: /assets/images/leetcode/reach-a-number.png

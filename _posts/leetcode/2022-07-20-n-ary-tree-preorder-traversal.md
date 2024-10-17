@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java N-ary Tree Preorder Traversal"
-excerpt: "Leetcode N-ary Tree Preorder Traversal Java"
+excerpt: "Leetcode - 'N-ary Tree Preorder Traversal' 문제 Java 풀이"
 last_modified_at: 2022-07-20T19:30:00
 header:
   image: /assets/images/leetcode/n-ary-tree-preorder-traversal.png

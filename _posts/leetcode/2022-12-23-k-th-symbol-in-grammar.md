@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-th Symbol in Grammar"
-excerpt: "Leetcode K-th Symbol in Grammar Java"
+excerpt: "Leetcode - 'K-th Symbol in Grammar' 문제 Java 풀이"
 last_modified_at: 2022-12-23T13:50:00
 header:
   image: /assets/images/leetcode/k-th-symbol-in-grammar.png

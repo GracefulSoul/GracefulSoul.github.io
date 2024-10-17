@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Monotonic Array"
-excerpt: "Leetcode Monotonic Array Java"
+excerpt: "Leetcode - 'Monotonic Array' 문제 Java 풀이"
 last_modified_at: 2023-04-08T11:20:00
 header:
   image: /assets/images/leetcode/monotonic-array.png

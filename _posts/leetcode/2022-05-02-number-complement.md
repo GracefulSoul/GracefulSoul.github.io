@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number Complement"
-excerpt: "Leetcode Number Complement Java 풀이"
+excerpt: "Leetcode - 'Number Complement' 문제 Java 풀이"
 last_modified_at: 2022-05-02T13:00:00
 header:
   image: /assets/images/leetcode/number-complement.png

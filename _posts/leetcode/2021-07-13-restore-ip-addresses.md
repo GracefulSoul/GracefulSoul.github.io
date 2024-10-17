@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Restore IP Addresses"
-excerpt: "Leetcode Restore IP Addresses Java 풀이"
+excerpt: "Leetcode - 'Restore IP Addresses' 문제 Java 풀이"
 last_modified_at: 2021-07-13T13:00:00
 header:
   image: /assets/images/leetcode/restore-ip-addresses.png

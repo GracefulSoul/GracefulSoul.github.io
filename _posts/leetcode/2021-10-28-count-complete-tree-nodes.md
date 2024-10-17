@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Complete Tree Nodes"
-excerpt: "Leetcode Count Complete Tree Nodes Java 풀이"
+excerpt: "Leetcode - 'Count Complete Tree Nodes' 문제 Java 풀이"
 last_modified_at: 2021-10-28T13:00:00
 header:
   image: /assets/images/leetcode/count-complete-tree-nodes.png

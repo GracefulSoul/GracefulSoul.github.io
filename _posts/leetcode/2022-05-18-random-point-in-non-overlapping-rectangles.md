@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Random Point in Non-overlapping Rectangles"
-excerpt: "Leetcode Random Point in Non-overlapping Rectangles Java"
+excerpt: "Leetcode - 'Random Point in Non-overlapping Rectangles' 문제 Java 풀이"
 last_modified_at: 2022-05-18T12:00:00
 header:
   image: /assets/images/leetcode/random-point-in-non-overlapping-rectangles.png

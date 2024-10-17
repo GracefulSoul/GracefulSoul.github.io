@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subarray Product Less Than K"
-excerpt: "Leetcode Subarray Product Less Than K Java"
+excerpt: "Leetcode - 'Subarray Product Less Than K' 문제 Java 풀이"
 last_modified_at: 2022-11-03T18:50:00
 header:
   image: /assets/images/leetcode/subarray-product-less-than-k.png

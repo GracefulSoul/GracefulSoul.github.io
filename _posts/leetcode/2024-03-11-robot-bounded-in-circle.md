@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Robot Bounded In Circle"
-excerpt: "Leetcode Robot Bounded In Circle Java"
+excerpt: "Leetcode Medium - 'Robot Bounded In Circle' 문제 Java 풀이"
 last_modified_at: 2024-03-11T18:20:00
 header:
   image: /assets/images/leetcode/robot-bounded-in-circle.png

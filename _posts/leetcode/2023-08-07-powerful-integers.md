@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Powerful Integers"
-excerpt: "Leetcode Powerful Integers Java"
+excerpt: "Leetcode Medium - 'Powerful Integers' 문제 Java 풀이"
 last_modified_at: 2023-08-07T18:40:00
 header:
   image: /assets/images/leetcode/powerful-integers.png

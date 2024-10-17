@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Palindromic Substrings"
-excerpt: "Leetcode Palindromic Substrings Java"
+excerpt: "Leetcode - 'Palindromic Substrings' 문제 Java 풀이"
 last_modified_at: 2022-09-04T09:00:00
 header:
   image: /assets/images/leetcode/palindromic-substrings.png

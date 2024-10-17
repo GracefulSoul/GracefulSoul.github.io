@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Stone Game"
-excerpt: "Leetcode Stone Game Java"
+excerpt: "Leetcode - 'Stone Game' 문제 Java 풀이"
 last_modified_at: 2023-03-19T11:30:00
 header:
   image: /assets/images/leetcode/stone-game.png

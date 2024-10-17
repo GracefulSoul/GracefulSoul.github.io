@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Human Traffic of Stadium"
-excerpt: "Leetcode Human Traffic of Stadium MySQL 풀이"
+excerpt: "Leetcode - 'Human Traffic of Stadium MySQL 풀이"
 last_modified_at: 2022-07-30T12:30:00
 header:
   image: /assets/images/leetcode/human-traffic-of-stadium.png

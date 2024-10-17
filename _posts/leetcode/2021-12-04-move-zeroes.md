@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Move Zeroes"
-excerpt: "Leetcode Move Zeroes Java 풀이"
+excerpt: "Leetcode - 'Move Zeroes' 문제 Java 풀이"
 last_modified_at: 2021-12-04T12:00:00
 header:
   image: /assets/images/leetcode/move-zeroes.png

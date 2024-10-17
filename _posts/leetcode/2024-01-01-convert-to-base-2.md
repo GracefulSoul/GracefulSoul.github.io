@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert to Base -2"
-excerpt: "Leetcode Convert to Base -2 Java"
+excerpt: "Leetcode Medium - 'Convert to Base -2' 문제 Java 풀이"
 last_modified_at: 2024-01-01T14:00:00
 header:
   image: /assets/images/leetcode/convert-to-base-2.png

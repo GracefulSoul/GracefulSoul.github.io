@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Diagonal Traverse II"
-excerpt: "Leetcode Diagonal Traverse II Java"
+excerpt: "Leetcode Medium - 'Diagonal Traverse II' 문제 Java 풀이"
 last_modified_at: 2023-11-22T19:10:00
 header:
   image: /assets/images/leetcode/diagonal-traverse-ii.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Non-decreasing Array"
-excerpt: "Leetcode Non-decreasing Array Java"
+excerpt: "Leetcode - 'Non-decreasing Array' 문제 Java 풀이"
 last_modified_at: 2022-09-19T11:30:00
 header:
   image: /assets/images/leetcode/non-decreasing-array.png

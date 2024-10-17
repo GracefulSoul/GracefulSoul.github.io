@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java 1-bit and 2-bit Characters"
-excerpt: "Leetcode 1-bit and 2-bit Characters Java"
+excerpt: "Leetcode - '1-bit and 2-bit Characters' 문제 Java 풀이"
 last_modified_at: 2022-11-07T18:10:00
 header:
   image: /assets/images/leetcode/maximum-length-of-repeated-subarray.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Fizz Buzz Multithreaded"
-excerpt: "Leetcode Fizz Buzz Multithreaded Java"
+excerpt: "Leetcode Medium - 'Fizz Buzz Multithreaded' 문제 Java 풀이"
 last_modified_at: 2024-09-27T18:30:00
 header:
   image: /assets/images/leetcode/fizz-buzz-multithreaded.png

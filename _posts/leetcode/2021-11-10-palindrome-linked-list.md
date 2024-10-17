@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Palindrome Linked List"
-excerpt: "Leetcode Palindrome Linked List Java 풀이"
+excerpt: "Leetcode - 'Palindrome Linked List' 문제 Java 풀이"
 last_modified_at: 2021-11-10T12:00:00
 header:
   image: /assets/images/leetcode/palindrome-linked-list.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Queue Reconstruction by Height"
-excerpt: "Leetcode Queue Reconstruction by Height Java 풀이"
+excerpt: "Leetcode - 'Queue Reconstruction by Height' 문제 Java 풀이"
 last_modified_at: 2022-03-06T17:00:00
 header:
   image: /assets/images/leetcode/queue-reconstruction-by-height.png

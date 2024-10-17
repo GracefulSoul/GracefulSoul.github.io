@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Stream of Characters"
-excerpt: "Leetcode Stream of Characters Java"
+excerpt: "Leetcode Hard - 'Stream of Characters' 문제 Java 풀이"
 last_modified_at: 2024-01-30T20:10:00
 header:
   image: /assets/images/leetcode/stream-of-characters.png

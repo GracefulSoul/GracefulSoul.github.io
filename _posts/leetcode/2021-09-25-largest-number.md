@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Number"
-excerpt: "Leetcode Largest Number Java 풀이"
+excerpt: "Leetcode - 'Largest Number' 문제 Java 풀이"
 last_modified_at: 2021-09-25T12:00:00
 header:
   image: /assets/images/leetcode/largest-number.png

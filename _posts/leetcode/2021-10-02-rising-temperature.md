@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Rising Temperature"
-excerpt: "Leetcode Rising Temperature MySQL 풀이"
+excerpt: "Leetcode - 'Rising Temperature MySQL 풀이"
 last_modified_at: 2021-10-02T11:00:00
 header:
   image: /assets/images/leetcode/rising-temperature.png

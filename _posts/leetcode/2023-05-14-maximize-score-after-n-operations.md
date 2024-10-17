@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximize Score After N Operations"
-excerpt: "Leetcode Maximize Score After N Operations Java"
+excerpt: "Leetcode - 'Maximize Score After N Operations' 문제 Java 풀이"
 last_modified_at: 2023-05-14T12:40:00
 header:
   image: /assets/images/leetcode/count-ways-to-build-good-strings.png

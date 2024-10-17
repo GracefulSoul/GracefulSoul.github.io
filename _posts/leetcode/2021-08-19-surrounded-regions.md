@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Surrounded Regions"
-excerpt: "Leetcode Surrounded Regions Java 풀이"
+excerpt: "Leetcode - 'Surrounded Regions' 문제 Java 풀이"
 last_modified_at: 2021-08-19T12:00:00
 header:
   image: /assets/images/leetcode/surrounded-regions.png

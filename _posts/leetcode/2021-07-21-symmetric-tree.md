@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Symmetric Tree"
-excerpt: "Leetcode Symmetric Tree Java 풀이"
+excerpt: "Leetcode - 'Symmetric Tree' 문제 Java 풀이"
 last_modified_at: 2021-07-21T08:40:00
 header:
   image: /assets/images/leetcode/symmetric-tree.png

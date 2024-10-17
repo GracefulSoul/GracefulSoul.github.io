@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge Nodes in Between Zeros"
-excerpt: "Leetcode Merge Nodes in Between Zeros Java"
+excerpt: "Leetcode Medium - 'Merge Nodes in Between Zeros' 문제 Java 풀이"
 last_modified_at: 2024-07-04T18:40:00
 header:
   image: /assets/images/leetcode/merge-nodes-in-between-zeros.png

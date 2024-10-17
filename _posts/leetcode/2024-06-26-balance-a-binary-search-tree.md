@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Balance a Binary Search Tree"
-excerpt: "Leetcode Balance a Binary Search Tree Square Java"
+excerpt: "Leetcode Medium - 'Balance a Binary Search Tree Square' 문제 Java 풀이"
 last_modified_at: 2024-06-26T18:30:00
 header:
   image: /assets/images/leetcode/balance-a-binary-search-tree.png

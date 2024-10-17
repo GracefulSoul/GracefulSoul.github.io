@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Total Cost to Hire K Workers"
-excerpt: "Leetcode Total Cost to Hire K Workers Java"
+excerpt: "Leetcode Medium - 'Total Cost to Hire K Workers' 문제 Java 풀이"
 last_modified_at: 2023-06-23T19:20:00
 header:
   image: /assets/images/leetcode/total-cost-to-hire-k-workers.png

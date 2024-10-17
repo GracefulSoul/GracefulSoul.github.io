@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Validate Binary Search Tree"
-excerpt: "Leetcode Validate Binary Search Tree Java 풀이"
+excerpt: "Leetcode - 'Validate Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2021-07-18T14:40:00
 header:
   image: /assets/images/leetcode/validate-binary-search-tree.png

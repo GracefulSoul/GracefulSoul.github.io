@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rabbits in Forest"
-excerpt: "Leetcode Rabbits in Forest Java"
+excerpt: "Leetcode - 'Rabbits in Forest' 문제 Java 풀이"
 last_modified_at: 2022-12-25T09:50:00
 header:
   image: /assets/images/leetcode/rabbits-in-forest.png

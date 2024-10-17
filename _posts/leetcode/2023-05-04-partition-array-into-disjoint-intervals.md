@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition Array into Disjoint Intervals"
-excerpt: "Leetcode Partition Array into Disjoint Intervals Java"
+excerpt: "Leetcode - 'Partition Array into Disjoint Intervals' 문제 Java 풀이"
 last_modified_at: 2023-05-04T19:55:00
 header:
   image: /assets/images/leetcode/partition-array-into-disjoint-intervals.png

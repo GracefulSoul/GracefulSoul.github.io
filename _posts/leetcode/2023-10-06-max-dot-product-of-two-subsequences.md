@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Max Dot Product of Two Subsequences"
-excerpt: "Leetcode Max Dot Product of Two Subsequences Java"
+excerpt: "Leetcode Hard - 'Max Dot Product of Two Subsequences' 문제 Java 풀이"
 last_modified_at: 2023-10-06T22:00:00
 header:
   image: /assets/images/leetcode/max-dot-product-of-two-subsequences.png

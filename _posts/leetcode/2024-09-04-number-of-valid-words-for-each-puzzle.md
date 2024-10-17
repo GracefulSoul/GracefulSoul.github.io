@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Valid Words for Each Puzzle"
-excerpt: "Leetcode Number of Valid Words for Each Puzzle Java"
+excerpt: "Leetcode Hard - 'Number of Valid Words for Each Puzzle' 문제 Java 풀이"
 last_modified_at: 2024-09-04T18:10:00
 header:
   image: /assets/images/leetcode/number-of-valid-words-for-each-puzzle.png

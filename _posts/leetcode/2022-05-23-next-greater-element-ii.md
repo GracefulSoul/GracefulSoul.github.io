@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Next Greater Element II"
-excerpt: "Leetcode Next Greater Element II Java"
+excerpt: "Leetcode - 'Next Greater Element II' 문제 Java 풀이"
 last_modified_at: 2022-05-23T13:00:00
 header:
   image: /assets/images/leetcode/next-greater-element-ii.png

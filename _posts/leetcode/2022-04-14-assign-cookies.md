@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Assign Cookies"
-excerpt: "Leetcode Assign Cookies Java 풀이"
+excerpt: "Leetcode - 'Assign Cookies' 문제 Java 풀이"
 last_modified_at: 2022-04-14T13:00:00
 header:
   image: /assets/images/leetcode/assign-cookies.png

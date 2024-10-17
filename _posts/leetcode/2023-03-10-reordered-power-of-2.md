@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reordered Power of 2"
-excerpt: "Leetcode Reordered Power of 2 Java"
+excerpt: "Leetcode - 'Reordered Power of 2' 문제 Java 풀이"
 last_modified_at: 2023-03-10T19:45:00
 header:
   image: /assets/images/leetcode/reordered-power-of-2.png

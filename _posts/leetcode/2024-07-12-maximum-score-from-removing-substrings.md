@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Score From Removing Substrings"
-excerpt: "Leetcode Maximum Score From Removing Substrings Java"
+excerpt: "Leetcode Medium - 'Maximum Score From Removing Substrings' 문제 Java 풀이"
 last_modified_at: 2024-07-12T17:30:00
 header:
   image: /assets/images/leetcode/maximum-score-from-removing-substrings.png

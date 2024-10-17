@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Not Boring Movies"
-excerpt: "Leetcode Not Boring Movies MySQL 풀이"
+excerpt: "Leetcode - 'Not Boring Movies MySQL 풀이"
 last_modified_at: 2022-08-11T19:20:00
 header:
   image: /assets/images/leetcode/not-boring-movies.png

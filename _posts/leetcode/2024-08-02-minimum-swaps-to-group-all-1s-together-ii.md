@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Swaps to Group All 1's Together II"
-excerpt: "Leetcode Minimum Swaps to Group All 1's Together II Java"
+excerpt: "Leetcode Medium - 'Minimum Swaps to Group All 1's Together II' 문제 Java 풀이"
 last_modified_at: 2024-08-02T19:20:00
 header:
   image: /assets/images/leetcode/minimum-swaps-to-group-all-1s-together-ii.png

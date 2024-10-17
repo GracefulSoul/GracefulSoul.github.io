@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Combination Sum"
-excerpt: "Leetcode Combination Sum Java 풀이"
+excerpt: "Leetcode - 'Combination Sum' 문제 Java 풀이"
 last_modified_at: 2021-05-20T18:10:00
 header:
   image: /assets/images/leetcode/combination-sum.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximal Rectangle"
-excerpt: "Leetcode Maximal Rectangle Java 풀이"
+excerpt: "Leetcode - 'Maximal Rectangle' 문제 Java 풀이"
 last_modified_at: 2021-07-05T18:00:00
 header:
   image: /assets/images/leetcode/maximal-rectangle.png

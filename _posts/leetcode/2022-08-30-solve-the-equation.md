@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Solve the Equation"
-excerpt: "Leetcode Solve the Equation Java"
+excerpt: "Leetcode - 'Solve the Equation' 문제 Java 풀이"
 last_modified_at: 2022-08-30T20:10:00
 header:
   image: /assets/images/leetcode/solve-the-equation.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-Similar Strings"
-excerpt: "Leetcode K-Similar Strings Java"
+excerpt: "Leetcode - 'K-Similar Strings' 문제 Java 풀이"
 last_modified_at: 2023-02-27T19:30:00
 header:
   image: /assets/images/leetcode/k-similar-strings.png

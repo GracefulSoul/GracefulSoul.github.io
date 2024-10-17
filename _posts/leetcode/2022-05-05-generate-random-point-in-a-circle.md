@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Generate Random Point in a Circle"
-excerpt: "Leetcode Generate Random Point in a Circle Java 풀이"
+excerpt: "Leetcode - 'Generate Random Point in a Circle' 문제 Java 풀이"
 last_modified_at: 2022-05-05T17:00:00
 header:
   image: /assets/images/leetcode/generate-random-point-in-a-circle.png

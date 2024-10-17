@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Score After Splitting a String"
-excerpt: "Leetcode Maximum Score After Splitting a String Java"
+excerpt: "Leetcode Easy - 'Maximum Score After Splitting a String' 문제 Java 풀이"
 last_modified_at: 2023-12-23T09:10:00
 header:
   image: /assets/images/leetcode/maximum-score-after-splitting-a-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Online Election"
-excerpt: "Leetcode Online Election Java"
+excerpt: "Leetcode - 'Online Election' 문제 Java 풀이"
 last_modified_at: 2023-04-29T09:30:00
 header:
   image: /assets/images/leetcode/online-election.png

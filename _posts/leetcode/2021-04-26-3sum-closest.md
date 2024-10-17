@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java 3sum Closest"
-excerpt: "Leetcode 3sum Closest Java 풀이"
+excerpt: "Leetcode - '3sum Closest' 문제 Java 풀이"
 last_modified_at: 2021-04-26T22:00:00
 header:
   image: /assets/images/leetcode/3sum-closest.png

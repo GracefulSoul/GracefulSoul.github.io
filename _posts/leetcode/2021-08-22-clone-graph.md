@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Clone Graph"
-excerpt: "Leetcode Clone Graph Java 풀이"
+excerpt: "Leetcode - 'Clone Graph' 문제 Java 풀이"
 last_modified_at: 2021-08-22T13:00:00
 header:
   image: /assets/images/leetcode/clone-graph.png

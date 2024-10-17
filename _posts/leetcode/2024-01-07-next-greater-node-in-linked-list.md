@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Next Greater Node In Linked List"
-excerpt: "Leetcode Next Greater Node In Linked List Java"
+excerpt: "Leetcode Medium - 'Next Greater Node In Linked List' 문제 Java 풀이"
 last_modified_at: 2024-01-07T10:20:00
 header:
   image: /assets/images/leetcode/next-greater-node-in-linked-list.png

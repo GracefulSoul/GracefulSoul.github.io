@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Make Two Arrays Equal by Reversing Subarrays"
-excerpt: "Leetcode Make Two Arrays Equal by Reversing Subarrays Java"
+excerpt: "Leetcode Easy - 'Make Two Arrays Equal by Reversing Subarrays' 문제 Java 풀이"
 last_modified_at: 2024-08-03T11:20:00
 header:
   image: /assets/images/leetcode/make-two-arrays-equal-by-reversing-subarrays.png

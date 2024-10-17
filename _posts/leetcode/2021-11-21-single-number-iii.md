@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Single Number III"
-excerpt: "Leetcode Single Number III Java 풀이"
+excerpt: "Leetcode - 'Single Number III' 문제 Java 풀이"
 last_modified_at: 2021-11-21T10:00:00
 header:
   image: /assets/images/leetcode/single-number-iii.png

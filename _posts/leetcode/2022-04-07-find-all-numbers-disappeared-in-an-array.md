@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find All Numbers Disappeared in an Array"
-excerpt: "Leetcode Find All Numbers Disappeared in an Array Java 풀이"
+excerpt: "Leetcode - 'Find All Numbers Disappeared in an Array' 문제 Java 풀이"
 last_modified_at: 2022-04-07T13:00:00
 header:
   image: /assets/images/leetcode/find-all-numbers-disappeared-in-an-array.png

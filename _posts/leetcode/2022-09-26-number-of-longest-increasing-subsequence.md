@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Longest Increasing Subsequence"
-excerpt: "Leetcode Number of Longest Increasing Subsequence Java"
+excerpt: "Leetcode - 'Number of Longest Increasing Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-09-26T19:40:00
 header:
   image: /assets/images/leetcode/number-of-longest-increasing-subsequence.png

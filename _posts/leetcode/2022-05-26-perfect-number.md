@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Perfect Number"
-excerpt: "Leetcode Perfect Number Java"
+excerpt: "Leetcode - 'Perfect Number' 문제 Java 풀이"
 last_modified_at: 2022-05-26T19:00:00
 header:
   image: /assets/images/leetcode/perfect-number.png

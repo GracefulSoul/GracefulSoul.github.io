@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Most Profit Assigning Work"
-excerpt: "Leetcode Most Profit Assigning Work Java"
+excerpt: "Leetcode - 'Most Profit Assigning Work' 문제 Java 풀이"
 last_modified_at: 2023-02-02T19:50:00
 header:
   image: /assets/images/leetcode/most-profit-assigning-work.png

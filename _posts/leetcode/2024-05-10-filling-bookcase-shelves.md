@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Filling Bookcase Shelves"
-excerpt: "Leetcode Filling Bookcase Shelves Java"
+excerpt: "Leetcode Medium - 'Filling Bookcase Shelves' 문제 Java 풀이"
 last_modified_at: 2024-05-10T11:40:00
 header:
   image: /assets/images/leetcode/filling-bookcase-shelves.png

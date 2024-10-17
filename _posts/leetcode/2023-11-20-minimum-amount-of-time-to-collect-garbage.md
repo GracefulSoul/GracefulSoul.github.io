@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Amount of Time to Collect Garbage"
-excerpt: "Leetcode Minimum Amount of Time to Collect Garbage Java"
+excerpt: "Leetcode Medium - 'Minimum Amount of Time to Collect Garbage' 문제 Java 풀이"
 last_modified_at: 2023-11-20T18:40:00
 header:
   image: /assets/images/leetcode/minimum-amount-of-time-to-collect-garbage.png

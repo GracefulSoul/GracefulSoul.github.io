@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Nth Magical Number"
-excerpt: "Leetcode Nth Magical Number Java"
+excerpt: "Leetcode - 'Nth Magical Number' 문제 Java 풀이"
 last_modified_at: 2023-03-20T19:10:00
 header:
   image: /assets/images/leetcode/nth-magical-number.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Longest Substring Without Repeating Characters"
-excerpt: "Leetcode Longest Substring Without Repeating Characters Java 풀이"
+excerpt: "Leetcode - 'Longest Substring Without Repeating Characters' 문제 Java 풀이"
 last_modified_at: 2021-04-11T12:00:00
 header:
   image: /assets/images/leetcode/longest-substring-without-repeating-characters.png

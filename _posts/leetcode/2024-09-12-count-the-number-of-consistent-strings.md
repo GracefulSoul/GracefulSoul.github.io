@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count the Number of Consistent Strings"
-excerpt: "Leetcode Count the Number of Consistent Strings Java"
+excerpt: "Leetcode Easy - 'Count the Number of Consistent Strings' 문제 Java 풀이"
 last_modified_at: 2024-09-12T18:00:00
 header:
   image: /assets/images/leetcode/count-the-number-of-consistent-strings.png

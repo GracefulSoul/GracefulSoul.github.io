@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find K Closest Elements"
-excerpt: "Leetcode Find K Closest Elements Java"
+excerpt: "Leetcode - 'Find K Closest Elements' 문제 Java 풀이"
 last_modified_at: 2022-09-14T19:30:00
 header:
   image: /assets/images/leetcode/find-k-closest-elements.png

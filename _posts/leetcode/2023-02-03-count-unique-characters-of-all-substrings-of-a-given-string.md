@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count Unique Characters of All Substrings of a Given String"
-excerpt: "Leetcode Count Unique Characters of All Substrings of a Given String Java"
+excerpt: "Leetcode - 'Count Unique Characters of All Substrings of a Given String' 문제 Java 풀이"
 last_modified_at: 2023-02-04T08:40:00
 header:
   image: /assets/images/leetcode/count-unique-characters-of-all-substrings-of-a-given-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Middle of the Linked List"
-excerpt: "Leetcode Middle of the Linked List Java"
+excerpt: "Leetcode - 'Middle of the Linked List' 문제 Java 풀이"
 last_modified_at: 2023-03-18T07:20:00
 header:
   image: /assets/images/leetcode/middle-of-the-linked-list.png

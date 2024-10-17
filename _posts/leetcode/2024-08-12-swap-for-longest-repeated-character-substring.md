@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Swap For Longest Repeated Character Substring"
-excerpt: "Leetcode Swap For Longest Repeated Character Substring Java"
+excerpt: "Leetcode Medium - 'Swap For Longest Repeated Character Substring' 문제 Java 풀이"
 last_modified_at: 2024-08-12T18:00:00
 header:
   image: /assets/images/leetcode/swap-for-longest-repeated-character-substring.png

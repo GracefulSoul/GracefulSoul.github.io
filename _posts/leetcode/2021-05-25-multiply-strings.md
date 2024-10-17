@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Multiply Strings"
-excerpt: "Leetcode Multiply Strings Java 풀이"
+excerpt: "Leetcode - 'Multiply Strings' 문제 Java 풀이"
 last_modified_at: 2021-05-25T18:00:00
 header:
   image: /assets/images/leetcode/multiply-strings.png

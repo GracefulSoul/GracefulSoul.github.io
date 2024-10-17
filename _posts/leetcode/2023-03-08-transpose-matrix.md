@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Transpose Matrix"
-excerpt: "Leetcode Transpose Matrix Java"
+excerpt: "Leetcode - 'Transpose Matrix' 문제 Java 풀이"
 last_modified_at: 2023-03-08T20:00:00
 header:
   image: /assets/images/leetcode/transpose-matrix.png

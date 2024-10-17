@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Previous Permutation With One Swap"
-excerpt: "Leetcode Previous Permutation With One Swap Java"
+excerpt: "Leetcode Medium - 'Previous Permutation With One Swap' 문제 Java 풀이"
 last_modified_at: 2024-03-23T11:50:00
 header:
   image: /assets/images/leetcode/previous-permutation-with-one-swap.png

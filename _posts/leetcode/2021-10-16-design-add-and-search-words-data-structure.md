@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Add and Search Words Data Structure"
-excerpt: "Leetcode Design Add and Search Words Data Structure Java 풀이"
+excerpt: "Leetcode - 'Design Add and Search Words Data Structure' 문제 Java 풀이"
 last_modified_at: 2021-10-16T13:00:00
 header:
   image: /assets/images/leetcode/design-add-and-search-words-data-structure.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Nodes in k-Group"
-excerpt: "Leetcode Reverse Nodes in k-Group Java 풀이"
+excerpt: "Leetcode - 'Reverse Nodes in k-Group' 문제 Java 풀이"
 last_modified_at: 2021-05-06T18:10:00
 header:
   image: /assets/images/leetcode/reverse-nodes-in-k-group.png

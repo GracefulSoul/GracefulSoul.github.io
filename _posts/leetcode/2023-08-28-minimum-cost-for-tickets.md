@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Cost For Tickets"
-excerpt: "Leetcode Minimum Cost For Tickets Java"
+excerpt: "Leetcode Medium - 'Minimum Cost For Tickets' 문제 Java 풀이"
 last_modified_at: 2023-08-28T20:40:00
 header:
   image: /assets/images/leetcode/minimum-cost-for-tickets.png

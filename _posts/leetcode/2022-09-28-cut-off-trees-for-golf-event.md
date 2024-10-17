@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Cut Off Trees for Golf Event"
-excerpt: "Leetcode Cut Off Trees for Golf Event Java"
+excerpt: "Leetcode - 'Cut Off Trees for Golf Event' 문제 Java 풀이"
 last_modified_at: 2022-09-28T19:50:00
 header:
   image: /assets/images/leetcode/cut-off-trees-for-golf-event.png

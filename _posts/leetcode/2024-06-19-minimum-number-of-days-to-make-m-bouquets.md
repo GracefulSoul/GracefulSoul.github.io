@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Days to Make m Bouquets"
-excerpt: "Leetcode Minimum Number of Days to Make m Bouquets Java"
+excerpt: "Leetcode Medium - 'Minimum Number of Days to Make m Bouquets' 문제 Java 풀이"
 last_modified_at: 2024-06-19T21:50:00
 header:
   image: /assets/images/leetcode/minimum-number-of-days-to-make-m-bouquets.png

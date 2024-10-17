@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Combination Sum III"
-excerpt: "Leetcode Combination Sum III Java 풀이"
+excerpt: "Leetcode - 'Combination Sum III' 문제 Java 풀이"
 last_modified_at: 2021-10-21T12:00:00
 header:
   image: /assets/images/leetcode/combination-sum-iii.png

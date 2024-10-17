@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Excel Sheet Column Number"
-excerpt: "Leetcode Excel Sheet Column Number Java 풀이"
+excerpt: "Leetcode - 'Excel Sheet Column Number' 문제 Java 풀이"
 last_modified_at: 2021-09-21T18:00:00
 header:
   image: /assets/images/leetcode/excel-sheet-column-number.png

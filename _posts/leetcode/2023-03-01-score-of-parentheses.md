@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Score of Parentheses"
-excerpt: "Leetcode Score of Parentheses Java"
+excerpt: "Leetcode - 'Score of Parentheses' 문제 Java 풀이"
 last_modified_at: 2023-03-01T12:40:00
 header:
   image: /assets/images/leetcode/score-of-parentheses.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Decode String"
-excerpt: "Leetcode Decode String Java 풀이"
+excerpt: "Leetcode - 'Decode String' 문제 Java 풀이"
 last_modified_at: 2022-02-22T18:00:00
 header:
   image: /assets/images/leetcode/decode-string.png

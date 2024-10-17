@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Solving Questions With Brainpower"
-excerpt: "Leetcode Solving Questions With Brainpower Java"
+excerpt: "Leetcode - 'Solving Questions With Brainpower' 문제 Java 풀이"
 last_modified_at: 2023-05-12T19:35:00
 header:
   image: /assets/images/leetcode/solving-questions-with-brainpower.png

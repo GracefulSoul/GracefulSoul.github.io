@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Count of Smaller Numbers After Self"
-excerpt: "Leetcode Count of Smaller Numbers After Self Java 풀이"
+excerpt: "Leetcode - 'Count of Smaller Numbers After Self' 문제 Java 풀이"
 last_modified_at: 2021-12-24T12:00:00
 header:
   image: /assets/images/leetcode/count-of-smaller-numbers-after-self.png

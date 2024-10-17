@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Top K Frequent Words"
-excerpt: "Leetcode Top K Frequent Words Java"
+excerpt: "Leetcode - 'Top K Frequent Words' 문제 Java 풀이"
 last_modified_at: 2022-10-13T19:55:00
 header:
   image: /assets/images/leetcode/top-k-frequent-words.png

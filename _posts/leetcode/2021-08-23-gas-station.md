@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Gas Station"
-excerpt: "Leetcode Gas Station Java 풀이"
+excerpt: "Leetcode - 'Gas Station' 문제 Java 풀이"
 last_modified_at: 2021-08-23T13:00:00
 header:
   image: /assets/images/leetcode/gas-station.png

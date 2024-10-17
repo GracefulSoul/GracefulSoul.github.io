@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Single Number"
-excerpt: "Leetcode Single Number Java 풀이"
+excerpt: "Leetcode - 'Single Number' 문제 Java 풀이"
 last_modified_at: 2021-08-25T13:00:00
 header:
   image: /assets/images/leetcode/single-number.png

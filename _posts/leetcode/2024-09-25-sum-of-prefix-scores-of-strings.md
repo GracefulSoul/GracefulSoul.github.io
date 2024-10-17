@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Prefix Scores of Strings"
-excerpt: "Leetcode Sum of Prefix Scores of Strings Java"
+excerpt: "Leetcode Hard - 'Sum of Prefix Scores of Strings' 문제 Java 풀이"
 last_modified_at: 2024-09-25T18:30:00
 header:
   image: /assets/images/leetcode/sum-of-prefix-scores-of-strings.png

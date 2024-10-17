@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Music Playlists"
-excerpt: "Leetcode Number of Music Playlists Java"
+excerpt: "Leetcode - 'Number of Music Playlists' 문제 Java 풀이"
 last_modified_at: 2023-05-08T10:20:00
 header:
   image: /assets/images/leetcode/number-of-music-playlists.png

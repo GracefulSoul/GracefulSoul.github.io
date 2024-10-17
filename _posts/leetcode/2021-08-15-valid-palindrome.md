@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Palindrome"
-excerpt: "Leetcode Valid Palindrome Java 풀이"
+excerpt: "Leetcode - 'Valid Palindrome' 문제 Java 풀이"
 last_modified_at: 2021-08-15T20:00:00
 header:
   image: /assets/images/leetcode/valid-palindrome.png

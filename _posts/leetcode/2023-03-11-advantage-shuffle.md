@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Advantage Shuffle"
-excerpt: "Leetcode Advantage Shuffle Java"
+excerpt: "Leetcode - 'Advantage Shuffle' 문제 Java 풀이"
 last_modified_at: 2023-03-11T08:30:00
 header:
   image: /assets/images/leetcode/advantage-shuffle.png

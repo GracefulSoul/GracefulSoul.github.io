@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Repeated DNA Sequences"
-excerpt: "Leetcode Repeated DNA Sequences Java 풀이"
+excerpt: "Leetcode - 'Repeated DNA Sequences' 문제 Java 풀이"
 last_modified_at: 2021-09-27T12:00:00
 header:
   image: /assets/images/leetcode/repeated-dna-sequences.png

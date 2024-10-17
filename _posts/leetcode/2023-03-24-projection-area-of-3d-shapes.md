@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Projection Area of 3D Shapes"
-excerpt: "Leetcode Projection Area of 3D Shapes Java"
+excerpt: "Leetcode - 'Projection Area of 3D Shapes' 문제 Java 풀이"
 last_modified_at: 2023-03-24T20:30:00
 header:
   image: /assets/images/leetcode/projection-area-of-3d-shapes.png

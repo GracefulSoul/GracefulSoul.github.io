@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum XOR of Two Numbers in an Array"
-excerpt: "Leetcode Maximum XOR of Two Numbers in an Array Java 풀이"
+excerpt: "Leetcode - 'Maximum XOR of Two Numbers in an Array' 문제 Java 풀이"
 last_modified_at: 2022-03-19T13:00:00
 header:
   image: /assets/images/leetcode/maximum-xor-of-two-numbers-in-an-array.png

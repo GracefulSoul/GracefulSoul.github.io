@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pacific Atlantic Water Flow"
-excerpt: "Leetcode Pacific Atlantic Water Flow Java 풀이"
+excerpt: "Leetcode - 'Pacific Atlantic Water Flow' 문제 Java 풀이"
 last_modified_at: 2022-03-17T12:00:00
 header:
   image: /assets/images/leetcode/pacific-atlantic-water-flow.png

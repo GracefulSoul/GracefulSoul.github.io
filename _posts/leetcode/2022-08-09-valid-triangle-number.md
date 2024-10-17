@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Triangle Number"
-excerpt: "Leetcode Valid Triangle Number Java"
+excerpt: "Leetcode - 'Valid Triangle Number' 문제 Java 풀이"
 last_modified_at: 2022-08-09T12:40:00
 header:
   image: /assets/images/leetcode/valid-triangle-number.png

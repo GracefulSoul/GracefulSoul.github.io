@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Absolute Difference"
-excerpt: "Leetcode Minimum Absolute Difference Java"
+excerpt: "Leetcode Easy - 'Minimum Absolute Difference' 문제 Java 풀이"
 last_modified_at: 2024-09-28T09:10:00
 header:
   image: /assets/images/leetcode/minimum-absolute-difference.png

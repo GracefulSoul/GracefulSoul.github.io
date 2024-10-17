@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Product of Array Except Self"
-excerpt: "Leetcode Product of Array Except Self Java 풀이"
+excerpt: "Leetcode - 'Product of Array Except Self' 문제 Java 풀이"
 last_modified_at: 2021-11-14T12:00:00
 header:
   image: /assets/images/leetcode/product-of-array-except-self.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Vowels in a String"
-excerpt: "Leetcode Sort Vowels in a String Java"
+excerpt: "Leetcode Medium - 'Sort Vowels in a String' 문제 Java 풀이"
 last_modified_at: 2023-11-13T20:30:00
 header:
   image: /assets/images/leetcode/sort-vowels-in-a-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Search Tree to Greater Sum Tree"
-excerpt: "Leetcode Binary Search Tree to Greater Sum Tree Java"
+excerpt: "Leetcode Medium - 'Binary Search Tree to Greater Sum Tree' 문제 Java 풀이"
 last_modified_at: 2024-02-09T14:20:00
 header:
   image: /assets/images/leetcode/binary-search-tree-to-greater-sum-tree.png

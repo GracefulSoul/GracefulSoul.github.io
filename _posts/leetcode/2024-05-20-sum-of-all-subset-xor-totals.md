@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of All Subset XOR Totals"
-excerpt: "Leetcode Sum of All Subset XOR Totals Java"
+excerpt: "Leetcode Easy - 'Sum of All Subset XOR Totals' 문제 Java 풀이"
 last_modified_at: 2024-05-20T18:00:00
 header:
   image: /assets/images/leetcode/sum-of-all-subset-xor-totals.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Leaves With a Given Value"
-excerpt: "Leetcode Delete Leaves With a Given Value Java"
+excerpt: "Leetcode Medium - 'Delete Leaves With a Given Value' 문제 Java 풀이"
 last_modified_at: 2024-05-17T20:00:00
 header:
   image: /assets/images/leetcode/delete-leaves-with-a-given-value.png

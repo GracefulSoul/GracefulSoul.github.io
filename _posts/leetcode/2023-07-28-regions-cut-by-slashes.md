@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Regions Cut By Slashes"
-excerpt: "Leetcode Regions Cut By Slashes Java"
+excerpt: "Leetcode Medium - 'Regions Cut By Slashes' 문제 Java 풀이"
 last_modified_at: 2023-07-28T20:20:00
 header:
   image: /assets/images/leetcode/regions-cut-by-slashes.png

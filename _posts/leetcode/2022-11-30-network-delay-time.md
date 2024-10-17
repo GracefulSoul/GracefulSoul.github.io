@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Network Delay Time"
-excerpt: "Leetcode Network Delay Time Java"
+excerpt: "Leetcode - 'Network Delay Time' 문제 Java 풀이"
 last_modified_at: 2022-11-30T10:50:00
 header:
   image: /assets/images/leetcode/network-delay-time.png

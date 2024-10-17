@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java K-th Smallest in Lexicographical Order"
-excerpt: "Leetcode K-th Smallest in Lexicographical Order Java 풀이"
+excerpt: "Leetcode - 'K-th Smallest in Lexicographical Order' 문제 Java 풀이"
 last_modified_at: 2022-03-31T13:00:00
 header:
   image: /assets/images/leetcode/k-th-smallest-in-lexicographical-order.png

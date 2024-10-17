@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Even Numbers After Queries"
-excerpt: "Leetcode Sum of Even Numbers After Queries Java"
+excerpt: "Leetcode Medium - 'Sum of Even Numbers After Queries' 문제 Java 풀이"
 last_modified_at: 2023-09-03T10:40:00
 header:
   image: /assets/images/leetcode/sum-of-even-numbers-after-queries.png

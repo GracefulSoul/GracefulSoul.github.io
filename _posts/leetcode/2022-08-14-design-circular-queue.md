@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design Circular Queue"
-excerpt: "Leetcode Design Circular Queue Java"
+excerpt: "Leetcode - 'Design Circular Queue' 문제 Java 풀이"
 last_modified_at: 2022-08-14T09:30:00
 header:
   image: /assets/images/leetcode/design-circular-queue.png

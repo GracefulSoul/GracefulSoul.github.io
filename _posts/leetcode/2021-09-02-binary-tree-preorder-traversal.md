@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Preorder Traversal"
-excerpt: "Leetcode Binary Tree Preorder Traversal Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Preorder Traversal' 문제 Java 풀이"
 last_modified_at: 2021-09-02T12:00:00
 header:
   image: /assets/images/leetcode/binary-tree-preorder-traversal.png

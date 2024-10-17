@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Cameras"
-excerpt: "Leetcode Binary Tree Cameras Java"
+excerpt: "Leetcode Hard - 'Binary Tree Cameras' 문제 Java 풀이"
 last_modified_at: 2023-08-05T19:20:00
 header:
   image: /assets/images/leetcode/binary-tree-cameras.png

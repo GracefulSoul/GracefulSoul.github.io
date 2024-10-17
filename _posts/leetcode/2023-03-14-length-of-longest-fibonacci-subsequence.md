@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Length of Longest Fibonacci Subsequence"
-excerpt: "Leetcode Length of Longest Fibonacci Subsequence Java"
+excerpt: "Leetcode - 'Length of Longest Fibonacci Subsequence' 문제 Java 풀이"
 last_modified_at: 2023-03-14T20:00:00
 header:
   image: /assets/images/leetcode/length-of-longest-fibonacci-subsequence.png

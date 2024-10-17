@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Predict the Winner"
-excerpt: "Leetcode Predict the Winner Java 풀이"
+excerpt: "Leetcode - 'Predict the Winner' 문제 Java 풀이"
 last_modified_at: 2022-05-11T12:00:00
 header:
   image: /assets/images/leetcode/predict-the-winner.png

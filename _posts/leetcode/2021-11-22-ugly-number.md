@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Ugly Number"
-excerpt: "Leetcode Ugly Number Java 풀이"
+excerpt: "Leetcode - 'Ugly Number' 문제 Java 풀이"
 last_modified_at: 2021-11-22T12:00:00
 header:
   image: /assets/images/leetcode/ugly-number.png

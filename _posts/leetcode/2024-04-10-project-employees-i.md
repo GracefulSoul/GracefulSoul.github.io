@@ -1,6 +1,6 @@
 ---
 title: "Leetcode PostgreSQL Project Employees I"
-excerpt: "Leetcode Project Employees I PostgreSQL"
+excerpt: "Leetcode Easy - 'Project Employees I PostgreSQL"
 last_modified_at: 2024-04-10T09:30:00
 header:
   image: /assets/images/leetcode/project-employees-i.png

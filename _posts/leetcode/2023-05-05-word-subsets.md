@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Word Subsets"
-excerpt: "Leetcode Word Subsets Java"
+excerpt: "Leetcode - 'Word Subsets' 문제 Java 풀이"
 last_modified_at: 2023-05-05T10:00:00
 header:
   image: /assets/images/leetcode/word-subsets.png

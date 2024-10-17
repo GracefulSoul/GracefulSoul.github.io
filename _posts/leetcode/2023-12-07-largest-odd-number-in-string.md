@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Odd Number in String"
-excerpt: "Leetcode Largest Odd Number in String Java"
+excerpt: "Leetcode Easy - 'Largest Odd Number in String' 문제 Java 풀이"
 last_modified_at: 2023-12-07T18:50:00
 header:
   image: /assets/images/leetcode/largest-odd-number-in-string.png

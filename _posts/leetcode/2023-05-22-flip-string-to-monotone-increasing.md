@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flip String to Monotone Increasing"
-excerpt: "Leetcode Flip String to Monotone Increasing Java"
+excerpt: "Leetcode - 'Flip String to Monotone Increasing' 문제 Java 풀이"
 last_modified_at: 2023-05-22T18:45:00
 header:
   image: /assets/images/leetcode/flip-string-to-monotone-increasing.png

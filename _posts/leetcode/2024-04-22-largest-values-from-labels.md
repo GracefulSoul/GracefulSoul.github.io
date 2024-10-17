@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Values From Labels"
-excerpt: "Leetcode Largest Values From Labels Java"
+excerpt: "Leetcode Medium - 'Largest Values From Labels' 문제 Java 풀이"
 last_modified_at: 2024-04-22T18:40:00
 header:
   image: /assets/images/leetcode/largest-values-from-labels.png

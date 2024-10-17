@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java DI String Match"
-excerpt: "Leetcode DI String Match Java"
+excerpt: "Leetcode Easy - 'DI String Match' 문제 Java 풀이"
 last_modified_at: 2023-07-06T18:20:00
 header:
   image: /assets/images/leetcode/di-string-match.png

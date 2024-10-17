@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Vertices to Reach All Nodes"
-excerpt: "Leetcode Minimum Number of Vertices to Reach All Nodes Java"
+excerpt: "Leetcode - 'Minimum Number of Vertices to Reach All Nodes' 문제 Java 풀이"
 last_modified_at: 2023-05-18T19:05:00
 header:
   image: /assets/images/leetcode/minimum-number-of-vertices-to-reach-all-nodes.png

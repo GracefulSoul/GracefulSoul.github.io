@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Check Max Consecutive Ones III"
-excerpt: "Leetcode Max Consecutive Ones III Java"
+excerpt: "Leetcode Medium - 'Max Consecutive Ones III' 문제 Java 풀이"
 last_modified_at: 2023-10-19T19:15:00
 header:
   image: /assets/images/leetcode/max-consecutive-ones-iii.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Number of Balloons"
-excerpt: "Leetcode Maximum Number of Balloons Java"
+excerpt: "Leetcode Easy - 'Maximum Number of Balloons' 문제 Java 풀이"
 last_modified_at: 2024-09-20T23:30:00
 header:
   image: /assets/images/leetcode/maximum-number-of-balloons.png

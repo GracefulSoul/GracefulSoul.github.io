@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Validate Stack Sequences"
-excerpt: "Leetcode Validate Stack Sequences Java"
+excerpt: "Leetcode Medium - 'Validate Stack Sequences' 문제 Java 풀이"
 last_modified_at: 2023-07-13T18:50:00
 header:
   image: /assets/images/leetcode/validate-stack-sequences.png

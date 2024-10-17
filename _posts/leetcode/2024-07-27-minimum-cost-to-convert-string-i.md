@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Cost to Convert String I"
-excerpt: "Leetcode Minimum Cost to Convert String I Java"
+excerpt: "Leetcode Medium - 'Minimum Cost to Convert String I' 문제 Java 풀이"
 last_modified_at: 2024-07-27T09:20:00
 header:
   image: /assets/images/leetcode/minimum-cost-to-convert-string-i.png

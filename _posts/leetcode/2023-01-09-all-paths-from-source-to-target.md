@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java All Paths From Source to Target"
-excerpt: "Leetcode All Paths From Source to Target Java"
+excerpt: "Leetcode - 'All Paths From Source to Target' 문제 Java 풀이"
 last_modified_at: 2023-01-09T20:55:00
 header:
   image: /assets/images/leetcode/all-paths-from-source-to-target.png

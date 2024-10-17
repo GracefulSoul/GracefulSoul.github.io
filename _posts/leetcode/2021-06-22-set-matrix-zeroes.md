@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Set Matrix Zeroes"
-excerpt: "Leetcode Set Matrix Zeroes Java 풀이"
+excerpt: "Leetcode - 'Set Matrix Zeroes' 문제 Java 풀이"
 last_modified_at: 2021-06-22T17:00:00
 header:
   image: /assets/images/leetcode/set-matrix-zeroes.png

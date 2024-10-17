@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximize Sum Of Array After K Negations"
-excerpt: "Leetcode Maximize Sum Of Array After K Negations Java"
+excerpt: "Leetcode Easy - 'Maximize Sum Of Array After K Negations' 문제 Java 풀이"
 last_modified_at: 2023-10-23T20:20:00
 header:
   image: /assets/images/leetcode/maximize-sum-of-array-after-k-negations.png

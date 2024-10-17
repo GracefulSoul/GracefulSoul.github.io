@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Prime Number of Set Bits in Binary Representation"
-excerpt: "Leetcode Prime Number of Set Bits in Binary Representation Java"
+excerpt: "Leetcode - 'Prime Number of Set Bits in Binary Representation' 문제 Java 풀이"
 last_modified_at: 2022-12-13T10:00:00
 header:
   image: /assets/images/leetcode/prime-number-of-set-bits-in-binary-representation.png

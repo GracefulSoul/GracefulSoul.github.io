@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Length-3 Palindromic Subsequences"
-excerpt: "Leetcode Unique Length-3 Palindromic Subsequences Java"
+excerpt: "Leetcode Medium - 'Unique Length-3 Palindromic Subsequences' 문제 Java 풀이"
 last_modified_at: 2023-11-14T19:40:00
 header:
   image: /assets/images/leetcode/unique-length-3-palindromic-subsequences.png

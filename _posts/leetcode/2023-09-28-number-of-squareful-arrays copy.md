@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Array By Parity"
-excerpt: "Leetcode Sort Array By Parity Java"
+excerpt: "Leetcode Easy - 'Sort Array By Parity' 문제 Java 풀이"
 last_modified_at: 2023-09-28T10:20:00
 header:
   image: /assets/images/leetcode/sort-array-by-parity.png

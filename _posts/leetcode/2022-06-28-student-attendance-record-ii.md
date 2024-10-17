@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Student Attendance Record II"
-excerpt: "Leetcode Student Attendance Record II Java"
+excerpt: "Leetcode - 'Student Attendance Record II' 문제 Java 풀이"
 last_modified_at: 2022-06-28T20:00:00
 header:
   image: /assets/images/leetcode/student-attendance-record-ii.png

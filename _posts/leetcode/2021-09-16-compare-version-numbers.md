@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Compare Version Numbers"
-excerpt: "Leetcode Compare Version Numbers Java 풀이"
+excerpt: "Leetcode - 'Compare Version Numbers' 문제 Java 풀이"
 last_modified_at: 2021-09-16T12:00:00
 header:
   image: /assets/images/leetcode/compare-version-numbers.png

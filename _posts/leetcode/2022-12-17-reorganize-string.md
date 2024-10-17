@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reorganize String"
-excerpt: "Leetcode Reorganize String Java"
+excerpt: "Leetcode - 'Reorganize String' 문제 Java 풀이"
 last_modified_at: 2022-12-17T12:50:00
 header:
   image: /assets/images/leetcode/reorganize-string.png

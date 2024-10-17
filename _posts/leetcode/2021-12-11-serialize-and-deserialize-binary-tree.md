@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Serialize and Deserialize Binary Tree"
-excerpt: "Leetcode Serialize and Deserialize Binary Tree Java 풀이"
+excerpt: "Leetcode - 'Serialize and Deserialize Binary Tree' 문제 Java 풀이"
 last_modified_at: 2021-12-11T20:00:00
 header:
   image: /assets/images/leetcode/serialize-and-deserialize-binary-tree.png

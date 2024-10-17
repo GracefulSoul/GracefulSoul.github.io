@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Contiguous Array"
-excerpt: "Leetcode Contiguous Array Java"
+excerpt: "Leetcode - 'Contiguous Array' 문제 Java 풀이"
 last_modified_at: 2022-06-11T11:00:00
 header:
   image: /assets/images/leetcode/contiguous-array.png

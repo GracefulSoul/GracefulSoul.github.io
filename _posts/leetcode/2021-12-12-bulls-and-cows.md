@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Bulls and Cows"
-excerpt: "Leetcode Bulls and Cows Java 풀이"
+excerpt: "Leetcode - 'Bulls and Cows' 문제 Java 풀이"
 last_modified_at: 2021-12-12T12:00:00
 header:
   image: /assets/images/leetcode/bulls-and-cows.png

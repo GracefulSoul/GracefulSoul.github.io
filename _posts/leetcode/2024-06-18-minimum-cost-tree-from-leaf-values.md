@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Cost Tree From Leaf Values"
-excerpt: "Leetcode Minimum Cost Tree From Leaf Values Java"
+excerpt: "Leetcode Medium - 'Minimum Cost Tree From Leaf Values' 문제 Java 풀이"
 last_modified_at: 2024-06-18T17:30:00
 header:
   image: /assets/images/leetcode/minimum-cost-tree-from-leaf-values.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Coloring A Border"
-excerpt: "Leetcode Coloring A Border Java"
+excerpt: "Leetcode Medium - 'Coloring A Border' 문제 Java 풀이"
 last_modified_at: 2024-02-04T10:10:00
 header:
   image: /assets/images/leetcode/coloring-a-border.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Short Encoding of Words"
-excerpt: "Leetcode Short Encoding of Words Java"
+excerpt: "Leetcode - 'Short Encoding of Words' 문제 Java 풀이"
 last_modified_at: 2023-01-28T09:30:00
 header:
   image: /assets/images/leetcode/short-encoding-of-words.png

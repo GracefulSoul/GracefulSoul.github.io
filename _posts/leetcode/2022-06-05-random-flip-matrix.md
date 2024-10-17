@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Random Flip Matrix"
-excerpt: "Leetcode Random Flip Matrix Java"
+excerpt: "Leetcode - 'Random Flip Matrix' 문제 Java 풀이"
 last_modified_at: 2022-06-05T09:00:00
 header:
   image: /assets/images/leetcode/random-flip-matrix.png

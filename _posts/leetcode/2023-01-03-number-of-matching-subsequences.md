@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Matching Subsequences"
-excerpt: "Leetcode Number of Matching Subsequences Java"
+excerpt: "Leetcode - 'Number of Matching Subsequences' 문제 Java 풀이"
 last_modified_at: 2023-01-03T19:50:00
 header:
   image: /assets/images/leetcode/number-of-matching-subsequences.png

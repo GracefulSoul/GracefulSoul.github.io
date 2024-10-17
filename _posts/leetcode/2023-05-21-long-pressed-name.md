@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Long Pressed Name"
-excerpt: "Leetcode Long Pressed Name Java"
+excerpt: "Leetcode - 'Long Pressed Name' 문제 Java 풀이"
 last_modified_at: 2023-05-21T13:40:00
 header:
   image: /assets/images/leetcode/long-pressed-name.png

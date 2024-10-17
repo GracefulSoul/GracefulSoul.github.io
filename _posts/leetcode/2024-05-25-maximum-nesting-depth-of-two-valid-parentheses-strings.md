@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Nesting Depth of Two Valid Parentheses Strings"
-excerpt: "Leetcode Maximum Nesting Depth of Two Valid Parentheses Strings Java"
+excerpt: "Leetcode Medium - 'Maximum Nesting Depth of Two Valid Parentheses Strings' 문제 Java 풀이"
 last_modified_at: 2024-05-25T12:00:00
 header:
   image: /assets/images/leetcode/maximum-nesting-depth-of-two-valid-parentheses-strings.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Exclusive Time of Functions"
-excerpt: "Leetcode Exclusive Time of Functions Java"
+excerpt: "Leetcode - 'Exclusive Time of Functions' 문제 Java 풀이"
 last_modified_at: 2022-08-24T19:30:00
 header:
   image: /assets/images/leetcode/exclusive-time-of-functions.png

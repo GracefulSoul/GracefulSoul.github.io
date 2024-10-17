@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Wiggle Sort II"
-excerpt: "Leetcode Wiggle Sort II Java 풀이"
+excerpt: "Leetcode - 'Wiggle Sort II' 문제 Java 풀이"
 last_modified_at: 2022-01-01T13:00:00
 header:
   image: /assets/images/leetcode/wiggle-sort-ii.png

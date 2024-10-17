@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Zero Sum Consecutive Nodes from Linked List"
-excerpt: "Leetcode Remove Zero Sum Consecutive Nodes from Linked List Java"
+excerpt: "Leetcode Medium - 'Remove Zero Sum Consecutive Nodes from Linked List' 문제 Java 풀이"
 last_modified_at: 2024-03-12T18:40:00
 header:
   image: /assets/images/leetcode/remove-zero-sum-consecutive-nodes-from-linked-list.png

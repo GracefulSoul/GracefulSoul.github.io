@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Time Based Key-Value Store"
-excerpt: "Leetcode Time Based Key-Value Store Java"
+excerpt: "Leetcode Medium - 'Time Based Key-Value Store' 문제 Java 풀이"
 last_modified_at: 2023-08-24T18:45:00
 header:
   image: /assets/images/leetcode/time-based-key-value-store.png

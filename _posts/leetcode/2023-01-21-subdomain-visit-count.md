@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subdomain Visit Count"
-excerpt: "Leetcode Subdomain Visit Count Java"
+excerpt: "Leetcode - 'Subdomain Visit Count' 문제 Java 풀이"
 last_modified_at: 2023-01-21T11:30:00
 header:
   image: /assets/images/leetcode/subdomain-visit-count.png

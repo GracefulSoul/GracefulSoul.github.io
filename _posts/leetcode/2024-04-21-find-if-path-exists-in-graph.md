@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find if Path Exists in Graph"
-excerpt: "Leetcode Find if Path Exists in Graph Java"
+excerpt: "Leetcode Easy - 'Find if Path Exists in Graph' 문제 Java 풀이"
 last_modified_at: 2024-04-21T19:30:00
 header:
   image: /assets/images/leetcode/find-if-path-exists-in-graph.png

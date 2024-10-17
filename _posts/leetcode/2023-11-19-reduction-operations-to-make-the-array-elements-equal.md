@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reduction Operations to Make the Array Elements Equal"
-excerpt: "Leetcode Reduction Operations to Make the Array Elements Equal Java"
+excerpt: "Leetcode Medium - 'Reduction Operations to Make the Array Elements Equal' 문제 Java 풀이"
 last_modified_at: 2023-11-19T13:10:00
 header:
   image: /assets/images/leetcode/reduction-operations-to-make-the-array-elements-equal.png

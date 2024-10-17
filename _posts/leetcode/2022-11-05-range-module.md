@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Range Module"
-excerpt: "Leetcode Range Module Java"
+excerpt: "Leetcode - 'Range Module' 문제 Java 풀이"
 last_modified_at: 2022-11-05T11:20:00
 header:
   image: /assets/images/leetcode/range-module.png

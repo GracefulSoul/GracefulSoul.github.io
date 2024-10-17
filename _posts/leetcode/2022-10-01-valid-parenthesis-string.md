@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Valid Parenthesis String"
-excerpt: "Leetcode Valid Parenthesis String Java"
+excerpt: "Leetcode - 'Valid Parenthesis String' 문제 Java 풀이"
 last_modified_at: 2022-10-01T10:10:00
 header:
   image: /assets/images/leetcode/valid-parenthesis-string.png

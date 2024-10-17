@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Sum of Two Non-Overlapping Subarrays"
-excerpt: "Leetcode Maximum Sum of Two Non-Overlapping Subarrays Java"
+excerpt: "Leetcode Medium - 'Maximum Sum of Two Non-Overlapping Subarrays' 문제 Java 풀이"
 last_modified_at: 2024-01-29T19:20:00
 header:
   image: /assets/images/leetcode/maximum-sum-of-two-non-overlapping-subarrays.png

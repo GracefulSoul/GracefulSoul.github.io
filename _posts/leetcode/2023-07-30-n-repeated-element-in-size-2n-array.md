@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java N-Repeated Element in Size 2N Array"
-excerpt: "Leetcode N-Repeated Element in Size 2N Array Java"
+excerpt: "Leetcode Easy - 'N-Repeated Element in Size 2N Array' 문제 Java 풀이"
 last_modified_at: 2023-07-30T13:00:00
 header:
   image: /assets/images/leetcode/n-repeated-element-in-size-2n-array.png

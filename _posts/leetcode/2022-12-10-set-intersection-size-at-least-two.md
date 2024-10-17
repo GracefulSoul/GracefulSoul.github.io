@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Set Intersection Size At Least Two"
-excerpt: "Leetcode Set Intersection Size At Least Two Java"
+excerpt: "Leetcode - 'Set Intersection Size At Least Two' 문제 Java 풀이"
 last_modified_at: 2022-12-10T15:20:00
 header:
   image: /assets/images/leetcode/set-intersection-size-at-least-two.png

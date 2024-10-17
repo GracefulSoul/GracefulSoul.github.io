@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Path Sum III"
-excerpt: "Leetcode Path Sum III Java 풀이"
+excerpt: "Leetcode - 'Path Sum III' 문제 Java 풀이"
 last_modified_at: 2022-03-29T13:00:00
 header:
   image: /assets/images/leetcode/path-sum-iii.png

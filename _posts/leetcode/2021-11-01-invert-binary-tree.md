@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Invert Binary Tree"
-excerpt: "Leetcode Invert Binary Tree Java 풀이"
+excerpt: "Leetcode - 'Invert Binary Tree' 문제 Java 풀이"
 last_modified_at: 2021-11-01T13:00:00
 header:
   image: /assets/images/leetcode/invert-binary-tree.png

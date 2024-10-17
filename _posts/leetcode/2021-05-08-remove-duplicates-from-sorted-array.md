@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Duplicates from Sorted Array"
-excerpt: "Leetcode Remove Duplicates from Sorted Array Java 풀이"
+excerpt: "Leetcode - 'Remove Duplicates from Sorted Array' 문제 Java 풀이"
 last_modified_at: 2021-05-08T18:10:00
 header:
   image: /assets/images/leetcode/remove-duplicates-from-sorted-array.png

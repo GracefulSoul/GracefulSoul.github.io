@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Digits of String After Convert"
-excerpt: "Leetcode Sum of Digits of String After Convert Java"
+excerpt: "Leetcode Easy - 'Sum of Digits of String After Convert' 문제 Java 풀이"
 last_modified_at: 2024-09-03T18:00:00
 header:
   image: /assets/images/leetcode/sum-of-digits-of-string-after-convert.png

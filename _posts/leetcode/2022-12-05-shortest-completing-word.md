@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Shortest Completing Word"
-excerpt: "Leetcode Shortest Completing Word Java"
+excerpt: "Leetcode - 'Shortest Completing Word' 문제 Java 풀이"
 last_modified_at: 2022-12-05T10:50:00
 header:
   image: /assets/images/leetcode/shortest-completing-word.png

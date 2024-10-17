@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Smallest Duplicate Zeros"
-excerpt: "Leetcode Smallest Duplicate Zeros Java"
+excerpt: "Leetcode Easy - 'Smallest Duplicate Zeros' 문제 Java 풀이"
 last_modified_at: 2024-04-17T18:30:00
 header:
   image: /assets/images/leetcode/duplicate-zeros.png

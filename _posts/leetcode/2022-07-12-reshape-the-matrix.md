@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reshape the Matrix"
-excerpt: "Leetcode Reshape the Matrix Java"
+excerpt: "Leetcode - 'Reshape the Matrix' 문제 Java 풀이"
 last_modified_at: 2022-07-12T20:00:00
 header:
   image: /assets/images/leetcode/reshape-the-matrix.png

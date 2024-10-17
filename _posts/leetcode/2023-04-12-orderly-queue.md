@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Orderly Queue"
-excerpt: "Leetcode Orderly Queue Java"
+excerpt: "Leetcode - 'Orderly Queue' 문제 Java 풀이"
 last_modified_at: 2023-04-12T20:55:00
 header:
   image: /assets/images/leetcode/orderly-queue.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Size Subarray Sum"
-excerpt: "Leetcode Minimum Size Subarray Sum Java 풀이"
+excerpt: "Leetcode - 'Minimum Size Subarray Sum' 문제 Java 풀이"
 last_modified_at: 2021-10-14T09:00:00
 header:
   image: /assets/images/leetcode/minimum-size-subarray-sum.png

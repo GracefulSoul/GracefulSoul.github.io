@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Mode in Binary Search Tree"
-excerpt: "Leetcode Find Mode in Binary Search Tree Java"
+excerpt: "Leetcode - 'Find Mode in Binary Search Tree' 문제 Java 풀이"
 last_modified_at: 2022-05-21T23:00:00
 header:
   image: /assets/images/leetcode/find-mode-in-binary-search-tree.png

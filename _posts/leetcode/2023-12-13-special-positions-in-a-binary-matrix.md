@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Special Positions in a Binary Matrix"
-excerpt: "Leetcode Special Positions in a Binary Matrix Java"
+excerpt: "Leetcode Easy - 'Special Positions in a Binary Matrix' 문제 Java 풀이"
 last_modified_at: 2023-12-13T22:50:00
 header:
   image: /assets/images/leetcode/special-positions-in-a-binary-matrix.png

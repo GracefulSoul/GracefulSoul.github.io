@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Check If It Is a Straight Line"
-excerpt: "Leetcode Check If It Is a Straight Line Java"
+excerpt: "Leetcode Easy - 'Check If It Is a Straight Line' 문제 Java 풀이"
 last_modified_at: 2023-06-05T18:50:00
 header:
   image: /assets/images/leetcode/check-if-it-is-a-straight-line.png

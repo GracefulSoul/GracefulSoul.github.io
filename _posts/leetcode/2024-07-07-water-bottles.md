@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Water Bottles"
-excerpt: "Leetcode Water Bottles Java"
+excerpt: "Leetcode Easy - 'Water Bottles' 문제 Java 풀이"
 last_modified_at: 2024-07-07T23:20:00
 header:
   image: /assets/images/leetcode/water-bottles.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Word Pattern"
-excerpt: "Leetcode Word Pattern Java 풀이"
+excerpt: "Leetcode - 'Word Pattern' 문제 Java 풀이"
 last_modified_at: 2021-12-08T09:00:00
 header:
   image: /assets/images/leetcode/word-pattern.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Score of a Good Subarray"
-excerpt: "Leetcode Maximum Score of a Good Subarray Java"
+excerpt: "Leetcode Hard - 'Maximum Score of a Good Subarray' 문제 Java 풀이"
 last_modified_at: 2023-10-22T13:30:00
 header:
   image: /assets/images/leetcode/maximum-score-of-a-good-subarray.png

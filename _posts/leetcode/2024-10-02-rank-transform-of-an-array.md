@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Rank Transform of an Array"
-excerpt: "Leetcode Rank Transform of an Array Java"
+excerpt: "Leetcode Easy - 'Rank Transform of an Array' 문제 Java 풀이"
 last_modified_at: 2024-10-02T23:30:00
 header:
   image: /assets/images/leetcode/rank-transform-of-an-array.png

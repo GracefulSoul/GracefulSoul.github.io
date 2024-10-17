@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Segments in a String"
-excerpt: "Leetcode Number of Segments in a String Java 풀이"
+excerpt: "Leetcode - 'Number of Segments in a String' 문제 Java 풀이"
 last_modified_at: 2022-03-26T20:00:00
 header:
   image: /assets/images/leetcode/number-of-segments-in-a-string.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Happy Number"
-excerpt: "Leetcode Happy Number Java 풀이"
+excerpt: "Leetcode - 'Happy Number' 문제 Java 풀이"
 last_modified_at: 2021-10-06T12:00:00
 header:
   image: /assets/images/leetcode/happy-number.png

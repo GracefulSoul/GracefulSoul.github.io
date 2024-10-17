@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Print in Order"
-excerpt: "Leetcode Print in Order Java"
+excerpt: "Leetcode Easy - 'Print in Order' 문제 Java 풀이"
 last_modified_at: 2024-05-26T13:00:00
 header:
   image: /assets/images/leetcode/print-in-order.png

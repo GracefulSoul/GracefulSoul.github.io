@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Clumsy Factorial"
-excerpt: "Leetcode Clumsy Factorial Java"
+excerpt: "Leetcode Medium - 'Clumsy Factorial' 문제 Java 풀이"
 last_modified_at: 2023-10-25T21:20:00
 header:
   image: /assets/images/leetcode/clumsy-factorial.png

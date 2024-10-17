@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Beautiful Arrangement"
-excerpt: "Leetcode Beautiful Arrangement Java"
+excerpt: "Leetcode - 'Beautiful Arrangement' 문제 Java 풀이"
 last_modified_at: 2022-06-12T10:00:00
 header:
   image: /assets/images/leetcode/beautiful-arrangement.png

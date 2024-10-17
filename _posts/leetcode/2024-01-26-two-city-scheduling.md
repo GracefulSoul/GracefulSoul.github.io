@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Two City Scheduling"
-excerpt: "Leetcode Two City Scheduling Java"
+excerpt: "Leetcode Medium - 'Two City Scheduling' 문제 Java 풀이"
 last_modified_at: 2024-01-26T20:30:00
 header:
   image: /assets/images/leetcode/two-city-scheduling.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Design HashSet"
-excerpt: "Leetcode Design HashSet Java"
+excerpt: "Leetcode - 'Design HashSet' 문제 Java 풀이"
 last_modified_at: 2022-10-27T19:30:00
 header:
   image: /assets/images/leetcode/design-hashset.png

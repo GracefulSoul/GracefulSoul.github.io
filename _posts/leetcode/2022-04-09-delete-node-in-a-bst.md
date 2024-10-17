@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Node in a BST"
-excerpt: "Leetcode Delete Node in a BST Java 풀이"
+excerpt: "Leetcode - 'Delete Node in a BST' 문제 Java 풀이"
 last_modified_at: 2022-04-09T13:00:00
 header:
   image: /assets/images/leetcode/delete-node-in-a-bst.png

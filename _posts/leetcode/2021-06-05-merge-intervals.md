@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Merge Intervals"
-excerpt: "Leetcode Merge Intervals Java 풀이"
+excerpt: "Leetcode - 'Merge Intervals' 문제 Java 풀이"
 last_modified_at: 2021-06-05T19:30:00
 header:
   image: /assets/images/leetcode/merge-intervals.png

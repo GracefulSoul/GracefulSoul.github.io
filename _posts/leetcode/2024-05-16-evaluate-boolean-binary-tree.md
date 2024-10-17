@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Evaluate Boolean Binary Tree"
-excerpt: "Leetcode Evaluate Boolean Binary Tree Java"
+excerpt: "Leetcode Easy - 'Evaluate Boolean Binary Tree' 문제 Java 풀이"
 last_modified_at: 2024-05-16T17:00:00
 header:
   image: /assets/images/leetcode/evaluate-boolean-binary-tree.png

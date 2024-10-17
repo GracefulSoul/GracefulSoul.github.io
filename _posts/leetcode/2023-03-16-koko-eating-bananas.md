@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Koko Eating Bananas"
-excerpt: "Leetcode Koko Eating Bananas Java"
+excerpt: "Leetcode - 'Koko Eating Bananas' 문제 Java 풀이"
 last_modified_at: 2023-03-16T11:30:00
 header:
   image: /assets/images/leetcode/koko-eating-bananas.png

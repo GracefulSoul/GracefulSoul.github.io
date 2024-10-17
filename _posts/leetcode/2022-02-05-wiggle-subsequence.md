@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Wiggle Subsequence"
-excerpt: "Leetcode Wiggle Subsequence Java 풀이"
+excerpt: "Leetcode - 'Wiggle Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-02-05T12:00:00
 header:
   image: /assets/images/leetcode/wiggle-subsequence.png

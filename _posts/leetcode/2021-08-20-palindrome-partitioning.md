@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Palindrome Partitioning"
-excerpt: "Leetcode Palindrome Partitioning Java 풀이"
+excerpt: "Leetcode - 'Palindrome Partitioning' 문제 Java 풀이"
 last_modified_at: 2021-08-20T12:00:00
 header:
   image: /assets/images/leetcode/palindrome-partitioning.png

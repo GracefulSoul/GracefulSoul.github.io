@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Divide Two Integers"
-excerpt: "Leetcode Divide Two Integers Java 풀이"
+excerpt: "Leetcode - 'Divide Two Integers' 문제 Java 풀이"
 last_modified_at: 2021-05-12T12:40:00
 header:
   image: /assets/images/leetcode/divide-two-integers.png

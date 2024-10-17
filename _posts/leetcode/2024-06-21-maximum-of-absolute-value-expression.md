@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum of Absolute Value Expression"
-excerpt: "Leetcode Maximum of Absolute Value Expression Java"
+excerpt: "Leetcode Medium - 'Maximum of Absolute Value Expression' 문제 Java 풀이"
 last_modified_at: 2024-06-21T18:55:00
 header:
   image: /assets/images/leetcode/maximum-of-absolute-value-expression.png

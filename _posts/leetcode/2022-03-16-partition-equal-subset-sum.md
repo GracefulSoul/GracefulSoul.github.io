@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Partition Equal Subset Sum"
-excerpt: "Leetcode Partition Equal Subset Sum Java 풀이"
+excerpt: "Leetcode - 'Partition Equal Subset Sum' 문제 Java 풀이"
 last_modified_at: 2022-03-16T12:00:00
 header:
   image: /assets/images/leetcode/partition-equal-subset-sum.png

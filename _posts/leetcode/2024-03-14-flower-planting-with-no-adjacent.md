@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flower Planting With No Adjacent"
-excerpt: "Leetcode Flower Planting With No Adjacent Java"
+excerpt: "Leetcode Medium - 'Flower Planting With No Adjacent' 문제 Java 풀이"
 last_modified_at: 2024-03-14T19:40:00
 header:
   image: /assets/images/leetcode/flower-planting-with-no-adjacent.png

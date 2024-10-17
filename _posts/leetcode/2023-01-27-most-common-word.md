@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Most Common Word"
-excerpt: "Leetcode Most Common Word Java"
+excerpt: "Leetcode - 'Most Common Word' 문제 Java 풀이"
 last_modified_at: 2023-01-27T20:20:00
 header:
   image: /assets/images/leetcode/most-common-word.png

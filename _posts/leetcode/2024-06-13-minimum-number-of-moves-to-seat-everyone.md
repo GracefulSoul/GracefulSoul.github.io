@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Minimum Number of Moves to Seat Everyone"
-excerpt: "Leetcode Minimum Number of Moves to Seat Everyone Java"
+excerpt: "Leetcode Easy - 'Minimum Number of Moves to Seat Everyone' 문제 Java 풀이"
 last_modified_at: 2024-06-13T17:20:00
 header:
   image: /assets/images/leetcode/minimum-number-of-moves-to-seat-everyone.png

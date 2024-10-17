@@ -1,6 +1,6 @@
 ---
 title: "Leetcode MySQL Duplicate Emails"
-excerpt: "Leetcode Duplicate Emails MySQL 풀이"
+excerpt: "Leetcode - 'Duplicate Emails MySQL 풀이"
 last_modified_at: 2021-09-26T12:00:00
 header:
   image: /assets/images/leetcode/duplicate-emails.png

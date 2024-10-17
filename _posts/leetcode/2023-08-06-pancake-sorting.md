@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pancake Sorting"
-excerpt: "Leetcode Pancake Sorting Java"
+excerpt: "Leetcode Medium - 'Pancake Sorting' 문제 Java 풀이"
 last_modified_at: 2023-08-06T08:40:00
 header:
   image: /assets/images/leetcode/pancake-sorting.png

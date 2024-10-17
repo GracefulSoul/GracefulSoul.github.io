@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Flip Columns For Maximum Number of Equal Rows"
-excerpt: "Leetcode Flip Columns For Maximum Number of Equal Rows Java"
+excerpt: "Leetcode Medium - 'Flip Columns For Maximum Number of Equal Rows' 문제 Java 풀이"
 last_modified_at: 2024-04-03T18:10:00
 header:
   image: /assets/images/leetcode/flip-columns-for-maximum-number-of-equal-rows.png

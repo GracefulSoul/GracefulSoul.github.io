@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Convert a Number to Hexadecimal"
-excerpt: "Leetcode Convert a Number to Hexadecimal Java 풀이"
+excerpt: "Leetcode - 'Convert a Number to Hexadecimal' 문제 Java 풀이"
 last_modified_at: 2022-03-05T10:00:00
 header:
   image: /assets/images/leetcode/convert-a-number-to-hexadecimal.png

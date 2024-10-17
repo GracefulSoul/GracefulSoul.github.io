@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Power of Two"
-excerpt: "Leetcode Power of Two Java 풀이"
+excerpt: "Leetcode - 'Power of Two' 문제 Java 풀이"
 last_modified_at: 2021-11-06T11:00:00
 header:
   image: /assets/images/leetcode/power-of-two.png

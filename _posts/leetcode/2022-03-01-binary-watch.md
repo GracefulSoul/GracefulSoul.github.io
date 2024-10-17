@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Watch"
-excerpt: "Leetcode Binary Watch Java 풀이"
+excerpt: "Leetcode - 'Binary Watch' 문제 Java 풀이"
 last_modified_at: 2022-03-01T15:00:00
 header:
   image: /assets/images/leetcode/binary-watch.png

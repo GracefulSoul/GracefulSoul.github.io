@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sum of Left Leaves"
-excerpt: "Leetcode Sum of Left Leaves Java 풀이"
+excerpt: "Leetcode - 'Sum of Left Leaves' 문제 Java 풀이"
 last_modified_at: 2022-03-04T17:00:00
 header:
   image: /assets/images/leetcode/sum-of-left-leaves.png

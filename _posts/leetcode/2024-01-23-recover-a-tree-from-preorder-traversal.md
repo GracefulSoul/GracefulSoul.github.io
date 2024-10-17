@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Recover a Tree From Preorder Traversal"
-excerpt: "Leetcode Recover a Tree From Preorder Traversal Java"
+excerpt: "Leetcode Hard - 'Recover a Tree From Preorder Traversal' 문제 Java 풀이"
 last_modified_at: 2024-01-22T18:50:00
 header:
   image: /assets/images/leetcode/recover-a-tree-from-preorder-traversal.png

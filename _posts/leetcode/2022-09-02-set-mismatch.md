@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Set Mismatch"
-excerpt: "Leetcode Set Mismatch Java"
+excerpt: "Leetcode - 'Set Mismatch' 문제 Java 풀이"
 last_modified_at: 2022-09-02T18:40:00
 header:
   image: /assets/images/leetcode/set-mismatch.png

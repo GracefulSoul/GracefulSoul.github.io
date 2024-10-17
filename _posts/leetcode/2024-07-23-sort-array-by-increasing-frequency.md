@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sort Array by Increasing Frequency"
-excerpt: "Leetcode Sort Array by Increasing Frequency Java"
+excerpt: "Leetcode Easy - 'Sort Array by Increasing Frequency' 문제 Java 풀이"
 last_modified_at: 2024-07-23T18:40:00
 header:
   image: /assets/images/leetcode/sort-array-by-increasing-frequency.png

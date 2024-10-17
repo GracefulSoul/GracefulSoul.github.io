@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Non-overlapping Intervals"
-excerpt: "Leetcode Non-overlapping Intervals Java 풀이"
+excerpt: "Leetcode - 'Non-overlapping Intervals' 문제 Java 풀이"
 last_modified_at: 2022-03-27T08:00:00
 header:
   image: /assets/images/leetcode/non-overlapping-intervals.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Product of Two Elements in an Array"
-excerpt: "Leetcode Maximum Product of Two Elements in an Array Java"
+excerpt: "Leetcode Easy - 'Maximum Product of Two Elements in an Array' 문제 Java 풀이"
 last_modified_at: 2023-12-12T20:20:00
 header:
   image: /assets/images/leetcode/maximum-product-of-two-elements-in-an-array.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Kth Smallest Element in a Sorted Matrix"
-excerpt: "Leetcode Kth Smallest Element in a Sorted Matrix Java 풀이"
+excerpt: "Leetcode - 'Kth Smallest Element in a Sorted Matrix' 문제 Java 풀이"
 last_modified_at: 2022-02-07T18:00:00
 header:
   image: /assets/images/leetcode/kth-smallest-element-in-a-sorted-matrix.png

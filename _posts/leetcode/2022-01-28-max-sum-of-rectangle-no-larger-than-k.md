@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Max Sum of Rectangle No Larger Than K"
-excerpt: "Leetcode Max Sum of Rectangle No Larger Than K Java 풀이"
+excerpt: "Leetcode - 'Max Sum of Rectangle No Larger Than K' 문제 Java 풀이"
 last_modified_at: 2022-01-28T13:00:00
 header:
   image: /assets/images/leetcode/max-sum-of-rectangle-no-larger-than-k.png

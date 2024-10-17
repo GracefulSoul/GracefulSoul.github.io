@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Subarray Sum with One Deletion"
-excerpt: "Leetcode Maximum Subarray Sum with One Deletion Java"
+excerpt: "Leetcode Medium - 'Maximum Subarray Sum with One Deletion' 문제 Java 풀이"
 last_modified_at: 2024-09-19T18:10:00
 header:
   image: /assets/images/leetcode/maximum-subarray-sum-with-one-deletion.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Excel Sheet Column Title"
-excerpt: "Leetcode Excel Sheet Column Title Java 풀이"
+excerpt: "Leetcode - 'Excel Sheet Column Title' 문제 Java 풀이"
 last_modified_at: 2021-09-19T11:00:00
 header:
   image: /assets/images/leetcode/excel-sheet-column-title.png

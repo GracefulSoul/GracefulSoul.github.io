@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Distribute Candies"
-excerpt: "Leetcode Distribute Candies Java"
+excerpt: "Leetcode - 'Distribute Candies' 문제 Java 풀이"
 last_modified_at: 2022-07-16T09:00:00
 header:
   image: /assets/images/leetcode/distribute-candies.png

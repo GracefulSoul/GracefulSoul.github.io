@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Substring Between Two Equal Characters"
-excerpt: "Leetcode Largest Substring Between Two Equal Characters Java"
+excerpt: "Leetcode Easy - 'Largest Substring Between Two Equal Characters' 문제 Java 풀이"
 last_modified_at: 2023-12-31T10:45:00
 header:
   image: /assets/images/leetcode/largest-substring-between-two-equal-characters.png

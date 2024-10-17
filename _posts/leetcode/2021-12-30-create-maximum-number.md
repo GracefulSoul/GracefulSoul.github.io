@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Create Maximum Number"
-excerpt: "Leetcode Create Maximum Number Java 풀이"
+excerpt: "Leetcode - 'Create Maximum Number' 문제 Java 풀이"
 last_modified_at: 2021-12-30T16:00:00
 header:
   image: /assets/images/leetcode/create-maximum-number.png

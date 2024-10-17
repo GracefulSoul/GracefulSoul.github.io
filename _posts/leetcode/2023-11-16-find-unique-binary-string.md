@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Unique Binary String"
-excerpt: "Leetcode Find Unique Binary String Java"
+excerpt: "Leetcode Medium - 'Find Unique Binary String' 문제 Java 풀이"
 last_modified_at: 2023-11-16T19:40:00
 header:
   image: /assets/images/leetcode/find-unique-binary-string.png

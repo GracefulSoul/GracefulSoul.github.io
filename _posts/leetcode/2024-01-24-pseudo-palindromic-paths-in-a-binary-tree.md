@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Pseudo-Palindromic Paths in a Binary Tree"
-excerpt: "Leetcode Pseudo-Palindromic Paths in a Binary Tree Java"
+excerpt: "Leetcode Medium - 'Pseudo-Palindromic Paths in a Binary Tree' 문제 Java 풀이"
 last_modified_at: 2024-01-24T20:20:00
 header:
   image: /assets/images/leetcode/pseudo-palindromic-paths-in-a-binary-tree.png

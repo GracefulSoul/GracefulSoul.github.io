@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Majority Element"
-excerpt: "Leetcode Majority Element Java 풀이"
+excerpt: "Leetcode - 'Majority Element' 문제 Java 풀이"
 last_modified_at: 2021-09-20T08:30:00
 header:
   image: /assets/images/leetcode/majority-element.png

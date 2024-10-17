@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Divide Players Into Teams of Equal Skill"
-excerpt: "Leetcode Divide Players Into Teams of Equal Skill Java"
+excerpt: "Leetcode Medium - 'Divide Players Into Teams of Equal Skill' 문제 Java 풀이"
 last_modified_at: 2024-10-04T18:40:00
 header:
   image: /assets/images/leetcode/divide-players-into-teams-of-equal-skill.png

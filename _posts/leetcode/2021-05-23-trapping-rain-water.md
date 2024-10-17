@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Trapping Rain Water"
-excerpt: "Leetcode Trapping Rain Water Java 풀이"
+excerpt: "Leetcode - 'Trapping Rain Water' 문제 Java 풀이"
 last_modified_at: 2021-05-23T15:50:00
 header:
   image: /assets/images/leetcode/trapping-rain-water.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Prefix of Word"
-excerpt: "Leetcode Reverse Prefix of Word Java"
+excerpt: "Leetcode Easy - 'Reverse Prefix of Word' 문제 Java 풀이"
 last_modified_at: 2024-05-01T10:20:00
 header:
   image: /assets/images/leetcode/reverse-prefix-of-word.png

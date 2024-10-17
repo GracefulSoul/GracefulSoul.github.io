@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Subarray Sum Equals K"
-excerpt: "Leetcode Subarray Sum Equals K Java"
+excerpt: "Leetcode - 'Subarray Sum Equals K' 문제 Java 풀이"
 last_modified_at: 2022-07-06T19:30:00
 header:
   image: /assets/images/leetcode/subarray-sum-equals-k.png

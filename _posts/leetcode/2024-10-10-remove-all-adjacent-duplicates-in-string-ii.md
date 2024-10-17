@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove All Adjacent Duplicates in String II"
-excerpt: "Leetcode Remove All Adjacent Duplicates in String II Java"
+excerpt: "Leetcode Medium - 'Remove All Adjacent Duplicates in String II' 문제 Java 풀이"
 last_modified_at: 2024-10-10T18:30:00
 header:
   image: /assets/images/leetcode/remove-all-adjacent-duplicates-in-string-ii.png

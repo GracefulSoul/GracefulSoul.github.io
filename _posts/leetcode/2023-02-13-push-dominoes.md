@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Push Dominoes"
-excerpt: "Leetcode Push Dominoes Java"
+excerpt: "Leetcode - 'Push Dominoes' 문제 Java 풀이"
 last_modified_at: 2023-02-13T19:00:00
 header:
   image: /assets/images/leetcode/push-dominoes.png

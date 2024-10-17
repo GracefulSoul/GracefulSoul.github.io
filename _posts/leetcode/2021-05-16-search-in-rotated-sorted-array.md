@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Search in Rotated Sorted Array"
-excerpt: "Leetcode Search in Rotated Sorted Array Java 풀이"
+excerpt: "Leetcode - 'Search in Rotated Sorted Array' 문제 Java 풀이"
 last_modified_at: 2021-05-16T17:10:00
 header:
   image: /assets/images/leetcode/search-in-rotated-sorted-array.png

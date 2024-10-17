@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Determine if String Halves Are Alike"
-excerpt: "Leetcode Determine if String Halves Are Alike Java"
+excerpt: "Leetcode Easy - 'Determine if String Halves Are Alike' 문제 Java 풀이"
 last_modified_at: 2024-01-12T10:10:00
 header:
   image: /assets/images/leetcode/determine-if-string-halves-are-alike.png

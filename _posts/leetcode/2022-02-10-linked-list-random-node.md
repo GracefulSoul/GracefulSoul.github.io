@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Linked List Random Node"
-excerpt: "Leetcode Linked List Random Node Java 풀이"
+excerpt: "Leetcode - 'Linked List Random Node' 문제 Java 풀이"
 last_modified_at: 2022-02-10T13:00:00
 header:
   image: /assets/images/leetcode/linked-list-random-node.png

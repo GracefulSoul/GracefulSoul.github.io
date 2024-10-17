@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Perfect Rectangle"
-excerpt: "Leetcode Perfect Rectangle Java 풀이"
+excerpt: "Leetcode - 'Perfect Rectangle' 문제 Java 풀이"
 last_modified_at: 2022-02-19T18:00:00
 header:
   image: /assets/images/leetcode/perfect-rectangle.png

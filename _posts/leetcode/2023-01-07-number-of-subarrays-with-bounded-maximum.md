@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Subarrays with Bounded Maximum"
-excerpt: "Leetcode Number of Subarrays with Bounded Maximum Java"
+excerpt: "Leetcode - 'Number of Subarrays with Bounded Maximum' 문제 Java 풀이"
 last_modified_at: 2023-01-07T09:15:00
 header:
   image: /assets/images/leetcode/number-of-subarrays-with-bounded-maximum.png

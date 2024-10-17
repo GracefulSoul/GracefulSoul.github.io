@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Number of Good Pairs"
-excerpt: "Leetcode Number of Good Pairs Java"
+excerpt: "Leetcode Easy - 'Number of Good Pairs' 문제 Java 풀이"
 last_modified_at: 2023-10-03T10:05:00
 header:
   image: /assets/images/leetcode/number-of-good-pairs.png

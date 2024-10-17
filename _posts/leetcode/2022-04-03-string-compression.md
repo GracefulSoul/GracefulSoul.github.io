@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java String Compression"
-excerpt: "Leetcode String Compression Java 풀이"
+excerpt: "Leetcode - 'String Compression' 문제 Java 풀이"
 last_modified_at: 2022-04-03T09:00:00
 header:
   image: /assets/images/leetcode/string-compression.png

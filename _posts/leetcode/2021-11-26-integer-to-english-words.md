@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Integer to English Words"
-excerpt: "Leetcode Integer to English Words Java 풀이"
+excerpt: "Leetcode - 'Integer to English Words' 문제 Java 풀이"
 last_modified_at: 2021-11-26T09:00:00
 header:
   image: /assets/images/leetcode/integer-to-english-words.png

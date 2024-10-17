@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Arithmetic Slices II - Subsequence"
-excerpt: "Leetcode Arithmetic Slices II - Subsequence Java 풀이"
+excerpt: "Leetcode - 'Arithmetic Slices II - Subsequence' 문제 Java 풀이"
 last_modified_at: 2022-04-05T12:00:00
 header:
   image: /assets/images/leetcode/arithmetic-slices-ii-subsequence.png

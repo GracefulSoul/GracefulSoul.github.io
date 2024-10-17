@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Remove Outermost Parentheses"
-excerpt: "Leetcode Remove Outermost Parentheses Java"
+excerpt: "Leetcode Easy - 'Remove Outermost Parentheses' 문제 Java 풀이"
 last_modified_at: 2024-01-09T11:30:00
 header:
   image: /assets/images/leetcode/remove-outermost-parentheses.png

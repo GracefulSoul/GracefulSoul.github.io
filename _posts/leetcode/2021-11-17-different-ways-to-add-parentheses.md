@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Different Ways to Add Parentheses"
-excerpt: "Leetcode Different Ways to Add Parentheses Java 풀이"
+excerpt: "Leetcode - 'Different Ways to Add Parentheses' 문제 Java 풀이"
 last_modified_at: 2021-11-17T12:00:00
 header:
   image: /assets/images/leetcode/different-ways-to-add-parentheses.png

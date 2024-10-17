@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Card Flipping Game"
-excerpt: "Leetcode Card Flipping Game Java"
+excerpt: "Leetcode - 'Card Flipping Game' 문제 Java 풀이"
 last_modified_at: 2023-01-30T20:00:00
 header:
   image: /assets/images/leetcode/card-flipping-game.png

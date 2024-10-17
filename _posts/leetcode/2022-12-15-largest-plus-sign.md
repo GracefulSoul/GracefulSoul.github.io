@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Largest Plus Sign"
-excerpt: "Leetcode Largest Plus Sign Java"
+excerpt: "Leetcode - 'Largest Plus Sign' 문제 Java 풀이"
 last_modified_at: 2022-12-15T11:30:00
 header:
   image: /assets/images/leetcode/largest-plus-sign.png

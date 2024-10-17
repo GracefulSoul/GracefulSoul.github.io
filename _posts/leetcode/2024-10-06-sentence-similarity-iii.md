@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Sentence Similarity III"
-excerpt: "Leetcode Sentence Similarity III Java"
+excerpt: "Leetcode Medium - 'Sentence Similarity III' 문제 Java 풀이"
 last_modified_at: 2024-10-06T10:50:00
 header:
   image: /assets/images/leetcode/sentence-similarity-iii.png

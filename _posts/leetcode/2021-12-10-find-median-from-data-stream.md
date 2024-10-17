@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Find Median from Data Stream"
-excerpt: "Leetcode Find Median from Data Stream Java 풀이"
+excerpt: "Leetcode - 'Find Median from Data Stream' 문제 Java 풀이"
 last_modified_at: 2021-12-10T12:00:00
 header:
   image: /assets/images/leetcode/find-median-from-data-stream.png

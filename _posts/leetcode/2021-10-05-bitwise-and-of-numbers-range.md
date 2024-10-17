@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Bitwise AND of Numbers Range"
-excerpt: "Leetcode Bitwise AND of Numbers Range Java 풀이"
+excerpt: "Leetcode - 'Bitwise AND of Numbers Range' 문제 Java 풀이"
 last_modified_at: 2021-10-05T13:00:00
 header:
   image: /assets/images/leetcode/bitwise-and-of-numbers-range.png

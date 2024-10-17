@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Divisor Game"
-excerpt: "Leetcode Divisor Game Java"
+excerpt: "Leetcode Easy - 'Divisor Game' 문제 Java 풀이"
 last_modified_at: 2024-01-21T12:00:00
 header:
   image: /assets/images/leetcode/divisor-game.png

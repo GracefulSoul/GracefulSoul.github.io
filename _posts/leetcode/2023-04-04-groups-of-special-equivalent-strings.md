@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Groups of Special-Equivalent Strings"
-excerpt: "Leetcode Groups of Special-Equivalent Strings Java"
+excerpt: "Leetcode - 'Groups of Special-Equivalent Strings' 문제 Java 풀이"
 last_modified_at: 2023-04-04T21:40:00
 header:
   image: /assets/images/leetcode/groups-of-special-equivalent-strings.png

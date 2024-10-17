@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Maximum Profit in Job Scheduling"
-excerpt: "Leetcode Maximum Profit in Job Scheduling Java"
+excerpt: "Leetcode Hard - 'Maximum Profit in Job Scheduling' 문제 Java 풀이"
 last_modified_at: 2024-01-06T12:30:00
 header:
   image: /assets/images/leetcode/maximum-profit-in-job-scheduling.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Binary Tree Inorder Traversal"
-excerpt: "Leetcode Binary Tree Inorder Traversal Java 풀이"
+excerpt: "Leetcode - 'Binary Tree Inorder Traversal' 문제 Java 풀이"
 last_modified_at: 2021-07-14T13:00:00
 header:
   image: /assets/images/leetcode/binary-tree-inorder-traversal.png

@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Unique Morse Code Words"
-excerpt: "Leetcode Unique Morse Code Words Java"
+excerpt: "Leetcode - 'Unique Morse Code Words' 문제 Java 풀이"
 last_modified_at: 2023-01-14T08:30:00
 header:
   image: /assets/images/leetcode/unique-morse-code-words.png

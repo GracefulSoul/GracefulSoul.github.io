@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Boats to Save People"
-excerpt: "Leetcode Boats to Save People Java"
+excerpt: "Leetcode - 'Boats to Save People' 문제 Java 풀이"
 last_modified_at: 2023-03-23T19:10:00
 header:
   image: /assets/images/leetcode/boats-to-save-people.png

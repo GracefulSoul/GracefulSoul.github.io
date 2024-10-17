@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Reverse Pairs"
-excerpt: "Leetcode Reverse Pairs Java 풀이"
+excerpt: "Leetcode - 'Reverse Pairs' 문제 Java 풀이"
 last_modified_at: 2022-05-14T16:00:00
 header:
   image: /assets/images/leetcode/reverse-pairs.png

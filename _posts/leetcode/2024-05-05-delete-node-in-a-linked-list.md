@@ -1,6 +1,6 @@
 ---
 title: "Leetcode Java Delete Node in a Linked List"
-excerpt: "Leetcode Delete Node in a Linked List Java"
+excerpt: "Leetcode Medium - 'Delete Node in a Linked List' 문제 Java 풀이"
 last_modified_at: 2024-05-05T20:50:00
 header:
   image: /assets/images/leetcode/delete-node-in-a-linked-list.png
