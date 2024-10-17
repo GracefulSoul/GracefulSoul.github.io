@@ -22,16 +22,10 @@ jobs:
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gems-
-            
-      - name: Apt install libc6
-        run: |
-          apt install libc6
-
       - name: Bundle install
         run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-          
       - name: Exec jekyll algolia
         run: bundle exec jekyll algolia
         env:
