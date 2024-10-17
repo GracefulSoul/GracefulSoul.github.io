@@ -26,6 +26,7 @@ jobs:
         run: |
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+          bundle update --bundler
           
       - name: Exec jekyll algolia
         run: bundle exec jekyll algolia
