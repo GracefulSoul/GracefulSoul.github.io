@@ -21,7 +21,7 @@ use_math: true
 
 # 코드
 ```sql
--- Write your MySQL query statement below
+-- Write your PostgreSQL query statement below
 SELECT query_name
     , ROUND(AVG(rating::DECIMAL / position), 2) AS quality
     , ROUND(SUM(CASE WHEN rating < 3 THEN 1 ELSE 0 END)::DECIMAL / count(*) * 100, 2) AS poor_query_percentage
