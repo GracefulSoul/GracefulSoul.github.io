@@ -1,0 +1,828 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Spring Transaction - Development story</title>
+<meta name="description" content="Spring Transaction에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Spring Transaction">
+<meta property="og:url" content="/spring/transaction/">
+
+
+  <meta property="og:description" content="Spring Transaction에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/spring/transactional.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-02T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-02-24T19:40:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/spring/transaction/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/spring/transactional.png" alt="Spring Transaction" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Spring Transaction">
+    <meta itemprop="description" content="Spring Transaction에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-02T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-02-24T19:40:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Spring Transaction
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-02T00:00:00+00:00">March 02, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#spring-transaction">Spring Transaction1</a></li><li><a href="#isolation-level">Isolation Level</a><ul><li><a href="#트랜잭션-경쟁race-conditiaon에-대한-문제점">트랜잭션 경쟁(Race Conditiaon)에 대한 문제점</a><ul><li><a href="#dirty-read">Dirty Read</a></li><li><a href="#non-repeatable-read">Non-Repeatable Read</a></li><li><a href="#phantom-read">Phantom Read</a></li></ul></li><li><a href="#종류">종류</a><ul><li><a href="#default">DEFAULT</a></li><li><a href="#read_uncommitedlevel-0">READ_UNCOMMITED(Level 0)</a></li><li><a href="#read_commitedlevel-1">READ_COMMITED(Level 1)</a></li><li><a href="#repreatable_readlevel-2">REPREATABLE_READ(Level 2)</a></li><li><a href="#serializablelevel-3">SERIALIZABLE(Level 3)</a></li></ul></li></ul></li><li><a href="#propagation">Propagation</a><ul><li><a href="#종류-1">종류</a><ul><li><a href="#required">REQUIRED</a></li><li><a href="#requires_new">REQUIRES_NEW</a></li><li><a href="#suppport">SUPPPORT</a></li><li><a href="#mandatory">MANDATORY</a></li><li><a href="#not_support">NOT_SUPPORT</a></li><li><a href="#never">NEVER</a></li><li><a href="#nested">NESTED</a></li></ul></li></ul></li><li><a href="#readonly">Readonly</a></li><li><a href="#rollbackfornorollbackfor">RollbackFor/NoRollbackFor</a><ul><li><a href="#rollbackfor">RollbackFor</a></li><li><a href="#norollbackfor">NoRollbackFor</a></li></ul></li><li><a href="#timeout">Timeout</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="spring-transaction">Spring Transaction<sup id="fnref:Transaction" role="doc-noteref"><a href="#fn:Transaction" class="footnote" rel="footnote">1</a></sup></h1>
+<ul>
+  <li>Spring Transaction은 어노테이션 기반으로 수행이 된다.</li>
+  <li>Spring Bean<sup id="fnref:Bean" role="doc-noteref"><a href="#fn:Bean" class="footnote" rel="footnote">2</a></sup>으로 정의 된 Method를 트랜잭션 관리를 하고자 할 때, @Transactional 어노테이션을 활용하면 프록시 패턴의 AOP<sup id="fnref:AOP" role="doc-noteref"><a href="#fn:AOP" class="footnote" rel="footnote">3</a></sup>를 사용하여 원하는 수준의 트랜잭션 관리를 할 수 있다.
+<img src="../../assets/images/spring/tx.png" alt="tx" /></li>
+</ul>
+
+<h1 id="isolation-level">Isolation Level</h1>
+<ul>
+  <li>트랜잭션에서 일관성이 없는 데이터를 다른 트랜잭션이 읽는 것을 허용하도록 하는 수준이다.</li>
+</ul>
+
+<h2 id="트랜잭션-경쟁race-conditiaon에-대한-문제점">트랜잭션 경쟁(Race Conditiaon)에 대한 문제점</h2>
+<h3 id="dirty-read">Dirty Read</h3>
+<p>커밋 전 데이터 조회와 롤백 후 데이터 조회의 데이터 불일치 문제이다.</p>
+<h3 id="non-repeatable-read">Non-Repeatable Read</h3>
+<p>한 트랜잭션에서 데이터 변경 전과 후에 같은 조회 쿼리를 수행 시, 값이 변경되면서 결과가 달라지는 문제이다.</p>
+<h3 id="phantom-read">Phantom Read</h3>
+<p>한 트랜잭션에서 데이터 추가 전과 후에 같은 조회 쿼리를 수행 시, 값이 추가되면서 결과가 달라지는 문제이다.</p>
+
+<h2 id="종류">종류</h2>
+<p>기본적으로 Isolation Level이 높아질수록 데이터를 점유하는 권한이 강화되고, 이로 인해서 수행 속도는 느려진다.</p>
+<h3 id="default">DEFAULT</h3>
+<ul>
+  <li>사용하는 Database의 Isolation Level을 따라 적용 한다.
+    <h3 id="read_uncommitedlevel-0">READ_UNCOMMITED(Level 0)</h3>
+  </li>
+  <li>트랜잭션에서 처리 중인 혹은 아직 커밋되지 않은 데이터를 다른 트랜잭션이 읽는 것을 허용한다.</li>
+  <li>Dirty Read 문제가 발생한다.
+    <h3 id="read_commitedlevel-1">READ_COMMITED(Level 1)</h3>
+  </li>
+  <li>트랜잭션이 커밋되어 확정된 데이터만을 읽는 것을 허용한다.</li>
+  <li>Oracle, MSSQL 등의 일반적인 RDBMS에서 Default Isolation Level로 사용한다.</li>
+  <li>Dirty Read 문제를 방지하나, Non-Repeatable Read 문제가 발생한다.
+    <h3 id="repreatable_readlevel-2">REPREATABLE_READ(Level 2)</h3>
+  </li>
+  <li>트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 Shared Lock을 걸어 다른 사용자들은 그 영역의 데이터에 대한 수정이 불가능하다.</li>
+  <li>MySQL와 같은 특정 RDBMS에서 Default Isolation Level로 사용한다.</li>
+  <li>Dirty Read, Non-Repeatable Read의 문제들을 방지하나, Phantom Read 문제가 발생한다.
+    <h3 id="serializablelevel-3">SERIALIZABLE(Level 3)</h3>
+  </li>
+  <li>트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 SHared Lock을 걸어 다른 사용자들은 그 영역의 데이터에 대한 수정 및 입력이 불가능하다.</li>
+  <li>Dirty Read, Non-Repeatable Read, Phantom Read의 문제들을 방지한다.</li>
+</ul>
+
+<h1 id="propagation">Propagation</h1>
+<p>트랜잭션을 시작하거나 기존 트랜잭션에 참여하는 방법을 결정하는 속성이다.</p>
+
+<h2 id="종류-1">종류</h2>
+<h3 id="required">REQUIRED</h3>
+<p>부모 트랜잭션 내에서 실행하며 부모 트랜잭션이 없을 경우 새로운 트랜잭션을 생성한다.</p>
+<h3 id="requires_new">REQUIRES_NEW</h3>
+<p>부모 트랜잭션을 무시하고 무조건 새로운 트랜잭션을 생성한다.</p>
+<h3 id="suppport">SUPPPORT</h3>
+<p>부모 트랜잭션 내에서 실행하며 부모 트랜잭션이 없을 경우 Non-Transactionally로 실행한다.</p>
+<h3 id="mandatory">MANDATORY</h3>
+<p>부모 트랜잭션 내에서 실행되며 부모 트랜잭션이 없을 경우 Exception이 발생한다.</p>
+<h3 id="not_support">NOT_SUPPORT</h3>
+<p>Non-Transactionally로 실행하며 부모 트랜잭션 내에서 실행될 경우 일시 정지한다,</p>
+<h3 id="never">NEVER</h3>
+<p>Non-Transactionally로 실행하며 부모 트랜잭션이 존재하면 Exception이 발생한다.</p>
+<h3 id="nested">NESTED</h3>
+<ul>
+  <li>부모 트랜잭션이 존재하면 부모 트랜잭션 내에서 실행되며, 별개로 커밋되거나 롤백될 수 있다.</li>
+  <li>부모 트랜잭션이 존재하지 않으면 RQUIRED와 동일하게 실행된다.</li>
+</ul>
+
+<h1 id="readonly">Readonly</h1>
+<ul>
+  <li>해당 Transaction 내에서 데이터를 읽기만 할지를 결정한다.</li>
+  <li>Default : false</li>
+</ul>
+
+<h1 id="rollbackfornorollbackfor">RollbackFor/NoRollbackFor</h1>
+<h2 id="rollbackfor">RollbackFor</h2>
+<p>특정 Exception을 추가 할 수 있으며, 해당 Exception이 발생하면 Rollback을 수행한다.</p>
+<h2 id="norollbackfor">NoRollbackFor</h2>
+<p>특정 Exception을 추가 할 수 있으며, 해당 Exception이 발생하면 Rollback을 수행하지 않는다.</p>
+
+<h1 id="timeout">Timeout</h1>
+<ul>
+  <li>지정한 시간 내에 해당 메서드 수행이 완료되지 않은 경우, Rollback을 수행한다.</li>
+  <li>Default : -1(No-Timeout)</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Transaction" role="doc-endnote">
+      <p><a href="https://docs.spring.io/spring-framework/docs/5.0.0.M5/spring-framework-reference/html/transaction.html" target="_blank">SpringDocs-Transaction</a> <a href="#fnref:Transaction" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Bean" role="doc-endnote">
+      <p><a href="../Bean" target="_blank">Blog-Bean</a> <a href="#fnref:Bean" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:AOP" role="doc-endnote">
+      <p><a href="../aop" target="_blank">Blog-AOP</a> <a href="#fnref:AOP" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">Spring</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#transactional" class="page__taxonomy-item" rel="tag">Transactional</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-02-24">February 24, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/codility/Peaks/" class="pagination--pager" title="Codility Java Peaks
+">이전</a>
+    
+    
+      <a href="/cs/solid/" class="pagination--pager" title="SOLID - Object-Oriented Design
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/split-a-string-into-the-max-number-of-unique-substrings/" rel="permalink">Leetcode Java Split a String Into the Max Number of Unique Substrings
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> October 21 2024</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Split a String Into the Max Number of Unique Substrings’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/find-kth-bit-in-nth-binary-string/" rel="permalink">Leetcode Java Find Kth Bit in Nth Binary String
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> October 19 2024</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Find Kth Bit in Nth Binary String’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-number-of-maximum-bitwise-or-subsets/" rel="permalink">Leetcode Java Count Number of Maximum Bitwise-OR Subsets
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> October 18 2024</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Number of Maximum Bitwise-OR Subsets’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/queries-quality-and-percentage/" rel="permalink">Leetcode PostgreSQL Queries Quality and Percentage
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> October 17 2024</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode Easy - ‘Queries Quality and Percentage’ 문제 PostgreSQL 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2024 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
