@@ -3,7 +3,7 @@ title: "Leetcode Java Maximum Number of Moves in a Grid"
 excerpt: "Leetcode - 'Maximum Number of Moves in a Grid' 문제 Java 풀이"
 last_modified_at: 2024-10-29T19:40:00
 header:
-  image: /assets/images/leetcode/count-square-submatrices-with-all-ones.png
+  image: /assets/images/leetcode/maximum-number-of-moves-in-a-grid.png
 categories:
   - Leetcode
 tags:
