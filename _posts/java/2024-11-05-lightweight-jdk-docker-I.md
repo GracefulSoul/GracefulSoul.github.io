@@ -1,6 +1,6 @@
 ---
 title: "Custom JRE로 경령화된 Dockering I"
-excerpt: "Jdeps와 Jlink를 이용하여 경량화된 Custom JRE를 사용하는 Dockerizng으로 CI/CD 성능 최적화"
+excerpt: "Jdeps와 Jlink를 사용하여 경량화된 Custom JRE를 사용하는 Dockerizng을 통해 CI/CD 성능 최적화"
 last_modified_at: 2024-11-05T20:00:00
 header:
   image: /assets/images/java/lightweight-jdk-docker.png
@@ -156,6 +156,9 @@ ENTRYPOINT [ "java", "-cp", "${DEPENDENCY}:${DEPENDENCY}/lib/*", "gracefulsoul.H
 # 정리
 - 위에서 하나씩 살펴본 JAVA 애플리케이션 경량화 Docker Conatiner는 MSA 구성에 있어서 아주 기본적인 서비스 빌드 방법의 하나를 살펴보았다.
 - 애플리케이션을 돌리기 위한 컨테이너는 동작에 필요한 최소한의 리소스를 이용한 컨테이너 경량화는 배포 크기의 감소와 성능 향상, 비용 감소 등의 이점이 있으므로 선택이 아닌 필수이다.
+
+# 다음
+[Custom JRE로 경령화된 Dockering II](../lightweight-jdk-docker-II){:target="_blank"}
 
 # Reference
 [^Dockerizng]: [Spring-Boot-Docker_Springio-Guides](https://spring.io/guides/gs/spring-boot-docker){:target="_blank"}
