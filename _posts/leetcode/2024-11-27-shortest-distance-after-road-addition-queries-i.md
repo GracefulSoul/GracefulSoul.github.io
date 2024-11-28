@@ -3,7 +3,7 @@ title: "Leetcode Java Shortest Distance After Road Addition Queries I"
 excerpt: "Leetcode - 'Shortest Distance After Road Addition Queries I' 문제 Java 풀이"
 last_modified_at: 2024-11-27T19:10:00
 header:
-  image: /assets/images/leetcode/find-champion-ii.png
+  image: /assets/images/leetcode/shortest-distance-after-road-addition-queries-i.png
 categories:
   - Leetcode
 tags:
