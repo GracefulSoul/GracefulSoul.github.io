@@ -1,6 +1,6 @@
 ---
 title: "JavaScript Asynchronous"
-excerpt: "JavaScript 대한 설명"
+excerpt: "JavaScript Asynchronous에 대한 설명"
 last_modified_at: 2021-04-05T20:10:00
 header:
   image: /assets/images/javascript/asynchronous.png
