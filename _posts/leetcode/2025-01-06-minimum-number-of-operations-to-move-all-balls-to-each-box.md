@@ -1,7 +1,7 @@
 ---
 title: "Leetcode Java Minimum Number of Operations to Move All Balls to Each Box"
 excerpt: "Leetcode - 'Minimum Number of Operations to Move All Balls to Each Box' 문제 Java 풀이"
-last_modified_at: 2025-01-06T29:30:00
+last_modified_at: 2025-01-06T19:30:00
 header:
   image: /assets/images/leetcode/minimum-number-of-operations-to-move-all-balls-to-each-box.png
 categories:
