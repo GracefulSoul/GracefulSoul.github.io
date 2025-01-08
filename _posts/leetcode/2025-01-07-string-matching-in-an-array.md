@@ -23,16 +23,16 @@ use_math: true
 ```java
 class Solution {
 
-	public List<String> stringMatching(String[] words) {
-		String str = String.join(" ", words);
-		List<String> result = new ArrayList<>();
-		for (String word : words) {
-			if (str.indexOf(word) != str.lastIndexOf(word)) {
-				result.add(word);
-			}
-		}
-		return result;
-	}
+  public List<String> stringMatching(String[] words) {
+    String str = String.join(" ", words);
+    List<String> result = new ArrayList<>();
+    for (String word : words) {
+      if (str.indexOf(word) != str.lastIndexOf(word)) {
+        result.add(word);
+      }
+    }
+    return result;
+  }
 
 }
 ```
