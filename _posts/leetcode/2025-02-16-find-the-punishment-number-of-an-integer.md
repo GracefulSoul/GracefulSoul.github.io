@@ -3,7 +3,7 @@ title: "Leetcode Java Construct the Lexicographically Largest Valid Sequence"
 excerpt: "Leetcode - 'Construct the Lexicographically Largest Valid Sequence' 문제 Java 풀이"
 last_modified_at: 2025-02-16T16:00:00
 header:
-  image: /assets/images/leetcode/find-the-punishment-number-of-an-integer.png
+  image: /assets/images/leetcode/construct-the-lexicographically-largest-valid-sequence.png
 categories:
   - Leetcode
 tags:
@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/find-the-punishment-number-of-an-integer/){:target="_blank"}
+[Link](https://leetcode.com/problems/construct-the-lexicographically-largest-valid-sequence/){:target="_blank"}
 
 # 코드
 ```java
