@@ -47,7 +47,7 @@ toc_sticky: true
 - MySQL와 같은 특정 RDBMS에서 Default Isolation Level로 사용한다.
 - Dirty Read, Non-Repeatable Read의 문제들을 방지하나, Phantom Read 문제가 발생한다.
 ### SERIALIZABLE(Level 3)
-- 트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 SHared Lock을 걸어 다른 사용자들은 그 영역의 데이터에 대한 수정 및 입력이 불가능하다.
+- 트랜잭션이 완료될 때까지 SELECT 문장이 사용하는 모든 데이터에 Shared Lock을 걸어 다른 사용자들은 그 영역의 데이터에 대한 수정 및 입력이 불가능하다.
 - Dirty Read, Non-Repeatable Read, Phantom Read의 문제들을 방지한다.
 
 # Propagation
