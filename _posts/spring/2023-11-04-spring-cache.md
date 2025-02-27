@@ -25,10 +25,12 @@ toc_sticky: true
   <groupId>org.springframework</groupId>
   <artifactId>spring-context-support</artifactId>
   <version>5.3.30</version>
-  <scope>compile</scope>
 </dependency>
 ```
-- 일반적으로 "spring-context-support"를 maven dependency로 추가 혹은 gradle implementation하여 사용할 수 있다.
+```groovy
+implementation 'org.springframework:spring-context-support:5.3.30'
+```
+- 일반적으로 "spring-context-support" 의존성을 maven dependency로 추가 혹은 gradle implementation하여 사용할 수 있다.
 
 ```xml
 <dependency>
@@ -36,7 +38,10 @@ toc_sticky: true
   <artifactId>spring-boot-starter-cache</artifactId>
 </dependency>
 ```
-- Spring Boot를 사용하는 경우, "spring-boot-starter-cache"를 maven dependency로 추가 혹은 gradle implementation하면 내장되어 사용할 수 있다.
+```groovy
+implementation 'org.springframework.boot:spring-boot-starter-cache'
+```
+- Spring Boot를 사용하는 경우, "spring-boot-starter-cache" 의존성을 maven dependency로 추가 혹은 gradle implementation하면 내장되어 사용할 수 있다.
 
 # @EnableCaching & CacheManager
 ```java
