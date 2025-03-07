@@ -1,0 +1,990 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Custom JRE로 경령화된 Dockering I - Development story</title>
+<meta name="description" content="Jdeps와 Jlink를 사용하여 경량화된 Custom JRE를 사용하는 Dockerizng을 통해 CI/CD 성능 최적화">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Custom JRE로 경령화된 Dockering I">
+<meta property="og:url" content="/java/lightweight-jdk-docker-I/">
+
+
+  <meta property="og:description" content="Jdeps와 Jlink를 사용하여 경량화된 Custom JRE를 사용하는 Dockerizng을 통해 CI/CD 성능 최적화">
+
+
+
+  <meta property="og:image" content="/assets/images/java/lightweight-jdk-docker.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2024-11-05T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2024-11-05T20:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/java/lightweight-jdk-docker-I/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/java/lightweight-jdk-docker.png" alt="Custom JRE로 경령화된 Dockering I" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Custom JRE로 경령화된 Dockering I">
+    <meta itemprop="description" content="Jdeps와 Jlink를 사용하여 경량화된 Custom JRE를 사용하는 Dockerizng을 통해 CI/CD 성능 최적화">
+    <meta itemprop="datePublished" content="2024-11-05T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2024-11-05T20:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Custom JRE로 경령화된 Dockering I
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2024-11-05T00:00:00+00:00">November 05, 2024</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#stage-1">Stage 1</a><ul><li><a href="#image">Image</a></li><li><a href="#copy-application">Copy application</a></li><li><a href="#install-binutils">Install Binutils4</a></li><li><a href="#generate-custom-jre">Generate custom JRE</a><ul><li><a href="#jdeps">Jdeps5</a></li><li><a href="#jlink">Jlink6</a></li></ul></li></ul></li><li><a href="#stage-2">Stage 2</a><ul><li><a href="#image-1">Image</a></li><li><a href="#copy-custom-jre">Copy custom JRE</a></li><li><a href="#copy-extract-files-in-jar">Copy extract files in jar</a></li><li><a href="#move-work-directory">Move work directory</a></li><li><a href="#run-application">Run application</a></li></ul></li><li><a href="#정리">정리</a></li><li><a href="#다음">다음</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+<ul>
+  <li>Java 애플리케이션은 JVM(Java Virtual Machine)이 함께 컨테이너에 배포되어야 하기 때문에 비교적 타 언어로 배포되는 컨테이너보다 용량이 매우 크므로, 이 부분을 해소하기 위한 경량화된 Dockerizng<sup id="fnref:Dockerizng" role="doc-noteref"><a href="#fn:Dockerizng" class="footnote" rel="footnote">1</a></sup>을 Amazon Crretto JDK<sup id="fnref:Amazon_Crretto_JDK" role="doc-noteref"><a href="#fn:Amazon_Crretto_JDK" class="footnote" rel="footnote">2</a></sup>를 이용하여 설명하고자한다.</li>
+  <li>여기서는 Custom JRE를 생성하는 Docker의 Multi-Stage builds<sup id="fnref:Multi-Stage-builds" role="doc-noteref"><a href="#fn:Multi-Stage-builds" class="footnote" rel="footnote">3</a></sup>를 활용하여 실제 빌드하는 JAVA 애플리케이션을 경량화한다.</li>
+</ul>
+
+<h1 id="stage-1">Stage 1</h1>
+<ul>
+  <li>Stage 1에서는 애플리케이션 의존 관계를 분석하여 경량화된 Custom JRE를 만드는 부분에 중점을 둔다.</li>
+  <li>부가적으로 빌드된 jar 파일을 필요한 파일들만 사용하기 위하여 압축 해제한다.</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Stage 1. Create custom JRE</span>
+FROM amazoncorretto:21-alpine AS jrebuilder
+
+<span class="c"># Add the application jar to the container</span>
+COPY ./build/libs/hello-docker-<span class="k">*</span><span class="nt">-SNAPSHOT</span>.jar /app.jar
+
+<span class="c"># Install binutils</span>
+RUN apk add <span class="nt">--no-cache</span> binutils
+
+<span class="c"># Extract jar file and generate custom JRE using dependency</span>
+RUN <span class="nb">mkdir</span> <span class="nt">-p</span> /app <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">cd</span> /app<span class="p">;</span> jar <span class="nt">-xf</span> /app.jar<span class="o">)</span> <span class="se">\</span>
+	<span class="o">&amp;&amp;</span> <span class="nv">DEPENDENCY</span><span class="o">=</span><span class="si">$(</span>jdeps <span class="nt">--ignore-missing-deps</span> <span class="nt">--print-module-deps</span> <span class="nt">--recursive</span> <span class="nt">--multi-release</span> 21 <span class="nt">--class-path</span><span class="o">=</span><span class="s2">"/app/BOOT-INF/lib/*"</span> /app.jar<span class="si">)</span> <span class="se">\</span>
+	<span class="o">&amp;&amp;</span> <span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>/bin/jlink <span class="se">\</span>
+		<span class="nt">--verbose</span> <span class="se">\</span>
+		<span class="nt">--add-modules</span> <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span> <span class="se">\</span>
+		<span class="nt">--strip-debug</span> <span class="se">\</span>
+		<span class="nt">--no-man-pages</span> <span class="se">\</span>
+		<span class="nt">--no-header-files</span> <span class="se">\</span>
+		<span class="nt">--compress</span><span class="o">=</span>2 <span class="se">\</span>
+		<span class="nt">--output</span> <span class="se">\</span>
+		customjre
+</code></pre></div></div>
+
+<h2 id="image">Image</h2>
+<ul>
+  <li>Custom JRE는 JDK에서 필요한 의존성만 추출해야 하므로 기본 이미지는 JDK 이미지로 사용하고, jrebuilder로 명명한다.</li>
+</ul>
+
+<h2 id="copy-application">Copy application</h2>
+<ul>
+  <li>Gradle을 이용하여 빌드된 jar파일은 /build/libs/ 경로 아래 생성되며, 해당 jar 파일을 사용하기 위해 컨테이너 내부로 복사한다.</li>
+</ul>
+
+<h2 id="install-binutils">Install Binutils<sup id="fnref:Binutils" role="doc-noteref"><a href="#fn:Binutils" class="footnote" rel="footnote">4</a></sup></h2>
+<ul>
+  <li>컨테이너 내부에서 jlink 명령어를 사용하기 위해서 objcopy가 필요한데, 이는 binutils를 설치하여 사용할 수 있다.</li>
+  <li>만일 해당 부분을 설치하지 않는다면 아래의 오류를 마주할 수 있다.
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Error: java.io.IOException: Cannot run program <span class="s2">"objcopy"</span>: <span class="nv">error</span><span class="o">=</span>2, No such file or directory
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="generate-custom-jre">Generate custom JRE</h2>
+<ul>
+  <li>이제 가장 중요한 Custom JRE를 만드는 부분이다.</li>
+  <li>“/app” 폴더를 만든 후 해당 경로에 애플리케이션 jar 파일을 압축 해제해준다.</li>
+  <li>빌드된 jar 파일 구성은 아래와 같다.
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./hello-docker
+├─ /BOOT-INF
+│  ├─ /classes <span class="c">## Folder where the class file where the</span>
+│  │           <span class="c">## JAVA file is compiled is stored.</span>
+│  └─ /lib     <span class="c">## Folder where the dependency injected jar</span>
+│              <span class="c">## library is stored.</span>
+├─ /META-INF   <span class="c">## Folder where the meta data and setting data.</span>
+└─ /org
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="jdeps">Jdeps<sup id="fnref:Jdeps" role="doc-noteref"><a href="#fn:Jdeps" class="footnote" rel="footnote">5</a></sup></h3>
+<ul>
+  <li>Jdeps는 JAVA Class의 의존성 분석을 위한 도구로, 모듈화가 적용된 JAVA 9 버전 이상부터 사용이 가능하다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Option</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">–ignore-missing-deps</td>
+      <td style="text-align: left">외존성이 존재하지 않는 모듈은 제외.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–print-module-deps</td>
+      <td style="text-align: left">Jlink에서 요구하는 포멧에 맞는 쉼표로 구분된 모듈 의존성 목록을 출력.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–recursive</td>
+      <td style="text-align: left">모든 런타임 종속성을 재귀적으로 탐색.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–multi-release ${VERSION}</td>
+      <td style="text-align: left">의존성을 분석할 JAVA 버전을 ${VERSION}에 명시. 단, 모듈화가 적용된 9 버전 이상만 적용.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–class-path=”${PATH}”</td>
+      <td style="text-align: left">의존성을 분석할 class 파일들을 찾을 위치를 ${PATH}에 지정.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="jlink">Jlink<sup id="fnref:Jlink" role="doc-noteref"><a href="#fn:Jlink" class="footnote" rel="footnote">6</a></sup></h3>
+<ul>
+  <li>Jlink는 Jdeps를 이용하여 분석된 의존성을 활용하여 최적화된 Custom JRE를 구성할 수 있는 도구이다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Option</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">–verbose</td>
+      <td style="text-align: left">진행 중 상세 내역을 출력.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–add-modules ${DEPENDENCY}</td>
+      <td style="text-align: left">jdeps를 이용하여 분석한 쉼표로 구분된 모듈 의존성 목록</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–strip-debug</td>
+      <td style="text-align: left">디버그 정보를 제거.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–no-man-pages</td>
+      <td style="text-align: left">man page(특정 명령이나 자원들의 메뉴얼을 출력하는 영역) 미사용.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–no-header-files</td>
+      <td style="text-align: left">header files(로직이 저장된 파일) 미사용.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–compress=2</td>
+      <td style="text-align: left">리소스 압축 여부. 0 : 미사용, 1 : 상수 문자열 공유, 2 : 압축을 의미하며, 보편적으로 2를 사용.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">–output=${PATH}</td>
+      <td style="text-align: left">리소스를 저장할 위치를 ${PATH}에 지정.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="stage-2">Stage 2</h1>
+<ul>
+  <li>Stage 2에서는 Stage 1에서 분석된 의존성을 통해 완성된 Custom JRE와 압축 해제한 jar에서 필요한 파일로 이미지를 구성하여 경량화된 JAVA 애플리케이션 컨테이너를 구성한다.</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Stage 2. Make container for application</span>
+FROM alpine:3.20
+ENV <span class="nv">JAVA_HOME</span><span class="o">=</span>/jre
+ENV <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span><span class="s2">/bin:</span><span class="k">${</span><span class="nv">PATH</span><span class="k">}</span><span class="s2">"</span>
+ARG <span class="nv">DEPENDENCY</span><span class="o">=</span>/app
+
+<span class="c"># Add Maintainer Info</span>
+LABEL <span class="nv">maintainer</span><span class="o">=</span><span class="s2">"GracefulSoul on &lt;gracefulsoul@github.com&gt;"</span>
+
+<span class="c"># Copy custom JRE</span>
+COPY <span class="nt">--from</span><span class="o">=</span>jrebuilder /customjre <span class="k">${</span><span class="nv">JAVA_HOME</span><span class="k">}</span>
+
+<span class="c"># Copy extract files in jar</span>
+COPY <span class="nt">--from</span><span class="o">=</span>jrebuilder <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/BOOT-INF/lib <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/lib
+COPY <span class="nt">--from</span><span class="o">=</span>jrebuilder <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/META-INF <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/META-INF
+COPY <span class="nt">--from</span><span class="o">=</span>jrebuilder <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>/BOOT-INF/classes <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>
+
+<span class="c"># Move work directory</span>
+WORKDIR <span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span>
+
+<span class="c"># Run application</span>
+ENTRYPOINT <span class="o">[</span> <span class="s2">"java"</span>, <span class="s2">"-cp"</span>, <span class="s2">"</span><span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">DEPENDENCY</span><span class="k">}</span><span class="s2">/lib/*"</span>, <span class="s2">"gracefulsoul.HelloDockerApplication"</span> <span class="o">]</span>
+</code></pre></div></div>
+
+<h2 id="image-1">Image</h2>
+<ul>
+  <li>Stage 1에서 Custom JRE를 만들었으므로, 경량화된 Alpine Linux<sup id="fnref:Alpine_Linux" role="doc-noteref"><a href="#fn:Alpine_Linux" class="footnote" rel="footnote">7</a></sup> 이미지를 아래의 환경 설정을 이용하여 사용한다.</li>
+  <li>JAVA_HOME 환경 변수를 추가하기 위하여 JAVA_HOME은 “/jre”로 준 후 PATH에 “JAVA_HOME/bin”을 추가한다.</li>
+  <li>“/app” 폴더를 전역 변수로 사용하기 위한 DEPENDENCY를 정의한다.</li>
+</ul>
+
+<h2 id="copy-custom-jre">Copy custom JRE</h2>
+<ul>
+  <li>Stage 1에서 생성한 Custom JRE가 저장된 “/customjre” 폴더를 “/jre”로 복사한다.</li>
+</ul>
+
+<h2 id="copy-extract-files-in-jar">Copy extract files in jar</h2>
+<ul>
+  <li>jar 파일에서 JAVA 애플리케이션 구동을 위해 필요한 아래의 폴더들을 복사한다.</li>
+  <li>의존성 주입된 Library가 저장된 “/app/BOOT-INF/lib” 폴더를 “/app/lib” 폴더로 복사한다.</li>
+  <li>메타 데이터와 설정 정보를 저장된 “/app/META-INF” 폴더를 “/app/META-INF” 폴더로 복사한다.</li>
+  <li>컴파일된 class 파일이 저장된 “/app/BOOT-INF/classes” 폴더를 “/app” 폴더로 복사한다.</li>
+</ul>
+
+<h2 id="move-work-directory">Move work directory</h2>
+<ul>
+  <li>JAVA 애플리케이션 실행 위치인 “/app” 위치를 컨테이너 기본 위치로 설정한다.</li>
+</ul>
+
+<h2 id="run-application">Run application</h2>
+<ul>
+  <li>ENTRYPOINT인 컨테이너가 실행될 때 기본으로 동작하는 명령어는 아래의 조합으로 완성한다.</li>
+  <li>“java” 명령어는 JAVA 애플리케이션 실행을 위한 명령어이다.</li>
+  <li>“-cp /app:/app/lib/<em>“은 classpath를 지정하는 명령어로, 컴파일된 class 파일 루트 위치인 “/app”과 의존성으로 추가된 Library들을 포함하는 “/app/lib/</em>“을 이어준다.</li>
+  <li>실행하고자 하는 Main Class 이름을 “package.className” 형태인 “gracefulsoul.HelloDockerApplication”로 정의한다.</li>
+</ul>
+
+<h1 id="정리">정리</h1>
+<ul>
+  <li>위에서 하나씩 살펴본 JAVA 애플리케이션 경량화 Docker Conatiner는 MSA 구성에 있어서 아주 기본적인 서비스 빌드 방법의 하나를 살펴보았다.</li>
+  <li>애플리케이션을 돌리기 위한 컨테이너는 동작에 필요한 최소한의 리소스를 이용한 컨테이너 경량화는 배포 크기의 감소와 성능 향상, 비용 감소 등의 이점이 있으므로 선택이 아닌 필수이다.</li>
+</ul>
+
+<h1 id="다음">다음</h1>
+<p><a href="../lightweight-jdk-docker-II" target="_blank">Custom JRE로 경령화된 Dockering II</a></p>
+
+<h1 id="reference">Reference</h1>
+<p>※ Sample Code는 <a href="https://github.com/GracefulSoul/lightweight-jdk-docker" target="_blank">여기</a>에서 확인 가능합니다.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Dockerizng" role="doc-endnote">
+      <p><a href="https://spring.io/guides/gs/spring-boot-docker" target="_blank">Spring-Boot-Docker_Springio-Guides</a> <a href="#fnref:Dockerizng" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Amazon_Crretto_JDK" role="doc-endnote">
+      <p><a href="https://aws.amazon.com/corretto" target="_blank">Amazon-Crretto</a> <a href="#fnref:Amazon_Crretto_JDK" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Multi-Stage-builds" role="doc-endnote">
+      <p><a href="https://docs.docker.com/build/building/multi-stage/" target="_blank">Multi-Stage-builds-Docker</a> <a href="#fnref:Multi-Stage-builds" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Binutils" role="doc-endnote">
+      <p><a href="https://www.gnu.org/software/binutils/" target="_blank">Binutils</a> <a href="#fnref:Binutils" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Jdeps" role="doc-endnote">
+      <p><a href="https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeps.html" target="_blank">Jdeps_Oracle-Document</a> <a href="#fnref:Jdeps" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Jlink" role="doc-endnote">
+      <p><a href="https://docs.oracle.com/en/java/javase/21/docs/specs/man/jlink.html" target="_blank">Jlink_Oracle-Document</a> <a href="#fnref:Jlink" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Alpine_Linux" role="doc-endnote">
+      <p><a href="https://en.wikipedia.org/wiki/Alpine_Linux" target="_blank">Alpine_Linux-Wiki</a> <a href="#fnref:Alpine_Linux" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#docker" class="page__taxonomy-item" rel="tag">Docker</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jdeps" class="page__taxonomy-item" rel="tag">Jdeps</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jlink" class="page__taxonomy-item" rel="tag">Jlink</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2024-11-05">November 5, 2024</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/string-compression-iii/" class="pagination--pager" title="Leetcode Java String Compression III
+">이전</a>
+    
+    
+      <a href="/leetcode/minimum-number-of-changes-to-make-binary-string-beautiful/" class="pagination--pager" title="Leetcode Java Minimum Number of Changes to Make Binary String Beautiful
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/closest-prime-numbers-in-range/" rel="permalink">Leetcode Java Closest Prime Numbers in Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Closest Prime Numbers in Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/find-missing-and-repeated-values/" rel="permalink">Leetcode Java Count Total Number of Colored Cells
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 06 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Total Number of Colored Cells’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-total-number-of-colored-cells/" rel="permalink">Leetcode Java Count Total Number of Colored Cells
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 05 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Total Number of Colored Cells’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/check-if-number-is-a-sum-of-powers-of-three/" rel="permalink">Leetcode Java Check if Number is a Sum of Powers of Three
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 04 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Check if Number is a Sum of Powers of Three’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2025 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
