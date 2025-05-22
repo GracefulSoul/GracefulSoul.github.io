@@ -35,6 +35,7 @@ toc_sticky: true
 
 ## Setting
 - Layered 기능을 사용하기 위해서는 아래와 같이 빌드 툴 별 설정이 필요하지만, Spring Boot 2.3.0 부터 빌드 툴의 설정 없이 사용이 가능하다.
+
 ### Maven(pom.xml)
 ```xml
 <project>
@@ -54,6 +55,7 @@ toc_sticky: true
   </build>
 </project>
 ```
+
 ### Gradle(build.gradle)
 ```
 bootJar {
@@ -63,6 +65,7 @@ bootJar {
 
 ## Structure
 - 기본적으로 사용하는 구조는 "/BOOT-INF/layers.idx"에 아래와 같이 정의된다.
+
 ```sh
 - "dependencies":
   - "BOOT-INF/lib/"
@@ -78,6 +81,7 @@ bootJar {
 
 ## Customizing
 - 필요에 따라 각 빌드 툴 별 설정 방식으로 layer를 정의하여 사용할 수 있다.
+
 ### Maven(layer.xml)
 ```xml
 <layers xmlns="http://www.springframework.org/schema/boot/layers"
@@ -108,6 +112,7 @@ bootJar {
   </layerOrder>
 </layers>
 ```
+
 ### Gradle(build.gradle)
 ```
 bootJar {
@@ -134,6 +139,7 @@ bootJar {
 
 # Dockerfile
 - 기존 방식과 Layered Jars와 차이를 분석한다.
+
 ## Stage 1
 ```sh
 # Stage 1. Create custom JRE
@@ -158,10 +164,11 @@ RUN java -Djarmode=tools -jar app.jar extract --layers --launcher \
     --output customjre
 ```
 - 이전에는 jar 명령어를 이용하여 압축 해제한 폴더를 사용했다면, 이번에는 java 명령어 내 "jarmode" 중 "tools"를 사용하여 압축을 해제한다.
-| Option | Description |
-|:--------|:--------|
-| --launcher | 스프링 부트 런처 추출. |
-| --layers | 레이어를 활용한 추출. |
+
+  | Option | Description |
+  |:--------|:--------|
+  | --launcher | 스프링 부트 런처 추출. |
+  | --layers | 레이어를 활용한 추출. |
 
 ## Stage 2
 ```sh
