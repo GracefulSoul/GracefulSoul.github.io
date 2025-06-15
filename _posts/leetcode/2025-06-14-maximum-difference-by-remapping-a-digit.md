@@ -55,7 +55,7 @@ class Solution {
 [Link](https://leetcode.com/problems/maximum-difference-by-remapping-a-digit/submissions/1663575192/){:target="_blank"}
 
 # 설명
-1. num의 숫자들 중 하나의 숫자를 선택하여 [0, 9]로 바꾸었을 때 최댓값과 최솟값을 구한 후, 두 값의 차잇값을 구하는 문제이다.
+1. num의 숫자들 중 하나의 숫자를 선택하여 [0, 9] 범위 내 숫자로 바꾸었을 때 최댓값과 최솟값을 구한 후, 두 값의 차잇값을 구하는 문제이다.
 
 2. 문제 풀이에 필요한 변수를 정의한다.
 - str은 num을 문자열로 변환한 변수이다.
