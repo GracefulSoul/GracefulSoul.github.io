@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/maximum-matching-of-players-with-trainers/){:target="_blank"}
+[Link](https://leetcode.com/problems/valid-word/){:target="_blank"}
 
 # 코드
 ```java
