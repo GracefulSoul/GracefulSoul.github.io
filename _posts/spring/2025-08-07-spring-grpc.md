@@ -225,8 +225,8 @@ public class GrpcServerService extends HelloGrpc.HelloImplBase {
 ```
 - 서버에서 각 호출에 대해서 응답을 제공하기 위한 RPC를 Hello service를 구현한 가장 기본 객체인 HelloImplBase를 상속받아 구현하였다.
 - 주요 차이점은 아래와 같다.
-  - sayHello(Request request, StreamObserver<Reply> responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 reply를 한 번에 전달하고 전송을 종료한다.
-  - streamHello(Request request, StreamObserver<Reply> responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 원하는만큼 분할하여 여러 번 전송하고 전송을 종료한다.
+  - sayHello(Request request, StreamObserver\<Reply\> responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 reply를 한 번에 전달하고 전송을 종료한다.
+  - streamHello(Request request, StreamObserver\<Reply\> responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 원하는만큼 분할하여 여러 번 전송하고 전송을 종료한다.
 
 ## GrpcClientApplication.java (Client)
 ```java
