@@ -46,9 +46,9 @@ message Reply {
 ```
 - syntax는 Protocol buffer의 사용 버전을 명시하며, proto2 혹은 proto3를 반드시 명시한다.
 - option은 세부 설정을 위한 기능으로, 아래 세 가지를 정의하였다.
-  - java_package는 Java 혹은 Kotlin 코드를 생성할 때, 패키지 이름을 정의한다.
-  - "java_multiple_files"은 Java 코드를 생성할 때, .proto 파일을 단일 .java 파일로 생성할지 각 Java Class, Enum 등에 대해서 각각 생성할지 결정하는 설정으로 기본값은 false인 단일 .java 파일로 생성한다.
-  - java_outer_classname는 Java 코드를 생성할 때, .proto 파일을 .java 파일로 생성할 때 이름을 결정하기 위한 설정으로 기본값은 .proto 파일의 이름을 카멜 표현식으로 변환한 값이다.
+  - 'java_package는' Java 혹은 Kotlin 코드를 생성할 때, 패키지 이름을 정의한다.
+  - 'java_multiple_files'은 Java 코드를 생성할 때, .proto 파일을 단일 .java 파일로 생성할지 각 Java Class, Enum 등에 대해서 각각 생성할지 결정하는 설정으로 기본값은 false인 단일 .java 파일로 생성한다.
+  - 'java_outer_classname'는 Java 코드를 생성할 때, .proto 파일을 .java 파일로 생성할 때 이름을 결정하기 위한 설정으로 기본값은 .proto 파일의 이름을 카멜 표현식으로 변환한 값이다.
 - service는 message 타입을 RPC과 함께 사용하기 위해 서비스 인터페이스를 정의하면 Protocol buffer 컴파일러가 선택한 언어로 서비스 인터페이스 코드와 Client와 Server 간의 통신을 추상화하여 복잡한 부분을 숨기고, 사용자가 편리하게 서비스를 이용할 수 있도록 돕기위한 코드인 stubs을 생성한다.
   - rpc 키워드를 통해서 각 RPC를 정의하고, 반환되는 값에 stream 유무의 차이는 단일 응답인지 Streaming 응답인지를 구분하기 위한 키워드이다.
 - message는 Client와 Server 간의 주고 받을 내용을 정의하는 데이터 구조로, 필드(field)와 값(value)으로 구성된 구조화된 데이터 형식을 사용한다.
