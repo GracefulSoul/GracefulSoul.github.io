@@ -17,7 +17,7 @@ toc_sticky: true
 use_math: true
 ---
 # 문제
-[Link](https://leetcode.com/problems/fruits-into-baskets-ii/){:target="_blank"}
+[Link](https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/){:target="_blank"}
 
 # 코드
 ```java
