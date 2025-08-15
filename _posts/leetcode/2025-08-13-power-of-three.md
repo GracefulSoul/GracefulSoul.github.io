@@ -38,7 +38,7 @@ class Solution {
 ```
 
 # 결과
-[Link](https://leetcode.com/submissions/detail/1733532865/){:target="_blank"}
+[Link](https://leetcode.com/problems/power-of-three/submissions/1733532865/){:target="_blank"}
 
 # 설명
 1. 주어진 정수가 n이 $3^x$인 3의 제곱수인지를 검증하는 문제이다.
