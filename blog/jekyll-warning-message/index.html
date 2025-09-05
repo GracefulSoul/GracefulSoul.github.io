@@ -1,0 +1,953 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Jekyll Warning: Using the last argument as keyword parameters is deprecated - Development story</title>
+<meta name="description" content="Jekyll Build 시, ‘Warning: Using the last argument as keyword parameters is deprecated’ 메시지 제거를 위한 처리와 방법">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Jekyll Warning: Using the last argument as keyword parameters is deprecated">
+<meta property="og:url" content="/blog/jekyll-warning-message/">
+
+
+  <meta property="og:description" content="Jekyll Build 시, ‘Warning: Using the last argument as keyword parameters is deprecated’ 메시지 제거를 위한 처리와 방법">
+
+
+
+  <meta property="og:image" content="/assets/images/blog/jekyll-warning-message/jekyll-warning-message.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-04-27T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-04-27T23:50:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/blog/jekyll-warning-message/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/blog/jekyll-warning-message/jekyll-warning-message.png" alt="Jekyll Warning: Using the last argument as keyword parameters is deprecated" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Jekyll Warning: Using the last argument as keyword parameters is deprecated">
+    <meta itemprop="description" content="Jekyll Build 시, ‘Warning: Using the last argument as keyword parameters is deprecated’ 메시지 제거를 위한 처리와 방법">
+    <meta itemprop="datePublished" content="2021-04-27T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-04-27T23:50:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Jekyll Warning: Using the last argument as keyword parameters is deprecated
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-04-27T00:00:00+00:00">April 27, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#warning-using-the-last-argument-as-keyword-parameters-is-deprecated">Warning: Using the last argument as keyword parameters is deprecated</a></li><li><a href="#ruby-version">Ruby version</a></li><li><a href="#plugin-version">Plugin version</a><ul><li><a href="#github-pages">Github Pages?</a></li><li><a href="#github-actions">Github Actions?</a><ul><li><a href="#github-actions---workflowyml">Github Actions - workflow.yml</a></li><li><a href="#github-actions---actions">Github Actions - actions</a><ul><li><a href="#github-actions---actionsyml">Github Actions - actions.yml</a></li><li><a href="#github-actions---dockerfile">Github Actions - Dockerfile</a></li><li><a href="#github-actions---entrypointsh">Github Actions - entrypoint.sh</a></li></ul></li></ul></li></ul></li><li><a href="#the-end">The end</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="warning-using-the-last-argument-as-keyword-parameters-is-deprecated">Warning: Using the last argument as keyword parameters is deprecated</h1>
+<ul>
+  <li>bunlde exec jekyll [serve/build] 등의 명령어를 사용해본 사람들 중 해당 메시지가 Console창에 끝도없이 출력되는 모습을 본 적이 있을 것이다.</li>
+  <li>모든 사람들이 이 문구를 보고 파악한 가장 큰 문제는 deprecated된 keyword parameters로, 무언가의 상하위 호환에 대한 오류인 점을 알 수 있을 것이다.</li>
+  <li>하지만 정확히 이 지긋지긋한 메시지를 제거하기 위한 명확한 가이드라인을 검색해서 찾아 해결하기 상당히 귀찮을 것이다. 해서, 이 불필요한 로그를 제거하는 방법을 공유하고자 한다.</li>
+</ul>
+
+<h1 id="ruby-version">Ruby version</h1>
+<ul>
+  <li>루비는 처음부터 2.7을 사용하였고, 시작부터 해당 이슈가 있었기에 근본 문제부터 찾아보기로 한다.
+<a href="https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/" target="_blank"><img src="../../assets/images/blog/jekyll-warning-message/separation-of-positional-and-keyword-arguments-in-ruby-3x.png" alt="separation-of-positional-and-keyword-arguments-in-ruby-3x.png" /></a></li>
+  <li>위의 문제는 손쉽게 위의 사진에 표시된 내용임 확인 할 수 있었다.(링크로 본문이 연결된다.)</li>
+  <li>주요 내용은 “Ruby 3.0 이후에서는 위치 인수와 키워드 인수가 분리되므로 2.7 버전에서는 이에 대한 경고를 하여 코드를 수정해야 한다.”는 내용이다.</li>
+  <li>해결 방법 1안은 루비 버전을 내려서 메시지가 출력되지 않게 하는 방법이 있을 것이다.</li>
+  <li>해결 방법 2안은 사용하는 버전의 Plugin등을 사용하는 방법이 있을 것이다.</li>
+  <li>1안은 미래 지향적으로 좋은 방법은 아닐 것으로 판단하고 2안으로 탐색하고 진행하였다.</li>
+</ul>
+
+<h1 id="plugin-version">Plugin version</h1>
+<ul>
+  <li>Jekyll 버전은 3.6.2를 고정으로 사용했으나, 3.x 버전이 다 해당 문제가 발생함을 확인하였다.
+<a href="https://github.com/github/pages-gem/issues/651" target="_blank"><img src="../../assets/images/blog/jekyll-warning-message/github-pages-support-for-jekyll-4x.png" alt="github-pages-support-for-jekyll-4x.png" /></a></li>
+  <li>결국 Jekyll을 4.x로 올리는 방향을 고민하였지만, 역시나 여기에도 위의 함정이 있었다.(링크로 본문이 연결된다.)</li>
+</ul>
+
+<h2 id="github-pages">Github Pages?</h2>
+<ul>
+  <li><a href="https://pages.github.com/" target="_blank">Github Pages</a>는 Github 저장소에 Commit한 내용을 웹사이트로 자동으로 만들어 주는 서비스이다.</li>
+  <li>그럼 이 Github Pages를 사용하지 않으면 블로그 운영이 불가능한 할까? 물론 아니다.</li>
+  <li>하지만 이 문제는 Github Actions를 통해 해결이 가능한 문제임을 댓글들을 읽다보면 확인 가능하다.</li>
+</ul>
+
+<h2 id="github-actions">Github Actions?</h2>
+<ul>
+  <li><a href="https://docs.github.com/en/actions" target="_blank">Github Actions</a>는 Software의 Workflow를 자동화 및 커스터마이징하여 CI/CD 등의 원하는 작업을 직접 구현할 수 있는 도구를 제공하는 서비스를 말한다.</li>
+  <li>그럼 Github Pages를 통해 자동화 서비스를 받던 부분을 Github Actions로 구현하면 되는 부분이다.</li>
+</ul>
+
+<h3 id="github-actions---workflowyml">Github Actions - workflow.yml</h3>
+<ul>
+  <li>Github Actions의 중심 파일은 workflow.yml 파일이다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># This is the name of our workflow.</span>
+<span class="c1"># Github will show it on its Website UI</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">deploy</span>
+<span class="c1"># This configures our workflow to be triggered</span>
+<span class="c1"># only when we push to the master branch</span>
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">master</span>
+
+<span class="c1"># Here is where we define our jobs.</span>
+<span class="c1"># Which means the tasks we want Github to execute</span>
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">deploy</span>
+    <span class="c1"># Here we specify in whith OS we want it to run</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-18.04</span>
+    <span class="c1"># Now we define which actions will take place.</span>
+    <span class="c1"># One after another</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="c1"># This is the first action. It will make sure that we have</span>
+      <span class="c1"># all the necessary files from our repo, including our custom actions</span>
+      <span class="c1"># This action here is actually from a remote repo available from Githup itself</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+      <span class="c1"># This is our custom action. Here is where we will define our git commands</span>
+      <span class="c1"># to push our website updates to the `gh-pages` branch.</span>
+      <span class="c1"># Notice that we are specifying the path to the action here.</span>
+      <span class="c1"># We will create those files in a sec</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">./.github/actions/build-dist-site</span>
+        <span class="na">env</span><span class="pi">:</span>
+          <span class="c1"># Now make sure you add this environment variable.</span>
+          <span class="c1"># This token will allow us to push to github directly</span>
+          <span class="c1"># without having to type in our password.</span>
+          <span class="c1"># The GITHUB_TOKEN is available by default </span>
+          <span class="na">GITHUB_TOKEN</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">GITHUB_REPOSITORY</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">GITHUB_ACTOR</span><span class="pi">:</span> <span class="s">$</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이 파일은 /.github/workflows/ 폴더 내에 존재해야 자동으로 인식한다.</li>
+  <li>secrets.GITHUB_TOKEN, secrets.GITHUB_REPOSITORY, secrets.GITHUB_ACTOR는 workflow 진행 시, 자동으로 제공되는 환경변수이다.</li>
+</ul>
+
+<h3 id="github-actions---actions">Github Actions - actions</h3>
+<ul>
+  <li>workflow의 jobs.build.steps.uses 항목을 보면 알 수 있듯이 workflow에 대한 actions를 정의해야 한다.</li>
+  <li>actions는 action.yml, Dockerfile, entrypoint.sh 세 가지로 구성하였다.
+<img src="../../assets/images/blog/jekyll-warning-message/choose-a-workflow-template.png" alt="choose-a-workflow-template.png" /></li>
+  <li>Docker 기반이 아닌 Node.js 기반 등 다양한 환경의 actions가 제공이 되므로, 위의 내용을 보기 위해서는 Github -&gt; Repository -&gt; Actions에서 확인 가능하므로 참고바란다.</li>
+</ul>
+
+<h4 id="github-actions---actionsyml">Github Actions - actions.yml</h4>
+<ul>
+  <li>actions.yml 파일은 새 사이트 버전을 빌드하기 위한 행위를 설정한다.</li>
+  <li>물론 위에서 설명하였듯이 Docker 기반으로 빌드를 진행하도록 하였다.</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Ok, here the keys are pretty much self explanatory :)</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Deploy</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">version'</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Setup</span><span class="nv"> </span><span class="s">Ruby</span><span class="nv"> </span><span class="s">env</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">build</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">site</span><span class="nv"> </span><span class="s">version'</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s1">'</span><span class="s">GracefulSoul'</span>
+<span class="na">runs</span><span class="pi">:</span>
+  <span class="na">using</span><span class="pi">:</span> <span class="s1">'</span><span class="s">docker'</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Dockerfile'</span>
+</code></pre></div></div>
+
+<h4 id="github-actions---dockerfile">Github Actions - Dockerfile</h4>
+<ul>
+  <li>Docker 기반으로 빌드하기 위한 기본 Dockerfile이다.</li>
+  <li>기본으로 ruby:2-slim image 기반으로 구성한다.</li>
+  <li>마지막으로 ENTRYPOINT를 이용하여 shell file을 Docker가 실행되면 자동으로 수행하도록 해준다.</li>
+</ul>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Our Docker image will be based on ruby:2-slim</span>
+<span class="c"># it is a very light docker image.</span>
+<span class="k">FROM</span><span class="s"> ruby:2-slim</span>
+<span class="k">LABEL</span><span class="s"> author="GracefulSoul"</span>
+<span class="k">LABEL</span><span class="s"> version="1.0.0"</span>
+
+<span class="c"># Lets install all dependencies</span>
+<span class="c"># including git and Bundler 2.1.4</span>
+<span class="k">ENV</span><span class="s"> BUNDLER_VERSION 2.1.4</span>
+<span class="k">RUN </span>apt-get update <span class="o">&amp;&amp;</span> <span class="se">\
+</span>  apt-get <span class="nb">install</span> <span class="nt">--no-install-recommends</span> <span class="nt">-y</span> <span class="se">\
+</span>  bats <span class="se">\
+</span>  build-essential <span class="se">\
+</span>  ca-certificates <span class="se">\
+</span>  curl <span class="se">\
+</span>  libffi6 <span class="se">\
+</span>  make <span class="se">\
+</span>  shellcheck <span class="se">\
+</span>  libffi6 <span class="se">\
+</span>  git-all <span class="se">\
+</span>  <span class="o">&amp;&amp;</span> gem <span class="nb">install </span>bundler:2.1.4 <span class="se">\
+</span>  <span class="o">&amp;&amp;</span> bundle config <span class="nt">--global</span> silence_root_warning 1
+
+<span class="c"># This is our entrypoint to our custom scripts</span>
+<span class="c"># more about that in a sec</span>
+<span class="k">COPY</span><span class="s"> entrypoint.sh /</span>
+
+<span class="c"># Use the entrypoint.sh file as the container entrypoint</span>
+<span class="c"># when Github executes our Docker container</span>
+<span class="k">ENTRYPOINT</span><span class="s"> ["sh", "/entrypoint.sh"]</span>
+</code></pre></div></div>
+
+<h4 id="github-actions---entrypointsh">Github Actions - entrypoint.sh</h4>
+<ul>
+  <li>초기 환경 변수를 선언한 부분이 이 부분에서 자동으로 Repository를 clone하여 build를 수행한다.</li>
+  <li>사용자 구성에 따라서 “Jekyll build done” 이후 blog project가 생성되는 폴더의 위치로 이동시켜주면 된다.</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Exit immediately if a pipeline returns a non-zero status.</span>
+<span class="nb">set</span> <span class="nt">-e</span>
+
+<span class="nb">echo</span> <span class="s2">"🚀 Starting deployment action"</span>
+
+<span class="c"># Here we are using the variables</span>
+<span class="c"># - GITHUB_ACTOR: It is already made available for us by Github. It is the username of whom triggered the action</span>
+<span class="c"># - GITHUB_TOKEN: That one was intentionally injected by us in our workflow file.</span>
+<span class="c"># Creating the repository URL in this way will allow us to `git push` without providing a password</span>
+<span class="c"># All thanks to the GITHUB_TOKEN that will grant us access to the repository</span>
+<span class="nv">REMOTE_REPO</span><span class="o">=</span><span class="s2">"https://</span><span class="k">${</span><span class="nv">GITHUB_ACTOR</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">GITHUB_TOKEN</span><span class="k">}</span><span class="s2">@github.com/</span><span class="k">${</span><span class="nv">GITHUB_REPOSITORY</span><span class="k">}</span><span class="s2">.git"</span>
+
+<span class="c"># We need to clone the repo here.</span>
+<span class="c"># Remember, our Docker container is practically pristine at this point</span>
+git clone <span class="nv">$REMOTE_REPO</span> repo
+<span class="nb">cd </span>repo
+
+<span class="c"># Install all of our dependencies inside the container</span>
+<span class="c"># based on the git repository Gemfile</span>
+<span class="nb">echo</span> <span class="s2">"⚡️ Installing project dependencies..."</span>
+bundle <span class="nb">install</span>
+
+<span class="c"># Build the website using Jekyll</span>
+<span class="nb">echo</span> <span class="s2">"🏋️ Building website..."</span>
+<span class="nv">JEKYLL_ENV</span><span class="o">=</span>production
+bundle <span class="nb">exec </span>jekyll build
+<span class="nb">echo</span> <span class="s2">"Jekyll build done"</span>
+
+<span class="c"># Now lets go to the generated folder by Jekyll</span>
+<span class="c"># and perform everything else from there</span>
+<span class="nb">cd</span> ../posts
+
+<span class="nb">echo</span> <span class="s2">"☁️ Publishing website"</span>
+
+<span class="c"># We don't need the README.md file on this branch</span>
+<span class="nb">rm</span> <span class="nt">-f</span> README.md
+
+<span class="c"># Now we init a new git repository inside _site</span>
+<span class="c"># So we can perform a commit</span>
+git init
+git config user.name <span class="s2">"</span><span class="k">${</span><span class="nv">GITHUB_ACTOR</span><span class="k">}</span><span class="s2">"</span>
+git config user.email <span class="s2">"</span><span class="k">${</span><span class="nv">GITHUB_ACTOR</span><span class="k">}</span><span class="s2">@users.noreply.github.com"</span>
+git add <span class="nb">.</span>
+<span class="c"># That will create a nice commit message with something like:</span>
+<span class="c"># Github Actions - Fri Sep 6 12:32:22 UTC 2019</span>
+git commit <span class="nt">-m</span> <span class="s2">"Github Actions - </span><span class="si">$(</span><span class="nb">date</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">echo</span> <span class="s2">"Build branch ready to go. Pushing to Github..."</span>
+<span class="c"># Force push this update to our gh-pages</span>
+git push <span class="nt">--force</span> <span class="nv">$REMOTE_REPO</span> master:gh-pages
+<span class="c"># Now everything is ready.</span>
+<span class="c"># Lets just be a good citizen and clean-up after ourselves</span>
+<span class="nb">rm</span> <span class="nt">-fr</span> .git
+<span class="nb">cd</span> ..
+<span class="nb">rm</span> <span class="nt">-rf</span> repo
+<span class="nb">echo</span> <span class="s2">"🎉 New version deployed 🎊"</span>
+</code></pre></div></div>
+
+<p><img src="../../assets/images/blog/jekyll-warning-message/gracefulsoul-actions-workflows.png" alt="gracefulsoul-actions-workflows" /></p>
+<ul>
+  <li>내용을 작성 후 git push까지 진행하게 되면, 위의 사진과 같이 자동으로 workflow가 수행되게 된다.</li>
+</ul>
+
+<h1 id="the-end">The end</h1>
+<ul>
+  <li>만일 모르고 Ruby 2.7이 EoS(End of Service)되고 3.0으로 올렸을 경우, 큰 문제에 직면했을 가능성이 있다.<br />
+<a href="https://www.ruby-lang.org/en/downloads/branches/" target="_blank"><img src="../../assets/images/blog/jekyll-warning-message/ruby-maintenance-branches.png" alt="ruby-maintenance-branches" /></a></li>
+  <li>물론 위의 사진처럼 아직 확정되지 않았지만, Ruby를 사용하고 코딩하는 개발자로서 이는 기본으로 파악해야 할 내용이다.</li>
+  <li>모든 경고 메시지 안에는 추후 발생할 상황을 예측 할 수 있으며, 이를 회피하기 위해서 사전에 해결하는 것이 현명한 방법이다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<p><a href="https://sujaykundu.com/blog/introducing-devlopr-easily-deploy-your-jekyll-blog-using-github-pages-and-github-actions/" target="_blank">Sujay Kundu - github pages와 actions를 사용하여 쉽게 jekyll blog를 배포하기</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#blog" class="page__taxonomy-item" rel="tag">Blog</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jekyll" class="page__taxonomy-item" rel="tag">Jekyll</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#blog" class="page__taxonomy-item" rel="tag">Blog</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-04-27">April 27, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/3sum-closest/" class="pagination--pager" title="Leetcode Java 3sum Closest
+">이전</a>
+    
+    
+      <a href="/leetcode/letter-combinations-of-a-phone-number/" class="pagination--pager" title="Leetcode Java Letter Combinations of a Phone Number
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/minimum-operations-to-make-the-integer-zero/" rel="permalink">Leetcode Java Minimum Operations to Make the Integer Zero
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> September 05 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Minimum Operations to Make the Integer Zero’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k8s/" rel="permalink">K8s(Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> September 02 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K8s(Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/sort-matrix-by-diagonals/" rel="permalink">Leetcode Java Sort Matrix by Diagonals
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> August 28 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Sort Matrix by Diagonals’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/maximum-area-of-longest-diagonal-rectangle/" rel="permalink">Leetcode Java Maximum Area of Longest Diagonal Rectangle
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> August 26 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Maximum Area of Longest Diagonal Rectangle’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2025 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
