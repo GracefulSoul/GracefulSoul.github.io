@@ -1,0 +1,816 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>MinIO Object Storage - Development story</title>
+<meta name="description" content="AWS S3와 완벽히 호환하는 MinIO Object Storage에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="MinIO Object Storage">
+<meta property="og:url" content="/storage/minio/">
+
+
+  <meta property="og:description" content="AWS S3와 완벽히 호환하는 MinIO Object Storage에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/storage/minio.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2024-08-20T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2024-08-20T19:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/storage/minio/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/storage/minio.png" alt="MinIO Object Storage" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="MinIO Object Storage">
+    <meta itemprop="description" content="AWS S3와 완벽히 호환하는 MinIO Object Storage에 대한 설명">
+    <meta itemprop="datePublished" content="2024-08-20T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2024-08-20T19:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">MinIO Object Storage
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2024-08-20T00:00:00+00:00">August 20, 2024</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#주요-특징">주요 특징</a><ul><li><a href="#s3-compatible-storage">S3 Compatible Storage</a></li><li><a href="#multi-site-active-active-replication-for-object-storage">Multi-Site, Active Active Replication for Object Storage</a></li><li><a href="#bucket-and-object-versioning">Bucket and Object Versioning</a></li><li><a href="#enterprise-grade-object-storage-encryption">Enterprise Grade Object Storage Encryption</a></li><li><a href="#minio-enterprise-console-a-window-into-your-data-infrastructure">MinIO Enterprise Console: A Window Into Your Data Infrastructure</a></li><li><a href="#create-an-in-memory-object-store-for-ultra-high-performance-workloads">Create An In-Memory Object Store for Ultra High Performance Workloads</a></li><li><a href="#data-lifecycle-management-and-tiering">Data Lifecycle Management and Tiering</a></li></ul></li><li><a href="#구조">구조</a></li><li><a href="#저장-방식">저장 방식</a><ul><li><a href="#file-system">File System</a></li><li><a href="#erasure-codeec">Erasure Code(EC)</a></li></ul></li><li><a href="#quickstart-for-containers">Quickstart for Containers</a><ul><li><a href="#make-directory-for-storage">Make directory for storage</a></li><li><a href="#run-container-using-podman">Run container using podman</a></li><li><a href="#login">Login</a></li></ul></li><li><a href="#다음">다음</a></li><li><a href="#참고">참고</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+<ul>
+  <li>MinIO는 고성능 Enterprise Object Store(EOS)로 Amazon Web Services S3 기능을 모두 지원하는 객체 스토리지 솔루션이다.</li>
+  <li>주요 라이센스로는 AGPLv3 라이센스로 Open Source 버전과 비교적 자유적인 이점을 제공하는 상용 라이센스인 MinIO Commercial License가 존재한다.</li>
+</ul>
+
+<h1 id="주요-특징">주요 특징</h1>
+<h2 id="s3-compatible-storage">S3 Compatible Storage</h2>
+<p>Amazon S3 API와 완벽하게 호환되도록 설계되었으므로 스토리지 및 ID 관리를 위해 동일한 API 구성을 지원한다.</p>
+
+<h2 id="multi-site-active-active-replication-for-object-storage">Multi-Site, Active Active Replication for Object Storage</h2>
+<p>고가용성(HA) 구성을 지원하여 스토리지 용량과 성능을 확장하고, 다중 클러스터 구성을 통해 대규모 데이터 활용과 장애와 같은 불가항력적인 상황에 데이터를 보호할 수 있다.</p>
+
+<h2 id="bucket-and-object-versioning">Bucket and Object Versioning</h2>
+<p>버전 관리를 통해 사용자는 동일한 버킷에 저장된 모든 객체의 모든 버전을 유지, 검색 및 복원이 가능하다. 설정을 통해 버전 관리 시작 및 중지를 자유롭게 수행하여 의도치 않은 작업으로 부터 데이터를 보호할 수 있다.</p>
+
+<h2 id="enterprise-grade-object-storage-encryption">Enterprise Grade Object Storage Encryption</h2>
+<p>디스크에 저장되거나 네트워크를 통해 전송 될 때 데이터를 AES-256-GCM, ChaCha20-Poly1305 및 AES-CBC와 같은 최신 산업 표준 암호화 알고리즘을 사용하여 암호화하며, AWS 외 Hashicorp Vault, Google Secrets Manager 등의 Key Management Services(KMS)와 연동이 가능하다.</p>
+
+<h2 id="minio-enterprise-console-a-window-into-your-data-infrastructure">MinIO Enterprise Console: A Window Into Your Data Infrastructure</h2>
+<p><img src="../../assets/images/storage/minio/console.png" alt="console" />
+CLI 뿐 아니라 WEB GUI를 제공하여, 각 기능에 대한 권한을 제어할 수 있으며 모니터링과 이벤트를 실시간으로 확인할 수 있다.</p>
+
+<h2 id="create-an-in-memory-object-store-for-ultra-high-performance-workloads">Create An In-Memory Object Store for Ultra High Performance Workloads</h2>
+<p>객체를 캐싱할 수 있는 기능을 자체적으로 제공하여 빠른 검색과 잦은 요청에 대한 부하를 절감할 수 있으며, 노드가 추가되거나 제거될 때 시스템을 정렬하기 위한 셔플링이 최소화된다.</p>
+
+<h2 id="data-lifecycle-management-and-tiering">Data Lifecycle Management and Tiering</h2>
+<p>오브젝트의 생명 주기인 만료를 지정함으로써, 버킷 별 오브젝트 및 태그의 조합을 통해 스토리지 관리를 최적화 할 수 있다.</p>
+
+<h1 id="구조">구조</h1>
+<p><img src="../../assets/images/storage/minio/architecture.png" alt="architecture" /></p>
+<ul>
+  <li>분산 구성의 다중 MinIO를 구성하면, 각 클러스터끼리 RESTful API로</li>
+  <li>독립 구성의 MinIO는 크게 세 부분으로 구성되어 있다.
+    <ul>
+      <li>S3 Layer는 Application으로부터 S3 API를 통해 요청을 수행받는 영역이다.</li>
+      <li>Object Layer는 MinIO에서 제공하는 기능들을 수행하는 영역이다.</li>
+      <li>Storage Layer는 File System에 직접적으로 접근하는 영역이다.</li>
+    </ul>
+  </li>
+  <li>각 Layer간 통신하기 위해 내부적으로 Object API와 Storage API로 통신된다.</li>
+</ul>
+
+<h1 id="저장-방식">저장 방식</h1>
+<h2 id="file-system">File System</h2>
+<p>특정 로컬 스토리지의 위치에 저장 경로를 지정하여 MinIO 서비스를 실행하는 방식으로, 해당  시스템에 대한 독점적인 엑세스가 불가능하므로 권장하는 방식이 아니다.</p>
+<h2 id="erasure-codeec">Erasure Code(EC)</h2>
+<p><img src="../../assets/images/storage/minio/erasure-code.png" alt="erasure-code" /></p>
+
+<p>객체를 데이터와 패리티 셀로 분할하여 오브젝트의 손상을 복구할 때 사용하는 기법을 제공하는 방법으로, 저장소 공간을 절약하면서 안정적으로 저장 및 복원이 가능한 방식이다.</p>
+
+<h1 id="quickstart-for-containers">Quickstart for Containers</h1>
+<h2 id="make-directory-for-storage">Make directory for storage</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> <span class="nt">-p</span> /data
+</code></pre></div></div>
+<ul>
+  <li>MinIO 오브젝트 저장소와 볼륨 마운트할 디렉토리를 생성한다.</li>
+</ul>
+
+<h2 id="run-container-using-podman">Run container using podman</h2>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="se">\</span>
+   <span class="nt">-p</span> 9000:9000 <span class="se">\</span>
+   <span class="nt">-p</span> 9001:9001 <span class="se">\</span>
+   <span class="nt">-e</span> <span class="s2">"MINIO_ROOT_USER=gracefulsoul"</span> <span class="se">\</span>
+   <span class="nt">-e</span> <span class="s2">"MINIO_ROOT_PASSWORD=LeIabo33@!"</span> <span class="se">\</span>
+   <span class="nt">-v</span> /home/minio/data:/data <span class="se">\</span>
+   <span class="nt">--user</span> <span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span>:<span class="si">$(</span><span class="nb">id</span> <span class="nt">-g</span><span class="si">)</span> <span class="se">\</span>
+   <span class="nt">--name</span> minio <span class="se">\</span>
+   quay.io/minio/minio server /data <span class="nt">--console-address</span> <span class="s2">":9001"</span>
+</code></pre></div></div>
+<ul>
+  <li>9000은 Server, 9001은 Console Port를 의미힌다.</li>
+  <li>위에서 만든 Directory Path를 컨테이너 내부 데이터 저장소 Path인 “/data”와 볼륨 마운트를 해준다.</li>
+  <li>“MINIO_ROOT_USER”와 “MINIO_ROOT_PASSWORD”는 콘솔 관리자 계정 정보를 넣어준다.</li>
+  <li>현재 유저로 서비스를 수행하기 위하여 “–user” 옵션에 현재 계정의 uid:gid를 넣어준다.</li>
+  <li>Docker Hub 내 “quay.io/minio/minio:latest” 이미지를 기반의 minio 컨테이너를 ‘server /data –console-address “:9001”’ 커맨드로 실행한다.</li>
+</ul>
+
+<h2 id="login">Login</h2>
+<p><img src="../../assets/images/storage/minio/web.png" alt="web" />
+도커 실행에 사용한 “MINIO_ROOT_USER”와 “MINIO_ROOT_PASSWORD”를 이용하여 로그인을 수행한다.</p>
+
+<h1 id="다음">다음</h1>
+<p><a href="../minio-II">MinIO Object Storage II - JAVA Sample</a></p>
+
+<h1 id="참고">참고</h1>
+<p><a href="https://min.io/" target="_blank">The MinIO Enterprise Object Store</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#minio" class="page__taxonomy-item" rel="tag">MinIO</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#storage" class="page__taxonomy-item" rel="tag">Storage</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#storage" class="page__taxonomy-item" rel="tag">Storage</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2024-08-20">August 20, 2024</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/last-substring-in-lexicographical-order/" class="pagination--pager" title="Leetcode Java Last Substring in Lexicographical Order
+">이전</a>
+    
+    
+      <a href="/leetcode/product-price-at-a-given-date/" class="pagination--pager" title="Leetcode PostgreSQL Product Price at a Given Date
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

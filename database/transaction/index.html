@@ -1,0 +1,887 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Database Transaction - Development story</title>
+<meta name="description" content="Database Transaction에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Database Transaction">
+<meta property="og:url" content="/database/transaction/">
+
+
+  <meta property="og:description" content="Database Transaction에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/database/transaction/transaction.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-27T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-02-27T23:38:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/database/transaction/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/database/transaction/transaction.png" alt="Database Transaction" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Database Transaction">
+    <meta itemprop="description" content="Database Transaction에 대한 설명">
+    <meta itemprop="datePublished" content="2021-02-27T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-02-27T23:38:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Database Transaction
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-02-27T00:00:00+00:00">February 27, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#transaction">Transaction</a></li><li><a href="#acid">ACID</a><ul><li><a href="#원자성atomicity">원자성(Atomicity)</a></li><li><a href="#일관성consistency">일관성(Consistency)</a></li><li><a href="#독립성isolation">독립성(Isolation)</a></li><li><a href="#지속성durability">지속성(Durability)</a></li></ul></li><li><a href="#트랜잭션-상태status">트랜잭션 상태(Status)</a><ul><li><a href="#활성active">활성(Active)</a></li><li><a href="#실패failed">실패(Failed)</a></li><li><a href="#철회aborted">철회(Aborted)</a></li><li><a href="#부분-완료partially-committed">부분 완료(Partially Committed)</a></li><li><a href="#완료committed">완료(Committed)</a></li></ul></li><li><a href="#트랜잭션-연산operation">트랜잭션 연산(Operation)</a><ul><li><a href="#commit">Commit</a></li><li><a href="#rollback">Rollback</a></li><li><a href="#save-point">Save Point</a></li></ul></li><li><a href="#트랜잭션-병행-제어concurrency-control">트랜잭션 병행 제어(Concurrency Control)</a><ul><li><a href="#목적">목적</a></li><li><a href="#병행-제어-실패-현상">병행 제어 실패 현상</a><ul><li><a href="#dirty-write">Dirty Write</a></li><li><a href="#dirty-read">Dirty Read</a></li><li><a href="#non-repeatable-read">Non-repeatable Read</a></li><li><a href="#phantom-read">Phantom Read</a></li><li><a href="#cascade-rollback">Cascade Rollback</a></li></ul></li><li><a href="#병행-제어-기법">병행 제어 기법</a><ul><li><a href="#locking">Locking</a></li><li><a href="#2단계-로킹-규약two-phase-locking-protocol">2단계 로킹 규약(Two-Phase Locking Protocol)</a></li><li><a href="#time-stamp">Time Stamp</a></li><li><a href="#낙관적-병행제어optimistic-concurrency-control">낙관적 병행제어(Optimistic Concurrency Control)</a></li><li><a href="#다중-버전-병행제어multi-version-concurrency-control">다중 버전 병행제어(Multi-Version Concurrency Control)</a></li></ul></li></ul></li><li><a href="#undo--redo">Undo &amp; Redo</a><ul><li><a href="#undo">Undo</a></li><li><a href="#redo">Redo</a></li></ul></li><li><a href="#트랜잭션-회복-기법recovery">트랜잭션 회복 기법(Recovery)</a><ul><li><a href="#로그-기반log-based-recovery">로그 기반(Log-based) Recovery</a><ul><li><a href="#지연-갱신deferred-update">지연 갱신(Deferred Update)</a></li><li><a href="#즉시-갱신immediate-update">즉시 갱신(Immediate Update)</a></li></ul></li><li><a href="#검사점checkpoint-recovery">검사점(Checkpoint) Recovery</a></li><li><a href="#미디어media-recovery">미디어(Media) Recovery</a></li><li><a href="#aries-recovery">ARIES Recovery</a><ul><li><a href="#redo-중-repeating-history">REDO 중 Repeating history</a></li><li><a href="#undo-중-logging">UNDO 중 Logging</a></li></ul></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="transaction">Transaction</h1>
+<ul>
+  <li>은행 ATM이나 데이터베이스 등의 시스템에서 사용되는 더 이상 쪼갤 수 없는 업무 처리의 최소 단위이다.</li>
+</ul>
+
+<h1 id="acid">ACID</h1>
+<h2 id="원자성atomicity">원자성(Atomicity)</h2>
+<p>트랜잭션의 연산은 데이터베이스에 모두 반영되든지 아니면 전혀 반영되지 않아야 한다.</p>
+<h2 id="일관성consistency">일관성(Consistency)</h2>
+<p>시스템이 가지고 있는 고정요소는 트랜잭션 수행 전과 트랜잭션 수행 완료의 상태가 같아야 한다.</p>
+<h2 id="독립성isolation">독립성(Isolation)</h2>
+<p>수행 중인 트랜잭션은 완전히 완료될 때까지 다른 트랜잭션에서 수행 결과를 참조할 수 없다.</p>
+<h2 id="지속성durability">지속성(Durability)</h2>
+<p>성공적으로 완료된 트랜잭션의 결과는 시스템이 고장나더라도 영구적으로 반영되어야 한다.</p>
+
+<h1 id="트랜잭션-상태status">트랜잭션 상태(Status)</h1>
+<p><img src="../../assets/images/database/transaction/transactionStatus.png" alt="transactionStatus" /></p>
+<h2 id="활성active">활성(Active)</h2>
+<p>트랜잭션이 실행 중인 상태이다.</p>
+<h2 id="실패failed">실패(Failed)</h2>
+<p>트랜잭션 실행에 오류가 발생하여 중단된 상태이다.</p>
+<h2 id="철회aborted">철회(Aborted)</h2>
+<p>트랜잭션이 비정상적으로 종료되어 Rollback 연산을 수행한 상태이다.</p>
+<h2 id="부분-완료partially-committed">부분 완료(Partially Committed)</h2>
+<p>트랜잭션의 마지막 연산까지 실행하고, Commit 연산이 실행되기 직전의 상태이다.</p>
+<h2 id="완료committed">완료(Committed)</h2>
+<p>트랜잭션이 성공적으로 종료되어 Commit 연산을 실행한 후의 상태이다.</p>
+
+<h1 id="트랜잭션-연산operation">트랜잭션 연산(Operation)</h1>
+<h2 id="commit">Commit</h2>
+<p>모든 작업들을 정상적으로 처리하겠다고 확정하는 명령어로서, 처리과정을 데이터베이스에 영구적으로 저장하는 것이다.</p>
+
+<h2 id="rollback">Rollback</h2>
+<p>작업 중 문제가 발생하여 트랜잭션의 처리과정에서 발생한 변경사항을 취소하는 명령어이다.</p>
+
+<h2 id="save-point">Save Point</h2>
+<p>롤백을 명시하면 삽입, 삭제, 업데이트 등의 작업 전체가 취소되는데, 세이브포인트는 전체가 아닌 특정 부분에서 트랜잭션을 취소하기 위해 사용한다.</p>
+
+<h1 id="트랜잭션-병행-제어concurrency-control">트랜잭션 병행 제어(Concurrency Control)</h1>
+<p>여러 트랜잭션들이 동시에 실행되면서도 데이터베이스의 일관성을 유지할 수 있게 하는 기법이다.</p>
+
+<h2 id="목적">목적</h2>
+<ul>
+  <li>데이터베이스의 일관성을 유지한다.</li>
+  <li>데이터베이스의 공유를 최대화한다.</li>
+  <li>시스템의 활용도를 최대화한다.</li>
+  <li>사용자의 응답시간을 최소화한다.</li>
+</ul>
+
+<h2 id="병행-제어-실패-현상">병행 제어 실패 현상</h2>
+<p>자원에 대한 경쟁 상태(Race Condition)에서 발생하는 문제이다.</p>
+
+<h3 id="dirty-write">Dirty Write</h3>
+<p>두 개 이상의 트랜잭션이 같은 데이터를 동시에 바꾸고자하는 문제이다.</p>
+
+<h3 id="dirty-read">Dirty Read</h3>
+<p>커밋 전 데이터 조회와 롤백 후 데이터 조회의 데이터가 불일치되는 문제이다.</p>
+
+<h3 id="non-repeatable-read">Non-repeatable Read</h3>
+<p>한 트랜잭션에서 데이터 변경 전과 후 같은 조회 쿼리를 수행 시, 조회된 값이 변경되면서 결과가 달라지는 문제이다.</p>
+
+<h3 id="phantom-read">Phantom Read</h3>
+<p>한 트랜잭션에서 데이터 추가 전과 후 일정 범위의 레코드를 조회 시, 값이 추가(Phantom Tuple)되면서 결과가 달라지는 문제이다.</p>
+
+<h3 id="cascade-rollback">Cascade Rollback</h3>
+<p>두 개 이상의 Transaction이 수행되던 중 한 개의 Transaction이 취소될 때 나머지 다른 Transaction도 연쇄적으로 취소되는 현상.</p>
+
+<h2 id="병행-제어-기법">병행 제어 기법</h2>
+<h3 id="locking">Locking</h3>
+<ul>
+  <li>트랜잭션이 어떤 데이터에 접근하고자 할 때, 다른 트랜잭션이 접근할 수 없게 하는 기법이다.</li>
+  <li>필드, 레코드, 파일, 데이터베이스 모두 Locking 단위가 될 수 있다.</li>
+  <li>Locking 단위가 크면, 관리하기 용이(오버헤드 감소)하지만 병행성(동시성) 수준이 낮아진다.</li>
+  <li>Locking 단위가 작으면, 병행성(동시성) 수준이 높아지지만 관리가 난해(오버헤드 증가)하다.</li>
+</ul>
+
+<h3 id="2단계-로킹-규약two-phase-locking-protocol">2단계 로킹 규약(Two-Phase Locking Protocol)</h3>
+<ul>
+  <li>Lock과 Unlock이 동시에 이루어지면 일관성이 보장되지 않으므로, Lock만 가능한 단계와 Unlock만 가능한 단계를 구분하는 기법이다.</li>
+  <li>직렬가능성을 보장하며, 교착상태가 발생할 수 있다.</li>
+  <li>확장 단계 : 새로운 Lock은 가능하고 Unlock은 불가능하다.</li>
+  <li>축소 단계 : Unlock 은 가능하고 새로운 Lock은 불가능하다.</li>
+</ul>
+
+<h3 id="time-stamp">Time Stamp</h3>
+<ul>
+  <li>데이터에 접근하는 시간을 미리 정해서 정해진 시간(Time Stamp)의 순서대로 데이터에 접근하여 수행하는 기법이다.</li>
+  <li>직렬가능성을 보장하며, 교착상태가 발생하지 않는다.</li>
+  <li>연쇄복귀(Cascading Rollback)를 초래할 수 있다.</li>
+</ul>
+
+<h3 id="낙관적-병행제어optimistic-concurrency-control">낙관적 병행제어(Optimistic Concurrency Control)</h3>
+<ul>
+  <li>트랜잭션 수행 동안은 어떠한 검사도 하지 않고, 트랜잭션 종료 시에 일괄적으로 검사하는 기법이다.</li>
+  <li>트랜잭션 수행 동안 그 트랜잭션을 위해 유지되는 데이터 항목들의 지역 사본에 대해서만 갱신한다.</li>
+  <li>트랜잭션 종료 시에 동시성을 위한 트랜잭션 직렬화가 검증되면 일시에 DB로 반영한다.</li>
+</ul>
+
+<h3 id="다중-버전-병행제어multi-version-concurrency-control">다중 버전 병행제어(Multi-Version Concurrency Control)</h3>
+<ul>
+  <li>여러 버전의 타임스탬프를 비교하여 스케줄상 직렬가능성이 보장되는 타임스탬프를 선택하는 기법이다.</li>
+  <li>동시 접근을 허용하는 데이터베이스에서 동시성을 제어하기 위해 사용하는 방법 중 하나이다.
+    <ul>
+      <li>Locking을 필요하지 않아서 일반적인 RDBMS보다 빠르게 작동한다.</li>
+      <li>미사용 데이터가 계속 쌓이게 되므로 주기적으로 삭제하는 시스템이 필요하다.</li>
+      <li>여러 버전의 데이터를 허용하기 때문에 버전이 충돌날 수 있으며, 이는 애플리케이션 영역에서 해결해야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="undo--redo">Undo &amp; Redo</h1>
+<h2 id="undo">Undo</h2>
+<p>트랜잭션 로그를 이용하여 오류와 관련된 모든 변경을 취소하여 복구를 수행한다.</p>
+<h2 id="redo">Redo</h2>
+<p>트랜잭션 로그를 이용하여 오류가 발생한 트랜잭션을 재실행하여 복구를 수행한다.</p>
+
+<h1 id="트랜잭션-회복-기법recovery">트랜잭션 회복 기법(Recovery)</h1>
+<h2 id="로그-기반log-based-recovery">로그 기반(Log-based) Recovery</h2>
+<h3 id="지연-갱신deferred-update">지연 갱신(Deferred Update)</h3>
+<ul>
+  <li>트랜잭션의 Partially Committed 상태에서는 변경 내용을 로그 파일에만 저장한다.</li>
+  <li>Commit 연산을 실행하기 전까진 데이터베이스에 기록하지 않는다.</li>
+  <li>중간에 장애가 생기더라도 데이터베이스에 기록되지 않았으므로 UNDO가 필요 없다.(미실행 된 로그 폐기)</li>
+</ul>
+
+<h3 id="즉시-갱신immediate-update">즉시 갱신(Immediate Update)</h3>
+<ul>
+  <li>트랜잭션 수행 도중에도 변경 내용을 즉시 데이터베이스에 기록한다.</li>
+  <li>Commit 연산을 실행하기 이전의 갱신은 원자성이 보장되지 않는 미완료 갱신이므로 장애 발생 시 UNDO가 필요하다.</li>
+</ul>
+
+<h2 id="검사점checkpoint-recovery">검사점(Checkpoint) Recovery</h2>
+<ul>
+  <li>장애 발생 시 Checkpoint 이전에 처리된 트랜잭션은 회복에서 제외하고, Checkpoint 이후에 처리된 트랜잭션은 회복 작업 수행한다.
+    <ul>
+      <li>Commit 연산이 완료된 이후 Checkpoint를 지나서 장애가 발생이 되면 Redo를 수행한다.</li>
+      <li>장애 발생 시점까지 Commit 연산이 수행되지 못한 경우 Undo를 수행한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="미디어media-recovery">미디어(Media) Recovery</h2>
+<ul>
+  <li>디스크와 같은 비휘발성 저장 장치가 손상되는 장애가 발생할 상황을 대비한 회복 기법이다.</li>
+  <li>데이터베이스 내용을 백업, 미러링, RAID등을 통해 별도의 물리적 저장장치에 덤프를 수행한다.</li>
+  <li>미디어 장애 시 가장 최근 덤프로 복구하고 로그 파일을 참조해 덤프 이후의 작업까지 Redo를 수행한다.</li>
+  <li>Undo는 사용하지 않는다.</li>
+</ul>
+
+<h2 id="aries-recovery">ARIES Recovery</h2>
+<h3 id="redo-중-repeating-history">REDO 중 Repeating history</h3>
+<ul>
+  <li>붕괴가 발생했을 때의 데이터베이스 상태를 복구하기 위하여 붕괴 발생 이전에 수행했던 모든 연산을 다시 한번 수행한다.</li>
+  <li>붕괴가 발생했을 때 완료되지 않은 상태인 진행 트랜잭션은 UNDO를 수행한다.
+    <h3 id="undo-중-logging">UNDO 중 Logging</h3>
+  </li>
+  <li>UNDO를 할 때에도 로깅을 함으로써 회복을 수행하는 도중에 실패하여 회복을 다시 시작할 때에 이미 완료된 UNDO 연산은 반복하지 않는다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#transaction" class="page__taxonomy-item" rel="tag">Transaction</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#database" class="page__taxonomy-item" rel="tag">Database</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-02-27">February 27, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/spring/" class="pagination--pager" title="Spring Framework
+">이전</a>
+    
+    
+      <a href="/codility/MaxDoubleSliceSum/" class="pagination--pager" title="Codility Java MaxDoubleSliceSum
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

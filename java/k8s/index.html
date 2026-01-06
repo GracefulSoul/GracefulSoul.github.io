@@ -1,0 +1,966 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>K8s(Kubernetes) - Development story</title>
+<meta name="description" content="K8s(Kubernetes)에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="K8s(Kubernetes)">
+<meta property="og:url" content="/java/k8s/">
+
+
+  <meta property="og:description" content="K8s(Kubernetes)에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/container/k8s.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-02T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-02T19:40:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/java/k8s/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/container/k8s.png" alt="K8s(Kubernetes)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="K8s(Kubernetes)">
+    <meta itemprop="description" content="K8s(Kubernetes)에 대한 설명">
+    <meta itemprop="datePublished" content="2025-09-02T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2025-09-02T19:40:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">K8s(Kubernetes)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2025-09-02T00:00:00+00:00">September 02, 2025</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#주요-기능">주요 기능</a><ul><li><a href="#서비스-디스커버리와-로드-밸런싱">서비스 디스커버리와 로드 밸런싱</a></li><li><a href="#스토리지-오케스트레이션">스토리지 오케스트레이션</a></li><li><a href="#자동화된-롤아웃과-롤백">자동화된 롤아웃과 롤백</a></li><li><a href="#자동화된-bin-packing">자동화된 bin packing</a></li><li><a href="#자가-복구">자가 복구</a></li><li><a href="#보안-정보와-구성-관리">보안 정보와 구성 관리</a></li><li><a href="#배치-실행">배치 실행</a></li><li><a href="#확장">확장</a></li></ul></li><li><a href="#필요-항목">필요 항목</a></li><li><a href="#이미지-빌드">이미지 빌드</a></li><li><a href="#k8s-리소스-파일-작성">K8s 리소스 파일 작성</a><ul><li><a href="#deploymentyaml">deployment.yaml</a></li><li><a href="#serviceyaml">service.yaml</a></li></ul></li><li><a href="#k8s에-배포">K8s에 배포</a></li><li><a href="#서비스-점검">서비스 점검</a><ul><li><a href="#애플리케이션-확인">애플리케이션 확인</a></li><li><a href="#리소스-확인">리소스 확인</a></li><li><a href="#로그-확인">로그 확인</a></li></ul></li><li><a href="#배포-삭제">배포 삭제</a></li><li><a href="#정리">정리</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+<ul>
+  <li>쿠버네티스(Kubernetes, 줄여서 K8s)<sup id="fnref:K8s" role="doc-noteref"><a href="#fn:K8s" class="footnote" rel="footnote">1</a></sup>는 컨테이너화된 애플리케이션의 배포와 확장, 관리를 자동화하는 오픈 소스 컨테이너 오케스트레이션 플랫폼이다.</li>
+</ul>
+
+<h1 id="주요-기능">주요 기능</h1>
+<h2 id="서비스-디스커버리와-로드-밸런싱">서비스 디스커버리와 로드 밸런싱</h2>
+<ul>
+  <li>쿠버네티스는 DNS 이름을 사용하거나 자체 IP 주소를 사용하여 컨테이너를 노출할 수 있다.</li>
+  <li>컨테이너 트래픽이 많은 경우 쿠버네티스는 로드 밸런싱을 수행하고 네트워크 트래픽을 분산하여 배포를 안정적으로 수행할 수 있다.</li>
+</ul>
+
+<h2 id="스토리지-오케스트레이션">스토리지 오케스트레이션</h2>
+<ul>
+  <li>쿠버네티스를 사용하면 로컬 스토리지, 퍼블릭 클라우드 제공업체 등 원하는 스토리지 시스템을 자동으로 마운트할 수 있다.</li>
+</ul>
+
+<h2 id="자동화된-롤아웃과-롤백">자동화된 롤아웃과 롤백</h2>
+<ul>
+  <li>쿠버네티스를 사용하여 배포된 컨테이너의 원하는 상태를 설명할 수 있으며, 실제 상태를 원하는 상태로 제어된 속도로 변경할 수 있다.</li>
+  <li>예를 들어, 쿠버네티스를 자동화하여 배포할 새 컨테이너를 생성하고 기존 컨테이너를 제거한 후 모든 리소스를 새 컨테이너에 적용할 수 있다.</li>
+  <li>롤링 업데이트, Canary, Blue-Green 등의 배포 전략을 사용할 수 있다.</li>
+</ul>
+
+<h2 id="자동화된-bin-packing">자동화된 bin packing</h2>
+<ul>
+  <li>쿠버네티스는 컨테이너화된 작업을 실행하는 데 사용할 수 있는 노드 클러스터를 제공하고, 각 컨테이너에 필요한 CPU와 메모리의 양을 쿠버네티스에게 알려준다.</li>
+  <li>쿠버네티스는 컨테이너를 노드에 장착하여 리소스를 최대한 활용할 수 있다.</li>
+</ul>
+
+<h2 id="자가-복구">자가 복구</h2>
+<ul>
+  <li>쿠버네티스는 실패한 컨테이너를 다시 시작하고 컨테이너를 교체하며, ‘사용자 정의 상태 검사’에 응답하지 않는 컨테이너를 죽이고 서비스 준비가 끝날 때까지 그러한 과정을 클라이언트에 보여주지 않는다.</li>
+</ul>
+
+<h2 id="보안-정보와-구성-관리">보안 정보와 구성 관리</h2>
+<ul>
+  <li>쿠버네티스를 사용하면 암호, OAuth 토큰 및 SSH 키와 같은 보안 정보를 저장하고 관리할 수 있다.</li>
+  <li>컨테이너 이미지를 재구성하거나 스택 구성의 보안 정보을 노출하지 않고도 보안 정보 및 애플리케이션 구성을 배포하고 업데이트할 수 있다.</li>
+  <li>NameSpace, RBAC, NetworkPolicy 등을 활용한 보안 격리가 가능하다.</li>
+</ul>
+
+<h2 id="배치-실행">배치 실행</h2>
+<ul>
+  <li>서비스 외에도, 쿠버네티스는 배치 및 CI 워크로드를 관리할 수 있으며, 필요한 경우 실패한 컨테이너를 교체할 수 있다.</li>
+</ul>
+
+<h2 id="확장">확장</h2>
+<ul>
+  <li>간단한 명령어, UI, 또는 CPU 사용량에 따라 수평 오토 스케일링(HPA)으로 부하에 따라 자동으로 애플리케이션을 확장하거나 축소할 수 있다.</li>
+  <li>업스트림 소스 코드를 변경하지 않고 쿠버네티스 클러스터 기능을 추가할 수 있다.</li>
+</ul>
+
+<h1 id="필요-항목">필요 항목</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">도구</th>
+      <th style="text-align: left">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">kubectl</td>
+      <td style="text-align: left">Kubernetes CLI</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Docker</td>
+      <td style="text-align: left">컨테이너 빌드용</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Windows 환경에서는 Docker Desktop을 설치 후 설정의 Kubernetes에서 “Enable Kubernetes” 설정하면 모든 준비는 완료된다.</li>
+</ul>
+
+<h1 id="이미지-빌드">이미지 빌드</h1>
+<ul>
+  <li>해당 이미지는 이전 포스트인 <a href="../java/lightweight-jdk-docker-II" target="_blank">Custom JRE로 경령화된 Dockering II</a>에서 만든 이미지로 대체하므로, <a href="../java/lightweight-jdk-docker-I" target="_blank">Custom JRE로 경령화된 Dockering I</a>과 함께 참고 바란다.</li>
+</ul>
+
+<h1 id="k8s-리소스-파일-작성">K8s 리소스 파일 작성</h1>
+<ul>
+  <li>기본 구성은 아래와 같다.
+    <ul>
+      <li>apiVersion : K8s API 버전</li>
+      <li>kind : 생성할 리소스의 종류</li>
+      <li>metadata : 애플리케이션의 이름, 레이블(Label)과 같은 메타데이터</li>
+      <li>spec : 배포의 실제 구성</li>
+    </ul>
+  </li>
+  <li>리소스의 종류는 아래와 같다.
+    <ul>
+      <li>Pod : 하나 이상의 컨테이너를 묶어 실행하는 가장 기본적인 단위이다.</li>
+      <li>Deployment : 파드를 생성하고 관리하며, 애플리케이션의 배포와 업데이트를 자동화한다.</li>
+      <li>Service : 파드들을 묶어 안정적인 네트워크 엔드포인트를 제공하고, 파드에 접근하는 방식을 정의한다.</li>
+      <li>StatefulSet : 순서가 중요한 데이터베이스와 같이 상태를 가지는 애플리케이션을 위한 워크로드 컨트롤러이다.</li>
+      <li>DaemonSet : 각 노드에 하나의 파드 복제본을 배포하도록 한다.</li>
+      <li>Custom Resource Definition (CRD) : 사용자가 직접 새로운 리소스를 정의할 수 있도록 하는 기능이다.</li>
+    </ul>
+  </li>
+  <li>여기선 간단히 구성할 예정이므로, 프로젝트 위치에서 “k8s” 폴더를 생성 후 아래 두 파일만 작성한다.</li>
+</ul>
+
+<h2 id="deploymentyaml">deployment.yaml</h2>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apps/v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">hello-deployment</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">matchLabels</span><span class="pi">:</span>
+      <span class="na">app</span><span class="pi">:</span> <span class="s">hello-k8s</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">app</span><span class="pi">:</span> <span class="s">hello-k8s</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">hello-k8s</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">hello-docker:latest</span>
+        <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+        <span class="na">ports</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+</code></pre></div></div>
+<ul>
+  <li>deployment.yaml은 K8s에서 애플리케이션의 배포를 정의하는 파일로, 애플리케이션 배포에 필요한 구성 정보를 포함한 세부 설정을 작성하여 이 파일을 기반으로 클러스터에 자동으로 배포, 관리, 업데이트한다.</li>
+</ul>
+
+<h2 id="serviceyaml">service.yaml</h2>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">hello-service</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">type</span><span class="pi">:</span> <span class="s">NodePort</span>
+  <span class="na">selector</span><span class="pi">:</span>
+    <span class="na">app</span><span class="pi">:</span> <span class="s">hello-k8s</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="na">nodePort</span><span class="pi">:</span> <span class="m">30080</span>
+</code></pre></div></div>
+<ul>
+  <li>service.yaml 파일은 K8s에서 파드(Pod) 그룹에 대한 고정적인 네트워크 서비스(IP 주소 및 포트)를 정의하는 파일이다.</li>
+  <li>파드의 동적인 IP 주소 대신 안정적인 단일 엔드포인트를 제공하여 클라이언트가 애플리케이션을 안정적으로 호출할 수 있도록 하고, 파드 그룹의 IP 주소와 포트 번호를 직접 노출하는 대신 추상화된 네트워크 서비스로 제공하는 역할을 한다.</li>
+</ul>
+
+<h1 id="k8s에-배포">K8s에 배포</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl apply <span class="nt">-f</span> k8s/deployment.yaml
+deployment.apps/hello-deployment created
+
+C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl apply <span class="nt">-f</span> k8s/service.yaml
+service/hello-service created
+</code></pre></div></div>
+
+<h1 id="서비스-점검">서비스 점검</h1>
+<h2 id="애플리케이션-확인">애플리케이션 확인</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl get svc
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE
+hello-service   NodePort    10.110.61.174   &lt;none&gt;        8080:30080/TCP   35s
+kubernetes      ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP          67m
+
+C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;curl http://localhost:30080/api/GracefulSoul
+Hello GracefulSoul
+</code></pre></div></div>
+<ul>
+  <li>클러스터에 구성된 서비스를 조회하고, 서비스를 호출하여 정상적으로 애플리케이션이 구동되었는지 확인한다.</li>
+</ul>
+
+<h2 id="리소스-확인">리소스 확인</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/hello-deployment-69cf9f9d77-lp5f7   1/1     Running   0          2m9s
+
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE
+service/hello-service   NodePort    10.110.61.174   &lt;none&gt;        8080:30080/TCP   101s
+service/kubernetes      ClusterIP   10.96.0.1       &lt;none&gt;        443/TCP          68m
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-deployment   1/1     1            1           2m9s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-deployment-69cf9f9d77   1         1         1       2m9s
+</code></pre></div></div>
+<ul>
+  <li>현재 K8s 의 모든 정보를 조회한다.</li>
+</ul>
+
+<h2 id="로그-확인">로그 확인</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl logs <span class="nt">-l</span> <span class="nv">app</span><span class="o">=</span>hello-k8s
+2025-09-02T11:19:40.563Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 <span class="o">(</span>http<span class="o">)</span>
+2025-09-02T11:19:40.577Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] o.apache.catalina.core.StandardService   : Starting service <span class="o">[</span>Tomcat]
+2025-09-02T11:19:40.578Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: <span class="o">[</span>Apache Tomcat/10.1.31]
+2025-09-02T11:19:40.604Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-09-02T11:19:40.605Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed <span class="k">in </span>616 ms
+2025-09-02T11:19:40.841Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 <span class="o">(</span>http<span class="o">)</span> with context path <span class="s1">'/'</span>
+2025-09-02T11:19:40.852Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>           main] gracefulsoul.HelloDockerApplication      : Started HelloDockerApplication <span class="k">in </span>1.151 seconds <span class="o">(</span>process running <span class="k">for </span>1.421<span class="o">)</span>
+2025-09-02T11:21:17.817Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet <span class="s1">'dispatcherServlet'</span>
+2025-09-02T11:21:17.818Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet <span class="s1">'dispatcherServlet'</span>
+2025-09-02T11:21:17.818Z  INFO 7 <span class="nt">---</span> <span class="o">[</span>hello-docker] <span class="o">[</span>nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization <span class="k">in </span>0 ms
+</code></pre></div></div>
+<ul>
+  <li>hello-k8s 애플리케이션의 로그를 확인한다.</li>
+</ul>
+
+<h1 id="배포-삭제">배포 삭제</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:<span class="se">\D</span>evelopment<span class="se">\W</span>orkspace<span class="se">\h</span>ello-docker&gt;kubectl delete <span class="nt">-f</span> k8s/
+deployment.apps <span class="s2">"hello-deployment"</span> deleted
+service <span class="s2">"hello-service"</span> deleted
+</code></pre></div></div>
+<ul>
+  <li>불필요한 애플리케이션인 경우, 확인 후 “k8s” 폴더에서 정의한 파일들을 참조하여 관련 앱을 제거한다.</li>
+</ul>
+
+<h1 id="정리">정리</h1>
+<ul>
+  <li>Spotify는 과거 Helios라는 오픈 소스 자체 컨테이너 오케스트레이션 시스템을 사용하였으나, 쿠버네티스의 활성화된 커뮤니티와 기술력을 기반으로 모든 서비스를 전환하고 CPU 최적화 등 다양한 이점을 얻었다고 알려져있다.</li>
+  <li>이렇게 기술의 변화에 따라서 서비스 운영 환경에 더 적합한 서비스를 학습하고, 더 안정적인 서비스를 고객에게 적용하는 것은 산업의 발전을 넘어 기술과 사회에 더 좋은 이점으로 나타날 것이다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<p>※ Sample Code는 <a href="https://github.com/GracefulSoul/lightweight-jdk-docker" target="_blank">여기</a>에서 확인 가능합니다.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:K8s" role="doc-endnote">
+      <p><a href="https://kubernetes.io/" target="_blank">K8s-Home</a> <a href="#fnref:K8s" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#container" class="page__taxonomy-item" rel="tag">Container</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#k8s" class="page__taxonomy-item" rel="tag">K8s</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#kubernetes" class="page__taxonomy-item" rel="tag">Kubernetes</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2025-09-02">September 2, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/sort-matrix-by-diagonals/" class="pagination--pager" title="Leetcode Java Sort Matrix by Diagonals
+">이전</a>
+    
+    
+      <a href="/leetcode/minimum-operations-to-make-the-integer-zero/" class="pagination--pager" title="Leetcode Java Minimum Operations to Make the Integer Zero
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
