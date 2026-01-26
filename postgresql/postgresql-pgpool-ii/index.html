@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>PostgreSQL Pgpool-II - Development story</title>
+<meta name="description" content="PostgreSQL의 Pgpool에 대한 설명과 사용 방법">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="PostgreSQL Pgpool-II">
+<meta property="og:url" content="/postgresql/postgresql-pgpool-ii/">
+
+
+  <meta property="og:description" content="PostgreSQL의 Pgpool에 대한 설명과 사용 방법">
+
+
+
+  <meta property="og:image" content="/assets/images/postgresql/postgresql-pgpool-ii.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2023-11-05T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2023-11-05T18:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/postgresql/postgresql-pgpool-ii/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/postgresql/postgresql-pgpool-ii.png" alt="PostgreSQL Pgpool-II" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="PostgreSQL Pgpool-II">
+    <meta itemprop="description" content="PostgreSQL의 Pgpool에 대한 설명과 사용 방법">
+    <meta itemprop="datePublished" content="2023-11-05T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2023-11-05T18:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">PostgreSQL Pgpool-II
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2023-11-05T00:00:00+00:00">November 05, 2023</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#pgpool-iipgpool-ii">Pgpool-II[^Pgpool-II]</a></li><li><a href="#features">Features</a><ul><li><a href="#high-availability">High Availability</a></li><li><a href="#load-balancing">Load balancing</a></li><li><a href="#connection-pooling">Connection Pooling</a></li><li><a href="#online-recovery">Online Recovery</a></li><li><a href="#limiting-exceeding-connections">Limiting Exceeding Connections</a></li><li><a href="#watchdog">Watchdog</a></li><li><a href="#in-memory-query-cache">In Memory Query Cache</a></li></ul></li><li><a href="#install">Install</a><ul><li><a href="#libevent--libevent">libevent &amp; libevent</a></li><li><a href="#pgpool-ii">Pgpool-II</a></li><li><a href="#pgpool-ii-configuration">Pgpool-II Configuration</a><ul><li><a href="#pgpoolconf">pgpool.conf</a></li><li><a href="#pcpconf">pcp.conf</a></li></ul></li><li><a href="#firewall">Firewall</a></li></ul></li><li><a href="#service">Service</a></li><li><a href="#node-check">Node check</a></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="pgpool-iipgpool-ii">Pgpool-II[^Pgpool-II]</h1>
+<ul>
+  <li>PostgreSQL 서버 풀을 관리하는 도구로, 단일 PostgreSQL 구성에서 사용할 수 없는 다양한 기능을 제공한다.</li>
+</ul>
+
+<h1 id="features">Features</h1>
+<h2 id="high-availability">High Availability</h2>
+<ul>
+  <li>여러 PostgreSQL 서버를 사용하여 HA 구성을 제공하며, 손상된 서버를 서버 풀에서 자동으로 제거하여 데이터베이스 작업을 계속 수행한다.</li>
+  <li>Pgpool-II는 Watchdog이라는 Pgpool-II 자체에 대한 HA 기능도 제공하여 <a href="https://en.wikipedia.org/wiki/Quorum_(distributed_computing)" target="_blank">Quorum Algorithm</a>을 사용하여 <a href="https://en.wikipedia.org/wiki/Split-brain_(computing)" target="_blank">Split-Brain</a> 현상이 발생하지 않도록 지원한다.
+    <h2 id="load-balancing">Load balancing</h2>
+  </li>
+  <li>더 높은 성능을 얻기 위해서 여러 PostgreSQL 서버에 Read 쿼리를 분산시켜준다.</li>
+  <li>Write 쿼리는 아래의 각 경우에 따라 해당 서버로 전달된다.
+    <ul>
+      <li>Streaming Replication 모드인 경우, Primary 서버에만 제공된다.</li>
+      <li>그 외의 Native Replication 모드이거나 Snapshot Isolation 모드인 경우, 모든 서버로 분산시켜준다.
+        <h2 id="connection-pooling">Connection Pooling</h2>
+      </li>
+    </ul>
+  </li>
+  <li>PostgreSQL 서버에 대해 설정된 연결을 유지하고 동일한 속성(user, database, protocol version, and other connection parameters)을 가진 새 연결이 들어올 때마다 이를 재 사용한다.
+    <h2 id="online-recovery">Online Recovery</h2>
+  </li>
+  <li>하나의 명령을 실행하여 데이터베이스 노드의 온라인 복구를 수행할 수 있다.</li>
+  <li>자동 장애 조치와 함께 온라인 복구를 사용하는 경우 장애 조치에 의해 분리된 노드를 자동으로 대기 노드로 연결하는 것이 가능하다.</li>
+  <li>새로운 PostgreSQL 서버를 동기화하고 연결하는 것도 가능하다.
+    <h2 id="limiting-exceeding-connections">Limiting Exceeding Connections</h2>
+  </li>
+  <li>PostgreSQL의 최대 동시 연결 수에는 제한이 있으며, 최대 연결 수를 늘리면 리소스 소비가 증가하고 전체 시스템 성능에 부정적인 영향을 미칠 수 있으므로 제한에 도달하면 새 연결이 거부된다.
+    <h2 id="watchdog">Watchdog</h2>
+  </li>
+  <li>여러 Pgpool-II를 연결하여 강력한 Cluster 시스템을 구성하며, 단일 실패 지점 또는 Split-Brain을 방지할 수 있습니다.</li>
+  <li>Split-Brain을 방지하기 위해서는 최소 3개 이상의 Pgpool-II를 연결해야한다.
+    <h2 id="in-memory-query-cache">In Memory Query Cache</h2>
+  </li>
+  <li>한 쌍의 SELECT 문과 그 결과를 저장하여 동일한 SELECT가 들어오면 Pgpool-II는 캐시에서 값을 반환한다.</li>
+  <li>SQL 구문 분석이나 PostgreSQL에 대한 액세스가 포함되지 않으므로 매우 빠르다.</li>
+</ul>
+
+<h1 id="install">Install</h1>
+<h2 id="libevent--libevent">libevent &amp; libevent</h2>
+<ul>
+  <li>위에서 이야기한 In Memory Query Cache 기능을 활용하므로 libevent와 libmemcached를 설치해야 pgpool을 설치 가능하다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum <span class="nb">install </span>libevent
+yum <span class="nb">install </span>libevent
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="pgpool-ii">Pgpool-II</h2>
+<ul>
+  <li>Pgpool 사이트 내 <a href="https://pgpool.net/mediawiki/index.php/Downloads" target="_blank">Downloads</a> 페이지를 참고하여 Yum repository 설정이거나 RPM을 다운로드 받아 설치하면 된다.</li>
+</ul>
+
+<h2 id="pgpool-ii-configuration">Pgpool-II Configuration</h2>
+<ul>
+  <li>Pgpool-II를 설치하면 “/etc/pgpool-II” 폴더 내 다양한 설정 파일이 존재한다.</li>
+</ul>
+
+<h3 id="pgpoolconf">pgpool.conf</h3>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># ----------------------------</span>
+<span class="c"># pgPool-II configuration file</span>
+<span class="c"># ----------------------------</span>
+backend_clustering_mode <span class="o">=</span> <span class="s1">'streaming_replication'</span>
+ 
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># CONNECTIONS</span>
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># - pgpool Connection Settings -</span>
+listen_addresses <span class="o">=</span> <span class="s1">'*'</span>
+port <span class="o">=</span> 9999
+socket_dir <span class="o">=</span> <span class="s1">'/tmp'</span>
+pcp_listen_addresses <span class="o">=</span> <span class="s1">'*'</span>
+pcp_port <span class="o">=</span> 9898
+pcp_socket_dir <span class="o">=</span> <span class="s1">'/tmp'</span>
+
+<span class="c"># - Backend Connection Settings -</span>
+backend_hostname0 <span class="o">=</span> <span class="s1">'10.0.2.1'</span>
+backend_port0 <span class="o">=</span> 5432
+backend_weight0 <span class="o">=</span> 1
+backend_data_directory0 <span class="o">=</span> <span class="s1">'/var/lib/pgsql/12/data'</span>
+backend_flag0 <span class="o">=</span> <span class="s1">'ALWAYS_PRIMARY'</span>
+backend_application_name0 <span class="o">=</span> <span class="s1">'master'</span>
+ 
+backend_hostname1 <span class="o">=</span> <span class="s1">'10.0.2.10'</span>
+backend_port1 <span class="o">=</span> 5432
+backend_weight1 <span class="o">=</span> 1
+backend_data_directory1 <span class="o">=</span> <span class="s1">'/var/lib/pgsql/12/data'</span>
+backend_flag1 <span class="o">=</span> <span class="s1">'ALLOW_TO_FAILOVER'</span>
+backend_application_name1 <span class="o">=</span> <span class="s1">'standby1'</span>
+ 
+backend_hostname2 <span class="o">=</span> <span class="s1">'10.0.2.20'</span>
+backend_port2 <span class="o">=</span> 5432
+backend_weight2 <span class="o">=</span> 1
+backend_data_directory2 <span class="o">=</span> <span class="s1">'/var/lib/pgsql/12/data'</span>
+backend_flag2 <span class="o">=</span> <span class="s1">'ALLOW_TO_FAILOVER'</span>
+backend_application_name2 <span class="o">=</span> <span class="s1">'standby2'</span>
+
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># POOLS</span>
+<span class="c">#------------------------------------------------------------------------------</span>
+num_init_children <span class="o">=</span> 100
+
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># FILE LOCATIONS</span>
+<span class="c">#------------------------------------------------------------------------------</span>
+pid_file_name <span class="o">=</span> <span class="s1">'/var/run/pgpool/pgpool.pid'</span>
+logdir <span class="o">=</span> <span class="s1">'/etc/pgpool-II/log'</span>
+
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># LOAD BALANCING MODE</span>
+<span class="c">#------------------------------------------------------------------------------</span>
+load_balance_mode <span class="o">=</span> on
+ignore_leading_white_space <span class="o">=</span> on
+write_function_list <span class="o">=</span> <span class="s1">''</span>
+database_redirect_preference_list <span class="o">=</span> <span class="s1">''</span>
+app_name_redirect_preference_list <span class="o">=</span> <span class="s1">''</span>
+allow_sql_comments <span class="o">=</span> off
+disable_load_balance_on_write <span class="o">=</span> <span class="s1">'transaction'</span>
+
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># STREAMING REPLICATION MODE</span>
+<span class="c">#------------------------------------------------------------------------------</span>
+<span class="c"># - Streaming -</span>
+sr_check_period <span class="o">=</span> 10
+sr_check_user <span class="o">=</span> <span class="s1">'repmgr'</span>
+sr_check_password <span class="o">=</span> <span class="s1">'repmgr'</span>
+sr_check_database <span class="o">=</span> <span class="s1">'repmgr'</span>
+delay_threshold <span class="o">=</span> 1000000
+</code></pre></div></div>
+
+<h3 id="pcpconf">pcp.conf</h3>
+<ul>
+  <li>pg_md5를 이용하여 패스워드를 암호화 하여 “username:[md5 encrypted password]” 형태로 넣어준다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root:1060b7b46a3bd36b3a0d66e0127d0517
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="firewall">Firewall</h2>
+<ul>
+  <li>위에서 사용하는 9999 포트에 대해서 방화벽 설정을 추가 후 적용한다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>firewall-cmd <span class="nt">--permanent</span> <span class="nt">--zone</span><span class="o">=</span>public <span class="nt">--add-port</span><span class="o">=</span>9999/tcp
+firewall-cmd <span class="nt">--reload</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="service">Service</h1>
+<ul>
+  <li>Pgpool-II 서비스를 등록 및 상태를 확인한다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl <span class="nb">enable </span>pgpool
+systemctl start pgpool
+systemctl status pgpool
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="node-check">Node check</h1>
+<ul>
+  <li>psql 명령어로 Pgpool-II 서비스에 연결하여 pool에 연결된 node들의 상태를 확인한다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>psql <span class="nt">-h</span> localhost <span class="nt">-p</span> 9999 <span class="nt">-U</span> repmgr <span class="nt">-d</span> repmgr <span class="nt">-c</span> <span class="s1">'show pool_nodes;'</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+<ul>
+  <li>단일 PostgreSQL을 사용하다 보면 부하 분산에 대한 다양한 구성을 고려하게된다.</li>
+  <li>Repmgr에서 이야기하였듯이 Scale-up은 서비스 중단에 대한 리스크가 분명히 존재하므로 유연한 구성을 하기 위한 Scale-out 등 다양한 방법을 고려하여야 한다.</li>
+  <li>이러한 모든 작업은 개발과 동일하게 확장에 열려있도록 아키텍쳐를 구성하고 원활한 서비스를 제공하기 위한 기반 작업이다.</li>
+  <li>위에서 설명하였듯이 다양한 기능들이 Pgpool-II에 존재하지만, 이 글에서 작성한 단순 구성 설정 외 다양한 설정들을 이용하여 자신만의 서비스에 접목시키면 더 효율적인 서비스 운영이 될 것으로 판단된다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#pgpool-ii" class="page__taxonomy-item" rel="tag">Pgpool-II</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#postgresql" class="page__taxonomy-item" rel="tag">PostgreSQL</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#postgresql" class="page__taxonomy-item" rel="tag">PostgreSQL</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2023-11-05">November 5, 2023</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/postgresql/postgresql-barman/" class="pagination--pager" title="PostgreSQL Barman
+">이전</a>
+    
+    
+      <a href="/postgresql/postgresql-repmgr/" class="pagination--pager" title="PostgreSQL REPMGR
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

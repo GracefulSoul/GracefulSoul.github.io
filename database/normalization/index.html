@@ -1,0 +1,1611 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Database Normalization - Development story</title>
+<meta name="description" content="Database Normalization에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Database Normalization">
+<meta property="og:url" content="/database/normalization/">
+
+
+  <meta property="og:description" content="Database Normalization에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/database/normalization/normalization.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-29T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-29T23:38:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/database/normalization/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/database/normalization/normalization.png" alt="Database Normalization" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Database Normalization">
+    <meta itemprop="description" content="Database Normalization에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-29T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-29T23:38:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Database Normalization
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-29T00:00:00+00:00">March 29, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#normalization">Normalization</a></li><li><a href="#목적">목적</a></li><li><a href="#anomaly-이상">Anomaly, 이상</a><ul><li><a href="#update-anomaly-갱신-이상">Update Anomaly, 갱신 이상</a></li><li><a href="#insertion-anomaly-삽입-이상">Insertion Anomaly, 삽입 이상</a></li><li><a href="#deletion-anomaly-삭제-이상">Deletion Anomaly, 삭제 이상</a></li></ul></li><li><a href="#과정">과정</a><ul><li><a href="#1nf">1NF</a></li><li><a href="#2nf">2NF</a></li><li><a href="#3nf">3NF</a></li><li><a href="#bcnf">BCNF</a></li><li><a href="#4nf">4NF</a></li><li><a href="#5nf">5NF</a></li></ul></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="normalization">Normalization</h1>
+<ul>
+  <li>관계형 데이터베이스의 설계에서 중복을 최소화하게 데이터를 구조화하는 프로세스이다.</li>
+  <li>데이터베이스 정규화의 목표는 이상(Anomaly)이 있는 관계를 재구성하여 작고 잘 조직된 관계를 생성하는 것에 있다.</li>
+</ul>
+
+<h1 id="목적">목적</h1>
+<ul>
+  <li>중복을 배제하여 삽입, 삭제, 갱신 이상의 발생을 방지한다.</li>
+  <li>각 릴레이션에 중복된 종속성을 여러 개의 릴레이션에 분할한다.</li>
+  <li>어떠한 릴레이션이라도 데이터베이스 내에서 표현 가능하게 한다.</li>
+  <li>데이터 삽입 시 릴레이션을 재구성할 필요성을 감소시킨다.</li>
+  <li>효과적인 검색 알고리즘을 생성 가능하게 한다.</li>
+</ul>
+
+<h1 id="anomaly-이상">Anomaly, 이상</h1>
+<ul>
+  <li>충분히 정규화되지 않은 테이블에서 테이블을 수정(갱신, 삽입, 삭제)시, 원치 않던 부작용이 발생하는 것이다.</li>
+</ul>
+
+<h2 id="update-anomaly-갱신-이상">Update Anomaly, 갱신 이상</h2>
+<p><img src="../../assets/images/database/normalization/updateAnomaly.png" alt="updateAnomaly" /></p>
+<ul>
+  <li>튜플 수정 시 중복된 데이터의 일부만 수정되어 일어나는 데이터 불일치 현상이다.</li>
+</ul>
+
+<h2 id="insertion-anomaly-삽입-이상">Insertion Anomaly, 삽입 이상</h2>
+<p><img src="../../assets/images/database/normalization/InsertionAnomaly.png" alt="updateAnomaly" /></p>
+<ul>
+  <li>튜플 삽입 시 특정 속성에 해당하는 값이 없어 NULL을 입력해야 하는 현상이다.</li>
+</ul>
+
+<h2 id="deletion-anomaly-삭제-이상">Deletion Anomaly, 삭제 이상</h2>
+<p><img src="../../assets/images/database/normalization/deletionAnomaly.png" alt="updateAnomaly" /></p>
+<ul>
+  <li>튜플 삭제 시 같이 저장된 다른 정보까지 연쇄적으로 삭제되는 현상이다.</li>
+</ul>
+
+<h1 id="과정">과정</h1>
+<p><img src="../../assets/images/database/normalization/normalForms.png" alt="normalForms" /></p>
+<ul>
+  <li>비공식적으로 “관계형 데이터베이스 테이블(컴퓨터 공학적 표현으로는 관계)이 제 3정규(3NF)화가 되었으면 정규화 되었다.”라고 한다.</li>
+  <li>일반적으로 2002년에 소개된 <a href="https://en.wikipedia.org/wiki/Sixth_normal_form" target="_blank">6NF</a>는 정규화 대상에서 제외된다.</li>
+</ul>
+
+<h2 id="1nf">1NF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Customer ID</th>
+      <th style="text-align: left">First Name</th>
+      <th style="text-align: left">Surname</th>
+      <th style="text-align: left">Telephone Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">123</td>
+      <td style="text-align: left">Pooja</td>
+      <td style="text-align: left">Singh</td>
+      <td style="text-align: left">555-861-2025, 192-122-1111</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">456</td>
+      <td style="text-align: left">San</td>
+      <td style="text-align: left">Zhang</td>
+      <td style="text-align: left">(555) 403-1659 Ext. 53; 182-929-2929</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">789</td>
+      <td style="text-align: left">John</td>
+      <td style="text-align: left">Doe</td>
+      <td style="text-align: left">555-808-9633</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>위의 도표에서 Telephone Number는 한 컬럼에 단일 값(원자값)이 아니다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Customer ID</th>
+      <th style="text-align: left">First Name</th>
+      <th style="text-align: left">Surname</th>
+      <th style="text-align: left">Telephone Number1</th>
+      <th style="text-align: left">Telephone Number2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">123</td>
+      <td style="text-align: left">Pooja</td>
+      <td style="text-align: left">Singh</td>
+      <td style="text-align: left">555-861-2025</td>
+      <td style="text-align: left">192-122-1111</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">456</td>
+      <td style="text-align: left">San</td>
+      <td style="text-align: left">Zhang</td>
+      <td style="text-align: left">(555) 403-1659 Ext. 53</td>
+      <td style="text-align: left">182-929-2929</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">789</td>
+      <td style="text-align: left">John</td>
+      <td style="text-align: left">Doe</td>
+      <td style="text-align: left">555-808-9633</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>컬럼을 분리하여 단일 값이 들어가도록 수정하였다.</li>
+</ul>
+
+<h2 id="2nf">2NF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Manufacturer</th>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: left">Model full name</th>
+      <th style="text-align: left">Manufacturer country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Forte</td>
+      <td style="text-align: left">X-Prime</td>
+      <td style="text-align: left">Forte X-Prime</td>
+      <td style="text-align: left">Italy</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Forte</td>
+      <td style="text-align: left">Ultraclean</td>
+      <td style="text-align: left">Forte Ultraclean</td>
+      <td style="text-align: left">Italy</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Dent-o-Fresh</td>
+      <td style="text-align: left">EZbrush</td>
+      <td style="text-align: left">Dent-o-Fresh EZbrush</td>
+      <td style="text-align: left">USA</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Brushmaster</td>
+      <td style="text-align: left">SuperBrush</td>
+      <td style="text-align: left">Brushmaster SuperBrush</td>
+      <td style="text-align: left">USA</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Kobayashi</td>
+      <td style="text-align: left">ST-60</td>
+      <td style="text-align: left">Kobayashi ST-60</td>
+      <td style="text-align: left">Japan</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hoch</td>
+      <td style="text-align: left">Toothmaster</td>
+      <td style="text-align: left">Hoch Toothmaster</td>
+      <td style="text-align: left">Germany</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hoch</td>
+      <td style="text-align: left">X-Prime</td>
+      <td style="text-align: left">Hoch X-Prime</td>
+      <td style="text-align: left">Germany</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>기본 키를 Model full name으로 지정했더라도 다른 후보 키인 Manufacturer, Model이 있기 때문에 2NF를 위반한다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Manufacturer</th>
+      <th style="text-align: left">Manufacturer country</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Forte</td>
+      <td style="text-align: left">Italy</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Dent-o-Fresh</td>
+      <td style="text-align: left">USA</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Brushmaster</td>
+      <td style="text-align: left">USA</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Kobayashi</td>
+      <td style="text-align: left">Japan</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hoch</td>
+      <td style="text-align: left">Germany</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Electric</td>
+      <td style="text-align: left">toothbrush models</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Manufacturer</th>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: left">Model full name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Forte</td>
+      <td style="text-align: left">X-Prime</td>
+      <td style="text-align: left">Forte X-Prime</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Forte</td>
+      <td style="text-align: left">Ultraclean</td>
+      <td style="text-align: left">Forte Ultraclean</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Dent-o-Fresh</td>
+      <td style="text-align: left">EZbrush</td>
+      <td style="text-align: left">Dent-o-Fresh EZbrush</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Brushmaster</td>
+      <td style="text-align: left">SuperBrush</td>
+      <td style="text-align: left">Brushmaster SuperBrush</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Kobayashi</td>
+      <td style="text-align: left">ST-60</td>
+      <td style="text-align: left">Kobayashi ST-60</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hoch</td>
+      <td style="text-align: left">Toothmaster</td>
+      <td style="text-align: left">Hoch Toothmaster</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Hoch</td>
+      <td style="text-align: left">X-Prime</td>
+      <td style="text-align: left">Hoch X-Prime</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>테이블을 두 개로 분리하여 부분적 함수 종속을 제거한다.</li>
+</ul>
+
+<h2 id="3nf">3NF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Tournament</th>
+      <th style="text-align: left">Year</th>
+      <th style="text-align: left">Winner</th>
+      <th style="text-align: left">Winner’s date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Indiana Invitational</td>
+      <td style="text-align: left">1998</td>
+      <td style="text-align: left">Al Fredrickson</td>
+      <td style="text-align: left">21 July 1975</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Cleveland Open</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Bob Albertson</td>
+      <td style="text-align: left">28 September 1968</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Des Moines Masters</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Al Fredrickson</td>
+      <td style="text-align: left">21 July 1975</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Indiana Invitational</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Chip Masterson</td>
+      <td style="text-align: left">14 March 1977</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>복합 키 (Tournament, Year)는 행을 고유하게 식별 할 수 있는 테이블의 후보 키이다.</li>
+  <li>Winner’s date of birth가 Winner에 의존한다는 사실은 동일한 사람이 다른 기록에 생년월일이 다르게 기입되는 것을 막을 수 없기 때문에 테이블이 논리적 불일치에 취약하게 만들어 3NF를 위반한다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Tournament</th>
+      <th style="text-align: left">Year</th>
+      <th style="text-align: left">Winner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Indiana Invitational</td>
+      <td style="text-align: left">1998</td>
+      <td style="text-align: left">Al Fredrickson</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Cleveland Open</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Bob Albertson</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Des Moines Masters</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Al Fredrickson</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Indiana Invitational</td>
+      <td style="text-align: left">1999</td>
+      <td style="text-align: left">Chip Masterson</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Winner</th>
+      <th style="text-align: left">Date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Chip Masterson</td>
+      <td style="text-align: left">14 March 1977</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Al Fredrickson</td>
+      <td style="text-align: left">21 July 1975</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Bob Albertson</td>
+      <td style="text-align: left">28 September 1968</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>테이블을 두 개로 분리하여 Winner의 Date of birth가 다르게 기입이 불가능하므로, 이행적 함수 종속을 제거한다.</li>
+</ul>
+
+<h2 id="bcnf">BCNF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Court</th>
+      <th style="text-align: left">Start time</th>
+      <th style="text-align: left">End time</th>
+      <th style="text-align: left">Rate type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">09:30</td>
+      <td style="text-align: left">10:30</td>
+      <td style="text-align: left">SAVER</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">11:00</td>
+      <td style="text-align: left">12:00</td>
+      <td style="text-align: left">SAVER</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">14:00</td>
+      <td style="text-align: left">15:30</td>
+      <td style="text-align: left">STANDARD</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">10:00</td>
+      <td style="text-align: left">11:30</td>
+      <td style="text-align: left">PREMIUM-B</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">11:30</td>
+      <td style="text-align: left">13:30</td>
+      <td style="text-align: left">PREMIUM-B</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">15:00</td>
+      <td style="text-align: left">16:30</td>
+      <td style="text-align: left">PREMIUM-A</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>모든 속성은 어떤 후보 키에 속하므로 2NF와 3NF를 모두 준수한다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Rate type</th>
+      <th style="text-align: left">Court Member</th>
+      <th style="text-align: left">flag</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">SAVER</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">Yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">STANDARD</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">No</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PREMIUM-A</td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">Yes</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">PREMIUM-B</td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">No</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Member flag</th>
+      <th style="text-align: left">Court</th>
+      <th style="text-align: left">Start time</th>
+      <th style="text-align: left">End time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">09:30</td>
+      <td style="text-align: left">10:30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">11:00</td>
+      <td style="text-align: left">12:00</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">14:00</td>
+      <td style="text-align: left">15:30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">10:00</td>
+      <td style="text-align: left">11:30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">11:30</td>
+      <td style="text-align: left">13:30</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">2</td>
+      <td style="text-align: left">15:00</td>
+      <td style="text-align: left">16:30</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>첫 테이블의 후보키는 Rate type 혹은 복합키인 (Court Member, flag)이다.</li>
+  <li>다음 테이블의 후보키는 복합키인 (Court, Start time) 혹은 (Court, End time)이다.</li>
+  <li>Rate type이 첫 테이블의 키인 경우, 두 개의 다른 Court와 연결할 수 없으므로 결정자이면서 후보키가 아닌 것이 제거된다.</li>
+</ul>
+
+<h2 id="4nf">4NF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Restaurant</th>
+      <th style="text-align: left">Pizza Variety</th>
+      <th style="text-align: left">Delivery Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Elite Pizza</td>
+      <td style="text-align: left">Thin Crust</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Elite Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thin Crust</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thin Crust</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>테이블의 키가 Restaurant, Pizza Variant, Delivery Area뿐이므로 BCNF까지의 모든 정규 형식을 충족한다.</li>
+  <li>레스토랑이 제공하는 피자 품종이 배달 지역의 영향을 받지 않는다고 가정한다면 4NF를 충족하지 않는다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Restaurant</th>
+      <th style="text-align: left">Pizza Variety</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Elite Pizza</td>
+      <td style="text-align: left">Thin Crust</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Elite Pizza</td>
+      <td style="text-align: left">Stuffed Crust</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thick Crust</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Thin Crust</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Restaurant</th>
+      <th style="text-align: left">Delivery Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">A1 Pizza</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Elite Pizza</td>
+      <td style="text-align: left">Capital City</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Springfield</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Vincenzo’s Pizza</td>
+      <td style="text-align: left">Shelbyville</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>한 음식점에서 제공하는 피자 품종이 배달 지역마다 완전히 다르다면(다치 종속 관계를 제거한다면), 4NF를 만족시킬 것이다.</li>
+</ul>
+
+<h2 id="5nf">5NF</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Traveling Salesman</th>
+      <th style="text-align: left">Brand</th>
+      <th style="text-align: left">Product Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Jack Schneider</td>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jack Schneider</td>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Pruning Shears</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Umbrella Stand</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Telescope</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Lava Lamp</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Nimbus</td>
+      <td style="text-align: left">Tie Rack</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>기본 키는 복합키인 (Traveling Salesman,  Brand, Product Type)이며, 다치 종속성이 없기 때문에 4NF를 만족한다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Traveling Salesman</th>
+      <th style="text-align: left">Product Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Jack Schneider</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Jack Schneider</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Pruning Shears</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Umbrella Stand</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Telescope</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Lava Lamp</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Tie Rack</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Traveling Salesman</th>
+      <th style="text-align: left">Brand</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Jack Schneider</td>
+      <td style="text-align: left">Acme</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Mary Jones</td>
+      <td style="text-align: left">Robusto</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Robusto</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Acme</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Louis Ferguson</td>
+      <td style="text-align: left">Nimbus</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Brand</th>
+      <th style="text-align: left">Product Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Acme</td>
+      <td style="text-align: left">Lava Lamp</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Pruning Shears</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Vacuum Cleaner</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Breadbox</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Umbrella Stand</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Robusto</td>
+      <td style="text-align: left">Telescope</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Nimbus</td>
+      <td style="text-align: left">Tie Rack</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>위 세 테이블 기반으로 보면 후보키를 통해서 조인 관계가 성립하므로, Louis Ferguson은 Acme가 만든 Vacuum Cleaner 뿐 아니라 Robusto가 만든 Vacuum Cleaner도 판매할 수 있다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Database_normalization" target="_blank">Wiki-Database_normalization</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/First_normal_form" target="_blank">Wiki-First_normal_form</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Second_normal_form" target="_blank">Wiki-Second_normal_form</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Third_normal_form">Wiki-Third_normal_form</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Boyce%E2%80%93Codd_normal_form" target="_blank">WIki-Boyce–Codd_normal_form</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Fourth_normal_form" target="_blank">Wiki-Fourth_normal_form</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Fifth_normal_form" target="_blank">Wiki-Fifth_normal_form</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#normalization" class="page__taxonomy-item" rel="tag">Normalization</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#database" class="page__taxonomy-item" rel="tag">Database</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-29">March 29, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/designpattern/transferObject/" class="pagination--pager" title="Java Design Pattern - Transfer Object Pattern
+">이전</a>
+    
+    
+      <a href="/cs/jwt/" class="pagination--pager" title="JSON Web Token(JWT)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

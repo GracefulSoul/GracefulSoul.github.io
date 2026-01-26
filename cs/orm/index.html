@@ -1,0 +1,826 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Object-Relational Mapping(ORM) - Development story</title>
+<meta name="description" content="Object-Relational Mapping(ORM)에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Object-Relational Mapping(ORM)">
+<meta property="og:url" content="/cs/orm/">
+
+
+  <meta property="og:description" content="Object-Relational Mapping(ORM)에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/cs/orm.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-22T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-22T22:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/cs/orm/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/cs/orm.png" alt="Object-Relational Mapping(ORM)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Object-Relational Mapping(ORM)">
+    <meta itemprop="description" content="Object-Relational Mapping(ORM)에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-22T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-22T22:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Object-Relational Mapping(ORM)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-22T00:00:00+00:00">March 22, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#object-relational-mappingorm">Object-Relational Mapping(ORM)</a></li><li><a href="#persistence-영속성">Persistence, 영속성</a><ul><li><a href="#object-persistence">Object Persistence</a></li><li><a href="#persistence-layer">Persistence Layer</a></li><li><a href="#persistence-framework">Persistence Framework</a><ul><li><a href="#hibernate">Hibernate</a></li><li><a href="#mybatis">MyBatis</a></li></ul></li></ul></li><li><a href="#장점">장점</a></li><li><a href="#단점">단점</a></li><li><a href="#object-relational-impedance-mismatch-객체-관계-패러다임-불일치">Object-Relational Impedance Mismatch, 객체-관계 패러다임 불일치</a><ul><li><a href="#granularity-세분성">Granularity, 세분성</a></li><li><a href="#inheritance-상속성">Inheritance, 상속성</a></li><li><a href="#identity-일치">Identity, 일치</a></li><li><a href="#associations-연관성">Associations, 연관성</a></li><li><a href="#navigation-탐색">Navigation, 탐색</a></li></ul></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="object-relational-mappingorm"><a href="https://hibernate.org/orm/" target="_blank">Object-Relational Mapping(ORM)</a></h1>
+<ul>
+  <li>Object-Oriented Programming(OOP)<sup id="fnref:OOP" role="doc-noteref"><a href="#fn:OOP" class="footnote" rel="footnote">1</a></sup>에서 사용되는 객체라는 개념을 구현한 클래스와 Relational Database(RDBMS)에서 쓰이는 데이터인 테이블을 자동으로 연결해주는 것이다.</li>
+</ul>
+
+<h1 id="persistence-영속성">Persistence, 영속성</h1>
+<ul>
+  <li>프로그램이 종료되더라도 생성한 데이터가 사라지지 않는 데이터의 특성을 말한다.</li>
+</ul>
+
+<h2 id="object-persistence">Object Persistence</h2>
+<ul>
+  <li>메모리 상의 데이터를 파일 시스템, 데이터베이스 등을 활용하여 영구적으로 저장시켜서 영속성을 부여한다.</li>
+</ul>
+
+<h2 id="persistence-layer">Persistence Layer</h2>
+<ul>
+  <li>시스템 아키텍처에서 데이터에 영속성을 부여해주는 계층을 말한다.</li>
+</ul>
+
+<h2 id="persistence-framework">Persistence Framework</h2>
+<ul>
+  <li>JDBC 프로그래밍의 복잡함이나 번거로움 없이 간단한 작업으로 데이터베이스와 연동되는 시스템을 균등한 수준의 개발과 안정성을 보장한다.</li>
+</ul>
+
+<h3 id="hibernate"><a href="https://hibernate.org/" target="_blank">Hibernate</a></h3>
+<ul>
+  <li>Java Persistence API(JPA) 사양의 구현으로, 데이터베이스와 상호 작용하는 Java 애플리케이션의 개발을 단순화하는 Java Persistence Framework이다.</li>
+  <li>거의 모든 주요 RDBMS를 지원하며, 코드를 작성하지 않고 XML 파일을 사용하여 Java 클래스를 데이터베이스 테이블에 매핑하는 작업을 처리한다.</li>
+</ul>
+
+<h3 id="mybatis"><a href="https://mybatis.org/mybatis-3/" target="_blank">MyBatis</a></h3>
+<ul>
+  <li>MyBatis는 사용자 지정 SQL, 저장 프로시저 및 고급 매핑을 지원하는 Persistence Framework이다.</li>
+  <li>데이터베이스 레코드에 기본 자료형, Map, Plain Old Java Objects(POJO)를 설정해서 매핑하기 위해 XML과 어노테이션을 사용할 수 있다.</li>
+</ul>
+
+<h1 id="장점">장점</h1>
+<ul>
+  <li>라이브러리가 SQL 쿼리를보다 간단한 메서드로 캡슐화하므로 SQL Query를 크게 보완하여 객체와 직접 상호 작용할 수 있다.
+    <ul>
+      <li>반복적인 SQL Query의 시간을 절약하기 때문에 매우 유용하다.</li>
+      <li>SQL을 잘 알 필요는 없지만, RDBMS가 작동하는 방식을 이해하면 ORM 내부에서 일어나는 동작을 이해하는데 도움이 된다.</li>
+    </ul>
+  </li>
+  <li>시간을 크게 절약 할 수있는 낙관적 잠금 및 비관적 잠금 기능을 기본 제공한다.</li>
+  <li>클래스 및 객체에 명확한 데이터 구조를 제공하여 코드의 유지보수성을 향상하고 데이터 유형을 확인할 수 있다.</li>
+  <li>DBMS에 대한 종속성이 줄어들어 양 쪽에서 변경사항을 구현하기 쉽다.</li>
+</ul>
+
+<h1 id="단점">단점</h1>
+<ul>
+  <li>ORM에 익숙해지는 데 러닝커브가 존재하여, 익숙하게 설정 및 활용하는데 시간이 약간 걸릴 수 있다.</li>
+  <li>프로시저가 많은 시스템에서는 ORM의 객체 지향적인 장점을 활용하기 어렵다.</li>
+</ul>
+
+<h1 id="object-relational-impedance-mismatch-객체-관계-패러다임-불일치"><a href="https://hibernate.org/orm/what-is-an-orm/" target="_blank">Object-Relational Impedance Mismatch, 객체-관계 패러다임 불일치</a></h1>
+
+<h2 id="granularity-세분성">Granularity, 세분성</h2>
+<ul>
+  <li>경우에 따라서 데이터베이스에 있는 테이블 수 보다 더 많은 클래스를 가진 모델이 생길 수 있다.</li>
+</ul>
+
+<h2 id="inheritance-상속성">Inheritance, 상속성</h2>
+<ul>
+  <li>상속은 객체 지향 프로그래밍 언어의 자연스러운 패러다임이다.</li>
+  <li>일부 RDBMS에서는 하위 유형을 지원하지만, 완전히 표준화되지 않았다.</li>
+</ul>
+
+<h2 id="identity-일치">Identity, 일치</h2>
+<ul>
+  <li>RDBMS는 정확히 하나의 동일성의 개념인 기본 키(Primary Key)를 정의한다.</li>
+  <li>그러나 Java는 객체 식별과 객체 동등성을 모두 정의한다</li>
+</ul>
+
+<h2 id="associations-연관성">Associations, 연관성</h2>
+<ul>
+  <li>연관은 객체 지향 언어에서 단방향 참조로 표시되는 반면 RDBMS는 외래 키(Foreign Key) 개념을 사용한다.</li>
+  <li>Java에서 양 방향 관계가 필요한 경우 참조를 두 번(양 방향으로) 정의해야한다.</li>
+  <li>마찬가지로 객체 도메인 모델을보 고 관계의 다중성을 확인할 수 없다.</li>
+</ul>
+
+<h2 id="navigation-탐색">Navigation, 탐색</h2>
+<ul>
+  <li>Java에서 데이터에 액세스하는 방법은 관계형 데이터베이스에서 수행하는 방법과 근본적으로 다르다.</li>
+  <li>Java에서는 하나의 연결에서 다른 연결로 개체 네트워크를 탐색한다.</li>
+  <li>일반적으로 데이터베이스에서는 SQL 쿼리 수를 최소화하여 JOIN을 통해 여러 엔터티를 로드하고 원하는 대상 엔터티를 선택하는 방식으로 탐색한다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:OOP" role="doc-endnote">
+      <p><a href="../../paradigm/aop" target="_blank">Blog-OOP</a> <a href="#fnref:OOP" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cs" class="page__taxonomy-item" rel="tag">CS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#orm" class="page__taxonomy-item" rel="tag">ORM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#cs" class="page__taxonomy-item" rel="tag">CS</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-22">March 22, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/devops/deployment/" class="pagination--pager" title="Deployment
+">이전</a>
+    
+    
+      <a href="/cs/internationalization/" class="pagination--pager" title="Internationalization(i18n) and Localization(l10n)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,951 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Design Pattern - Development story</title>
+<meta name="description" content="Design Pattern에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Design Pattern">
+<meta property="og:url" content="/designpattern/designpattern/">
+
+
+  <meta property="og:description" content="Design Pattern에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/designpattern/designpattern.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-09T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-09T19:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/designpattern/designpattern/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/designpattern/designpattern.png" alt="Design Pattern" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Design Pattern">
+    <meta itemprop="description" content="Design Pattern에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-09T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-09T19:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Design Pattern
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-09T00:00:00+00:00">March 09, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#design-pattern">Design Pattern</a></li><li><a href="#필수-요소">필수 요소</a><ul><li><a href="#context">Context</a></li><li><a href="#problem">Problem</a></li><li><a href="#solution">Solution</a></li></ul></li><li><a href="#gofgang-of-fours-디자인-패턴-종류">GoF(Gang of Fours) 디자인 패턴 종류</a><ul><li><a href="#creational-patterns-생성-패턴">Creational Patterns, 생성 패턴</a><ul><li><a href="#singleton">Singleton</a></li><li><a href="#factory-method">Factory Method</a></li><li><a href="#abstract-factory">Abstract Factory</a></li><li><a href="#builder">Builder</a></li><li><a href="#prototype">Prototype</a></li></ul></li><li><a href="#structural-patterns">Structural Patterns</a><ul><li><a href="#composite">Composite</a></li><li><a href="#decorator">Decorator</a></li><li><a href="#adaptor">Adaptor</a></li><li><a href="#proxy">Proxy</a></li><li><a href="#flyweight">Flyweight</a></li><li><a href="#facade">Facade</a></li><li><a href="#bridge">Bridge</a></li><li><a href="#filter">Filter</a></li></ul></li><li><a href="#behavioral-patterns">Behavioral Patterns</a><ul><li><a href="#observer">Observer</a></li><li><a href="#state">State</a></li><li><a href="#strategy">Strategy</a></li><li><a href="#command">Command</a></li><li><a href="#template-method">Template Method</a></li><li><a href="#interpreter">Interpreter</a></li><li><a href="#mediator">Mediator</a></li><li><a href="#memento">Memento</a></li><li><a href="#chain-of-responsibility">Chain of Responsibility</a></li><li><a href="#iterator">Iterator</a></li><li><a href="#visitor">Visitor</a></li></ul></li><li><a href="#other">Other</a><ul><li><a href="#business-delegate">Business Delegate</a></li><li><a href="#composite-entity">Composite Entity</a></li><li><a href="#data-access-object">Data Access Object</a></li><li><a href="#front-controller">Front Controller</a></li><li><a href="#intercepting-filter">Intercepting Filter</a></li><li><a href="#model-view-controllermvc">Model-View-Controller(MVC)</a></li><li><a href="#null-object">Null Object</a></li><li><a href="#service-locator">Service Locator</a></li><li><a href="#transfer-objecttransferobjecttarget_blank">Transfer Object(../transferObject){:target=”_blank”}</a></li></ul></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="design-pattern">Design Pattern</h1>
+<ul>
+  <li>과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.</li>
+  <li>디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.</li>
+</ul>
+
+<h1 id="필수-요소">필수 요소</h1>
+
+<h2 id="context">Context</h2>
+<ul>
+  <li>문제가 발생하는 여러 상황 기술한다.</li>
+</ul>
+
+<h2 id="problem">Problem</h2>
+<ul>
+  <li>패턴이 적용되어 해결될 필요가 있는 디자인 이슈들을 기술한다.</li>
+</ul>
+
+<h2 id="solution">Solution</h2>
+<ul>
+  <li>요소들 사이의 관계, 책임, 협력등을 기술(템플릿)한다.</li>
+</ul>
+
+<h1 id="gofgang-of-fours-디자인-패턴-종류">GoF(Gang of Fours) 디자인 패턴 종류</h1>
+<ul>
+  <li>GoF(Gang of Fout)라 불리는 인에리히 감마(Erich Gamma), 리차드 헬름(Richard Helm), 랄프 존슨(Ralph Johnson), 존 블리시디스(John Vissides) 네 명의 컴퓨터 과학 연구자들이 정의하고 분류한 디자인 패턴이다.</li>
+</ul>
+
+<h2 id="creational-patterns-생성-패턴">Creational Patterns, 생성 패턴</h2>
+<ul>
+  <li>객체가 생성되는 방식을 중시하는 패턴이다.</li>
+  <li>객체의 생성과 조합을 캡슐화하여 객체가 생성 혹은 수정되어도 전체 프로그램 구조에 영향을 받지 않도록 유연성을 제공한다.</li>
+</ul>
+
+<h3 id="singleton"><a href="../singleton" target="_blank">Singleton</a></h3>
+<ul>
+  <li>전역 변수를 사용하지 않고 객체를 하나만 생성도록 하며, 생성된 객체를 어디에서든지 참조할 수 있도록 하는 패턴이다.</li>
+</ul>
+
+<h3 id="factory-method"><a href="../factory" target="_blank">Factory Method</a></h3>
+<ul>
+  <li>객체 생성을 서브 클래스로 분리해 처리하도록 캡슐화하는 패턴이다.</li>
+</ul>
+
+<h3 id="abstract-factory"><a href="../abstractfactory" target="_blank">Abstract Factory</a></h3>
+<ul>
+  <li>구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만들 수 있는 인터페이스를 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="builder"><a href="../builder" target="_blank">Builder</a></h3>
+<ul>
+  <li>복잡한 객체를 생성하는 방법을 정의하는 클래스와 표현하는 방법을 정의하는 클래스를 별도로 분리하여, 서로 다른 표현이라도 이를 생성할 수 있는 동일한 절차를 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="prototype"><a href="../prototype" target="_blank">Prototype</a></h3>
+<ul>
+  <li>Original 객체를 새로운 객체에 복사하여 우리의 필요에 따라 수정하는 메커니즘을 제공하는 패턴이다.</li>
+  <li>Java Cloneable 클래스의 clone() 메서드가 대표적인 예이다.</li>
+</ul>
+
+<h2 id="structural-patterns">Structural Patterns</h2>
+<ul>
+  <li>클래스와 객체를 더 큰 결과물로 합칠 수 있는 구조로 설계하는 패턴이다.</li>
+  <li>서로 다른 인터페이스를 지닌 여러 개의 객체를 조합하여 단일 인터페이스를 제공하거나, 객체들을 서로 묶어 새로운 기능을 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="composite"><a href="../composite" target="_blank">Composite</a></h3>
+<ul>
+  <li>여러 개의 객체들로 구성된 복합 객체와 단일 객체를 클라이언트에서 구별 없이 다루게 해주는 패턴이다.</li>
+</ul>
+
+<h3 id="decorator"><a href="../decorator" target="_blank">Decorator</a></h3>
+<ul>
+  <li>객체의 결합을 통해 기능을 동적으로 유연하게 확장할 수 있게 해주는 패턴이다.</li>
+</ul>
+
+<h3 id="adaptor"><a href="../adaptor" target="_blank">Adaptor</a></h3>
+<ul>
+  <li>클래스의 인터페이스를 사용자가 기대하는 인터페이스 형태로 변환시키는 패턴이다.</li>
+</ul>
+
+<h3 id="proxy"><a href="../proxy" target="_blank">Proxy</a></h3>
+<ul>
+  <li>어떤 다른 객체로 접근하는 것을 통제하기 위해서 그 객체의 대리자나 자리표시자의 역할을 하는 패턴이다.</li>
+</ul>
+
+<h3 id="flyweight"><a href="../flyweight" target="_blank">Flyweight</a></h3>
+<ul>
+  <li>공유를 통하여 대량의 객체들을 효과적으로 지원하는 패턴이다.</li>
+</ul>
+
+<h3 id="facade"><a href="../facade" target="_blank">Facade</a></h3>
+<ul>
+  <li>서브시스템을 더 쉽게 사용할 수 있도록 높은 수준의 인터페이스를 정의하고 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="bridge"><a href="../bridge" target="_blank">Bridge</a></h3>
+<ul>
+  <li>추상화를 구현으로부터 분리하여 각각 독립적으로 변화할 수 있도록 하는 패턴이다.</li>
+</ul>
+
+<h3 id="filter"><a href="../filter" target="_blank">Filter</a></h3>
+<ul>
+  <li>다양한 기준을 사용하여 객체 집합을 필터링하고 논리적 작업을 통해 분리된 방식으로 연결할 수 있도록하는 패턴이다.</li>
+</ul>
+
+<h2 id="behavioral-patterns">Behavioral Patterns</h2>
+<ul>
+  <li>객체간의 상호작용과 책임을 중시하는 패턴이다.</li>
+  <li>한 객체가 혼자 수행할 수 없는 작업을 여러 개의 객체로 어떻게 분배하면서 객체 사이의 결합도를 최소화하는 것에 중점을 두는 패턴이다.</li>
+</ul>
+
+<h3 id="observer"><a href="../observer" target="_blank">Observer</a></h3>
+<ul>
+  <li>한 객체의 상태 변화에 따라 다른 객체의 상태도 연동되도록 일대다 객체 의존 관계를 구성하는 패턴이다.</li>
+</ul>
+
+<h3 id="state"><a href="../state" target="_blank">State</a></h3>
+<ul>
+  <li>객체의 상태에 따라 객체의 행위 내용을 변경하게 해주는 패턴이다.</li>
+</ul>
+
+<h3 id="strategy"><a href="../strategy" target="_blank">Strategy</a></h3>
+<ul>
+  <li>행위를 클래스로 캡슐화해 동적으로 행위를 자유롭게 바꿀 수 있게 해주는 패턴이다.</li>
+</ul>
+
+<h3 id="command"><a href="../command" target="_blank">Command</a></h3>
+<ul>
+  <li>실행될 기능을 캡슐화함으로써 주어진 여러 기능을 실행할 수 있는 재사용성이 높은 클래스를 설계하는 패턴이다.</li>
+</ul>
+
+<h3 id="template-method"><a href="../template" target="_blank">Template Method</a></h3>
+<ul>
+  <li>어떤 작업을 처리하는 일부분을 서브 클래스로 캡슐화하여 전체를 수행하는 구조는 바꾸지 않으면서 특정 단계에서 수행하는 작업을 바꾸는 패턴이다.</li>
+</ul>
+
+<h3 id="interpreter"><a href="../interpreter" target="_blank">Interpreter</a></h3>
+<ul>
+  <li>언어 문법이나 표현을 평가할 수 있는 방법을 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="mediator"><a href="../mediator" target="_blank">Mediator</a></h3>
+<ul>
+  <li>서로 관련된 객체 사이의 복잡한 통신과 제어를 한 곳으로 집중시키는 패턴이다.</li>
+</ul>
+
+<h3 id="memento"><a href="../memento" target="_blank">Memento</a></h3>
+<ul>
+  <li>객체를 이전의 상태로 복구시켜야 하는 경우 사용하는 패턴이다.</li>
+</ul>
+
+<h3 id="chain-of-responsibility"><a href="../chainOfResponsibility" target="_blank">Chain of Responsibility</a></h3>
+<ul>
+  <li>한 요청을 두 개 이상의 객체에서 처리하고 싶을 때 사용하는 패턴이다.</li>
+</ul>
+
+<h3 id="iterator"><a href="../iterator" target="_blank">Iterator</a></h3>
+<ul>
+  <li>컬렉션 구현 방법을 노출시키지 않으면서도 그 집합체 안에 들어있는 모든 항목에 접근할 수 있는 방법을 제공하는 패턴이다.</li>
+</ul>
+
+<h3 id="visitor"><a href="../visitor" target="_blank">Visitor</a></h3>
+<ul>
+  <li>알고리즘을 객체 구조에서 분리시키는 패턴이다.</li>
+</ul>
+
+<h2 id="other">Other</h2>
+<ul>
+  <li>GoF 디자인 패턴 외 Java EE 등에서 사용되거나, MVC 등의 범용적인 패턴들이다.</li>
+</ul>
+
+<h3 id="business-delegate"><a href="../businessDelegate" target="_blank">Business Delegate</a></h3>
+<ul>
+  <li>Java EE 디자인 패턴이다.</li>
+  <li>프레젠테이션 계층과 비즈니스 계층을 분리하여 결합을 줄이고 서비스의 세부 구현 정보를 캡슐화 하는데 사용된다.</li>
+  <li>기본적으로 프레젠테이션 계층 코드에서 비즈니스 계층 코드에 대한 통신 또는 원격 조회 기능을 줄이는 데 사용된다.</li>
+</ul>
+
+<h3 id="composite-entity"><a href="../compositeEntity" target="_blank">Composite Entity</a></h3>
+<ul>
+  <li>EJB Persistence Mechanism에서 사용되는 디자인 패턴이다.</li>
+  <li>Composite Entity는 객체의 그래프를 나타내는 EJB Entity Bean이다.</li>
+  <li>Composite Entity가 업데이트되면 내부적으로 종속된 Bean이 EJB Entity에 의해 관리되어 자동으로 업데이트된다.</li>
+</ul>
+
+<h3 id="data-access-object"><a href="../dataAccessObject" target="_blank">Data Access Object</a></h3>
+<ul>
+  <li>DAO 패턴이라고도 불린다.</li>
+  <li>API 또는 작업에 액세스하는 하위 수준의 데이터를 상위 수준의 비즈니스 서비스에서 분리하는 데 사용된다.</li>
+</ul>
+
+<h3 id="front-controller"><a href="../frontController" target="_blank">Front Controller</a></h3>
+<ul>
+  <li>모든 요청이 단일 핸들러로 처리되도록 중앙 집중식 요청 처리 메커니즘을 제공하는 데 사용된다.</li>
+  <li>이 핸들러는 요청의 인증/권한/로깅 또는 추적을 수행한 다음 요청을 해당 핸들러로 전달할 수 있다.</li>
+</ul>
+
+<h3 id="intercepting-filter"><a href="../interceptingFilter" target="_blank">Intercepting Filter</a></h3>
+<ul>
+  <li>응용 프로그램의 Request나 Response의 전/후 처리를 하고자 할 때 사용된다.</li>
+  <li>실제 대상 응용 프로그램에 요청을 전달하기 전에 필터가 정의되고 요청에 적용된다.</li>
+  <li>필터는 인증/승인/로그인 또는 요청의 추적 작업을 수행한 다음 해당 처리기에 요청을 전달할 수 있다.</li>
+</ul>
+
+<h3 id="model-view-controllermvc"><a href="../mvc" target="_blank">Model-View-Controller(MVC)</a></h3>
+<ul>
+  <li>사용자 인터페이스로부터 비즈니스 로직을 분리하여 애플리케이션의 시각적 요소나 그 이면에서 실행되는 비즈니스 로직을 서로 영향 없이 쉽게 고칠 수 있는 애플리케이션을 만들 기 위해 사용한다.</li>
+</ul>
+
+<h3 id="null-object"><a href="../nullObject" target="_blank">Null Object</a></h3>
+<ul>
+  <li>NULL Object 인스턴스의 검사를 대체하여 사용 및 동작을 설명한다.</li>
+</ul>
+
+<h3 id="service-locator"><a href="../serviceLocator" target="_blank">Service Locator</a></h3>
+<ul>
+  <li>JNDI 조회를 사용하여 다양한 서비스를 찾고자 할 때 사용된다.</li>
+  <li>서비스에 대한 JNDI를 찾는 데 드는 높은 비용을 고려하여 캐싱 기술을 사용한다.</li>
+  <li>Service Locator를 통한 추가 조회 또는 동일한 서비스가 캐쉬에서 수행되므로 애플리케이션 성능이 크게 향상된다.</li>
+</ul>
+
+<h3 id="transfer-objecttransferobjecttarget_blank">Transfer Object(../transferObject){:target=”_blank”}</h3>
+<ul>
+  <li>여러 속성을 가진 데이터를 Client에서 Server로 한 번에 전달할 때 사용된다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#designpattern" class="page__taxonomy-item" rel="tag">DesignPattern</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#designpattern" class="page__taxonomy-item" rel="tag">DesignPattern</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-09">March 9, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/cs/tdd/" class="pagination--pager" title="Test-Driven Development(TDD)
+">이전</a>
+    
+    
+      <a href="/designpattern/singleton/" class="pagination--pager" title="Java Design Pattern - Singleton Pattern
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

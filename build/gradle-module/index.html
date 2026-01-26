@@ -1,0 +1,961 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Gradle Multi Project에 대한 설명 - Development story</title>
+<meta name="description" content="Gradle Multi Project을 사용하여 Monorepo를 구성하는 내용을 정리">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Gradle Multi Project에 대한 설명">
+<meta property="og:url" content="/build/gradle-module/">
+
+
+  <meta property="og:description" content="Gradle Multi Project을 사용하여 Monorepo를 구성하는 내용을 정리">
+
+
+
+  <meta property="og:image" content="/assets/images/build/gradle.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2025-10-17T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2025-10-17T22:50:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/build/gradle-module/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/build/gradle.png" alt="Gradle Multi Project에 대한 설명" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Gradle Multi Project에 대한 설명">
+    <meta itemprop="description" content="Gradle Multi Project을 사용하여 Monorepo를 구성하는 내용을 정리">
+    <meta itemprop="datePublished" content="2025-10-17T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2025-10-17T22:50:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Gradle Multi Project에 대한 설명
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2025-10-17T00:00:00+00:00">October 17, 2025</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#gradle">Gradle1</a></li><li><a href="#gradle-multi-project">Gradle Multi Project</a></li><li><a href="#example-project">Example Project</a><ul><li><a href="#spring-grpc">spring-grpc</a></li><li><a href="#grpc-libs">grpc-libs</a></li><li><a href="#grpc-server">grpc-server</a></li><li><a href="#grpc-client">grpc-client</a></li></ul></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="gradle">Gradle<sup id="fnref:Gradle" role="doc-noteref"><a href="#fn:Gradle" class="footnote" rel="footnote">1</a></sup></h1>
+<ul>
+  <li>Gradle은 Groovy를 사용한 빌드 자동화 시스템으로, 주로 Java, C/C++, 파이썬 등의 언어를 지원한다.</li>
+</ul>
+
+<h1 id="gradle-multi-project">Gradle Multi Project</h1>
+<ul>
+  <li>Gradle <a href="https://docs.gradle.org/current/userguide/multi_project_builds.html" target="_blank">Multi Project Builds</a>는 <a href="https://en.wikipedia.org/wiki/Monorepo" target="_blank">Monorepo</a> 형태로 Root Project에서 Project 구조를 정의하고, Sub Project들을 파생하는 구조이다.
+<img src="../../assets/images/build/gradle/structuring-builds-6.png" alt="MultiProject1" />
+    <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my</span><span class="o">-</span><span class="n">project</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">settings</span><span class="o">.</span><span class="na">gradle</span>         
+<span class="err">├──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>        
+<span class="err">├──</span> <span class="n">app</span><span class="o">/</span>                    
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>    
+<span class="err">├──</span> <span class="n">core</span><span class="o">/</span>                   
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>    
+<span class="err">└──</span> <span class="n">util</span><span class="o">/</span>                   
+  <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>  
+</code></pre></div>    </div>
+  </li>
+  <li>이 구조에서 특정 Sub Project에서 공통으로 사용하는 소스를 Sub Project로 관리하고 의존성을 주입하는 관계로 적용이 가능하다.
+<img src="../../assets/images/build/gradle/structuring-builds-7.png" alt="MultiProject2" />
+    <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span>
+<span class="err">├──</span> <span class="n">api</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">src</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">├──</span> <span class="n">services</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">person</span><span class="o">-</span><span class="n">service</span>
+<span class="err">│</span>       <span class="err">├──</span> <span class="n">src</span>
+<span class="err">│</span>       <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>       <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">├──</span> <span class="n">shared</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">src</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">└──</span> <span class="n">settings</span><span class="o">.</span><span class="na">gradle</span>
+</code></pre></div>    </div>
+  </li>
+  <li>위와 같은 구성을 통해 공통된 소스들을 각 Project에 Copy/Paste 혹은 다중 관리에 대한 유지보수성을 저하시키는 요소를 제거할 수 있다.</li>
+  <li>물론 Maven에서도 동일한 구성의 <a href="https://maven.apache.org/guides/mini/guide-multiple-modules.html" target="_blank">Multi Modules</a>가 존재하지만, 오늘은 Gradle의 Multi Project 구성에 대해서 이전 포스트인 <a href="../spring/spring-grpc" target="_blank">Spring gRPC</a> 코드를 사용하여 설명을 진행한다.</li>
+</ul>
+
+<h1 id="example-project">Example Project</h1>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">spring</span><span class="o">-</span><span class="n">grpc</span><span class="o">/</span>
+<span class="err">├──</span> <span class="n">grpc</span><span class="o">-</span><span class="n">server</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">src</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">├──</span> <span class="n">grpc</span><span class="o">-</span><span class="n">client</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">src</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">├──</span> <span class="n">grpc</span><span class="o">-</span><span class="n">libs</span>
+<span class="err">│</span>   <span class="err">├──</span> <span class="n">proto</span>
+<span class="err">│</span>   <span class="err">│</span>   <span class="err">└──</span><span class="o">...</span>
+<span class="err">│</span>   <span class="err">└──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">├──</span> <span class="n">build</span><span class="o">.</span><span class="na">gradle</span>
+<span class="err">└──</span> <span class="n">settings</span><span class="o">.</span><span class="na">gradle</span>
+</code></pre></div></div>
+
+<h2 id="spring-grpc">spring-grpc</h2>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plugins</span> <span class="o">{</span>
+  <span class="n">id</span> <span class="s1">'java'</span>
+  <span class="n">id</span> <span class="s1">'org.springframework.boot'</span> <span class="n">version</span> <span class="s1">'3.4.5'</span>
+  <span class="n">id</span> <span class="s1">'io.spring.dependency-management'</span> <span class="n">version</span> <span class="s1">'1.1.7'</span>
+  <span class="n">id</span> <span class="s1">'com.google.protobuf'</span> <span class="n">version</span> <span class="s1">'0.9.2'</span>
+<span class="o">}</span>
+
+<span class="n">ext</span> <span class="o">{</span>
+  <span class="n">set</span><span class="o">(</span><span class="s1">'springGrpcVersion'</span><span class="o">,</span> <span class="s2">"0.10.0"</span><span class="o">)</span>
+  <span class="n">set</span><span class="o">(</span><span class="s1">'springBootVersion'</span><span class="o">,</span> <span class="s2">"3.4.5"</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="s1">'com.gracefulsoul'</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s1">'0.0.1-SNAPSHOT'</span>
+
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+        <span class="n">google</span><span class="o">()</span>
+        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">'https://repo.spring.io/milestone'</span> <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">subprojects</span> <span class="o">{</span>
+    <span class="n">apply</span> <span class="nl">plugin:</span> <span class="s2">"java"</span>
+    <span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
+
+    <span class="n">java</span> <span class="o">{</span>
+        <span class="n">toolchain</span> <span class="o">{</span>
+            <span class="n">languageVersion</span> <span class="o">=</span> <span class="n">JavaLanguageVersion</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">21</span><span class="o">)</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+  <span class="n">dependencyManagement</span> <span class="o">{</span>
+    <span class="n">imports</span> <span class="o">{</span>
+      <span class="n">mavenBom</span> <span class="s2">"org.springframework.grpc:spring-grpc-dependencies:${springGrpcVersion}"</span>
+      <span class="n">mavenBom</span> <span class="s2">"org.springframework.boot:spring-boot-dependencies:${springBootVersion}"</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>여기서 주목해야 하는 항목은 allprojects, subprojects이다.
+    <ul>
+      <li>allprojects는 모든 프로젝트에 공통으로 적용하기 위한 설정이다.</li>
+      <li>subprojects는 최상위 프로젝트를 제외한 하위 프로젝트에 공통으로 적용하기 위한 설정이다.</li>
+    </ul>
+  </li>
+  <li>위 설정들은 각 프로젝트 내 build.gradle에 중복으로 설정되지 않도록 일괄 적용하기 위해 사용한다.</li>
+</ul>
+
+<h2 id="grpc-libs">grpc-libs</h2>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plugins</span> <span class="o">{</span>
+  <span class="n">id</span> <span class="s1">'java-library'</span>
+  <span class="n">id</span> <span class="s1">'com.google.protobuf'</span> <span class="n">version</span> <span class="s1">'0.9.2'</span>
+<span class="o">}</span>
+
+<span class="n">jar</span> <span class="o">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="o">}</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="n">google</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">implementation</span> <span class="s1">'io.grpc:grpc-services:1.60.0'</span>
+<span class="o">}</span>
+
+<span class="n">protobuf</span> <span class="o">{</span>
+  <span class="n">protoc</span> <span class="o">{</span>
+    <span class="n">artifact</span> <span class="o">=</span> <span class="s1">'com.google.protobuf:protoc:3.25.3'</span>
+  <span class="o">}</span>
+  <span class="n">plugins</span> <span class="o">{</span>
+    <span class="n">grpc</span> <span class="o">{</span>
+      <span class="n">artifact</span> <span class="o">=</span> <span class="s1">'io.grpc:protoc-gen-grpc-java:1.64.0'</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="n">generateProtoTasks</span> <span class="o">{</span>
+    <span class="n">all</span><span class="o">()*.</span><span class="na">plugins</span> <span class="o">{</span>
+      <span class="n">grpc</span> <span class="o">{</span>
+        <span class="n">option</span> <span class="s1">'jakarta_omit'</span>
+        <span class="n">option</span> <span class="s1">'@generated=omit'</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>위 프로젝트는 라이브러리 형태로 각 프로젝트에 의존성 주입을 위한 프로젝트로, ‘java-library’ 플러그인을 사용한다.</li>
+  <li>이전 글에서 설명한 내용대로 protobuf를 사용하여 java 코드를 자동 생성할 것이므로, protobuf 관련 설정만 추가한다.</li>
+</ul>
+
+<h2 id="grpc-server">grpc-server</h2>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plugins</span> <span class="o">{</span>
+  <span class="n">id</span> <span class="s1">'java'</span>
+  <span class="n">id</span> <span class="s1">'org.springframework.boot'</span>
+  <span class="n">id</span> <span class="s1">'io.spring.dependency-management'</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">implementation</span> <span class="nf">project</span><span class="o">(</span><span class="s2">":grpc-libs"</span><span class="o">)</span>
+  <span class="n">implementation</span> <span class="s1">'io.grpc:grpc-services'</span>
+  <span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter'</span>
+  <span class="n">implementation</span> <span class="s1">'org.springframework.grpc:spring-grpc-spring-boot-starter'</span>
+
+  <span class="n">testImplementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-test'</span>
+  <span class="n">testImplementation</span> <span class="s1">'org.springframework.grpc:spring-grpc-test'</span>
+  <span class="n">testRuntimeOnly</span> <span class="s1">'org.junit.platform:junit-platform-launcher'</span>
+<span class="o">}</span>
+
+<span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s1">'test'</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">useJUnitPlatform</span><span class="o">()</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>grpc-server에서는 <code class="language-plaintext highlighter-rouge">implementation project(":grpc-libs")</code>를 통해서 앞의 grpc-libs 프로젝트를 의존성 주입하여 사용하는 것을 명시한다.</li>
+</ul>
+
+<h2 id="grpc-client">grpc-client</h2>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plugins</span> <span class="o">{</span>
+  <span class="n">id</span> <span class="s1">'java'</span>
+  <span class="n">id</span> <span class="s1">'org.springframework.boot'</span>
+  <span class="n">id</span> <span class="s1">'io.spring.dependency-management'</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+  <span class="n">implementation</span> <span class="nf">project</span><span class="o">(</span><span class="s2">":grpc-libs"</span><span class="o">)</span>
+  <span class="n">implementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter'</span>
+  <span class="n">implementation</span> <span class="s1">'org.springframework.grpc:spring-grpc-client-spring-boot-starter'</span>
+
+  <span class="n">testImplementation</span> <span class="s1">'org.springframework.boot:spring-boot-starter-test'</span>
+  <span class="n">testImplementation</span> <span class="s1">'org.springframework.grpc:spring-grpc-test'</span>
+  <span class="n">testRuntimeOnly</span> <span class="s1">'org.junit.platform:junit-platform-launcher'</span>
+<span class="o">}</span>
+
+<span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s1">'test'</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">useJUnitPlatform</span><span class="o">()</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>grpc-client 또한 <code class="language-plaintext highlighter-rouge">implementation project(":grpc-libs")</code>를 통해서 앞의 grpc-libs 프로젝트를 의존성 주입하여 사용하는 것을 명시한다.</li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+<p><img src="../../assets/images/build/gradle/gradle-module-import.png" alt="moduleImport" /></p>
+<ul>
+  <li>위와 같이 공통으로 사용하는 DTO와 Utility 등의 사이드 이펙트가 없는 <a href="https://en.wikipedia.org/wiki/Pure_function" target="_blank">순수 함수</a>, 등의 다양한 목적의 공통 코드를 모듈화하여 공유한다.</li>
+  <li>쉽고 간편한 개발을 통해 만들어진 프로젝트는 깊은 고민과 설계를 통해 만들어진 프로젝트를 결코 따라잡지 못하므로, 코드를 먼저 작성하기보다는 더 나은 방안을 설계하고 고민하는 습관을 가졌으면 한다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<p>※ Sample Code는 <a href="https://github.com/GracefulSoul/spring-grpc" target="_blank">여기</a>에서 확인 가능합니다.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Gradle" role="doc-endnote">
+      <p><a href="https://gradle.org/" target="_blank">Gradle Home</a> <a href="#fnref:Gradle" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#build" class="page__taxonomy-item" rel="tag">Build</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#gradle" class="page__taxonomy-item" rel="tag">Gradle</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#monorepo" class="page__taxonomy-item" rel="tag">Monorepo</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#multi-project" class="page__taxonomy-item" rel="tag">Multi Project</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#build" class="page__taxonomy-item" rel="tag">Build</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2025-10-17">October 17, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/find-resultant-array-after-removing-anagrams/" class="pagination--pager" title="Leetcode Java Find Resultant Array After Removing Anagrams
+">이전</a>
+    
+    
+      <a href="/leetcode/the-two-sneaky-numbers-of-digitville/" class="pagination--pager" title="Leetcode Java The Two Sneaky Numbers of Digitville
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

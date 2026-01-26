@@ -1,0 +1,1029 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Spring gRPC - Development story</title>
+<meta name="description" content="Spring gRPC에 대한 설명과 활용">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Spring gRPC">
+<meta property="og:url" content="/spring/spring-grpc/">
+
+
+  <meta property="og:description" content="Spring gRPC에 대한 설명과 활용">
+
+
+
+  <meta property="og:image" content="/assets/images/spring/spring-grpc.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2025-08-07T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2025-08-07T20:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/spring/spring-grpc/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/spring/spring-grpc.png" alt="Spring gRPC" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Spring gRPC">
+    <meta itemprop="description" content="Spring gRPC에 대한 설명과 활용">
+    <meta itemprop="datePublished" content="2025-08-07T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2025-08-07T20:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Spring gRPC
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2025-08-07T00:00:00+00:00">August 07, 2025</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#spring-grpc">Spring gRPC1</a></li><li><a href="#spring-grpc-sample">Spring gRPC Sample</a><ul><li><a href="#helloproto">hello.proto</a></li><li><a href="#requestjava">Request.java</a></li><li><a href="#hellogrpcjava">HelloGrpc.java</a></li><li><a href="#grpcserverservicejava-server">GrpcServerService.java (Server)</a></li><li><a href="#grpcclientapplicationjava-client">GrpcClientApplication.java (Client)</a></li></ul></li><li><a href="#conclusion">Conclusion</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="spring-grpc">Spring gRPC<sup id="fnref:Srping-gRPC" role="doc-noteref"><a href="#fn:Srping-gRPC" class="footnote" rel="footnote">1</a></sup></h1>
+<ul>
+  <li>Spring gRPC는 gRPC<sup id="fnref:gRPC" role="doc-noteref"><a href="#fn:gRPC" class="footnote" rel="footnote">2</a></sup> 프로젝트를 간소화하여 구성하기위한 프로젝트이다.</li>
+  <li>gRPC란 고성능 오픈 소스 Remote Procedure Call(이하 RPC) Framework로, Client를 Server와 효율적으로 연결할 수 있다.</li>
+  <li>Protocol buffer<sup id="fnref:Protocol-Buffers" role="doc-noteref"><a href="#fn:Protocol-Buffers" class="footnote" rel="footnote">3</a></sup>는 언어와 플랫폼에 중립적인 구조화된 데이터를 직렬화하기 위한 데이터 형식으로, JSON과 비슷하지만 더 빠르고 다양한 언어에서 쉽게 읽고 쓸 수 있다. 현재는 Protocol buffer v3인 proto3로 더 다양한 확장성을 제공한다.</li>
+</ul>
+
+<h1 id="spring-grpc-sample">Spring gRPC Sample</h1>
+<ul>
+  <li>간단한 Server-Client로 구성된 프로젝트를 기반으로 설명을 진행한다.</li>
+</ul>
+
+<h2 id="helloproto">hello.proto</h2>
+<div class="language-protobuf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="k">option</span> <span class="na">java_multiple_files</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="k">option</span> <span class="na">java_package</span> <span class="o">=</span> <span class="s">"com.gracefulsoul.grpc.lib.proto"</span><span class="p">;</span>
+<span class="k">option</span> <span class="na">java_outer_classname</span> <span class="o">=</span> <span class="s">"HelloProto"</span><span class="p">;</span>
+
+<span class="kd">service</span> <span class="n">Hello</span> <span class="p">{</span>
+  <span class="k">rpc</span> <span class="n">SayHello</span><span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Reply</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="k">rpc</span> <span class="n">StreamHello</span><span class="p">(</span><span class="n">Request</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">stream</span> <span class="n">Reply</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Request</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">Reply</span> <span class="p">{</span>
+  <span class="kt">string</span> <span class="kd">message</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<ul>
+  <li>syntax는 Protocol buffer의 사용 버전을 명시하며, proto2 혹은 proto3를 반드시 명시한다.</li>
+  <li>option은 세부 설정을 위한 기능으로, 아래 세 가지를 정의하였다.
+    <ul>
+      <li>‘java_package는’ Java 혹은 Kotlin 코드를 생성할 때, 패키지 이름을 정의한다.</li>
+      <li>‘java_multiple_files’은 Java 코드를 생성할 때, .proto 파일을 단일 .java 파일로 생성할지 각 Java Class, Enum 등에 대해서 각각 생성할지 결정하는 설정으로 기본값은 false인 단일 .java 파일로 생성한다.</li>
+      <li>‘java_outer_classname’는 Java 코드를 생성할 때, .proto 파일을 .java 파일로 생성할 때 이름을 결정하기 위한 설정으로 기본값은 .proto 파일의 이름을 카멜 표현식으로 변환한 값이다.</li>
+    </ul>
+  </li>
+  <li>service는 message 타입을 RPC과 함께 사용하기 위해 서비스 인터페이스를 정의하면 Protocol buffer 컴파일러가 선택한 언어로 서비스 인터페이스 코드와 Client와 Server 간의 통신을 추상화하여 복잡한 부분을 숨기고, 사용자가 편리하게 서비스를 이용할 수 있도록 돕기위한 코드인 stubs을 생성한다.
+    <ul>
+      <li>rpc 키워드를 통해서 각 RPC를 정의하고, 반환되는 값에 stream 유무의 차이는 단일 응답인지 Streaming 응답인지를 구분하기 위한 키워드이다.</li>
+    </ul>
+  </li>
+  <li>message는 Client와 Server 간의 주고 받을 내용을 정의하는 데이터 구조로, 필드(field)와 값(value)으로 구성된 구조화된 데이터 형식을 사용한다.
+    <ul>
+      <li>위의 Request message를 예로 들면, string 타입의 name 필드 1개의 키-값 쌍을 가진다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="requestjava">Request.java</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Generated by the protocol buffer compiler.  DO NOT EDIT!</span>
+<span class="c1">// NO CHECKED-IN PROTOBUF GENCODE</span>
+<span class="c1">// source: hello.proto</span>
+<span class="c1">// Protobuf Java Version: 4.30.2</span>
+
+<span class="kn">package</span> <span class="nn">com.gracefulsoul.grpc.lib.proto</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Protobuf type {@code Request}
+ */</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Request</span> <span class="kd">extends</span>
+    <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">protobuf</span><span class="o">.</span><span class="na">GeneratedMessage</span> <span class="kd">implements</span>
+    <span class="c1">// @@protoc_insertion_point(message_implements:Request)</span>
+    <span class="nc">RequestOrBuilder</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">0L</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="o">{</span>
+    <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">protobuf</span><span class="o">.</span><span class="na">RuntimeVersion</span><span class="o">.</span><span class="na">validateProtobufGencodeVersion</span><span class="o">(</span>
+      <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">protobuf</span><span class="o">.</span><span class="na">RuntimeVersion</span><span class="o">.</span><span class="na">RuntimeDomain</span><span class="o">.</span><span class="na">PUBLIC</span><span class="o">,</span>
+      <span class="cm">/* major= */</span> <span class="mi">4</span><span class="o">,</span>
+      <span class="cm">/* minor= */</span> <span class="mi">30</span><span class="o">,</span>
+      <span class="cm">/* patch= */</span> <span class="mi">2</span><span class="o">,</span>
+      <span class="cm">/* suffix= */</span> <span class="s">""</span><span class="o">,</span>
+      <span class="nc">Request</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+  <span class="o">}</span>
+  <span class="c1">// Use Request.newBuilder() to construct.</span>
+  <span class="kd">private</span> <span class="nf">Request</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">protobuf</span><span class="o">.</span><span class="na">GeneratedMessage</span><span class="o">.</span><span class="na">Builder</span><span class="o">&lt;?&gt;</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">builder</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="kd">private</span> <span class="nf">Request</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">name_</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="c1">// 이하 생략</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>위의 ‘hello.proto’를 빌드하여 생성된 파일 중 Request message에 대한 파일로, 위에서 간단히 세 줄로 설정한 데이터 구조를 Java에 맞추어 객체 생성에 도움이 될 Builder를 포함하여 기본 객체 비교에 대한 Object의 메서드들과 데이터 송수신에 효율적인 구조를 정의한 GeneratedMessage의 각 메서드들을 상속받아 자동으로 구현한 객체이다.</li>
+</ul>
+
+<h2 id="hellogrpcjava">HelloGrpc.java</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.gracefulsoul.grpc.lib.proto</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">MethodDescriptor</span><span class="o">.</span><span class="na">generateFullMethodName</span><span class="o">;</span>
+
+<span class="cm">/**
+ */</span>
+<span class="nd">@io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">annotations</span><span class="o">.</span><span class="na">GrpcGenerated</span>
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HelloGrpc</span> <span class="o">{</span>
+
+  <span class="c1">// 중략</span>
+
+  <span class="cm">/**
+   * A stub to allow clients to do asynchronous rpc calls to service Hello.
+   */</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HelloStub</span>
+      <span class="kd">extends</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">AbstractAsyncStub</span><span class="o">&lt;</span><span class="nc">HelloStub</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nf">HelloStub</span><span class="o">(</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">Channel</span> <span class="n">channel</span><span class="o">,</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">CallOptions</span> <span class="n">callOptions</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">super</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="n">callOptions</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Override</span>
+    <span class="kd">protected</span> <span class="nc">HelloStub</span> <span class="nf">build</span><span class="o">(</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">Channel</span> <span class="n">channel</span><span class="o">,</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">CallOptions</span> <span class="n">callOptions</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">HelloStub</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="n">callOptions</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Request</span> <span class="n">request</span><span class="o">,</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">StreamObserver</span><span class="o">&lt;</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Reply</span><span class="o">&gt;</span> <span class="n">responseObserver</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">ClientCalls</span><span class="o">.</span><span class="na">asyncUnaryCall</span><span class="o">(</span>
+          <span class="n">getChannel</span><span class="o">().</span><span class="na">newCall</span><span class="o">(</span><span class="n">getSayHelloMethod</span><span class="o">(),</span> <span class="n">getCallOptions</span><span class="o">()),</span> <span class="n">request</span><span class="o">,</span> <span class="n">responseObserver</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">streamHello</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Request</span> <span class="n">request</span><span class="o">,</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">StreamObserver</span><span class="o">&lt;</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Reply</span><span class="o">&gt;</span> <span class="n">responseObserver</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">ClientCalls</span><span class="o">.</span><span class="na">asyncServerStreamingCall</span><span class="o">(</span>
+          <span class="n">getChannel</span><span class="o">().</span><span class="na">newCall</span><span class="o">(</span><span class="n">getStreamHelloMethod</span><span class="o">(),</span> <span class="n">getCallOptions</span><span class="o">()),</span> <span class="n">request</span><span class="o">,</span> <span class="n">responseObserver</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="cm">/**
+   * A stub to allow clients to do limited synchronous rpc calls to service Hello.
+   */</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">HelloBlockingStub</span>
+      <span class="kd">extends</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">AbstractBlockingStub</span><span class="o">&lt;</span><span class="nc">HelloBlockingStub</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nf">HelloBlockingStub</span><span class="o">(</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">Channel</span> <span class="n">channel</span><span class="o">,</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">CallOptions</span> <span class="n">callOptions</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">super</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="n">callOptions</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Override</span>
+    <span class="kd">protected</span> <span class="nc">HelloBlockingStub</span> <span class="nf">build</span><span class="o">(</span>
+        <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">Channel</span> <span class="n">channel</span><span class="o">,</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">CallOptions</span> <span class="n">callOptions</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">HelloBlockingStub</span><span class="o">(</span><span class="n">channel</span><span class="o">,</span> <span class="n">callOptions</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     */</span>
+    <span class="kd">public</span> <span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Reply</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Request</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">ClientCalls</span><span class="o">.</span><span class="na">blockingUnaryCall</span><span class="o">(</span>
+          <span class="n">getChannel</span><span class="o">(),</span> <span class="n">getSayHelloMethod</span><span class="o">(),</span> <span class="n">getCallOptions</span><span class="o">(),</span> <span class="n">request</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     */</span>
+    <span class="kd">public</span> <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Iterator</span><span class="o">&lt;</span><span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Reply</span><span class="o">&gt;</span> <span class="nf">streamHello</span><span class="o">(</span>
+        <span class="n">com</span><span class="o">.</span><span class="na">gracefulsoul</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">lib</span><span class="o">.</span><span class="na">proto</span><span class="o">.</span><span class="na">Request</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">io</span><span class="o">.</span><span class="na">grpc</span><span class="o">.</span><span class="na">stub</span><span class="o">.</span><span class="na">ClientCalls</span><span class="o">.</span><span class="na">blockingServerStreamingCall</span><span class="o">(</span>
+          <span class="n">getChannel</span><span class="o">(),</span> <span class="n">getStreamHelloMethod</span><span class="o">(),</span> <span class="n">getCallOptions</span><span class="o">(),</span> <span class="n">request</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="c1">// 이하 생략</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>‘HelloGrpc.java’는 ‘hello.proto’에서 정의한 Hello service의 각 rpc를 수행하기 위한 객체로, Asynchronous 방식의 연동을 제공하는 HelloStub과 Synchronous 방식의 연동을 제공하는 HelloBlockingStub 등을 포함하여 다양한 기능 수행에 필요한 Stub 객체들을 컴파일을 통해 자동으로 만들어준다.</li>
+</ul>
+
+<h2 id="grpcserverservicejava-server">GrpcServerService.java (Server)</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.gracefulsoul.grpc.server.service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gracefulsoul.grpc.lib.proto.HelloGrpc</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gracefulsoul.grpc.lib.proto.Reply</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gracefulsoul.grpc.lib.proto.Request</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">io.grpc.stub.StreamObserver</span><span class="o">;</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GrpcServerService</span> <span class="kd">extends</span> <span class="nc">HelloGrpc</span><span class="o">.</span><span class="na">HelloImplBase</span> <span class="o">{</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nc">Request</span> <span class="n">request</span><span class="o">,</span> <span class="nc">StreamObserver</span><span class="o">&lt;</span><span class="nc">Reply</span><span class="o">&gt;</span> <span class="n">responseObserver</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"error"</span><span class="o">))</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Bad name: "</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+		<span class="o">}</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">startsWith</span><span class="o">(</span><span class="s">"internal"</span><span class="o">))</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="nc">Reply</span> <span class="n">reply</span> <span class="o">=</span> <span class="nc">Reply</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">().</span><span class="na">setMessage</span><span class="o">(</span><span class="s">"Hello "</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+		<span class="n">responseObserver</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">reply</span><span class="o">);</span>
+		<span class="n">responseObserver</span><span class="o">.</span><span class="na">onCompleted</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">streamHello</span><span class="o">(</span><span class="nc">Request</span> <span class="n">request</span><span class="o">,</span> <span class="nc">StreamObserver</span><span class="o">&lt;</span><span class="nc">Reply</span><span class="o">&gt;</span> <span class="n">responseObserver</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="k">while</span> <span class="o">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">Reply</span> <span class="n">reply</span> <span class="o">=</span> <span class="nc">Reply</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">().</span><span class="na">setMessage</span><span class="o">(</span><span class="s">"Hello "</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="na">getName</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+			<span class="n">responseObserver</span><span class="o">.</span><span class="na">onNext</span><span class="o">(</span><span class="n">reply</span><span class="o">);</span>
+			<span class="n">count</span><span class="o">++;</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000L</span><span class="o">);</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+				<span class="n">responseObserver</span><span class="o">.</span><span class="na">onError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+				<span class="k">return</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="n">responseObserver</span><span class="o">.</span><span class="na">onCompleted</span><span class="o">();</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>서버에서 각 호출에 대해서 응답을 제공하기 위한 RPC를 Hello service를 구현한 가장 기본 객체인 HelloImplBase를 상속받아 구현하였다.</li>
+  <li>주요 차이점은 아래와 같다.
+    <ul>
+      <li>sayHello(Request request, StreamObserver&lt;Reply&gt; responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 reply를 한 번에 전달하고 전송을 종료한다.</li>
+      <li>streamHello(Request request, StreamObserver&lt;Reply&gt; responseObserver) 메서드는 request로 전달받은 요청을 responseObserver를 이용하여 원하는만큼 분할하여 여러 번 전송하고 전송을 종료한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="grpcclientapplicationjava-client">GrpcClientApplication.java (Client)</h2>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.gracefulsoul.grpc.client</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.LogFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.CommandLineRunner</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.context.annotation.Bean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.grpc.client.GrpcChannelFactory</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.gracefulsoul.grpc.lib.proto.HelloGrpc</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.gracefulsoul.grpc.lib.proto.Request</span><span class="o">;</span>
+
+<span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GrpcClientApplication</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Log</span> <span class="no">LOG</span> <span class="o">=</span> <span class="nc">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="nc">GrpcClientApplication</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">GrpcClientApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Bean</span>
+	<span class="nc">HelloGrpc</span><span class="o">.</span><span class="na">HelloBlockingStub</span> <span class="nf">stub</span><span class="o">(</span><span class="nc">GrpcChannelFactory</span> <span class="n">channels</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">HelloGrpc</span><span class="o">.</span><span class="na">newBlockingStub</span><span class="o">(</span><span class="n">channels</span><span class="o">.</span><span class="na">createChannel</span><span class="o">(</span><span class="s">"local"</span><span class="o">));</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Bean</span>
+	<span class="nc">CommandLineRunner</span> <span class="nf">runner</span><span class="o">(</span><span class="nc">HelloGrpc</span><span class="o">.</span><span class="na">HelloBlockingStub</span> <span class="n">stub</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="no">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="n">stub</span><span class="o">.</span><span class="na">sayHello</span><span class="o">(</span><span class="nc">Request</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">().</span><span class="na">setName</span><span class="o">(</span><span class="s">"GracefulSoul"</span><span class="o">).</span><span class="na">build</span><span class="o">()));</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<ul>
+  <li>stub(GrpcChannelFactory channels) 메서드를 통해서 Synchronous 방식의 HelloBlockingStub을 테스트를 위해 ‘local’로 채널을 생성한 객체를 만들어준다.</li>
+  <li>runner(HelloGrpc.HelloBlockingStub stub) 메서드로 서버측의 sayHello RPC에 ‘GracefulSoul’을 전달해준다.</li>
+  <li>결과는 아래와 같다.
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>message: <span class="s2">"Hello GracefulSoul"</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h1 id="conclusion">Conclusion</h1>
+<ul>
+  <li>현재 서비스의 아키텍쳐가 다양해짐에 따라 구성되는 서비스의 언어 또한 필요에 따라 다양한 언어들로 구성을 하여 서로의 장점을 이용한 최적의 서비스를 제공하고있다.</li>
+  <li>기존엔 REST API를 설계 후 Request와 Response에 대한 상세 문서로 연관 서비스 개발자들과 공유하고 관리하는 시간 또한 생산성의 저하의 주 요인이었다면, gRPC를 통해 자동화하고 정형화된 코드 기반으로 개발자들은 비즈니스 로직에 집중할 수 있다.</li>
+  <li>실 운영에서 사용해보면 단순한 REST API보다는 러닝 커브와 디버깅에 대한 다양한 이슈를 접하겠지만, 익숙해지면 더 나은 개발 환경을 여러분에게 제공하게 될 것이다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<p>※ Sample Code는 <a href="https://github.com/GracefulSoul/spring-grpc" target="_blank">여기</a>에서 확인 가능합니다.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Srping-gRPC" role="doc-endnote">
+      <p><a href="https://docs.spring.io/spring-grpc/reference/index.html" target="_blank">Spring gRPC Start</a> <a href="#fnref:Srping-gRPC" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:gRPC" role="doc-endnote">
+      <p><a href="https://grpc.io/" target="_blank">gRPC Home</a> <a href="#fnref:gRPC" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Protocol-Buffers" role="doc-endnote">
+      <p><a href="https://protobuf.dev/overview/" target="_blank">Protocol Buffers Home</a> <a href="#fnref:Protocol-Buffers" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#grpc" class="page__taxonomy-item" rel="tag">gRPC</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2025-08-07">August 7, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/fruits-into-baskets-ii/" class="pagination--pager" title="Leetcode Java Fruits Into Baskets II
+">이전</a>
+    
+    
+      <a href="/leetcode/find-the-smallest-divisor-given-a-threshold/" class="pagination--pager" title="Leetcode Java Find the Smallest Divisor Given a Threshold
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,954 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Java Design Pattern - Abstract Factory Pattern - Development story</title>
+<meta name="description" content="Java를 이용하여 Design Pattern - Abstract Factory Pattern에 대해 설명합니다.">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Java Design Pattern - Abstract Factory Pattern">
+<meta property="og:url" content="/designpattern/abstarctfactory/">
+
+
+  <meta property="og:description" content="Java를 이용하여 Design Pattern - Abstract Factory Pattern에 대해 설명합니다.">
+
+
+
+  <meta property="og:image" content="/assets/images/designpattern/creational/abstractfactory.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-13T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-13T16:50:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/designpattern/abstarctfactory/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/designpattern/creational/abstractfactory.png" alt="Java Design Pattern - Abstract Factory Pattern" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java Design Pattern - Abstract Factory Pattern">
+    <meta itemprop="description" content="Java를 이용하여 Design Pattern - Abstract Factory Pattern에 대해 설명합니다.">
+    <meta itemprop="datePublished" content="2021-03-13T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-13T16:50:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Java Design Pattern - Abstract Factory Pattern
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-13T00:00:00+00:00">March 13, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#design-pattern">Design Pattern</a></li><li><a href="#creational-patterns-생성-패턴">Creational Patterns, 생성 패턴</a></li><li><a href="#abstract-factory-pattern">Abstract Factory Pattern</a></li><li><a href="#example">Example</a></li><li><a href="#source">Source</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="design-pattern"><a href="../designpattern" target="_blank">Design Pattern</a></h1>
+<ul>
+  <li>과거의 소프트웨어 개발 과정에서 발견된 설계의 노하우를 축적하여 이름을 붙여, 이후에 재이용하기 좋은 형태로 특정의 규약을 묶어서 정리한 것이다.</li>
+  <li>디자인 패턴은 알고리즘이 아니라 상황에 따라 자주 쓰이는 설계 방법을 정리한 코딩 방법론일 뿐이며 모든 상황의 해결책이 아니다.</li>
+</ul>
+
+<h1 id="creational-patterns-생성-패턴">Creational Patterns, 생성 패턴</h1>
+<ul>
+  <li>객체가 생성되는 방식을 중시하는 패턴이다.</li>
+  <li>객체의 생성과 조합을 캡슐화하여 객체가 생성 혹은 수정되어도 전체 프로그램 구조에 영향을 받지 않도록 유연성을 제공한다.</li>
+</ul>
+
+<h1 id="abstract-factory-pattern">Abstract Factory Pattern</h1>
+<ul>
+  <li>구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만들 수 있는 인터페이스를 제공하는 패턴이다.</li>
+</ul>
+
+<h1 id="example">Example</h1>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Shape</span> <span class="o">{</span>
+
+  <span class="kt">void</span> <span class="nf">draw</span><span class="o">();</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">implements</span> <span class="nc">Shape</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Circle::draw() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">implements</span> <span class="nc">Shape</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Rectangle::draw() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Square</span> <span class="kd">implements</span> <span class="nc">Shape</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">draw</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Square::draw() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">ShapeType</span> <span class="o">{</span>
+
+  <span class="no">CIRCLE</span><span class="o">,</span> <span class="no">RECTANGLE</span><span class="o">,</span> <span class="no">SQUARE</span><span class="o">;</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Color</span> <span class="o">{</span>
+
+  <span class="kt">void</span> <span class="nf">fill</span><span class="o">();</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blue</span> <span class="kd">implements</span> <span class="nc">Color</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fill</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Blue::fill() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Green</span> <span class="kd">implements</span> <span class="nc">Color</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fill</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Green::fill() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Red</span> <span class="kd">implements</span> <span class="nc">Color</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fill</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Inside Red::fill() method."</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">enum</span> <span class="nc">ColorType</span> <span class="o">{</span>
+
+  <span class="no">BLUE</span><span class="o">,</span> <span class="no">GREEN</span><span class="o">,</span> <span class="no">RED</span><span class="o">;</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Color와 Shape의 조합을 만들 수 있는 각각의 객체를 생성한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractFactory</span> <span class="o">{</span>
+
+  <span class="kd">abstract</span> <span class="nc">Color</span> <span class="nf">getColor</span><span class="o">(</span><span class="nc">ColorType</span> <span class="n">colorType</span><span class="o">);</span>
+
+  <span class="kd">abstract</span> <span class="nc">Shape</span> <span class="nf">getShape</span><span class="o">(</span><span class="nc">ShapeType</span> <span class="n">shapeType</span><span class="o">);</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShapeFactory</span> <span class="kd">extends</span> <span class="nc">AbstractFactory</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Shape</span> <span class="nf">getShape</span><span class="o">(</span><span class="nc">ShapeType</span> <span class="n">shapeType</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">shapeType</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nl">CIRCLE:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Circle</span><span class="o">();</span>
+      <span class="k">case</span> <span class="nl">RECTANGLE:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Rectangle</span><span class="o">();</span>
+      <span class="k">case</span> <span class="nl">SQUARE:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Square</span><span class="o">();</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Color</span> <span class="nf">getColor</span><span class="o">(</span><span class="nc">ColorType</span> <span class="n">colorType</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ColorFactory</span> <span class="kd">extends</span> <span class="nc">AbstractFactory</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Shape</span> <span class="nf">getShape</span><span class="o">(</span><span class="nc">ShapeType</span> <span class="n">shapeType</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Color</span> <span class="nf">getColor</span><span class="o">(</span><span class="nc">ColorType</span> <span class="n">colorType</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">colorType</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nl">RED:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Red</span><span class="o">();</span>
+      <span class="k">case</span> <span class="nl">GREEN:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Green</span><span class="o">();</span>
+      <span class="k">case</span> <span class="nl">BLUE:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Blue</span><span class="o">();</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>AbstractFactory는 주어진 Color와 Shape의 조합을 만들 수 있는 인터페이스이다.</li>
+  <li>하위로 Color와 Shape의 세부 설정을 위한 Factory Method 객체들이 존재한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FactoryProducer</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">AbstractFactory</span> <span class="nf">getFactory</span><span class="o">(</span><span class="nc">FactroyType</span> <span class="n">factroyType</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">factroyType</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">case</span> <span class="nl">SHAPE:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ShapeFactory</span><span class="o">();</span>
+      <span class="k">case</span> <span class="nl">COLOR:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ColorFactory</span><span class="o">();</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AbstractFactoryPatternMain</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="c1">// Get shape factory</span>
+    <span class="nc">AbstractFactory</span> <span class="n">shapeFactory</span> <span class="o">=</span> <span class="nc">FactoryProducer</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="nc">FactroyType</span><span class="o">.</span><span class="na">SHAPE</span><span class="o">);</span>
+
+    <span class="c1">// Get an object of Shape Circle</span>
+    <span class="nc">Shape</span> <span class="n">shape1</span> <span class="o">=</span> <span class="n">shapeFactory</span><span class="o">.</span><span class="na">getShape</span><span class="o">(</span><span class="nc">ShapeType</span><span class="o">.</span><span class="na">CIRCLE</span><span class="o">);</span>
+
+    <span class="c1">// Call draw method of Shape Circle</span>
+    <span class="n">shape1</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+
+    <span class="c1">// Get an object of Shape Rectangle</span>
+    <span class="nc">Shape</span> <span class="n">shape2</span> <span class="o">=</span> <span class="n">shapeFactory</span><span class="o">.</span><span class="na">getShape</span><span class="o">(</span><span class="nc">ShapeType</span><span class="o">.</span><span class="na">RECTANGLE</span><span class="o">);</span>
+
+    <span class="c1">// Call draw method of Shape Rectangle</span>
+    <span class="n">shape2</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+
+    <span class="c1">// Get an object of Shape Square</span>
+    <span class="nc">Shape</span> <span class="n">shape3</span> <span class="o">=</span> <span class="n">shapeFactory</span><span class="o">.</span><span class="na">getShape</span><span class="o">(</span><span class="nc">ShapeType</span><span class="o">.</span><span class="na">SQUARE</span><span class="o">);</span>
+
+    <span class="c1">// Call draw method of Shape Square</span>
+    <span class="n">shape3</span><span class="o">.</span><span class="na">draw</span><span class="o">();</span>
+
+    <span class="c1">// Get color factory</span>
+    <span class="nc">AbstractFactory</span> <span class="n">colorFactory</span> <span class="o">=</span> <span class="nc">FactoryProducer</span><span class="o">.</span><span class="na">getFactory</span><span class="o">(</span><span class="nc">FactroyType</span><span class="o">.</span><span class="na">COLOR</span><span class="o">);</span>
+
+    <span class="c1">// Get an object of Color Red</span>
+    <span class="nc">Color</span> <span class="n">color1</span> <span class="o">=</span> <span class="n">colorFactory</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="nc">ColorType</span><span class="o">.</span><span class="na">RED</span><span class="o">);</span>
+
+    <span class="c1">// Call fill method of Red</span>
+    <span class="n">color1</span><span class="o">.</span><span class="na">fill</span><span class="o">();</span>
+
+    <span class="c1">// Get an object of Color Green</span>
+    <span class="nc">Color</span> <span class="n">color2</span> <span class="o">=</span> <span class="n">colorFactory</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="nc">ColorType</span><span class="o">.</span><span class="na">GREEN</span><span class="o">);</span>
+
+    <span class="c1">// Call fill method of Green</span>
+    <span class="n">color2</span><span class="o">.</span><span class="na">fill</span><span class="o">();</span>
+
+    <span class="c1">// Get an object of Color Blue</span>
+    <span class="nc">Color</span> <span class="n">color3</span> <span class="o">=</span> <span class="n">colorFactory</span><span class="o">.</span><span class="na">getColor</span><span class="o">(</span><span class="nc">ColorType</span><span class="o">.</span><span class="na">BLUE</span><span class="o">);</span>
+
+    <span class="c1">// Call fill method of Color Blue</span>
+    <span class="n">color3</span><span class="o">.</span><span class="na">fill</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>FactoryProducer를 통해서 AbstractFactory 인터페이스를 가져와서 Color와 Shape의 조합을 만들 수 있다.</li>
+</ul>
+
+<h1 id="source">Source</h1>
+<p>Sample Code는 <a href="https://github.com/GracefulSoul/designpattern/tree/master/src/main/java/gracefulsoul/creational/abstractfactory" target="_blank">여기</a>에서 확인 가능합니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#creational-patterns" class="page__taxonomy-item" rel="tag">Creational Patterns</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#designpattern" class="page__taxonomy-item" rel="tag">DesignPattern</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#designpattern" class="page__taxonomy-item" rel="tag">DesignPattern</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-13">March 13, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/codility/MinMaxDivision/" class="pagination--pager" title="Codility Java MinMaxDivision
+">이전</a>
+    
+    
+      <a href="/designpattern/builder/" class="pagination--pager" title="Java Design Pattern - Builder Pattern
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

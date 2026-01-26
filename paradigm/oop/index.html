@@ -1,0 +1,913 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Object-Oriented Programming(OOP) - Development story</title>
+<meta name="description" content="Object-Oriented Programming(OOP)에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Object-Oriented Programming(OOP)">
+<meta property="og:url" content="/paradigm/oop/">
+
+
+  <meta property="og:description" content="Object-Oriented Programming(OOP)에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/paradigm/oop.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-02-18T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-02-18T20:05:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/paradigm/oop/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/paradigm/oop.png" alt="Object-Oriented Programming(OOP)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Object-Oriented Programming(OOP)">
+    <meta itemprop="description" content="Object-Oriented Programming(OOP)에 대한 설명">
+    <meta itemprop="datePublished" content="2021-02-18T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-02-18T20:05:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Object-Oriented Programming(OOP)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-02-18T00:00:00+00:00">February 18, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#object-oriented-programmingoop">Object-Oriented Programming(OOP)</a><ul><li><a href="#응집도cohesion">응집도(Cohesion)</a><ul><li><a href="#응집도의-종류">응집도의 종류</a><ul><li><a href="#기능적-응집도functional-cohension">기능적 응집도(Functional Cohension)</a></li><li><a href="#순차적-응집도sequential-cohension">순차적 응집도(Sequential Cohension)</a></li><li><a href="#절차적-응집도procedural-cohension">절차적 응집도(Procedural Cohension)</a></li><li><a href="#시간적-응집도temporal-cohension">시간적 응집도(Temporal Cohension)</a></li><li><a href="#논리적-응집도logical-cohension">논리적 응집도(Logical Cohension)</a></li><li><a href="#우연적-응집도coincidentail-cohesion">우연적 응집도(Coincidentail Cohesion)</a></li></ul></li></ul></li><li><a href="#결합도coupling">결합도(Coupling)</a><ul><li><a href="#결합도의-종류">결합도의 종류</a><ul><li><a href="#내용-결합도content-coupling">내용 결합도(Content Coupling)</a></li><li><a href="#공통-결합도common-coupling">공통 결합도(Common Coupling)</a></li><li><a href="#외부-결합도external-coupling">외부 결합도(External Coupling)</a></li><li><a href="#제어-결합도control-coupling">제어 결합도(Control Coupling)</a></li><li><a href="#스탬프-결합도stamp-coupling">스탬프 결합도(Stamp Coupling)</a></li><li><a href="#자료-결합도data-coupling">자료 결합도(Data Coupling)</a></li></ul></li></ul></li></ul></li><li><a href="#추상화abstraction">추상화(Abstraction)</a><ul><li><a href="#캡슐화encapsulation">캡슐화(Encapsulation)</a></li><li><a href="#은닉화hiding">은닉화(Hiding)</a></li></ul></li><li><a href="#상속inheritance">상속(Inheritance)</a></li><li><a href="#다형성polymorphism">다형성(Polymorphism)</a><ul><li><a href="#오버-라이딩overriding">오버 라이딩(Overriding)</a></li><li><a href="#오버-로딩overloading">오버 로딩(Overloading)</a></li></ul></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="object-oriented-programmingoop">Object-Oriented Programming(OOP)</h1>
+<ul>
+  <li>컴퓨터 프로그램을 명령어의 목록으로 보는 시각에서 벗어나 여러 개의 독립된 단위, 즉 <b>객체</b>들의 모임으로 파악하고자 하는 컴퓨터 프로그래밍의 패러다임이다.<sup id="fnref:Object" role="doc-noteref"><a href="#fn:Object" class="footnote" rel="footnote">1</a></sup></li>
+  <li>강한 응집도(Cohesion)과 약한 결합도(Coupling)을 지향한다.</li>
+</ul>
+
+<h2 id="응집도cohesion">응집도(Cohesion)</h2>
+<p>한 모듈 내부의 <b>기능적인 연관도</b>를 나타낸다.<sup id="fnref:Cohension" role="doc-noteref"><a href="#fn:Cohension" class="footnote" rel="footnote">2</a></sup></p>
+
+<h3 id="응집도의-종류">응집도의 종류</h3>
+<p>순서대로 응집도는 감소한다.</p>
+<h4 id="기능적-응집도functional-cohension">기능적 응집도(Functional Cohension)</h4>
+<p>모듈 내부의 모든 기능이 <b>단일한 목적</b>을 위해 수행되는 경우.</p>
+<h4 id="순차적-응집도sequential-cohension">순차적 응집도(Sequential Cohension)</h4>
+<p>동일합 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여있을 경우.</p>
+<h4 id="절차적-응집도procedural-cohension">절차적 응집도(Procedural Cohension)</h4>
+<p>모듈이 다수의 관련 기능을 가질 때 모듈 안의 구성요소들이 그 기능을 순차적으로 수행할 경우.</p>
+<h4 id="시간적-응집도temporal-cohension">시간적 응집도(Temporal Cohension)</h4>
+<p>연관된 기능이라기 보단 특정 시간에 처리되어야 하는 활동들을 한 모듈에서 처리할 경우.</p>
+<h4 id="논리적-응집도logical-cohension">논리적 응집도(Logical Cohension)</h4>
+<p>유사한 성격을 갖거나 특정 형태로 분류되는 처리 요소들이 한 모듈에서 처리되는 경우.</p>
+<h4 id="우연적-응집도coincidentail-cohesion">우연적 응집도(Coincidentail Cohesion)</h4>
+<p>모듈 내부의 각 구성요소들이 연관이 없을 경우.</p>
+
+<h2 id="결합도coupling">결합도(Coupling)</h2>
+<p>어떤 모듈이 다른 모듈에 <b>의존하는 정도</b>를 나타내는 것이다.<sup id="fnref:Coupling" role="doc-noteref"><a href="#fn:Coupling" class="footnote" rel="footnote">3</a></sup></p>
+
+<h3 id="결합도의-종류">결합도의 종류</h3>
+<p>순서대로 결합도는 감소한다.</p>
+<h4 id="내용-결합도content-coupling">내용 결합도(Content Coupling)</h4>
+<p>다른 모듈 내부에 있는 변수나 기능을 다른 모듈에서 사용 하는 경우.
+한 모듈에서 수정이 일어날 경우 다른 모듈 또한 수정이 필요하다.</p>
+<h4 id="공통-결합도common-coupling">공통 결합도(Common Coupling)</h4>
+<p>파라미터가 아닌 모듈 밖에 선언되어 있는 전역 변수를 참조하고 전역변수를 갱신하는 식으로 상호작용하는 경우.
+전역 변수를 변경하면, 그 자원을 사용하는 모든 모듈의 변경이 필요하다.</p>
+<h4 id="외부-결합도external-coupling">외부 결합도(External Coupling)</h4>
+<p>어떤 모듈에서 반환한 값을 다른 모듈에서 참조해서 사용하는 경우.</p>
+<h4 id="제어-결합도control-coupling">제어 결합도(Control Coupling)</h4>
+<p>단순히 처리를 해야할 대상인 값만 전달되는게 아니라 어떻게 처리를 해야 한다는 제어 요소(DCD, Flag등)이 전달되는 경우.</p>
+<h4 id="스탬프-결합도stamp-coupling">스탬프 결합도(Stamp Coupling)</h4>
+<p>모듈간의 인터페이스로 배열이나 오브젝트, 스트럭쳐등이 전달되는 경우.</p>
+<h4 id="자료-결합도data-coupling">자료 결합도(Data Coupling)</h4>
+<p>모듈간의 인터페이스 전달되는 <b>파라미터를 통해서만</b> 모듈간의 상호 작용이 일어나는 경우.</p>
+
+<h1 id="추상화abstraction">추상화(Abstraction)</h1>
+<ul>
+  <li>복잡한 자료, 모듈, 시스템 등으로부터 <b>핵심적인 개념 또는 기능을 간추려 내는 것</b>을 말한다.</li>
+  <li>자료 표현에 불필요한 정보는 숨기고, 필요한 정보만 표현함으로써 프로그램을 간단히 만드는 것이다.</li>
+  <li>객체의 구조인 클래스의 속성과 기능을 정의하는 것이다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Class</span> <span class="o">{</span>
+
+  <span class="c1">// It can only be used inside.</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">variable</span><span class="o">;</span>
+
+  <span class="c1">// It can also be used outside.</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getVariable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">variable</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="c1">// It can only be used inside the package.</span>
+  <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">setVariable</span><span class="o">(</span><span class="nc">String</span> <span class="n">variable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">variable</span> <span class="o">=</span> <span class="n">variable</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="캡슐화encapsulation">캡슐화(Encapsulation)</h2>
+<ul>
+  <li>객체가 맡은 역할을 수행하기 위해 관련성 있는 <b>속성과 기능을 하나로 묶는 것</b>이다.</li>
+  <li>객체 외부에서는 함수를 통해서만 객체 내부에 있는 데이터에 접근이 가능하게 한다.</li>
+</ul>
+
+<h2 id="은닉화hiding">은닉화(Hiding)</h2>
+<ul>
+  <li>객체 내부의 속성과 기능을 <b>외부에서 접근하지 못하도록 숨기는 것</b>이다.</li>
+  <li>접근제어자를 이용하여 정보 제공에 대한 범위를 정의한다.</li>
+</ul>
+
+<h1 id="상속inheritance">상속(Inheritance)</h1>
+<ul>
+  <li>상위의 개념의 속성과 기능을 하위 개념이 <b>물려 받는 것</b>이다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Media</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Media</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"The media(%s) is played.%n"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Music</span> <span class="kd">extends</span> <span class="nc">Media</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="nf">Music</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"The music(%s) is played.%n"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h1 id="다형성polymorphism">다형성(Polymorphism)</h1>
+<ul>
+  <li>프로그램 언어의 각 요소들이 <b>다양한 자료형에 속하는 것이 허가</b>되는 성질을 가리킨다.</li>
+  <li>코드의 재사용성이 높아지고, 유지보수가 용이해진다.</li>
+</ul>
+
+<h2 id="오버-라이딩overriding">오버 라이딩(Overriding)</h2>
+<ul>
+  <li>상위의 개념의 기능을 하위 개념이 물려 받아 <b>새로운 기능으로 정의</b>하는 것을 말한다.</li>
+  <li>같은 이름의 기능이 여러 클래스에서 다른 기능을 한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Media</span> <span class="n">media</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Music</span><span class="o">(</span><span class="s">"Graceful Ghost"</span><span class="o">);</span>
+    <span class="n">media</span><span class="o">.</span><span class="na">play</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The music(Graceful Ghost) is played.
+</code></pre></div></div>
+
+<h2 id="오버-로딩overloading">오버 로딩(Overloading)</h2>
+<ul>
+  <li>같은 이름의 기능이 매개변수의 개수나 자료형에 따라서 다른 기능을 하는 것을 말한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Media</span> <span class="o">{</span>
+  <span class="o">...</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">(</span><span class="nc">String</span> <span class="n">place</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// Overloaded the play method.</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"The media(%s) is played in %s.%n"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">,</span> <span class="n">place</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Music</span> <span class="kd">extends</span> <span class="nc">Media</span> <span class="o">{</span>
+  <span class="o">...</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">(</span><span class="nc">String</span> <span class="n">place</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"The music(%s) is played in %s.%n"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">,</span> <span class="n">place</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Media</span> <span class="n">media</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Music</span><span class="o">(</span><span class="s">"Graceful Ghost"</span><span class="o">);</span>
+    <span class="n">media</span><span class="o">.</span><span class="na">play</span><span class="o">(</span><span class="s">"the Seoul Arts Center"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The music(Graceful Ghost) is played in the Seoul Arts Center.
+</code></pre></div></div>
+
+<h1 id="reference">Reference</h1>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Object" role="doc-endnote">
+      <p><a href="https://ko.wikipedia.org/wiki/%EA%B0%9D%EC%B2%B4_%EC%A7%80%ED%96%A5_%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D" target="_blank">Wiki-객체지향프로그래밍</a> <a href="#fnref:Object" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Cohension" role="doc-endnote">
+      <p><a href="https://itwiki.kr/w/%EC%9D%91%EC%A7%91%EB%8F%84" target="_blank">ITWiki-응집도</a> <a href="#fnref:Cohension" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Coupling" role="doc-endnote">
+      <p><a href="https://itwiki.kr/w/%EA%B2%B0%ED%95%A9%EB%8F%84" target="_blank">ITWiki-결합도</a> <a href="#fnref:Coupling" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#object" class="page__taxonomy-item" rel="tag">Object</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#paradigm" class="page__taxonomy-item" rel="tag">Paradigm</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#paradigm" class="page__taxonomy-item" rel="tag">Paradigm</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-02-18">February 18, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="#" class="pagination--pager disabled">이전</a>
+    
+    
+      <a href="/paradigm/fp/" class="pagination--pager" title="Functional Programming(FP)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

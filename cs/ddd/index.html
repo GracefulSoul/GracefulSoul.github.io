@@ -1,0 +1,838 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Domain-Driven Development(DDD) - Development story</title>
+<meta name="description" content="Domain-Driven Development(DDD)에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Domain-Driven Development(DDD)">
+<meta property="og:url" content="/cs/ddd/">
+
+
+  <meta property="og:description" content="Domain-Driven Development(DDD)에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/cs/ddd/ddd.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-08T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-08T20:20:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/cs/ddd/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/cs/ddd/ddd.png" alt="Domain-Driven Development(DDD)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Domain-Driven Development(DDD)">
+    <meta itemprop="description" content="Domain-Driven Development(DDD)에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-08T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-08T20:20:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Domain-Driven Development(DDD)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-08T00:00:00+00:00">March 08, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#domain-driven-developmentddd">Domain-Driven Development(DDD)1</a></li><li><a href="#개념">개념</a><ul><li><a href="#context">Context</a></li><li><a href="#domain">Domain</a></li><li><a href="#model">Model</a></li><li><a href="#ubiquitous-language">Ubiquitous Language</a></li></ul></li><li><a href="#단점">단점</a></li><li><a href="#strategic-domain-driven-developmentddd">Strategic Domain-Driven Development(DDD)</a><ul><li><a href="#bounded-context">Bounded Context</a></li><li><a href="#continuous-integration">Continuous Integration</a></li><li><a href="#context-map">Context Map</a></li></ul></li><li><a href="#artifacts">Artifacts</a><ul><li><a href="#entity">Entity</a></li><li><a href="#value-object">Value object</a></li><li><a href="#aggregate">Aggregate</a></li><li><a href="#domain-event">Domain Event</a></li><li><a href="#service">Service</a></li><li><a href="#repository">Repository</a></li><li><a href="#factory">Factory</a></li></ul></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="domain-driven-developmentddd">Domain-Driven Development(DDD)<sup id="fnref:DDD" role="doc-noteref"><a href="#fn:DDD" class="footnote" rel="footnote">1</a></sup></h1>
+<ul>
+  <li>보편적인(유비쿼터스) 언어를 사용한다.</li>
+  <li>분석 작업과 설계 그리고 구현까지 통일된 방식으로 커뮤니케이션이 가능하다.</li>
+</ul>
+
+<h1 id="개념">개념</h1>
+<h2 id="context">Context</h2>
+<ul>
+  <li>의미를 결정하는 단어나 문장이 나타나는 설정이다.</li>
+</ul>
+
+<h2 id="domain">Domain</h2>
+<ul>
+  <li>지식, 영향력 또는 활동의 영역이다.</li>
+  <li>사용자가 프로그램을 적용하는 주제 영역은 소프트웨어의 도메인이다.</li>
+</ul>
+
+<h2 id="model">Model</h2>
+<ul>
+  <li>도메인의 선택된 측면을 설명하고 해당 도메인과 관련된 문제를 해결하는 데 사용할 수 있는 추상화 시스템이다.</li>
+</ul>
+
+<h2 id="ubiquitous-language">Ubiquitous Language</h2>
+<ul>
+  <li>도메인 모델을 중심으로 구성되고 모든 팀 구성원이 팀의 모든 활동을 소프트웨어와 연결하는 데 사용하는 언어이다.</li>
+</ul>
+
+<h1 id="단점">단점</h1>
+<ul>
+  <li>모델을 순수하고 유용한 언어 구조로 유지하기 위해, 팀은 일반적으로 도메인 모델 내에서 많은 양의 격리 및 캡슐화를 구현해야한다.
+    <ul>
+      <li>도메인 중심 설계에 기초한 시스템은 상대적으로 높은 비용을 들일 수 있다.</li>
+      <li>도메인 중심 설계는 유지 보수성과 같은 많은 기술적 이점을 제공하지만, 마이크로소프트는 모델과 언어 프로세스가 복잡한 정보의 통신과 도메인에 대한 공통된 이해를 형성하는 데 분명한 이점을 제공하는 복잡한 도메인에만 적용할 것을 권고한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="strategic-domain-driven-developmentddd">Strategic Domain-Driven Development(DDD)</h1>
+<ul>
+  <li>모델 무결성을 유지하고 도메인 모델을 추출하며 여러 모델로 작업하기 위한 일련의 원칙이다.</li>
+</ul>
+
+<h2 id="bounded-context">Bounded Context</h2>
+<ul>
+  <li>모델이 적용되는 컨텍스트를 명시적으로 정의한다.</li>
+  <li>팀 구성, 애플리케이션의 특정 부분에서의 사용 및 코드베이스, 데이터베이스 스키마와 같은 물리적 표시 측면에서 경계를 명시적으로 설정한다.</li>
+</ul>
+
+<h2 id="continuous-integration">Continuous Integration</h2>
+<ul>
+  <li>자동화된 테스트로 모든 코드와 기타 구현 아티팩트를 자주 병합하여 조각화에 신속하게 플래그를 지정하는 프로세스를 구축한다.</li>
+  <li>개념이 다른 사람들의 머릿속에서 진화함에 따라 모델의 공유된 관점을 강조하기 위해 유비쿼터스 언어를 끊임없이 연습한다.</li>
+</ul>
+
+<h2 id="context-map">Context Map</h2>
+<ul>
+  <li>프로젝트에서 실행 중인 각 모델을 식별하고 제한 컨텍스트를 정의한다.</li>
+  <li>여기에는 비객체 지향 서브시스템의 암시적 모델이 포함된다.</li>
+  <li>각 경계 컨텍스트의 이름을 지정하고, 이름을 유비쿼터스 언어의 일부로 지정한다.</li>
+  <li>모델 간의 접촉 지점을 설명하고, 모든 커뮤니케이션을 위한 명시적 번역의 개요를 설명하고, 공유를 강조한다.</li>
+</ul>
+
+<h1 id="artifacts">Artifacts</h1>
+<h2 id="entity">Entity</h2>
+<ul>
+  <li>객체는 속성으로 정의되지 않고 스레드의 연속성과 정체성에 의해 정의된다.</li>
+</ul>
+
+<h2 id="value-object">Value object</h2>
+<ul>
+  <li>속성을 포함하지만 개념적 정체성이 없는 객체이다. 불변으로 취급되어야 한다.</li>
+</ul>
+
+<h2 id="aggregate">Aggregate</h2>
+<ul>
+  <li>Aggregate Root라고도하는 Root Entity로 함께 바인딩 된 객체의 Collection이다.</li>
+  <li>Aggregate Root는 외부 객체가 해당 멤버에 대한 참조를 보유하지 못하도록 차단하여 집계 내에서 수행되는 변경의 일관성을 보장한다.</li>
+</ul>
+
+<h2 id="domain-event">Domain Event</h2>
+<ul>
+  <li>이벤트를 정의하는 Domain 객체이다.</li>
+  <li>Domain 이벤트는 Domain 전문가가 관심을 갖는 이벤트이다.</li>
+</ul>
+
+<h2 id="service">Service</h2>
+<ul>
+  <li>작업이 개념적으로 어떤 객체에도 속하지 않는 경우, 서비스에서 이러한 작업을 구현할 수 있다.</li>
+</ul>
+
+<h2 id="repository">Repository</h2>
+<ul>
+  <li>Domain 객체를 검색하는 방법은 대체 저장소 구현을 쉽게 교환할 수 있도록 특수 저장소 객체에 위임해야 한다.</li>
+</ul>
+
+<h2 id="factory">Factory</h2>
+<ul>
+  <li>도메인 개체를 만드는 방법은 대체 구현이 쉽게 교환 될 수 있도록 특수한 Factory 객체에 위임해야한다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:DDD" role="doc-endnote">
+      <p><a href="https://en.wikipedia.org/wiki/Domain-driven_design" target="_blank">Wiki_Domain-Driven_Design</a> <a href="#fnref:DDD" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cs" class="page__taxonomy-item" rel="tag">CS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#methodologies" class="page__taxonomy-item" rel="tag">Methodologies</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#cs" class="page__taxonomy-item" rel="tag">CS</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-08">March 8, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/cs/bdd/" class="pagination--pager" title="Behavior-Driven Development(BDD)
+">이전</a>
+    
+    
+      <a href="/cs/tdd/" class="pagination--pager" title="Test-Driven Development(TDD)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

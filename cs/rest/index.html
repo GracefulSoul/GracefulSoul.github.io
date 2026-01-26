@@ -1,0 +1,835 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>REpresentational State Transfer(REST) - Development story</title>
+<meta name="description" content="REpresentational State Transfer(REST)에 대한 설명">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="REpresentational State Transfer(REST)">
+<meta property="og:url" content="/cs/rest/">
+
+
+  <meta property="og:description" content="REpresentational State Transfer(REST)에 대한 설명">
+
+
+
+  <meta property="og:image" content="/assets/images/cs/rest.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2021-03-25T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2021-03-25T22:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/cs/rest/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/cs/rest.png" alt="REpresentational State Transfer(REST)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="REpresentational State Transfer(REST)">
+    <meta itemprop="description" content="REpresentational State Transfer(REST)에 대한 설명">
+    <meta itemprop="datePublished" content="2021-03-25T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2021-03-25T22:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">REpresentational State Transfer(REST)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2021-03-25T00:00:00+00:00">March 25, 2021</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#representational-state-transferrest">REpresentational State Transfer(REST)</a></li><li><a href="#restful">RESTful</a></li><li><a href="#구조">구조</a><ul><li><a href="#resource-자원">Resource, 자원</a></li><li><a href="#verb-행위">Verb, 행위</a></li><li><a href="#representation-of-resource-표현">Representation of Resource, 표현</a></li></ul></li><li><a href="#규칙">규칙</a></li><li><a href="#특징">특징</a><ul><li><a href="#uniform-interface-일관된-인터페이스">Uniform Interface, 일관된 인터페이스</a><ul><li><a href="#resource-identification-in-requests-요청에-대한-리소스-식별">Resource identification in requests, 요청에 대한 리소스 식별</a></li><li><a href="#resource-manipulation-through-representations-표현을-통한-리소스-식별">Resource manipulation through representations, 표현을 통한 리소스 식별</a></li><li><a href="#self-descriptive-messages-자기-설명-메시지">Self-descriptive messages, 자기 설명 메시지</a></li><li><a href="#hypermedia-as-the-engine-of-application-statehateoas-애플리케이션-상태의-엔진으로서의-하이퍼미디어">Hypermedia as the engine of application state[HATEOAS], 애플리케이션 상태의 엔진으로서의 하이퍼미디어</a></li></ul></li><li><a href="#stateless-무상태성">Stateless, 무상태성</a></li><li><a href="#cacheable-캐시-가능">Cacheable, 캐시 가능</a></li><li><a href="#layered-system-계층형-구조">Layered System, 계층형 구조</a></li><li><a href="#client-server">Client-Server</a></li><li><a href="#code-on-demandoptional">Code on demand(Optional)</a></li></ul></li><li><a href="#장점">장점</a></li><li><a href="#단점">단점</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="representational-state-transferrest">REpresentational State Transfer(REST)</h1>
+<ul>
+  <li><a href="https://ko.wikipedia.org/wiki/%EC%9B%94%EB%93%9C_%EC%99%80%EC%9D%B4%EB%93%9C_%EC%9B%B9" target="_blank">World Wide Web(WWW, W3)</a>과 같은 분산 하이퍼미디어 시스템을 위한 Software Architecture의 한 형식이다.</li>
+</ul>
+
+<h1 id="restful">RESTful</h1>
+<ul>
+  <li>RESTful은 일반적으로 REST라는 Architecture를 구현하는 웹 서비스를 나타내기 위해 사용되는 용어이다.</li>
+</ul>
+
+<h1 id="구조">구조</h1>
+<h2 id="resource-자원">Resource, 자원</h2>
+<ul>
+  <li>Uniform Resource Identifier(URI)를 뜻한다.</li>
+  <li>모든 자원에 Server에 고유한 ID로 존재한다.</li>
+  <li>각 자원은 ‘/cs/{subject}’ 형식으로 구성된다.</li>
+</ul>
+
+<h2 id="verb-행위">Verb, 행위</h2>
+<ul>
+  <li>Client는 URI를 이용해 Resource를 제공하기 위해 <a href="../protocol/#request-method" target="_blank">HTTP Method</a>를 사용한다.</li>
+</ul>
+
+<h2 id="representation-of-resource-표현">Representation of Resource, 표현</h2>
+<ul>
+  <li>Request에 대한 모든 Response에 해당한다.</li>
+  <li>Request에 대한 Response 주체의 상태를 <a href="../protocol/#status" target="_blank">HTTP Status</a>로 제공한다.</li>
+  <li>HTML, XML, JSON 등 Format의 Payload로 Request에 대한 응답을 Response Body를 제공한다.</li>
+  <li>Response에 대한 상세 정보를 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Response_header" target="_blank">Response Header</a>에 담아 제공한다. (Ex. API Key, …)</li>
+</ul>
+
+<h1 id="규칙">규칙</h1>
+<ul>
+  <li>Uniform Resource Identifier(URI)는 정보(Information)의 자원(Resource)을 표현(Representation of Resource)해야 한다.</li>
+  <li>자원(Resource)에 대한 행위(Verb)는 HTTP Method으로 표현해야 한다.</li>
+</ul>
+
+<h1 id="특징">특징</h1>
+<h2 id="uniform-interface-일관된-인터페이스">Uniform Interface, 일관된 인터페이스</h2>
+<h3 id="resource-identification-in-requests-요청에-대한-리소스-식별">Resource identification in requests, 요청에 대한 리소스 식별</h3>
+<ul>
+  <li>개별 Resource는 Request에서 식별된다.</li>
+  <li>예를 들어 RESTful 웹 서비스에서 URI를 사용한다.</li>
+</ul>
+
+<h3 id="resource-manipulation-through-representations-표현을-통한-리소스-식별">Resource manipulation through representations, 표현을 통한 리소스 식별</h3>
+<ul>
+  <li>Client는 연결된 메타데이터를 포함하여 자원의 표현(Representation of Resource)을 보유하면 Resource 상태를 수정하거나 삭제할 수 있는 충분한 정보를 보유한다.</li>
+</ul>
+
+<h3 id="self-descriptive-messages-자기-설명-메시지">Self-descriptive messages, 자기 설명 메시지</h3>
+<ul>
+  <li>각 메시지에는 메시지 처리 방법을 설명하는 데 필요한 충분한 정보가 포함되어 있다.</li>
+  <li>예를 들어 미디어 유형에 따라 호출할 파서를 지정할 수 있다</li>
+</ul>
+
+<h3 id="hypermedia-as-the-engine-of-application-statehateoas-애플리케이션-상태의-엔진으로서의-하이퍼미디어">Hypermedia as the engine of application state[<a href="https://en.wikipedia.org/wiki/HATEOAS" target="_blank">HATEOAS</a>], 애플리케이션 상태의 엔진으로서의 하이퍼미디어</h3>
+<ul>
+  <li>REST Application의 초기 URI에 액세스한 REST Client는 Server에서 제공하는 링크를 동적으로 사용하여 필요한 모든 Resource를 검색할 수 있어야한다.</li>
+  <li>액세스가 진행되면 Server는 현재 사용 가능한 다른 Resource에 대한 하이퍼링크가 포함된 텍스트로 응답한다.</li>
+</ul>
+
+<h2 id="stateless-무상태성">Stateless, 무상태성</h2>
+<ul>
+  <li>각 Request에 대한 상태 정보를 Server에 저장하지 않는다.</li>
+</ul>
+
+<h2 id="cacheable-캐시-가능">Cacheable, 캐시 가능</h2>
+<ul>
+  <li>World Wide Web에서와 같이 Client는 Response를 캐싱할 수 있어야 한다.</li>
+  <li>잘 관리되는 캐싱은 Client-Server의 상호작용을 부분적으로 또는 완전하게 제거하여 Scalability와 성능을 향상시킨다.</li>
+</ul>
+
+<h2 id="layered-system-계층형-구조">Layered System, 계층형 구조</h2>
+<ul>
+  <li>Client는 Server에 직접적으로 연결되었는지, Intermediary Servers를 이용하여 간접적으로 연결되었는지 확인이 불가능하다.</li>
+  <li>Intermediary Servers의 경우, Load Balancing과 Schared Chaches 기능을 제공함으로써 시스템 규모 확장성을 향상시키는데 유용하다.</li>
+</ul>
+
+<h2 id="client-server">Client-Server</h2>
+<ul>
+  <li>Architecture를 단순화, 분리함으로써 Client-Server의 의존성이 줄어든다.</li>
+  <li>User Interface와 Data Storage 문제를 분리하면 여러 플랫폼에서 User Interface의 이식성이 향상된다.</li>
+</ul>
+
+<h2 id="code-on-demandoptional">Code on demand(Optional)</h2>
+<ul>
+  <li>Server에서 코드 전송으로 Client에서 실행 가능해야한다.(EX. Java applet, Js, …)</li>
+</ul>
+
+<h1 id="장점">장점</h1>
+<ul>
+  <li>HTTP Protocol의 인프라를 그대로 사용하므로 REST API사용을 위한 별도의 인프라를 구축할 필요가 없다.</li>
+  <li>HTTP Standard Protocol에 따르는 모든 Platform에서 사용이 가능하다.</li>
+  <li>REST API 메시지가 의도하는 바를 명확하게 나타내므로 의도하는 바를 쉽게 파악할 수 있다.</li>
+  <li>Server와 Client의 역할을 명확하게 분리한다.</li>
+</ul>
+
+<h1 id="단점">단점</h1>
+<ul>
+  <li>REST API의 표준이 존재하지 않는다.</li>
+  <li>HTTP Method가 제한적이다.</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+<p><a href="https://ko.wikipedia.org/wiki/REST" target="_blank">Wiki-REST</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cs" class="page__taxonomy-item" rel="tag">CS</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rest" class="page__taxonomy-item" rel="tag">REST</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#cs" class="page__taxonomy-item" rel="tag">CS</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2021-03-25">March 25, 2021</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/cs/internationalization/" class="pagination--pager" title="Internationalization(i18n) and Localization(l10n)
+">이전</a>
+    
+    
+      <a href="/designpattern/businessDelegate/" class="pagination--pager" title="Java Design Pattern - Business Delegate Pattern
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/java/k3s/" rel="permalink">K3s(Lightweight Kubernetes)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> January 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">K3s(Lightweight Kubernetes)에 대한 설명
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/apple-redistribution-into-boxes/" rel="permalink">Leetcode Java Apple Redistribution into Boxes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 24 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Apple Redistribution into Boxes’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-square-sum-triples/" rel="permalink">Leetcode Java Count Square Sum Triples
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 08 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Square Sum Triples’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/leetcode/count-odd-numbers-in-an-interval-range/" rel="permalink">Leetcode Java Count Odd Numbers in an Interval Range
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> December 07 2025</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Leetcode - ‘Count Odd Numbers in an Interval Range’ 문제 Java 풀이
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
