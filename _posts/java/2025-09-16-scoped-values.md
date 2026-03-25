@@ -18,9 +18,9 @@ toc_ads: true
 toc_sticky: true
 ---
 
-# JAVA 25
+# JAVA 25[^Java25]
 
-Scoped Values(범위가 지정된 값)는 Java 25에서 최종 기능으로 제공되는 API입니다. 이 기능은 메서드가 호출하는 다른 메서드들과 같은 스레드 내에서, 그리고 자식 스레드와 불변 데이터를 공유할 수 있도록 합니다. ThreadLocal에 비해 더 효율적이고 안전합니다.
+Scoped Values(범위가 지정된 값)[^ScopedValues]는 Java 25에서 최종 기능으로 제공되는 API입니다. 이 기능은 메서드가 호출하는 다른 메서드들과 같은 스레드 내에서, 그리고 자식 스레드와 불변 데이터를 공유할 수 있도록 합니다. ThreadLocal에 비해 더 효율적이고 안전합니다.
 
 ## Scoped Values vs ThreadLocal
 
@@ -197,9 +197,9 @@ public class RebindingScopedValue {
 부모 스코프 (복원): parent
 ```
 
-## 가상 스레드와의 결합
+## 가상 스레드[^VirtualThreads]와의 결합
 
-### 4. Structured Concurrency와 통합
+### 4. Structured Concurrency[^StructuredConcurrency]와 통합
 
 ```java
 import java.lang.ScopedValue;

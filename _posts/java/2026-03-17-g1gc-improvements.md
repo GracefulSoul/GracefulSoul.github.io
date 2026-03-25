@@ -18,9 +18,9 @@ toc_ads: true
 toc_sticky: true
 ---
 
-# JAVA 26
+# JAVA 26[^Java26]
 
-Java 26에서는 G1 가비지 컬렉터(G1GC)의 처리량을 개선하기 위해 애플리케이션 스레드와 GC 스레드 간의 동기화 오버헤드를 줄였습니다. 이로 인해 특히 객체 참조 필드를 자주 수정하는 애플리케이션에서 5-15%의 처리량 개선을 기대할 수 있습니다.
+Java 26에서는 G1 가비지 컬렉터(G1GC)의 처리량을 개선[^G1GCImprovement]하기 위해 애플리케이션 스레드와 GC 스레드 간의 동기화 오버헤드를 줄였습니다. 이로 인해 특히 객체 참조 필드를 자주 수정하는 애플리케이션에서 5-15%의 처리량 개선을 기대할 수 있습니다.
 
 ## G1GC의 배경
 
@@ -398,7 +398,7 @@ public class CardTableMemoryFootprint {
 - 1GB 힙당 약 2MB 추가 메모리
 ```
 
-## GC 튜닝 옵션
+## GC 튜닝[^GarbageCollectionTuning] 옵션
 
 ### 6. G1GC 설정과 최적화
 
@@ -450,4 +450,3 @@ java -XX:+UseG1GC -Xlog:gc*=info MyApplication
 [^Java26]: [Oracle-Java_26_Release_Notes](https://docs.oracle.com/en/java/javase/26/docs/api/){:target="_blank"}
 [^G1GCImprovement]: [OpenJDK-JEP 522: G1 GC Improve Throughput](https://openjdk.org/jeps/522){:target="_blank"}
 [^GarbageCollectionTuning]: [Oracle-Java Garbage Collection Tuning](https://docs.oracle.com/en/java/javase/26/gctuning/){:target="_blank"}
-[^G1GCDocumentation]: [Oracle-G1 Garbage Collector](https://docs.oracle.com/en/java/javase/26/docs/specs/vm-spec.html){:target="_blank"}

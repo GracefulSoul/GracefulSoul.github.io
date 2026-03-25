@@ -18,9 +18,9 @@ toc_ads: true
 toc_sticky: true
 ---
 
-# JAVA 26
+# JAVA 26[^Java26]
 
-Java 26에서는 HTTP Client API에 HTTP/3 프로토콜 지원이 추가되었습니다. HTTP/3는 UDP 기반의 QUIC 프로토콜을 사용하여 더 빠른 핸드셰이크, 낮은 지연시간, 그리고 높은 패킷 손실 환경에서의 더 안정적인 전송을 제공합니다.
+Java 26에서는 HTTP Client[^Http3ClientAPI] API에 HTTP/3[^HTTP3Spec] 프로토콜 지원이 추가되었습니다. HTTP/3는 UDP 기반의 QUIC 프로토콜[^QUICSpec]을 사용하여 더 빠른 핸드셰이크, 낮은 지연시간, 그리고 높은 패킷 손실 환경에서의 더 안정적인 전송을 제공합니다.
 
 ## HTTP/3의 장점
 
