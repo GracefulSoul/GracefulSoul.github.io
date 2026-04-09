@@ -1,7 +1,7 @@
 ---
 title: "Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing"
 excerpt: "Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법"
-last_modified_at: 2026-04-07T10:30:00
+last_modified_at: 2026-04-09T20:18:00
 header:
   image: /assets/images/spring/database-replica-configuration.png
 categories:
