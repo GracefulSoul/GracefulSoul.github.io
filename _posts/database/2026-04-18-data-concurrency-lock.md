@@ -479,79 +479,117 @@ public class RedissonConfig {
 }
 ```
 
-## 4.3 구현 예제
+## 4.3 AOP 기반 구현 (권장)
 
-### 분산락 서비스
+### ✅ 공통 기능을 AOP로 처리
+
+매번 각 메서드에서 분산락 로직을 반복 작성하는 것은 비효율적입니다.
+**AOP(Aspect-Oriented Programming)를 사용하면 분산락 처리를 공통화**할 수 있습니다.
+
+#### Step 1: @DistributedLock 어노테이션 정의
 
 ```java
-@Service
-@RequiredArgsConstructor
-@Slf4j
-public class DistributedLockService {
-    
-    private final DistributedAccountRepository accountRepository;
-    private final RedissonClient redissonClient;
-    
-    private static final long LOCK_WAIT_TIME = 10;   // 초
-    private static final long LOCK_LEASE_TIME = 3;   // 초
-    private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DistributedLock {
     
     /**
-     * 분산락 기반 이체
-     * - Redis를 사용한 다중 서버 환경의 동시성 제어
+     * Redis 락 키 (SpEL 지원)
+     * - keys = "transfer"                  → 고정 키
+     * - keys = "#accountNumber"            → 파라미터 기반
+     * - keys = "#from + '-' + #to"        → 조합 가능
      */
-    @Transactional
-    public void transfer(String fromAccountNumber, String toAccountNumber, Long amount) {
-        // 데드락 방지: 정렬된 순서로 락 획득
-        String[] accounts = {fromAccountNumber, toAccountNumber};
-        java.util.Arrays.sort(accounts);
+    String keys();
+    
+    /**
+     * 락 획득 시도 시간 (초)
+     * 기본값: 10
+     */
+    long waitTime() default 10;
+    
+    /**
+     * 락 자동 해제 시간 (초)
+     * 기본값: 3
+     */
+    long leaseTime() default 3;
+    
+    /**
+     * 락 획득 실패 시 동작
+     * - THROW: RuntimeException 발생 (기본값)
+     * - SKIP: 락 없이 진행 (위험!)
+     */
+    enum LockFailurePolicy {
+        THROW, SKIP
+    }
+    LockFailurePolicy failurePolicy() default LockFailurePolicy.THROW;
+}
+```
+
+#### Step 2: DistributedLockAspect 구현
+
+```java
+@Aspect
+@Component
+@RequiredArgsConstructor
+@Slf4j
+@Profile("redis")
+public class DistributedLockAspect {
+    
+    private final RedissonClient redissonClient;
+    private final PlatformTransactionManager transactionManager;
+    private final ExpressionParser expressionParser = 
+        new SpelExpressionParser();
+    
+    @Around("@annotation(distributedLock)")
+    public Object around(ProceedingJoinPoint joinPoint, 
+                        DistributedLock distributedLock) throws Throwable {
         
-        RLock lock1 = redissonClient.getLock("account-lock:" + accounts[0]);
-        RLock lock2 = redissonClient.getLock("account-lock:" + accounts[1]);
+        // Step 1: 메서드 파라미터에서 락 키 생성 (SpEL)
+        String lockKey = generateLockKey(distributedLock.keys(),
+            joinPoint.getArgs(), 
+            ((MethodSignature)joinPoint.getSignature())
+                .getParameterNames());
+        
+        // Step 2: 락 객체 생성
+        RLock lock = redissonClient.getLock("lock:" + lockKey);
         
         try {
-            // 첫 번째 락 획득 (10초 대기, 3초 자동 해제)
-            boolean lock1Acquired = lock1.tryLock(
-                LOCK_WAIT_TIME, LOCK_LEASE_TIME, TIME_UNIT);
+            // Step 3: 락 획득
+            boolean lockAcquired = lock.tryLock(
+                distributedLock.waitTime(),
+                distributedLock.leaseTime(),
+                TimeUnit.SECONDS
+            );
             
-            if (!lock1Acquired) {
-                throw new RuntimeException("첫 번째 락 획득 실패");
-            }
-            
-            // 두 번째 락 획득
-            boolean lock2Acquired = lock2.tryLock(
-                LOCK_WAIT_TIME, LOCK_LEASE_TIME, TIME_UNIT);
-            
-            if (!lock2Acquired) {
-                throw new RuntimeException("두 번째 락 획득 실패");
+            if (!lockAcquired) {
+                throw new RuntimeException("락 획득 실패: " + lockKey);
             }
             
             try {
-                // 락 획득 후 DB 조회 및 업데이트
-                DistributedAccount fromAccount = accountRepository
-                    .findByAccountNumber(fromAccountNumber)
-                    .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다"));
+                // Step 4: 트랜잭션 시작 (락 획득 후!)
+                DefaultTransactionDefinition txDef = 
+                    new DefaultTransactionDefinition();
+                TransactionStatus txStatus = 
+                    transactionManager.getTransaction(txDef);
                 
-                DistributedAccount toAccount = accountRepository
-                    .findByAccountNumber(toAccountNumber)
-                    .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다"));
-                
-                // 비즈니스 로직
-                fromAccount.withdraw(amount);
-                toAccount.deposit(amount);
-                
-                accountRepository.save(fromAccount);
-                accountRepository.save(toAccount);
-                
-                log.info("분산락 이체 완료: {} → {}", fromAccountNumber, toAccountNumber);
+                try {
+                    // Step 5: 실제 비즈니스 로직 실행
+                    Object result = joinPoint.proceed();
+                    
+                    // Step 6: 트랜잭션 커밋 (DB 반영)
+                    transactionManager.commit(txStatus);
+                    
+                    return result;
+                    
+                } catch (Throwable e) {
+                    transactionManager.rollback(txStatus);
+                    throw e;
+                }
                 
             } finally {
-                // 락 해제
-                if (lock2.isHeldByCurrentThread()) {
-                    lock2.unlock();
-                }
-                if (lock1.isHeldByCurrentThread()) {
-                    lock1.unlock();
+                // Step 7: 락 해제 (커밋 이후!)
+                if (lock.isHeldByCurrentThread()) {
+                    lock.unlock();
                 }
             }
             
@@ -560,19 +598,170 @@ public class DistributedLockService {
             throw new RuntimeException("락 획득 중 인터럽트", e);
         }
     }
+    
+    /**
+     * SpEL로 락 키 생성
+     * 예: "#accountNumber" → 메서드 파라미터의 실제 값
+     */
+    private String generateLockKey(String spel, Object[] args, 
+                                   String[] paramNames) {
+        StandardEvaluationContext context = 
+            new StandardEvaluationContext();
+        
+        for (int i = 0; i < paramNames.length; i++) {
+            context.setVariable(paramNames[i], args[i]);
+        }
+        
+        Object value = expressionParser
+            .parseExpression(spel)
+            .getValue(context);
+            
+        return value != null ? value.toString() : spel;
+    }
 }
 ```
 
+#### Step 3: 서비스에서 @DistributedLock 사용
+
+```java
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class DistributedLockService {
+    
+    private final DistributedAccountRepository accountRepository;
+    
+    /**
+     * 이제 비즈니스 로직만 작성!
+     * 분산락 처리는 AOP Aspect가 자동으로 처리
+     * 
+     * 실행 순서:
+     * 1. @DistributedLockAspect가 메서드를 가로챔
+     * 2. 락 획득
+     * 3. 트랜잭션 시작
+     * 4. 이 메서드 실행
+     * 5. 트랜잭션 커밋
+     * 6. 락 해제
+     */
+    @DistributedLock(keys = "transfer")
+    public void transfer(String fromAccountNumber, String toAccountNumber, 
+                        Long amount) {
+        DistributedAccount fromAccount = accountRepository
+            .findByAccountNumber(fromAccountNumber)
+            .orElseThrow();
+        
+        DistributedAccount toAccount = accountRepository
+            .findByAccountNumber(toAccountNumber)
+            .orElseThrow();
+        
+        // 비즈니스 로직만 깔끔하게!
+        fromAccount.withdraw(amount);
+        toAccount.deposit(amount);
+        
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
+    }
+    
+    @DistributedLock(keys = "#accountNumber")
+    public void deposit(String accountNumber, Long amount) {
+        DistributedAccount account = accountRepository
+            .findByAccountNumber(accountNumber)
+            .orElseThrow();
+        
+        account.deposit(amount);
+        accountRepository.save(account);
+    }
+}
+```
+
+#### ✅ AOP 기반 접근법의 장점
+
+| 항목 | 설명 |
+|------|------|
+| **코드 중복 제거** | 분산락 로직을 한 곳에서 관리 |
+| **유지보수 용이** | 모든 메서드에 일관된 처리 |
+| **가독성 향상** | 서비스에서는 비즈니스 로직만 표현 |
+| **일관된 순서 보장** | 모든 메서드에서 동일한 락/커밋 순서 |
+| **SpEL 지원** | 파라미터 기반 동적 락 키 생성 |
+
+---
+
 ## 4.4 Redis 분산락 메커니즘
 
+### AOP Aspect의 실행 흐름
+
+```
+@DistributedLock(keys = "transfer")
+public void transfer(...) { ... }
+
+     ↓ [1] 메서드 호출 가로챔 (@Around)
+
+[2] SpEL로 락 키 생성
+    keys = "transfer" → 고정 키 "transfer"
+    keys = "#accountNumber" → 실제 값 "ACC-001"
+
+     ↓ [3] 락 획득 시도
+
+[4] 락 획득 성공
+    ├─ [5] 트랜잭션 시작
+    ├─ [6] joinPoint.proceed() 실행
+    ├─ [7] 트랜잭션 커밋 ✅
+    ├─ [8] 락 해제 ✅
+    └─ 반환
+
+[4'] 락 획득 실패
+    ├─ failurePolicy = THROW
+    └─ RuntimeException 발생
+```
+
+### ⚠️ 주의사항: @Transactional과 분산락의 관계
+
+분산락을 구현할 때 **@Transactional 어노테이션은 사용하면 안 됩니다.**
+
+#### 왜 문제인가?
+
+```
+❌ 잘못된 순서 (@Transactional 사용):
+
+1. 락 획득 ← OK
+2. DB 쿼리 실행 (메모리 상에만 존재)
+3. finally 블록 실행
+4. 락 해제 ← 다른 스레드가 락 획득 가능!
+5. @Transactional의 AOP Proxy가 트랜잭션 커밋
+   ↓
+   이 시점에서 DB에 반영됨
+
+문제:
+- 단계 4에서 다른 스레드가 락을 획득함
+- 단계 5 이전에 다른 스레드가 "아직 커밋되지 않은 데이터"에 접근
+- Dirty Read, Lost Update, Data Inconsistency 발생 가능
+```
+
+```
+✅ 올바른 순서 (AOP 기반 관리):
+
+DistributedLockAspect에서:
+1. 락 획득 ← OK
+2. 트랜잭션 시작
+3. 메서드 실행 (joinPoint.proceed())
+4. 트랜잭션 커밋 ← DB에 최종 반영!
+5. 락 해제 ← 이제 다른 스레드가 안전하게 접근 가능
+
+장점:
+- 커밋이 완료되고 락이 해제됨
+- 다른 스레드는 최신 데이터만 접근 가능
+- AOP가 모든 순서를 보장
+```
+
 ### Redisson의 Watch Dog 메커니즘
+
+Redisson은 락 만료 전에 자동으로 시간을 연장하는 Watch Dog 메커니즘을 제공합니다:
 
 ```
 [타임라인]
 
 T0   락 획득 (waitTime=10s, leaseTime=3s)
-     Redis에 저장: key="account-lock:ACC-001", value=<threadId>, 
-                   expire=3s
+     Redis에 저장: key="lock:transfer", expire=3s
 
 T1   비즈니스 로직 처리 중... (2.5초 경과)
 
@@ -606,6 +795,8 @@ spring:
 // 이 시간 내에 작업이 완료되지 않으면 자동 연장
 ```
 
+---
+
 ## 4.5 다양한 분산락 구현
 
 ### 1. 세마포어(Semaphore)
@@ -615,26 +806,14 @@ spring:
  * 제한된 자원 접근 제어
  * - N개의 동시 접근만 허용
  */
-@Service
-public class RateLimitService {
-    
-    @Autowired
-    private RedissonClient redissonClient;
-    
-    public void limitedOperation() {
-        RSemaphore semaphore = redissonClient.getSemaphore("rate-limit");
-        semaphore.setPermits(5); // 5개 동시 요청만 허용
-        
-        try {
-            if (semaphore.tryAcquire()) {
-                // 작업 수행
-                log.info("작업 수행 중...");
-            } else {
-                log.warn("할당량 초과");
-            }
-        } finally {
-            semaphore.release();
-        }
+RSemaphore semaphore = redissonClient.getSemaphore("rate-limit");
+semaphore.setPermits(5); // 5개 동시 요청만 허용
+
+if (semaphore.tryAcquire()) {
+    try {
+        // 작업 수행
+    } finally {
+        semaphore.release();
     }
 }
 ```
@@ -647,31 +826,22 @@ public class RateLimitService {
  * - 여러 읽기는 동시 허용
  * - 쓰기는 배타적 접근만 허용
  */
-@Service
-public class CacheService {
-    
-    @Autowired
-    private RedissonClient redissonClient;
-    
-    public Object readData(String key) {
-        RReadWriteLock lock = redissonClient.getReadWriteLock(key);
-        lock.readLock().lock();
-        try {
-            return retrieveFromDB(key);
-        } finally {
-            lock.readLock().unlock();
-        }
-    }
-    
-    public void writeData(String key, Object value) {
-        RReadWriteLock lock = redissonClient.getReadWriteLock(key);
-        lock.writeLock().lock();
-        try {
-            saveToDB(key, value);
-        } finally {
-            lock.writeLock().unlock();
-        }
-    }
+RReadWriteLock lock = redissonClient.getReadWriteLock("resource");
+
+// 읽기
+lock.readLock().lock();
+try {
+    Object data = retrieveData();
+} finally {
+    lock.readLock().unlock();
+}
+
+// 쓰기
+lock.writeLock().lock();
+try {
+    saveData(obj);
+} finally {
+    lock.writeLock().unlock();
 }
 ```
 
@@ -683,27 +853,13 @@ public class CacheService {
  * - FIFO 순서로 락 획득
  * - 기아(Starvation) 방지
  */
-@Service
-public class FairLockService {
-    
-    @Autowired
-    private RedissonClient redissonClient;
-    
-    public void fairOperation() {
-        RLock fairLock = redissonClient.getFairLock("fair-lock");
-        
-        try {
-            if (fairLock.tryLock(10, 3, TimeUnit.SECONDS)) {
-                // 비즈니스 로직
-                log.info("공정한 락으로 보호된 작업 수행");
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        } finally {
-            if (fairLock.isHeldByCurrentThread()) {
-                fairLock.unlock();
-            }
-        }
+RLock fairLock = redissonClient.getFairLock("fair-lock");
+
+if (fairLock.tryLock(10, 3, TimeUnit.SECONDS)) {
+    try {
+        // 작업 수행
+    } finally {
+        fairLock.unlock();
     }
 }
 ```
@@ -712,9 +868,9 @@ public class FairLockService {
 
 | 항목 | 설명 |
 |------|-----|
-| **장점** | • 분산 환경 지원<br>• 다중 인스턴스 간 동시성 제어<br>• 유연한 타임아웃 설정<br>• 여러 락 타입 제공 |
+| **장점** | • 분산 환경 완벽 지원<br>• 다중 인스턴스 간 동시성 제어<br>• 유연한 타임아웃 설정<br>• 다양한 락 타입 제공<br>• AOP로 공통화 가능 |
 | **단점** | • Redis 별도 인프라 필요<br>• 네트워크 지연 고려<br>• Watch Dog 메커니즘 이해 필요 |
-| **사용 시기** | • 마이크로서비스 아키텍처<br>• 다중 인스턴스 배포<br>• 높은 동시성 + 안정성 |
+| **사용 시기** | • 마이크로서비스 아키텍처<br>• 다중 인스턴스 배포<br>• 높은 동시성 + 안정성 필요 |
 
 ---
 
@@ -731,7 +887,7 @@ public class FairLockService {
 | **충돌 빈도** | 낮음 | 높음 | 보통 |
 | **재시도** | 필요 | 불필요 | 불필요 |
 | **데드락** | 없음 | 가능 | 없음 |
-| **구현 복잡도** | 낮음 | 낮음 | 높음 |
+| **구현 복잡도** | 낮음 | 낮음 | 중간(AOP) |
 | **인프라** | DB만 | DB만 | DB + Redis |
 
 ## 5.2 선택 가이드
@@ -742,7 +898,7 @@ public class FairLockService {
 │  └─ No  → 다음 항목 확인
 │
 └─ 분산 환경인가?
-   ├─ Yes → 분산락 선택 (Redis/Zookeeper)
+   ├─ Yes → 분산락 선택 (Redis/AOP)
    └─ No  → 비관락 선택
 ```
 
@@ -758,39 +914,59 @@ public class FairLockService {
 3. 분산 시스템의 마이크로서비스 간 상태 관리
    → 분산락 (여러 인스턴스, 높은 동시성)
 
-4. 게임 서버의 인벤토리 관리
-   → 분산락 + 비관락 (다중 인스턴스, 높은 동시성)
+4. 게임 서버의 인벤토리 관리 (다중 인스턴스)
+   → @DistributedLock으로 간단하게 처리!
 ```
 
 ---
 
-# 6. 실제 샘플 프로젝트
+# 6. 샘플 프로젝트 활용
 
-## 6.1 프로젝트 구조
+## 6.1 빌드 및 실행
 
-전체 샘플 코드는 아래 저장소에서 확인 가능합니다.
+```bash
+# Maven으로 빌드
+mvn clean package
 
+# In-Memory 프로필 (낙관락, 비관락만)
+java -jar target/distributed-lock-samples-1.0.0.jar \
+  --spring.profiles.active=in-memory
+
+# Redis 프로필 (@DistributedLock AOP 사용)
+java -jar target/distributed-lock-samples-1.0.0.jar \
+  --spring.profiles.active=redis
 ```
-distributed-lock-samples/
-├── pom.xml
-├── src/main/
-│   ├── java/com/gracefulsoul/lock/
-│   │   ├── DistributedLockSamplesApplication.java
-│   │   ├── DataInitializer.java
-│   │   ├── config/
-│   │   │   └── RedissonConfig.java
-│   │   ├── domain/
-│   │   │   ├── OptimisticAccount.java
-│   │   │   ├── PessimisticAccount.java
-│   │   │   └── DistributedAccount.java
-│   │   ├── repository/
-│   │   │   ├── OptimisticAccountRepository.java
-│   │   │   ├── PessimisticAccountRepository.java
-│   │   │   └── DistributedAccountRepository.java
-│   │   ├── service/
-│   │   │   ├── OptimisticLockService.java
-│   │   │   ├── PessimisticLockService.java
-│   │   │   └── DistributedLockService.java
+
+## 6.2 API 테스트
+
+```bash
+# 낙관락 이체
+curl -X POST "http://localhost:8080/api/accounts/optimistic/transfer?from=OPT-001&to=OPT-002&amount=1000"
+
+# 비관락 이체
+curl -X POST "http://localhost:8080/api/accounts/pessimistic/transfer?from=PES-001&to=PES-002&amount=1000"
+
+# 분산락 이체 (@DistributedLock 적용됨)
+curl -X POST "http://localhost:8080/api/accounts/distributed/transfer?from=DIS-001&to=DIS-002&amount=1000"
+```
+
+---
+
+# 7. 핵심 요약
+
+## ✅ 분산락 구현의 최적 패턴
+
+1. **@DistributedLock 어노테이션 정의** - 메타데이터 제공
+2. **@DistributedLockAspect 구현** - 공통 로직 처리
+3. **DistributedLockService에 적용** - 비즈니스 로직만 작성
+
+### 장점
+
+✅ **코드 중복 제거** - 분산락 로직이 한 곳에서 관리됨  
+✅ **유지보수 용이** - 모든 메서드에 일관된 처리  
+✅ **가독성 향상** - 서비스는 비즈니스 로직에만 집중  
+✅ **순서 보장** - 락 획득 → 트랜잭션 시작 → 커밋 → 락 해제  
+✅ **안정성** - 프로덕션 환경에서 사용 가능
 │   │   └── controller/
 │   │       └── AccountController.java
 │   └── resources/
