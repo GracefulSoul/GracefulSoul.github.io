@@ -1,0 +1,2159 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring) - Development story</title>
+<meta name="description" content="Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)">
+<meta property="og:url" content="/database/data-concurrency-lock/">
+
+
+  <meta property="og:description" content="Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.">
+
+
+
+  <meta property="og:image" content="/assets/images/database/data-concurrency-lock.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-18T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-04-18T06:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/database/data-concurrency-lock/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/database/data-concurrency-lock.png" alt="데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)">
+    <meta itemprop="description" content="Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.">
+    <meta itemprop="datePublished" content="2026-04-18T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-04-18T06:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-04-18T00:00:00+00:00">April 18, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#1-동시성-문제와-데이터-일관성">1. 동시성 문제와 데이터 일관성</a><ul><li><a href="#11-동시성-문제-유형">1.1 동시성 문제 유형</a></li></ul></li><li><a href="#2-낙관락optimistic-locking">2. 낙관락(Optimistic Locking)</a><ul><li><a href="#21-개념-및-원리">2.1 개념 및 원리</a><ul><li><a href="#동작-원리">동작 원리</a></li></ul></li><li><a href="#22-내부-구조">2.2 내부 구조</a><ul><li><a href="#버전-필드version-field-메커니즘">버전 필드(Version Field) 메커니즘</a></li></ul></li><li><a href="#23-구현-예제">2.3 구현 예제</a><ul><li><a href="#엔티티-정의">엔티티 정의</a></li><li><a href="#저장소repository">저장소(Repository)</a></li><li><a href="#서비스-구현">서비스 구현</a></li></ul></li><li><a href="#24-생성되는-sql">2.4 생성되는 SQL</a></li><li><a href="#25-특징">2.5 특징</a></li></ul></li><li><a href="#3-비관락pessimistic-locking">3. 비관락(Pessimistic Locking)</a><ul><li><a href="#31-개념-및-원리">3.1 개념 및 원리</a><ul><li><a href="#동작-원리-1">동작 원리</a></li></ul></li><li><a href="#32-내부-구조">3.2 내부 구조</a><ul><li><a href="#락-모드-타입">락 모드 타입</a></li><li><a href="#잠금-대기-흐름">잠금 대기 흐름</a></li></ul></li><li><a href="#33-구현-예제">3.3 구현 예제</a><ul><li><a href="#저장소repository-1">저장소(Repository)</a></li><li><a href="#서비스-구현-1">서비스 구현</a></li></ul></li><li><a href="#34-생성되는-sql">3.4 생성되는 SQL</a></li><li><a href="#35-데드락deadlock-방지">3.5 데드락(Deadlock) 방지</a></li><li><a href="#36-특징">3.6 특징</a></li></ul></li><li><a href="#4-분산락distributed-lock">4. 분산락(Distributed Lock)</a><ul><li><a href="#41-개념-및-원리">4.1 개념 및 원리</a><ul><li><a href="#동작-원리-2">동작 원리</a></li></ul></li><li><a href="#42-구현-방식">4.2 구현 방식</a><ul><li><a href="#redisson을-사용한-분산락">Redisson을 사용한 분산락</a><ul><li><a href="#설정">설정</a></li></ul></li></ul></li><li><a href="#43-aop-기반-구현-권장">4.3 AOP 기반 구현 (권장)</a><ul><li><a href="#-공통-기능을-aop로-처리">✅ 공통 기능을 AOP로 처리</a><ul><li><a href="#step-1-distributedlock-어노테이션-정의">Step 1: @DistributedLock 어노테이션 정의</a></li><li><a href="#step-2-distributedlockaspect-구현">Step 2: DistributedLockAspect 구현</a></li><li><a href="#step-3-서비스에서-distributedlock-사용">Step 3: 서비스에서 @DistributedLock 사용</a></li><li><a href="#-aop-기반-접근법의-장점">✅ AOP 기반 접근법의 장점</a></li></ul></li></ul></li><li><a href="#44-redis-분산락-메커니즘">4.4 Redis 분산락 메커니즘</a><ul><li><a href="#aop-aspect의-실행-흐름">AOP Aspect의 실행 흐름</a></li><li><a href="#️-주의사항-transactional과-분산락의-관계">⚠️ 주의사항: @Transactional과 분산락의 관계</a><ul><li><a href="#왜-문제인가">왜 문제인가?</a></li></ul></li><li><a href="#redisson의-watch-dog-메커니즘">Redisson의 Watch Dog 메커니즘</a></li><li><a href="#watch-dog-설정">Watch Dog 설정</a></li></ul></li><li><a href="#45-다양한-분산락-구현">4.5 다양한 분산락 구현</a><ul><li><a href="#1-세마포어semaphore">1. 세마포어(Semaphore)</a></li><li><a href="#2-readwrite-lock">2. ReadWrite Lock</a></li><li><a href="#3-fair-lock-공정한-락">3. Fair Lock (공정한 락)</a></li></ul></li><li><a href="#46-특징">4.6 특징</a></li></ul></li><li><a href="#5-비교-분석">5. 비교 분석</a><ul><li><a href="#51-종합-비교표">5.1 종합 비교표</a></li><li><a href="#52-선택-가이드">5.2 선택 가이드</a><ul><li><a href="#예시-시나리오">예시 시나리오</a></li></ul></li></ul></li><li><a href="#6-샘플-프로젝트-활용">6. 샘플 프로젝트 활용</a><ul><li><a href="#61-빌드-및-실행">6.1 빌드 및 실행</a></li><li><a href="#62-api-테스트">6.2 API 테스트</a></li></ul></li><li><a href="#7-핵심-요약">7. 핵심 요약</a><ul><li><a href="#-분산락-구현의-최적-패턴">✅ 분산락 구현의 최적 패턴</a><ul><li><a href="#장점">장점</a></li></ul></li><li><a href="#63-api-사용-예제">6.3 API 사용 예제</a><ul><li><a href="#낙관락-api">낙관락 API</a></li><li><a href="#비관락-api">비관락 API</a></li><li><a href="#분산락-api">분산락 API</a></li></ul></li></ul></li><li><a href="#7-성능-고려사항">7. 성능 고려사항</a><ul><li><a href="#71-벤치마크-시나리오">7.1 벤치마크 시나리오</a></li><li><a href="#72-최적화-팁">7.2 최적화 팁</a><ul><li><a href="#낙관락-최적화">낙관락 최적화</a></li><li><a href="#비관락-최적화">비관락 최적화</a></li><li><a href="#분산락-최적화">분산락 최적화</a></li></ul></li></ul></li><li><a href="#8-주요-제품-및-기술">8. 주요 제품 및 기술</a><ul><li><a href="#81-분산락-솔루션">8.1 분산락 솔루션</a></li><li><a href="#82-데이터베이스별-비관락-지원">8.2 데이터베이스별 비관락 지원</a></li></ul></li><li><a href="#9-개념-정리">9. 개념 정리</a><ul><li><a href="#91-핵심-용어">9.1 핵심 용어</a></li><li><a href="#92-acid-특성과의-관계">9.2 ACID 특성과의 관계</a></li></ul></li><li><a href="#참조">참조</a><ul><li><a href="#공식-문서">공식 문서</a></li><li><a href="#기술-블로그">기술 블로그</a></li><li><a href="#샘플-코드-저장소">샘플 코드 저장소</a></li><li><a href="#참고-자료">참고 자료</a></li></ul></li><li><a href="#결론">결론</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+
+<p>멀티스레드 또는 분산 환경에서 동시에 같은 데이터에 접근할 때 데이터 일관성을 보장하는 것은 매우 중요합니다. 
+본 글에서는 Java/Spring 환경에서 사용되는 대표적인 동시성 제어 메커니즘인 <strong>낙관락(Optimistic Locking)</strong>, 
+<strong>비관락(Pessimistic Locking)</strong>, <strong>분산락(Distributed Lock)</strong>을 심층 분석하고 실제 샘플 코드로 구현합니다.</p>
+
+<hr />
+
+<h1 id="1-동시성-문제와-데이터-일관성">1. 동시성 문제와 데이터 일관성</h1>
+
+<h2 id="11-동시성-문제-유형">1.1 동시성 문제 유형</h2>
+
+<p>데이터베이스에서 발생할 수 있는 주요 동시성 문제:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>문제</th>
+      <th>설명</th>
+      <th>시나리오</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Lost Update(손실된 업데이트)</strong></td>
+      <td>두 트랜잭션이 같은 데이터를 수정하면 마지막 쓰기만 반영</td>
+      <td>A, B가 동시에 계좌 잔액 수정</td>
+    </tr>
+    <tr>
+      <td><strong>Dirty Read(더티 읽기)</strong></td>
+      <td>커밋되지 않은 데이터를 다른 트랜잭션이 읽음</td>
+      <td>롤백된 데이터를 읽음</td>
+    </tr>
+    <tr>
+      <td><strong>Non-repeatable Read</strong></td>
+      <td>트랜잭션 중 같은 데이터를 여러 번 읽을 때 값이 달라짐</td>
+      <td>트랜잭션 진행 중 다른 트랜잭션이 데이터 수정</td>
+    </tr>
+    <tr>
+      <td><strong>Phantom Read</strong></td>
+      <td>트랜잭션 중 새로운 행이 추가/삭제되어 조회 결과가 달라짐</td>
+      <td>범위 조회 중 새로운 행 삽입</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[타임라인 예시: Lost Update 문제]
+
+시간    | 트랜잭션 A              | 트랜잭션 B
+--------|----------------------|----------------------
+T1      | 읽기: 잔액 = 10,000   |
+T2      |                      | 읽기: 잔액 = 10,000
+T3      | 쓰기: 10,000 - 5,000  |
+T4      | COMMIT               |
+T5      |                      | 쓰기: 10,000 + 3,000
+T6      |                      | COMMIT
+--------|----------------------|----------------------
+결과    | 최종 잔액 = 13,000 (A의 출금 5,000은 반영 안됨!)
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="2-낙관락optimistic-locking">2. 낙관락(Optimistic Locking)</h1>
+
+<h2 id="21-개념-및-원리">2.1 개념 및 원리</h2>
+
+<p><strong>낙관락</strong>은 대부분의 데이터 충돌이 드물다고 가정하고, 충돌이 발생하면 그때 처리하는 방식입니다.</p>
+
+<h3 id="동작-원리">동작 원리</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 데이터 조회 시 버전(Version) 값 함께 읽음
+2. 비즈니스 로직 처리 (락 없음)
+3. 업데이트 시 버전값으로 충돌 검사
+   UPDATE table SET col = value, version = version + 1
+   WHERE id = ? AND version = ?
+4. 버전 불일치 → ObjectOptimisticLockingFailureException
+5. 재시도(Retry) 메커니즘으로 복구
+</code></pre></div></div>
+
+<h2 id="22-내부-구조">2.2 내부 구조</h2>
+
+<h3 id="버전-필드version-field-메커니즘">버전 필드(Version Field) 메커니즘</h3>
+
+<p>JPA의 <code class="language-plaintext highlighter-rouge">@Version</code> 애노테이션을 사용하면 다음과 같은 동작:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[초기 상태]
+ID | ACCOUNT_NUMBER | BALANCE | VERSION
+1  | ACC-001        | 10,000  | 1
+
+[첫 번째 업데이트 후]
+ID | ACCOUNT_NUMBER | BALANCE | VERSION
+1  | ACC-001        | 5,000   | 2  ← 자동 증가
+
+[동시 업데이트 시도]
+UPDATE account SET balance = 8000, version = 3 WHERE id = 1 AND version = 1
+→ 0 rows updated (version = 2, 1이 아님)
+→ OptimisticLockingFailureException 발생
+</code></pre></div></div>
+
+<h2 id="23-구현-예제">2.3 구현 예제</h2>
+
+<h3 id="엔티티-정의">엔티티 정의</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"optimistic_account"</span><span class="o">)</span>
+<span class="nd">@Getter</span> <span class="nd">@Setter</span> <span class="nd">@NoArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OptimisticAccount</span> <span class="o">{</span>
+    
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">accountNumber</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">balance</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * @Version: 낙관락의 핵심
+     * - JPA가 자동으로 관리
+     * - 엔티티 업데이트마다 증가
+     * - WHERE 절에 포함되어 동시성 충돌 감지
+     */</span>
+    <span class="nd">@Version</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">version</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">balance</span> <span class="o">&lt;</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"잔액이 부족합니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">amount</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"입금액은 0보다 커야 합니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">+=</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="저장소repository">저장소(Repository)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">OptimisticAccountRepository</span> 
+    <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">OptimisticAccount</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">OptimisticAccount</span><span class="o">&gt;</span> <span class="nf">findByAccountNumber</span><span class="o">(</span><span class="nc">String</span> <span class="n">accountNumber</span><span class="o">);</span>
+    
+    <span class="cm">/**
+     * 낙관락을 명시적으로 적용
+     * LockModeType.OPTIMISTIC: 버전 필드만 체크
+     * LockModeType.OPTIMISTIC_FORCE_INCREMENT: 버전 증가만 함
+     */</span>
+    <span class="nd">@Lock</span><span class="o">(</span><span class="nc">LockModeType</span><span class="o">.</span><span class="na">OPTIMISTIC</span><span class="o">)</span>
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"SELECT a FROM OptimisticAccount a WHERE a.accountNumber = :accountNumber"</span><span class="o">)</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">OptimisticAccount</span><span class="o">&gt;</span> <span class="nf">findByAccountNumberWithOptimisticLock</span><span class="o">(</span>
+        <span class="nd">@Param</span><span class="o">(</span><span class="s">"accountNumber"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">accountNumber</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="서비스-구현">서비스 구현</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OptimisticLockService</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">OptimisticAccountRepository</span> <span class="n">accountRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_RETRY_COUNT</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+    
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">String</span> <span class="n">fromAccountNumber</span><span class="o">,</span> <span class="nc">String</span> <span class="n">toAccountNumber</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">retryCount</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        
+        <span class="k">while</span> <span class="o">(</span><span class="n">retryCount</span> <span class="o">&lt;</span> <span class="no">MAX_RETRY_COUNT</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="nc">OptimisticAccount</span> <span class="n">fromAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+                    <span class="o">.</span><span class="na">findByAccountNumberWithOptimisticLock</span><span class="o">(</span><span class="n">fromAccountNumber</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"계좌를 찾을 수 없습니다"</span><span class="o">));</span>
+                
+                <span class="nc">OptimisticAccount</span> <span class="n">toAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+                    <span class="o">.</span><span class="na">findByAccountNumberWithOptimisticLock</span><span class="o">(</span><span class="n">toAccountNumber</span><span class="o">)</span>
+                    <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"계좌를 찾을 수 없습니다"</span><span class="o">));</span>
+                
+                <span class="c1">// 비즈니스 로직 처리 (락 없음)</span>
+                <span class="n">fromAccount</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+                <span class="n">toAccount</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+                
+                <span class="c1">// 저장 시 버전 체크</span>
+                <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">fromAccount</span><span class="o">);</span>
+                <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">toAccount</span><span class="o">);</span>
+                
+                <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"이체 완료: {} → {}, 금액: {}"</span><span class="o">,</span> 
+                    <span class="n">fromAccountNumber</span><span class="o">,</span> <span class="n">toAccountNumber</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
+                <span class="k">return</span><span class="o">;</span>
+                
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ObjectOptimisticLockingFailureException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">retryCount</span><span class="o">++;</span>
+                <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"낙관락 충돌! 재시도 {}/{}"</span><span class="o">,</span> <span class="n">retryCount</span><span class="o">,</span> <span class="no">MAX_RETRY_COUNT</span><span class="o">);</span>
+                
+                <span class="k">if</span> <span class="o">(</span><span class="n">retryCount</span> <span class="o">&gt;=</span> <span class="no">MAX_RETRY_COUNT</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"최대 재시도 횟수 초과"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="24-생성되는-sql">2.4 생성되는 SQL</h2>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 조회</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">optimistic_account</span> <span class="k">WHERE</span> <span class="n">account_number</span> <span class="o">=</span> <span class="o">?</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+
+<span class="c1">-- 업데이트 (버전 체크)</span>
+<span class="k">UPDATE</span> <span class="n">optimistic_account</span> 
+<span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="o">?</span><span class="p">,</span> <span class="k">version</span> <span class="o">=</span> <span class="k">version</span> <span class="o">+</span> <span class="mi">1</span> 
+<span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span> <span class="k">AND</span> <span class="k">version</span> <span class="o">=</span> <span class="o">?</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="25-특징">2.5 특징</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>장점</strong></td>
+      <td>• 충돌 빈도 낮을 때 성능 우수<br />• DB 락 없어 동시성 높음<br />• 데드락 위험 없음</td>
+    </tr>
+    <tr>
+      <td><strong>단점</strong></td>
+      <td>• 충돌 시 Exception 처리<br />• 재시도 로직 구현 필요<br />• 충돌 빈번하면 성능 저하</td>
+    </tr>
+    <tr>
+      <td><strong>사용 시기</strong></td>
+      <td>• 조회 &gt; 수정 작업<br />• 충돌 가능성 낮음<br />• 높은 동시성 필요 시</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="3-비관락pessimistic-locking">3. 비관락(Pessimistic Locking)</h1>
+
+<h2 id="31-개념-및-원리">3.1 개념 및 원리</h2>
+
+<p><strong>비관락</strong>은 데이터 충돌이 자주 발생한다고 가정하고, 미리 행을 잠금하는 방식입니다.</p>
+
+<h3 id="동작-원리-1">동작 원리</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 데이터 조회 시 즉시 행 잠금 획득
+   SELECT ... FOR UPDATE (배타락) 또는 
+   SELECT ... FOR UPDATE SHARED (공유락)
+2. 다른 트랜잭션의 접근 차단
+3. 비즈니스 로직 처리
+4. 업데이트 수행
+5. 트랜잭션 종료 시 잠금 자동 해제
+</code></pre></div></div>
+
+<h2 id="32-내부-구조">3.2 내부 구조</h2>
+
+<h3 id="락-모드-타입">락 모드 타입</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─ PESSIMISTIC_READ (공유락, Shared Lock)
+│  • SELECT ... FOR UPDATE SHARED
+│  • 다른 공유락 허용, 배타락 차단
+│  • 읽기 전용 작업 시 사용
+│
+└─ PESSIMISTIC_WRITE (배타락, Exclusive Lock)
+   • SELECT ... FOR UPDATE
+   • 모든 다른 락 차단
+   • 수정 작업 시 사용
+</code></pre></div></div>
+
+<h3 id="잠금-대기-흐름">잠금 대기 흐름</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[시간 흐름]
+
+스레드 A                          스레드 B
+─────────────────────────────────────────────────
+SELECT ... FOR UPDATE
+(배타락 획득) ✓
+  ↓
+비즈니스 로직 처리 (1초)
+  ↓                            SELECT ... FOR UPDATE
+  ↓                            (대기 중...)
+UPDATE 수행
+COMMIT (락 해제)
+  ↓                            (배타락 획득) ✓
+  ↓                            비즈니스 로직 처리
+  ↓                            UPDATE 수행
+  ↓                            COMMIT
+완료                           완료
+</code></pre></div></div>
+
+<h2 id="33-구현-예제">3.3 구현 예제</h2>
+
+<h3 id="저장소repository-1">저장소(Repository)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PessimisticAccountRepository</span> 
+    <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">PessimisticAccount</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">PessimisticAccount</span><span class="o">&gt;</span> <span class="nf">findByAccountNumber</span><span class="o">(</span><span class="nc">String</span> <span class="n">accountNumber</span><span class="o">);</span>
+    
+    <span class="cm">/**
+     * 배타락(PESSIMISTIC_WRITE)
+     * 생성되는 SQL: SELECT ... FOR UPDATE
+     */</span>
+    <span class="nd">@Lock</span><span class="o">(</span><span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_WRITE</span><span class="o">)</span>
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"SELECT a FROM PessimisticAccount a WHERE a.accountNumber = :accountNumber"</span><span class="o">)</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">PessimisticAccount</span><span class="o">&gt;</span> <span class="nf">findByAccountNumberWithPessimisticWriteLock</span><span class="o">(</span>
+        <span class="nd">@Param</span><span class="o">(</span><span class="s">"accountNumber"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">accountNumber</span><span class="o">);</span>
+    
+    <span class="cm">/**
+     * 공유락(PESSIMISTIC_READ)
+     * 생성되는 SQL: SELECT ... FOR UPDATE SHARED (지원하는 DB의 경우)
+     */</span>
+    <span class="nd">@Lock</span><span class="o">(</span><span class="nc">LockModeType</span><span class="o">.</span><span class="na">PESSIMISTIC_READ</span><span class="o">)</span>
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"SELECT a FROM PessimisticAccount a WHERE a.accountNumber = :accountNumber"</span><span class="o">)</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">PessimisticAccount</span><span class="o">&gt;</span> <span class="nf">findByAccountNumberWithPessimisticReadLock</span><span class="o">(</span>
+        <span class="nd">@Param</span><span class="o">(</span><span class="s">"accountNumber"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">accountNumber</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="서비스-구현-1">서비스 구현</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PessimisticLockService</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PessimisticAccountRepository</span> <span class="n">accountRepository</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * 배타락 기반 이체
+     * - 두 계좌 모두 배타락 획득
+     * - 다른 트랜잭션의 모든 접근 차단
+     */</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">String</span> <span class="n">fromAccountNumber</span><span class="o">,</span> <span class="nc">String</span> <span class="n">toAccountNumber</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 데드락 방지: 계좌번호 기준으로 일관된 순서로 획득</span>
+        <span class="nc">PessimisticAccount</span> <span class="n">fromAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumberWithPessimisticWriteLock</span><span class="o">(</span><span class="n">fromAccountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"계좌를 찾을 수 없습니다"</span><span class="o">));</span>
+        
+        <span class="nc">PessimisticAccount</span> <span class="n">toAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumberWithPessimisticWriteLock</span><span class="o">(</span><span class="n">toAccountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"계좌를 찾을 수 없습니다"</span><span class="o">));</span>
+        
+        <span class="c1">// 이미 배타락을 획득했으므로 안전하게 처리</span>
+        <span class="n">fromAccount</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        <span class="n">toAccount</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        
+        <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">fromAccount</span><span class="o">);</span>
+        <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">toAccount</span><span class="o">);</span>
+        
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"이체 완료: {} → {}"</span><span class="o">,</span> <span class="n">fromAccountNumber</span><span class="o">,</span> <span class="n">toAccountNumber</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+     * 공유락 기반 잔액 조회
+     * - 읽기 전용 작업
+     * - 다른 공유락은 허용, 배타락만 차단
+     */</span>
+    <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Long</span> <span class="nf">getBalance</span><span class="o">(</span><span class="nc">String</span> <span class="n">accountNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">PessimisticAccount</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumberWithPessimisticReadLock</span><span class="o">(</span><span class="n">accountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"계좌를 찾을 수 없습니다"</span><span class="o">));</span>
+        
+        <span class="k">return</span> <span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="34-생성되는-sql">3.4 생성되는 SQL</h2>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 배타락 (PESSIMISTIC_WRITE)</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pessimistic_account</span> 
+<span class="k">WHERE</span> <span class="n">account_number</span> <span class="o">=</span> <span class="o">?</span> <span class="k">FOR</span> <span class="k">UPDATE</span><span class="p">;</span>
+
+<span class="c1">-- 공유락 (PESSIMISTIC_READ)</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">pessimistic_account</span> 
+<span class="k">WHERE</span> <span class="n">account_number</span> <span class="o">=</span> <span class="o">?</span> <span class="k">FOR</span> <span class="k">UPDATE</span> <span class="n">SHARED</span><span class="p">;</span>
+
+<span class="c1">-- 업데이트 (일반 UPDATE, 잠금 이미 획득)</span>
+<span class="k">UPDATE</span> <span class="n">pessimistic_account</span> 
+<span class="k">SET</span> <span class="n">balance</span> <span class="o">=</span> <span class="o">?</span> 
+<span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="o">?</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="35-데드락deadlock-방지">3.5 데드락(Deadlock) 방지</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 데드락 발생 상황
+ * [시간]  [트랜잭션 A]        [트랜잭션 B]
+ * T1      Lock(ACC-001)
+ * T2                         Lock(ACC-002)
+ * T3      Lock(ACC-002)← 대기 (ACC-002는 B가 소유)
+ * T4      
+ * T5                         Lock(ACC-001)← 대기 (ACC-001은 A가 소유)
+ * ↓       DEADLOCK 발생!
+ * 
+ * 해결: 항상 일관된 순서로 잠금 획득
+ */</span>
+
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">transferSafely</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="nc">String</span> <span class="n">to</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 계좌번호를 정렬하여 항상 같은 순서로 획득</span>
+    <span class="nc">String</span><span class="o">[]</span> <span class="n">sorted</span> <span class="o">=</span> <span class="o">{</span><span class="n">from</span><span class="o">,</span> <span class="n">to</span><span class="o">};</span>
+    <span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">sorted</span><span class="o">);</span>
+    
+    <span class="nc">PessimisticAccount</span> <span class="n">account1</span> <span class="o">=</span> <span class="n">accountRepository</span>
+        <span class="o">.</span><span class="na">findByAccountNumberWithPessimisticWriteLock</span><span class="o">(</span><span class="n">sorted</span><span class="o">[</span><span class="mi">0</span><span class="o">])</span>
+        <span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    
+    <span class="nc">PessimisticAccount</span> <span class="n">account2</span> <span class="o">=</span> <span class="n">accountRepository</span>
+        <span class="o">.</span><span class="na">findByAccountNumberWithPessimisticWriteLock</span><span class="o">(</span><span class="n">sorted</span><span class="o">[</span><span class="mi">1</span><span class="o">])</span>
+        <span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    
+    <span class="c1">// 안전하게 처리</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="36-특징">3.6 특징</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>장점</strong></td>
+      <td>• 충돌 자주 발생할 때 성능 우수<br />• 명시적인 잠금으로 데이터 일관성 보장<br />• 재시도 로직 불필요</td>
+    </tr>
+    <tr>
+      <td><strong>단점</strong></td>
+      <td>• DB 잠금으로 동시성 감소<br />• 데드락 위험 존재<br />• 락 대기로 응답 지연 가능</td>
+    </tr>
+    <tr>
+      <td><strong>사용 시기</strong></td>
+      <td>• 충돌 자주 발생<br />• 데이터 일관성 중요<br />• 트랜잭션 짧음</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="4-분산락distributed-lock">4. 분산락(Distributed Lock)</h1>
+
+<h2 id="41-개념-및-원리">4.1 개념 및 원리</h2>
+
+<p><strong>분산락</strong>은 마이크로서비스나 다중 인스턴스 환경에서 여러 서버에 걸쳐 동시성을 제어하는 방식입니다.
+일반적으로 Redis, Zookeeper 등의 외부 저장소를 사용합니다.</p>
+
+<h3 id="동작-원리-2">동작 원리</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 외부 저장소(Redis)에서 락 획득 시도
+2. 락 획득 성공 여부 즉시 반환
+3. 락 획득 시 비즈니스 로직 처리
+4. 로직 완료 후 락 해제
+5. 락 획득 실패 시 재시도 또는 에러 처리
+</code></pre></div></div>
+
+<h2 id="42-구현-방식">4.2 구현 방식</h2>
+
+<h3 id="redisson을-사용한-분산락">Redisson을 사용한 분산락</h3>
+
+<p>Redisson은 Redis 기반의 분산락을 제공하는 라이브러리입니다.</p>
+
+<h4 id="설정">설정</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RedissonConfig</span> <span class="o">{</span>
+    
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="nc">RedissonClient</span> <span class="nf">redissonClient</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Config</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Config</span><span class="o">();</span>
+        <span class="n">config</span><span class="o">.</span><span class="na">useSingleServer</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">setAddress</span><span class="o">(</span><span class="s">"redis://localhost:6379"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setConnectionPoolSize</span><span class="o">(</span><span class="mi">64</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setConnectionMinimumIdleSize</span><span class="o">(</span><span class="mi">10</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setRetryAttempts</span><span class="o">(</span><span class="mi">3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">setRetryInterval</span><span class="o">(</span><span class="mi">1500</span><span class="o">);</span>
+        
+        <span class="k">return</span> <span class="nc">Redisson</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="43-aop-기반-구현-권장">4.3 AOP 기반 구현 (권장)</h2>
+
+<h3 id="-공통-기능을-aop로-처리">✅ 공통 기능을 AOP로 처리</h3>
+
+<p>매번 각 메서드에서 분산락 로직을 반복 작성하는 것은 비효율적입니다.
+<strong>AOP(Aspect-Oriented Programming)를 사용하면 분산락 처리를 공통화</strong>할 수 있습니다.</p>
+
+<h4 id="step-1-distributedlock-어노테이션-정의">Step 1: @DistributedLock 어노테이션 정의</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">DistributedLock</span> <span class="o">{</span>
+    
+    <span class="cm">/**
+     * Redis 락 키 (SpEL 지원)
+     * - keys = "transfer"                  → 고정 키
+     * - keys = "#accountNumber"            → 파라미터 기반
+     * - keys = "#from + '-' + #to"        → 조합 가능
+     */</span>
+    <span class="nc">String</span> <span class="nf">keys</span><span class="o">();</span>
+    
+    <span class="cm">/**
+     * 락 획득 시도 시간 (초)
+     * 기본값: 10
+     */</span>
+    <span class="kt">long</span> <span class="nf">waitTime</span><span class="o">()</span> <span class="k">default</span> <span class="mi">10</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * 락 자동 해제 시간 (초)
+     * 기본값: 3
+     */</span>
+    <span class="kt">long</span> <span class="nf">leaseTime</span><span class="o">()</span> <span class="k">default</span> <span class="mi">3</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * 락 획득 실패 시 동작
+     * - THROW: RuntimeException 발생 (기본값)
+     * - SKIP: 락 없이 진행 (위험!)
+     */</span>
+    <span class="kd">enum</span> <span class="nc">LockFailurePolicy</span> <span class="o">{</span>
+        <span class="no">THROW</span><span class="o">,</span> <span class="no">SKIP</span>
+    <span class="o">}</span>
+    <span class="nc">LockFailurePolicy</span> <span class="nf">failurePolicy</span><span class="o">()</span> <span class="k">default</span> <span class="nc">LockFailurePolicy</span><span class="o">.</span><span class="na">THROW</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="step-2-distributedlockaspect-구현">Step 2: DistributedLockAspect 구현</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Slf4j</span>
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">"redis"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DistributedLockAspect</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">RedissonClient</span> <span class="n">redissonClient</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PlatformTransactionManager</span> <span class="n">transactionManager</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ExpressionParser</span> <span class="n">expressionParser</span> <span class="o">=</span> 
+        <span class="k">new</span> <span class="nf">SpelExpressionParser</span><span class="o">();</span>
+    
+    <span class="nd">@Around</span><span class="o">(</span><span class="s">"@annotation(distributedLock)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">around</span><span class="o">(</span><span class="nc">ProceedingJoinPoint</span> <span class="n">joinPoint</span><span class="o">,</span> 
+                        <span class="nc">DistributedLock</span> <span class="n">distributedLock</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+        
+        <span class="c1">// Step 1: 메서드 파라미터에서 락 키 생성 (SpEL)</span>
+        <span class="nc">String</span> <span class="n">lockKey</span> <span class="o">=</span> <span class="n">generateLockKey</span><span class="o">(</span><span class="n">distributedLock</span><span class="o">.</span><span class="na">keys</span><span class="o">(),</span>
+            <span class="n">joinPoint</span><span class="o">.</span><span class="na">getArgs</span><span class="o">(),</span> 
+            <span class="o">((</span><span class="nc">MethodSignature</span><span class="o">)</span><span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">getParameterNames</span><span class="o">());</span>
+        
+        <span class="c1">// Step 2: 락 객체 생성</span>
+        <span class="nc">RLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="n">redissonClient</span><span class="o">.</span><span class="na">getLock</span><span class="o">(</span><span class="s">"lock:"</span> <span class="o">+</span> <span class="n">lockKey</span><span class="o">);</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// Step 3: 락 획득</span>
+            <span class="kt">boolean</span> <span class="n">lockAcquired</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">tryLock</span><span class="o">(</span>
+                <span class="n">distributedLock</span><span class="o">.</span><span class="na">waitTime</span><span class="o">(),</span>
+                <span class="n">distributedLock</span><span class="o">.</span><span class="na">leaseTime</span><span class="o">(),</span>
+                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span>
+            <span class="o">);</span>
+            
+            <span class="k">if</span> <span class="o">(!</span><span class="n">lockAcquired</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"락 획득 실패: "</span> <span class="o">+</span> <span class="n">lockKey</span><span class="o">);</span>
+            <span class="o">}</span>
+            
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">// Step 4: 트랜잭션 시작 (락 획득 후!)</span>
+                <span class="nc">DefaultTransactionDefinition</span> <span class="n">txDef</span> <span class="o">=</span> 
+                    <span class="k">new</span> <span class="nf">DefaultTransactionDefinition</span><span class="o">();</span>
+                <span class="nc">TransactionStatus</span> <span class="n">txStatus</span> <span class="o">=</span> 
+                    <span class="n">transactionManager</span><span class="o">.</span><span class="na">getTransaction</span><span class="o">(</span><span class="n">txDef</span><span class="o">);</span>
+                
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="c1">// Step 5: 실제 비즈니스 로직 실행</span>
+                    <span class="nc">Object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+                    
+                    <span class="c1">// Step 6: 트랜잭션 커밋 (DB 반영)</span>
+                    <span class="n">transactionManager</span><span class="o">.</span><span class="na">commit</span><span class="o">(</span><span class="n">txStatus</span><span class="o">);</span>
+                    
+                    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+                    
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">transactionManager</span><span class="o">.</span><span class="na">rollback</span><span class="o">(</span><span class="n">txStatus</span><span class="o">);</span>
+                    <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+                <span class="o">}</span>
+                
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="c1">// Step 7: 락 해제 (커밋 이후!)</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">lock</span><span class="o">.</span><span class="na">isHeldByCurrentThread</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"락 획득 중 인터럽트"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="cm">/**
+     * SpEL로 락 키 생성
+     * 예: "#accountNumber" → 메서드 파라미터의 실제 값
+     */</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="nf">generateLockKey</span><span class="o">(</span><span class="nc">String</span> <span class="n">spel</span><span class="o">,</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">,</span> 
+                                   <span class="nc">String</span><span class="o">[]</span> <span class="n">paramNames</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StandardEvaluationContext</span> <span class="n">context</span> <span class="o">=</span> 
+            <span class="k">new</span> <span class="nf">StandardEvaluationContext</span><span class="o">();</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">paramNames</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">context</span><span class="o">.</span><span class="na">setVariable</span><span class="o">(</span><span class="n">paramNames</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+        <span class="o">}</span>
+        
+        <span class="nc">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">expressionParser</span>
+            <span class="o">.</span><span class="na">parseExpression</span><span class="o">(</span><span class="n">spel</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+            
+        <span class="k">return</span> <span class="n">value</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">:</span> <span class="n">spel</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="step-3-서비스에서-distributedlock-사용">Step 3: 서비스에서 @DistributedLock 사용</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="nd">@Slf4j</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DistributedLockService</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DistributedAccountRepository</span> <span class="n">accountRepository</span><span class="o">;</span>
+    
+    <span class="cm">/**
+     * 이제 비즈니스 로직만 작성!
+     * 분산락 처리는 AOP Aspect가 자동으로 처리
+     * 
+     * 실행 순서:
+     * 1. @DistributedLockAspect가 메서드를 가로챔
+     * 2. 락 획득
+     * 3. 트랜잭션 시작
+     * 4. 이 메서드 실행
+     * 5. 트랜잭션 커밋
+     * 6. 락 해제
+     */</span>
+    <span class="nd">@DistributedLock</span><span class="o">(</span><span class="n">keys</span> <span class="o">=</span> <span class="s">"transfer"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transfer</span><span class="o">(</span><span class="nc">String</span> <span class="n">fromAccountNumber</span><span class="o">,</span> <span class="nc">String</span> <span class="n">toAccountNumber</span><span class="o">,</span> 
+                        <span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">DistributedAccount</span> <span class="n">fromAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumber</span><span class="o">(</span><span class="n">fromAccountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+        
+        <span class="nc">DistributedAccount</span> <span class="n">toAccount</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumber</span><span class="o">(</span><span class="n">toAccountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+        
+        <span class="c1">// 비즈니스 로직만 깔끔하게!</span>
+        <span class="n">fromAccount</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        <span class="n">toAccount</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        
+        <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">fromAccount</span><span class="o">);</span>
+        <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">toAccount</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@DistributedLock</span><span class="o">(</span><span class="n">keys</span> <span class="o">=</span> <span class="s">"#accountNumber"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="nc">String</span> <span class="n">accountNumber</span><span class="o">,</span> <span class="nc">Long</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">DistributedAccount</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountRepository</span>
+            <span class="o">.</span><span class="na">findByAccountNumber</span><span class="o">(</span><span class="n">accountNumber</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+        
+        <span class="n">account</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="n">amount</span><span class="o">);</span>
+        <span class="n">accountRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="-aop-기반-접근법의-장점">✅ AOP 기반 접근법의 장점</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>코드 중복 제거</strong></td>
+      <td>분산락 로직을 한 곳에서 관리</td>
+    </tr>
+    <tr>
+      <td><strong>유지보수 용이</strong></td>
+      <td>모든 메서드에 일관된 처리</td>
+    </tr>
+    <tr>
+      <td><strong>가독성 향상</strong></td>
+      <td>서비스에서는 비즈니스 로직만 표현</td>
+    </tr>
+    <tr>
+      <td><strong>일관된 순서 보장</strong></td>
+      <td>모든 메서드에서 동일한 락/커밋 순서</td>
+    </tr>
+    <tr>
+      <td><strong>SpEL 지원</strong></td>
+      <td>파라미터 기반 동적 락 키 생성</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="44-redis-분산락-메커니즘">4.4 Redis 분산락 메커니즘</h2>
+
+<h3 id="aop-aspect의-실행-흐름">AOP Aspect의 실행 흐름</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@DistributedLock(keys = "transfer")
+public void transfer(...) { ... }
+
+     ↓ [1] 메서드 호출 가로챔 (@Around)
+
+[2] SpEL로 락 키 생성
+    keys = "transfer" → 고정 키 "transfer"
+    keys = "#accountNumber" → 실제 값 "ACC-001"
+
+     ↓ [3] 락 획득 시도
+
+[4] 락 획득 성공
+    ├─ [5] 트랜잭션 시작
+    ├─ [6] joinPoint.proceed() 실행
+    ├─ [7] 트랜잭션 커밋 ✅
+    ├─ [8] 락 해제 ✅
+    └─ 반환
+
+[4'] 락 획득 실패
+    ├─ failurePolicy = THROW
+    └─ RuntimeException 발생
+</code></pre></div></div>
+
+<h3 id="️-주의사항-transactional과-분산락의-관계">⚠️ 주의사항: @Transactional과 분산락의 관계</h3>
+
+<p>분산락을 구현할 때 <strong>@Transactional 어노테이션은 사용하면 안 됩니다.</strong></p>
+
+<h4 id="왜-문제인가">왜 문제인가?</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>❌ 잘못된 순서 (@Transactional 사용):
+
+1. 락 획득 ← OK
+2. DB 쿼리 실행 (메모리 상에만 존재)
+3. finally 블록 실행
+4. 락 해제 ← 다른 스레드가 락 획득 가능!
+5. @Transactional의 AOP Proxy가 트랜잭션 커밋
+   ↓
+   이 시점에서 DB에 반영됨
+
+문제:
+- 단계 4에서 다른 스레드가 락을 획득함
+- 단계 5 이전에 다른 스레드가 "아직 커밋되지 않은 데이터"에 접근
+- Dirty Read, Lost Update, Data Inconsistency 발생 가능
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✅ 올바른 순서 (AOP 기반 관리):
+
+DistributedLockAspect에서:
+1. 락 획득 ← OK
+2. 트랜잭션 시작
+3. 메서드 실행 (joinPoint.proceed())
+4. 트랜잭션 커밋 ← DB에 최종 반영!
+5. 락 해제 ← 이제 다른 스레드가 안전하게 접근 가능
+
+장점:
+- 커밋이 완료되고 락이 해제됨
+- 다른 스레드는 최신 데이터만 접근 가능
+- AOP가 모든 순서를 보장
+</code></pre></div></div>
+
+<h3 id="redisson의-watch-dog-메커니즘">Redisson의 Watch Dog 메커니즘</h3>
+
+<p>Redisson은 락 만료 전에 자동으로 시간을 연장하는 Watch Dog 메커니즘을 제공합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[타임라인]
+
+T0   락 획득 (waitTime=10s, leaseTime=3s)
+     Redis에 저장: key="lock:transfer", expire=3s
+
+T1   비즈니스 로직 처리 중... (2.5초 경과)
+
+T2   [Watch Dog 동작]
+     잔여 시간 &lt; 1.5초 감지
+     → 자동으로 leaseTime 연장
+     expire=3s 갱신
+
+T3   비즈니스 로직 계속... (2.5초 경과)
+
+T4   [Watch Dog 동작]
+     → 자동으로 leaseTime 연장
+
+T5   작업 완료 → unlock()
+     Redis에서 key 삭제
+</code></pre></div></div>
+
+<h3 id="watch-dog-설정">Watch Dog 설정</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># application.yml</span>
+<span class="na">spring</span><span class="pi">:</span>
+  <span class="na">redis</span><span class="pi">:</span>
+    <span class="na">host</span><span class="pi">:</span> <span class="s">localhost</span>
+    <span class="na">port</span><span class="pi">:</span> <span class="m">6379</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Redisson 기본 설정</span>
+<span class="c1">// lockWatchdogTimeout = 30초 (기본값)</span>
+<span class="c1">// 이 시간 내에 작업이 완료되지 않으면 자동 연장</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="45-다양한-분산락-구현">4.5 다양한 분산락 구현</h2>
+
+<h3 id="1-세마포어semaphore">1. 세마포어(Semaphore)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 제한된 자원 접근 제어
+ * - N개의 동시 접근만 허용
+ */</span>
+<span class="nc">RSemaphore</span> <span class="n">semaphore</span> <span class="o">=</span> <span class="n">redissonClient</span><span class="o">.</span><span class="na">getSemaphore</span><span class="o">(</span><span class="s">"rate-limit"</span><span class="o">);</span>
+<span class="n">semaphore</span><span class="o">.</span><span class="na">setPermits</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// 5개 동시 요청만 허용</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">semaphore</span><span class="o">.</span><span class="na">tryAcquire</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="c1">// 작업 수행</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">semaphore</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-readwrite-lock">2. ReadWrite Lock</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 읽기/쓰기 락
+ * - 여러 읽기는 동시 허용
+ * - 쓰기는 배타적 접근만 허용
+ */</span>
+<span class="nc">RReadWriteLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="n">redissonClient</span><span class="o">.</span><span class="na">getReadWriteLock</span><span class="o">(</span><span class="s">"resource"</span><span class="o">);</span>
+
+<span class="c1">// 읽기</span>
+<span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="nc">Object</span> <span class="n">data</span> <span class="o">=</span> <span class="n">retrieveData</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">readLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="c1">// 쓰기</span>
+<span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">lock</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">saveData</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">writeLock</span><span class="o">().</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-fair-lock-공정한-락">3. Fair Lock (공정한 락)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 락 획득 순서를 보장하는 공정한 락
+ * - FIFO 순서로 락 획득
+ * - 기아(Starvation) 방지
+ */</span>
+<span class="nc">RLock</span> <span class="n">fairLock</span> <span class="o">=</span> <span class="n">redissonClient</span><span class="o">.</span><span class="na">getFairLock</span><span class="o">(</span><span class="s">"fair-lock"</span><span class="o">);</span>
+
+<span class="k">if</span> <span class="o">(</span><span class="n">fairLock</span><span class="o">.</span><span class="na">tryLock</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="c1">// 작업 수행</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">fairLock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="46-특징">4.6 특징</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>장점</strong></td>
+      <td>• 분산 환경 완벽 지원<br />• 다중 인스턴스 간 동시성 제어<br />• 유연한 타임아웃 설정<br />• 다양한 락 타입 제공<br />• AOP로 공통화 가능</td>
+    </tr>
+    <tr>
+      <td><strong>단점</strong></td>
+      <td>• Redis 별도 인프라 필요<br />• 네트워크 지연 고려<br />• Watch Dog 메커니즘 이해 필요</td>
+    </tr>
+    <tr>
+      <td><strong>사용 시기</strong></td>
+      <td>• 마이크로서비스 아키텍처<br />• 다중 인스턴스 배포<br />• 높은 동시성 + 안정성 필요</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="5-비교-분석">5. 비교 분석</h1>
+
+<h2 id="51-종합-비교표">5.1 종합 비교표</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>특성</th>
+      <th>낙관락</th>
+      <th>비관락</th>
+      <th>분산락</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>환경</strong></td>
+      <td>단일 DB</td>
+      <td>단일 DB</td>
+      <td>다중 인스턴스</td>
+    </tr>
+    <tr>
+      <td><strong>메커니즘</strong></td>
+      <td>버전 필드</td>
+      <td>행 잠금</td>
+      <td>Redis 락</td>
+    </tr>
+    <tr>
+      <td><strong>동시성</strong></td>
+      <td>매우 높음</td>
+      <td>중간</td>
+      <td>중간~높음</td>
+    </tr>
+    <tr>
+      <td><strong>응답 속도</strong></td>
+      <td>빠름</td>
+      <td>느림(대기)</td>
+      <td>중간</td>
+    </tr>
+    <tr>
+      <td><strong>충돌 빈도</strong></td>
+      <td>낮음</td>
+      <td>높음</td>
+      <td>보통</td>
+    </tr>
+    <tr>
+      <td><strong>재시도</strong></td>
+      <td>필요</td>
+      <td>불필요</td>
+      <td>불필요</td>
+    </tr>
+    <tr>
+      <td><strong>데드락</strong></td>
+      <td>없음</td>
+      <td>가능</td>
+      <td>없음</td>
+    </tr>
+    <tr>
+      <td><strong>구현 복잡도</strong></td>
+      <td>낮음</td>
+      <td>낮음</td>
+      <td>중간(AOP)</td>
+    </tr>
+    <tr>
+      <td><strong>인프라</strong></td>
+      <td>DB만</td>
+      <td>DB만</td>
+      <td>DB + Redis</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="52-선택-가이드">5.2 선택 가이드</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─ 충돌 빈도가 낮은가?
+│  ├─ Yes → 낙관락 선택
+│  └─ No  → 다음 항목 확인
+│
+└─ 분산 환경인가?
+   ├─ Yes → 분산락 선택 (Redis/AOP)
+   └─ No  → 비관락 선택
+</code></pre></div></div>
+
+<h3 id="예시-시나리오">예시 시나리오</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 온라인 쇼핑몰 상품 정보 수정
+   → 낙관락 (조회 많음, 수정 드묾)
+
+2. 은행 계좌 이체
+   → 비관락 또는 분산락 (높은 정확성 필요, 충돌 예상)
+
+3. 분산 시스템의 마이크로서비스 간 상태 관리
+   → 분산락 (여러 인스턴스, 높은 동시성)
+
+4. 게임 서버의 인벤토리 관리 (다중 인스턴스)
+   → @DistributedLock으로 간단하게 처리!
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-샘플-프로젝트-활용">6. 샘플 프로젝트 활용</h1>
+
+<h2 id="61-빌드-및-실행">6.1 빌드 및 실행</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Maven으로 빌드</span>
+mvn clean package
+
+<span class="c"># In-Memory 프로필 (낙관락, 비관락만)</span>
+java <span class="nt">-jar</span> target/distributed-lock-samples-1.0.0.jar <span class="se">\</span>
+  <span class="nt">--spring</span>.profiles.active<span class="o">=</span><span class="k">in</span><span class="nt">-memory</span>
+
+<span class="c"># Redis 프로필 (@DistributedLock AOP 사용)</span>
+java <span class="nt">-jar</span> target/distributed-lock-samples-1.0.0.jar <span class="se">\</span>
+  <span class="nt">--spring</span>.profiles.active<span class="o">=</span>redis
+</code></pre></div></div>
+
+<h2 id="62-api-테스트">6.2 API 테스트</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 낙관락 이체</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/optimistic/transfer?from=OPT-001&amp;to=OPT-002&amp;amount=1000"</span>
+
+<span class="c"># 비관락 이체</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/pessimistic/transfer?from=PES-001&amp;to=PES-002&amp;amount=1000"</span>
+
+<span class="c"># 분산락 이체 (@DistributedLock 적용됨)</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/distributed/transfer?from=DIS-001&amp;to=DIS-002&amp;amount=1000"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-핵심-요약">7. 핵심 요약</h1>
+
+<h2 id="-분산락-구현의-최적-패턴">✅ 분산락 구현의 최적 패턴</h2>
+
+<ol>
+  <li><strong>@DistributedLock 어노테이션 정의</strong> - 메타데이터 제공</li>
+  <li><strong>@DistributedLockAspect 구현</strong> - 공통 로직 처리</li>
+  <li><strong>DistributedLockService에 적용</strong> - 비즈니스 로직만 작성</li>
+</ol>
+
+<h3 id="장점">장점</h3>
+
+<p>✅ <strong>코드 중복 제거</strong> - 분산락 로직이 한 곳에서 관리됨<br />
+✅ <strong>유지보수 용이</strong> - 모든 메서드에 일관된 처리<br />
+✅ <strong>가독성 향상</strong> - 서비스는 비즈니스 로직에만 집중<br />
+✅ <strong>순서 보장</strong> - 락 획득 → 트랜잭션 시작 → 커밋 → 락 해제<br />
+✅ <strong>안정성</strong> - 프로덕션 환경에서 사용 가능
+│   │   └── controller/
+│   │       └── AccountController.java
+│   └── resources/
+│       └── application.yml
+└── src/test/
+    └── java/com/gracefulsoul/lock/service/
+        ├── OptimisticLockServiceTest.java
+        └── PessimisticLockServiceTest.java</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 6.2 주요 의존성
+
+```xml
+&lt;!-- pom.xml --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;org.redisson&lt;/groupId&gt;
+    &lt;artifactId&gt;redisson-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;3.24.3&lt;/version&gt;
+&lt;/dependency&gt;
+
+&lt;dependency&gt;
+    &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+    &lt;artifactId&gt;h2&lt;/artifactId&gt;
+    &lt;scope&gt;runtime&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<h2 id="63-api-사용-예제">6.3 API 사용 예제</h2>
+
+<h3 id="낙관락-api">낙관락 API</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 이체</span>
+curl <span class="s2">"http://localhost:8080/api/accounts/optimistic/transfer?from=OPT-001&amp;to=OPT-002&amp;amount=1000"</span>
+
+<span class="c"># 입금</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/optimistic/deposit?accountNumber=OPT-001&amp;amount=5000"</span>
+
+<span class="c"># 출금</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/optimistic/withdraw?accountNumber=OPT-001&amp;amount=2000"</span>
+</code></pre></div></div>
+
+<h3 id="비관락-api">비관락 API</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 이체</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/pessimistic/transfer?from=PES-001&amp;to=PES-002&amp;amount=1000"</span>
+
+<span class="c"># 잔액 조회</span>
+curl <span class="s2">"http://localhost:8080/api/accounts/pessimistic/balance?accountNumber=PES-001"</span>
+</code></pre></div></div>
+
+<h3 id="분산락-api">분산락 API</h3>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 이체</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/distributed/transfer?from=DIS-001&amp;to=DIS-002&amp;amount=1000"</span>
+
+<span class="c"># 입금</span>
+curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/accounts/distributed/deposit?accountNumber=DIS-001&amp;amount=3000"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-성능-고려사항">7. 성능 고려사항</h1>
+
+<h2 id="71-벤치마크-시나리오">7.1 벤치마크 시나리오</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>시나리오</th>
+      <th>낙관락</th>
+      <th>비관락</th>
+      <th>분산락</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>낮은 충돌 (1% 이하)</strong></td>
+      <td>🟢 매우 우수</td>
+      <td>🟡 보통</td>
+      <td>🟡 보통</td>
+    </tr>
+    <tr>
+      <td><strong>중간 충돌 (5~10%)</strong></td>
+      <td>🟡 보통</td>
+      <td>🟢 우수</td>
+      <td>🟡 보통</td>
+    </tr>
+    <tr>
+      <td><strong>높은 충돌 (20% 이상)</strong></td>
+      <td>🔴 나쁨</td>
+      <td>🟢 우수</td>
+      <td>🟢 우수</td>
+    </tr>
+    <tr>
+      <td><strong>높은 동시성</strong></td>
+      <td>🟢 우수</td>
+      <td>🟡 보통</td>
+      <td>🟡 보통</td>
+    </tr>
+    <tr>
+      <td><strong>다중 인스턴스</strong></td>
+      <td>🔴 불가능</td>
+      <td>🔴 불가능</td>
+      <td>🟢 우수</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="72-최적화-팁">7.2 최적화 팁</h2>
+
+<h3 id="낙관락-최적화">낙관락 최적화</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. 배치 처리로 재시도 횟수 줄이기</span>
+<span class="nd">@Transactional</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">batchTransfer</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">TransferRequest</span><span class="o">&gt;</span> <span class="n">requests</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span> <span class="o">(</span><span class="nc">TransferRequest</span> <span class="n">req</span> <span class="o">:</span> <span class="n">requests</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 각각 재시도 가능</span>
+        <span class="n">transfer</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">from</span><span class="o">,</span> <span class="n">req</span><span class="o">.</span><span class="na">to</span><span class="o">,</span> <span class="n">req</span><span class="o">.</span><span class="na">amount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 2. 버전 필드의 데이터타입 최적화</span>
+<span class="nd">@Version</span>
+<span class="kd">private</span> <span class="nc">Short</span> <span class="n">version</span><span class="o">;</span> <span class="c1">// Long 대신 Short 사용 (작은 범위)</span>
+</code></pre></div></div>
+
+<h3 id="비관락-최적화">비관락 최적화</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. 타임아웃 설정</span>
+<span class="nd">@PessimisticLock</span>
+<span class="nd">@QueryTimeout</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span><span class="o">,</span> <span class="n">timeUnit</span> <span class="o">=</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">)</span>
+<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">PessimisticAccount</span><span class="o">&gt;</span> <span class="nf">findWithTimeout</span><span class="o">(</span><span class="nc">String</span> <span class="n">id</span><span class="o">);</span>
+
+<span class="c1">// 2. 배치 업데이트</span>
+<span class="nd">@Modifying</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"UPDATE PessimisticAccount SET balance = balance - :amount WHERE id IN :ids"</span><span class="o">)</span>
+<span class="kt">int</span> <span class="nf">updateBatch</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"ids"</span><span class="o">)</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;</span> <span class="n">ids</span><span class="o">,</span> <span class="nd">@Param</span><span class="o">(</span><span class="s">"amount"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">amount</span><span class="o">);</span>
+</code></pre></div></div>
+
+<h3 id="분산락-최적화">분산락 최적화</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 1. Watch Dog 타임아웃 조정</span>
+<span class="nc">Config</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Config</span><span class="o">();</span>
+<span class="n">config</span><span class="o">.</span><span class="na">setLockWatchdogTimeout</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span> <span class="c1">// 20초 (기본: 30초)</span>
+
+<span class="c1">// 2. 락 타입별 최적화</span>
+<span class="nc">RLock</span> <span class="n">lock</span> <span class="o">=</span> <span class="n">redissonClient</span><span class="o">.</span><span class="na">getFairLock</span><span class="o">(</span><span class="n">key</span><span class="o">);</span> <span class="c1">// 공정성 필요 시</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-주요-제품-및-기술">8. 주요 제품 및 기술</h1>
+
+<h2 id="81-분산락-솔루션">8.1 분산락 솔루션</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>제품</th>
+      <th>특징</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Redis + Redisson</strong></td>
+      <td>재진입 가능, Watch Dog, 다양한 락 타입</td>
+      <td>일반적인 분산락</td>
+    </tr>
+    <tr>
+      <td><strong>Apache Zookeeper</strong></td>
+      <td>높은 안정성, 강한 일관성</td>
+      <td>복잡한 분산 조정</td>
+    </tr>
+    <tr>
+      <td><strong>Consul</strong></td>
+      <td>서비스 디스커버리 통합, 세션 기반 락</td>
+      <td>마이크로서비스</td>
+    </tr>
+    <tr>
+      <td><strong>etcd</strong></td>
+      <td>Kubernetes 친화적, ACID 트랜잭션</td>
+      <td>K8s 환경</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="82-데이터베이스별-비관락-지원">8.2 데이터베이스별 비관락 지원</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>DB</th>
+      <th>PESSIMISTIC_READ</th>
+      <th>PESSIMISTIC_WRITE</th>
+      <th>타임아웃</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MySQL (InnoDB)</strong></td>
+      <td>SELECT … FOR UPDATE SHARED</td>
+      <td>SELECT … FOR UPDATE</td>
+      <td>NOWAIT / SKIP LOCKED</td>
+    </tr>
+    <tr>
+      <td><strong>PostgreSQL</strong></td>
+      <td>SELECT … FOR UPDATE SHARED</td>
+      <td>SELECT … FOR UPDATE</td>
+      <td>NOWAIT / SKIP LOCKED</td>
+    </tr>
+    <tr>
+      <td><strong>Oracle</strong></td>
+      <td>SELECT … FOR UPDATE</td>
+      <td>SELECT … FOR UPDATE</td>
+      <td>타임아웃 설정 가능</td>
+    </tr>
+    <tr>
+      <td><strong>SQL Server</strong></td>
+      <td>WITH(NOLOCK)</td>
+      <td>WITH(XLOCK)</td>
+      <td>타임아웃 설정 가능</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="9-개념-정리">9. 개념 정리</h1>
+
+<h2 id="91-핵심-용어">9.1 핵심 용어</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>용어</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>트랜잭션(Transaction)</strong></td>
+      <td>여러 DB 작업의 원자적 실행 단위</td>
+    </tr>
+    <tr>
+      <td><strong>격리 수준(Isolation Level)</strong></td>
+      <td>동시 트랜잭션 간 데이터 보호 수준 (DIRTY_READ, REPEATABLE_READ 등)</td>
+    </tr>
+    <tr>
+      <td><strong>데드락(Deadlock)</strong></td>
+      <td>두 개 이상의 트랜잭션이 서로 대기하는 상태</td>
+    </tr>
+    <tr>
+      <td><strong>락(Lock)</strong></td>
+      <td>다른 트랜잭션의 접근을 제한하는 메커니즘</td>
+    </tr>
+    <tr>
+      <td><strong>배타락(Exclusive Lock)</strong></td>
+      <td>읽기/쓰기 모두 차단하는 락</td>
+    </tr>
+    <tr>
+      <td><strong>공유락(Shared Lock)</strong></td>
+      <td>읽기만 허용하고 쓰기는 차단하는 락</td>
+    </tr>
+    <tr>
+      <td><strong>Watch Dog</strong></td>
+      <td>자동으로 락 시간을 연장하는 메커니즘</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="92-acid-특성과의-관계">9.2 ACID 특성과의 관계</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A - Atomicity (원자성)
+    모두 성공 또는 모두 실패
+    → 낙관락, 비관락, 분산락 모두 보장
+
+C - Consistency (일관성)
+    데이터 규칙 준수
+    → 비관락과 분산락이 강함
+
+I - Isolation (격리성)
+    트랜잭션 간 독립성
+    → 낙관락은 약함, 비관락은 강함
+
+D - Durability (내구성)
+    커밋 후 데이터 지속
+    → DB가 담당
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="참조">참조</h1>
+
+<h2 id="공식-문서">공식 문서</h2>
+
+<ul>
+  <li><a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods/query-method-details.html#jpa.locking" target="_blank">Spring Data JPA - Locking</a></li>
+  <li><a href="https://docs.jboss.org/hibernate/orm/6.0/userguide/html_single/Hibernate_User_Guide.html#pc-custom-locking" target="_blank">Hibernate - Optimistic and Pessimistic Locking</a></li>
+  <li><a href="https://redisson.org/features/distributed-locks-and-synchronizers.html" target="_blank">Redisson - Distributed Locks</a></li>
+</ul>
+
+<h2 id="기술-블로그">기술 블로그</h2>
+
+<ul>
+  <li><a href="https://www.baeldung.com/jpa-pessimistic-locking" target="_blank">Baeldung - A Guide to Locks in Spring Data JPA</a></li>
+  <li><a href="https://redisson.org/features/distributed-locks-and-synchronizers.html" target="_blank">Redisson - Lock Mechanisms</a></li>
+  <li><a href="https://dzone.com/articles/distributed-locking-in-microservices" target="_blank">DZone - Distributed Locking in Microservices</a></li>
+</ul>
+
+<h2 id="샘플-코드-저장소">샘플 코드 저장소</h2>
+
+<ul>
+  <li><a href="https://github.com/GracefulSoul/distributed-lock-samples" target="_blank">GracefulSoul/distributed-lock-samples</a></li>
+</ul>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<ul>
+  <li>MySQL 공식 문서: <a href="https://dev.mysql.com/doc/refman/8.0/en/commit.html" target="_blank">SELECT … FOR UPDATE</a></li>
+  <li>PostgreSQL 공식 문서: <a href="https://www.postgresql.org/docs/current/explicit-locking.html" target="_blank">Explicit Locking</a></li>
+  <li>Redis 공식 문서: <a href="https://redis.io/docs/manual/client-side-caching/" target="_blank">Redis as a Lock Manager</a></li>
+</ul>
+
+<hr />
+
+<h1 id="결론">결론</h1>
+
+<p>데이터 동시성 제어는 안정적인 애플리케이션 운영의 핵심입니다. 
+각 락 메커니즘의 특성을 이해하고 상황에 맞게 선택하는 것이 중요합니다:</p>
+
+<ul>
+  <li><strong>낙관락</strong>: 충돌이 드문 조회 위주의 작업</li>
+  <li><strong>비관락</strong>: 충돌이 빈번한 수정 작업</li>
+  <li><strong>분산락</strong>: 다중 인스턴스 환경에서의 안전한 동시성 제어</li>
+</ul>
+
+<p>본 글의 샘플 코드를 참고하여 자신의 프로젝트에 맞는 방식을 구현하길 권장합니다.</p>
+
+<p><strong>소스 코드</strong>는 <a href="https://github.com/GracefulSoul/distributed-lock-samples" target="_blank">GracefulSoul/distributed-lock-samples</a>에서 확인 가능합니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#concurrency" class="page__taxonomy-item" rel="tag">Concurrency</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#jpa" class="page__taxonomy-item" rel="tag">JPA</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#lock" class="page__taxonomy-item" rel="tag">Lock</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#database" class="page__taxonomy-item" rel="tag">Database</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-04-18">April 18, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/spring/spring-boot-database-replica-configuration/" class="pagination--pager" title="Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+">이전</a>
+    
+    
+      <a href="/ai/metagpt-metatool/" class="pagination--pager" title="MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/metagpt-metatool/" rel="permalink">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-boot-database-replica-configuration/" rel="permalink">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 09 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/llm-coding-agent-prompt/" rel="permalink">LLM, 코딩 에이전트, Prompt 종합 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM(Large Language Model)과 코딩 에이전트의 개념부터 활용까지 - Prompt Engineering을 중심으로 한 완벽한 종합 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/rag/" rel="permalink">RAG (Retrieval-Augmented Generation)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 30 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Retrieval-Augmented Generation의 개념, 메커니즘, 아키텍처, 주요 제품 및 구현 방법에 대해 학습합니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1218 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Java 26 - HTTP/3 for the HTTP Client API - Development story</title>
+<meta name="description" content="Java 26에서 HTTP/3 프로토콜이 HTTP Client API에 추가되었습니다">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Java 26 - HTTP/3 for the HTTP Client API">
+<meta property="og:url" content="/java/http3-client-api/">
+
+
+  <meta property="og:description" content="Java 26에서 HTTP/3 프로토콜이 HTTP Client API에 추가되었습니다">
+
+
+
+  <meta property="og:image" content="/assets/images/java/java.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-17T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-03-17T10:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/java/http3-client-api/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/java/java.png" alt="Java 26 - HTTP/3 for the HTTP Client API" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java 26 - HTTP/3 for the HTTP Client API">
+    <meta itemprop="description" content="Java 26에서 HTTP/3 프로토콜이 HTTP Client API에 추가되었습니다">
+    <meta itemprop="datePublished" content="2026-03-17T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-03-17T10:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Java 26 - HTTP/3 for the HTTP Client API
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-03-17T00:00:00+00:00">March 17, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#java-26">JAVA 261</a><ul><li><a href="#http3의-장점">HTTP/3의 장점</a></li><li><a href="#기본-사용법">기본 사용법</a><ul><li><a href="#1-httpclient에서-http3-활성화">1. HttpClient에서 HTTP/3 활성화</a></li></ul></li><li><a href="#요청별-버전-지정">요청별 버전 지정</a><ul><li><a href="#2-개별-요청에-http3-적용">2. 개별 요청에 HTTP/3 적용</a></li></ul></li><li><a href="#http3-프로토콜-협상">HTTP/3 프로토콜 협상</a><ul><li><a href="#3-자동-프토토콜-다운그레이드">3. 자동 프토토콜 다운그레이드</a></li></ul></li><li><a href="#병렬-요청">병렬 요청</a><ul><li><a href="#4-여러-요청을-http3으로-동시-실행">4. 여러 요청을 HTTP/3으로 동시 실행</a></li></ul></li><li><a href="#alternative-services-발견">Alternative Services 발견</a><ul><li><a href="#5-http-alternative-services-alt-svc-사용">5. HTTP Alternative Services (Alt-Svc) 사용</a></li></ul></li><li><a href="#post-요청과-본문-전송">POST 요청과 본문 전송</a><ul><li><a href="#6-http3로-post-요청">6. HTTP/3로 POST 요청</a></li></ul></li><li><a href="#에러-처리와-타임아웃">에러 처리와 타임아웃</a><ul><li><a href="#7-http3-요청의-에러-처리">7. HTTP/3 요청의 에러 처리</a></li></ul></li><li><a href="#응답-헤더-및-메타데이터">응답 헤더 및 메타데이터</a><ul><li><a href="#8-http3-응답-정보-확인">8. HTTP/3 응답 정보 확인</a></li></ul></li></ul></li><li><a href="#http3-마이그레이션-가이드">HTTP/3 마이그레이션 가이드</a><ul><li><a href="#기존-http2-코드">기존 HTTP/2 코드</a></li><li><a href="#http3으로-마이그레이션">HTTP/3으로 마이그레이션</a></li></ul></li><li><a href="#주요-특징">주요 특징</a></li><li><a href="#주의사항">주의사항</a></li><li><a href="#성능-개선-예상-효과">성능 개선 예상 효과</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="java-26">JAVA 26<sup id="fnref:Java26" role="doc-noteref"><a href="#fn:Java26" class="footnote" rel="footnote">1</a></sup></h1>
+
+<p>Java 26에서는 HTTP Client<sup id="fnref:Http3ClientAPI" role="doc-noteref"><a href="#fn:Http3ClientAPI" class="footnote" rel="footnote">2</a></sup> API에 HTTP/3<sup id="fnref:HTTP3Spec" role="doc-noteref"><a href="#fn:HTTP3Spec" class="footnote" rel="footnote">3</a></sup> 프로토콜 지원이 추가되었습니다. HTTP/3는 UDP 기반의 QUIC 프로토콜<sup id="fnref:QUICSpec" role="doc-noteref"><a href="#fn:QUICSpec" class="footnote" rel="footnote">4</a></sup>을 사용하여 더 빠른 핸드셰이크, 낮은 지연시간, 그리고 높은 패킷 손실 환경에서의 더 안정적인 전송을 제공합니다.</p>
+
+<h2 id="http3의-장점">HTTP/3의 장점</h2>
+
+<ul>
+  <li><strong>빠른 연결 수립</strong>: 0-RTT(Round Trip Time) 핸드셰이크 지원</li>
+  <li><strong>머리-줄-세우기 차단 제거</strong>: 독립적인 스트림 처리로 병렬 요청 효율 증가</li>
+  <li><strong>네트워크 마이그레이션</strong>: WiFi에서 LTE로 전환 시 연결 유지</li>
+  <li><strong>더 안정적인 전송</strong>: 패킷 손실이 많은 환경에서 우수한 성능</li>
+</ul>
+
+<h2 id="기본-사용법">기본 사용법</h2>
+
+<h3 id="1-httpclient에서-http3-활성화">1. HttpClient에서 HTTP/3 활성화</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BasicHttp3Example</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="c1">// HTTP/3을 사용하도록 설정</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://httpbin.org/get"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태 코드: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"버전: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"응답 길이: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">length</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>상태 코드: 200
+버전: HTTP_3
+응답 길이: 425
+</code></pre></div></div>
+
+<h2 id="요청별-버전-지정">요청별 버전 지정</h2>
+
+<h3 id="2-개별-요청에-http3-적용">2. 개별 요청에 HTTP/3 적용</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3PerRequestExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="c1">// 클라이언트는 HTTP/2 기본값 유지</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+        
+        <span class="c1">// 특정 요청에서만 HTTP/3 사용</span>
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.example.com/data"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"응답 버전: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="http3-프로토콜-협상">HTTP/3 프로토콜 협상</h2>
+
+<h3 id="3-자동-프토토콜-다운그레이드">3. 자동 프토토콜 다운그레이드</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3AutoDowngradeExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sendWithFallback</span><span class="o">(</span><span class="nc">String</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">url</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+                <span class="n">request</span><span class="o">,</span>
+                <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+            <span class="o">);</span>
+            
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"URL: "</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"사용된 프로토콜: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"요청 실패: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="c1">// HTTP/3을 지원하는 서버</span>
+        <span class="n">sendWithFallback</span><span class="o">(</span><span class="s">"https://www.google.com"</span><span class="o">);</span>
+        
+        <span class="c1">// HTTP/3을 지원하지 않으면 자동으로 HTTP/2로 다운그레이드</span>
+        <span class="n">sendWithFallback</span><span class="o">(</span><span class="s">"https://api.example.com/old-server"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="병렬-요청">병렬 요청</h2>
+
+<h3 id="4-여러-요청을-http3으로-동시-실행">4. 여러 요청을 HTTP/3으로 동시 실행</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.CompletableFuture</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3ParallelRequestsExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">urls</span> <span class="o">=</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+            <span class="s">"https://httpbin.org/uuid"</span><span class="o">,</span>
+            <span class="s">"https://httpbin.org/user-agent"</span><span class="o">,</span>
+            <span class="s">"https://httpbin.org/headers"</span>
+        <span class="o">);</span>
+        
+        <span class="c1">// 비동기 요청 생성</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="n">futures</span> <span class="o">=</span> <span class="n">urls</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">url</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+                    <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">url</span><span class="o">)</span>
+                <span class="o">)</span>
+                    <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+                    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+                
+                <span class="k">return</span> <span class="n">client</span><span class="o">.</span><span class="na">sendAsync</span><span class="o">(</span>
+                    <span class="n">request</span><span class="o">,</span>
+                    <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+                <span class="o">);</span>
+            <span class="o">})</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+        
+        <span class="c1">// 모든 요청이 완료될 때까지 대기</span>
+        <span class="nc">CompletableFuture</span><span class="o">&lt;</span><span class="nc">Void</span><span class="o">&gt;</span> <span class="n">allFutures</span> <span class="o">=</span> 
+            <span class="nc">CompletableFuture</span><span class="o">.</span><span class="na">allOf</span><span class="o">(</span><span class="n">futures</span><span class="o">.</span><span class="na">toArray</span><span class="o">(</span><span class="k">new</span> <span class="nc">CompletableFuture</span><span class="o">[</span><span class="mi">0</span><span class="o">]));</span>
+        
+        <span class="n">allFutures</span><span class="o">.</span><span class="na">thenRun</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"모든 요청 완료:"</span><span class="o">);</span>
+            <span class="n">futures</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">()</span> <span class="o">+</span> 
+                                     <span class="s">", 프로토콜: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">});</span>
+        <span class="o">}).</span><span class="na">join</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>모든 요청 완료:
+상태: 200, 프로토콜: HTTP_3
+상태: 200, 프로토콜: HTTP_3
+상태: 200, 프로토콜: HTTP_3
+</code></pre></div></div>
+
+<h2 id="alternative-services-발견">Alternative Services 발견</h2>
+
+<h3 id="5-http-alternative-services-alt-svc-사용">5. HTTP Alternative Services (Alt-Svc) 사용</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3AltSvcExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_2</span><span class="o">)</span>  <span class="c1">// 첫 요청은 HTTP/2</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="c1">// 첫 번째 요청: HTTP/2로 시작하지만 Alt-Svc 헤더 수신</span>
+        <span class="nc">HttpRequest</span> <span class="n">request1</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.example.com/resource"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request1</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"첫 번째 요청:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"프로토콜: "</span> <span class="o">+</span> <span class="n">response1</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Alt-Svc: "</span> <span class="o">+</span> <span class="n">response1</span><span class="o">.</span><span class="na">headers</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">firstValue</span><span class="o">(</span><span class="s">"alt-svc"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="s">"없음"</span><span class="o">));</span>
+        
+        <span class="c1">// 두 번째 요청: 같은 서버에 대해 HTTP/3 지원이 감지되었으면 사용</span>
+        <span class="nc">HttpRequest</span> <span class="n">request2</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.example.com/data"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response2</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request2</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n두 번째 요청:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"프로토콜: "</span> <span class="o">+</span> <span class="n">response2</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="post-요청과-본문-전송">POST 요청과 본문 전송</h2>
+
+<h3 id="6-http3로-post-요청">6. HTTP/3로 POST 요청</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.nio.charset.StandardCharsets</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3PostExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">String</span> <span class="n">jsonPayload</span> <span class="o">=</span> <span class="s">"""
+            {
+                "</span><span class="n">name</span><span class="s">": "</span><span class="nc">John</span><span class="s">",
+                "</span><span class="n">email</span><span class="s">": "</span><span class="n">john</span><span class="nd">@example</span><span class="o">.</span><span class="na">com</span><span class="s">",
+                "</span><span class="n">age</span><span class="s">": 30
+            }
+            """</span><span class="o">;</span>
+        
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.example.com/users"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">header</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">POST</span><span class="o">(</span><span class="nc">HttpRequest</span><span class="o">.</span><span class="na">BodyPublishers</span><span class="o">.</span><span class="na">ofString</span><span class="o">(</span><span class="n">jsonPayload</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태 코드: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"프로토콜: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"응답: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="에러-처리와-타임아웃">에러 처리와 타임아웃</h2>
+
+<h3 id="7-http3-요청의-에러-처리">7. HTTP/3 요청의 에러 처리</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.Duration</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3ErrorHandlingExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">connectTimeout</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">5</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://api.example.com/timeout"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">timeout</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">5</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+                <span class="n">request</span><span class="o">,</span>
+                <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+            <span class="o">);</span>
+            
+            <span class="c1">// 상태 코드 확인</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="mi">400</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오류: 상태 코드 "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"응답: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">());</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"성공: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+            <span class="o">}</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpTimeoutException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"타임아웃: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"네트워크 오류: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"중단됨: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="응답-헤더-및-메타데이터">응답 헤더 및 메타데이터</h2>
+
+<h3 id="8-http3-응답-정보-확인">8. HTTP/3 응답 정보 확인</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.net.http.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URI</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Http3ResponseMetadataExample</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">HttpRequest</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">(</span>
+            <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"https://httpbin.org/response-headers"</span><span class="o">)</span>
+        <span class="o">)</span>
+            <span class="o">.</span><span class="na">GET</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">HttpResponse</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">send</span><span class="o">(</span>
+            <span class="n">request</span><span class="o">,</span>
+            <span class="nc">HttpResponse</span><span class="o">.</span><span class="na">BodyHandlers</span><span class="o">.</span><span class="na">ofString</span><span class="o">()</span>
+        <span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== 응답 정보 ==="</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"상태 코드: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">statusCode</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"버전: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">version</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"URI: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">request</span><span class="o">().</span><span class="na">uri</span><span class="o">());</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n=== 헤더 ==="</span><span class="o">);</span>
+        <span class="n">response</span><span class="o">.</span><span class="na">headers</span><span class="o">().</span><span class="na">map</span><span class="o">().</span><span class="na">forEach</span><span class="o">((</span><span class="n">name</span><span class="o">,</span> <span class="n">values</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="nc">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">", "</span><span class="o">,</span> <span class="n">values</span><span class="o">));</span>
+        <span class="o">});</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n=== 본문 크기 ==="</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"크기: "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">body</span><span class="o">().</span><span class="na">length</span><span class="o">()</span> <span class="o">+</span> <span class="s">" bytes"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== 응답 정보 ===
+상태 코드: 200
+버전: HTTP_3
+URI: https://httpbin.org/response-headers
+
+=== 헤더 ===
+content-type: application/json
+content-length: 123
+server: gunicorn/19.9.0
+
+=== 본문 크기 ===
+크기: 123 bytes
+</code></pre></div></div>
+
+<h1 id="http3-마이그레이션-가이드">HTTP/3 마이그레이션 가이드</h1>
+
+<h2 id="기존-http2-코드">기존 HTTP/2 코드</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 기존 HTTP/2 코드</span>
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newHttpClient</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h2 id="http3으로-마이그레이션">HTTP/3으로 마이그레이션</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HTTP/3 사용</span>
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="c1">// 또는 자동 다운그레이드와 함께</span>
+<span class="nc">HttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">newBuilder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">version</span><span class="o">(</span><span class="nc">HttpClient</span><span class="o">.</span><span class="na">Version</span><span class="o">.</span><span class="na">HTTP_3</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h1 id="주요-특징">주요 특징</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>기능</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>자동 다운그레이드</strong></td>
+      <td>HTTP/3 미지원 시 자동으로 HTTP/2 또는 HTTP/1.1로 변경</td>
+    </tr>
+    <tr>
+      <td><strong>기본값 유지</strong></td>
+      <td>기본 버전은 여전히 HTTP/2 (선택적 HTTP/3)</td>
+    </tr>
+    <tr>
+      <td><strong>API 호환성</strong></td>
+      <td>기존 코드 수정 최소화</td>
+    </tr>
+    <tr>
+      <td><strong>성능</strong></td>
+      <td>더 빠른 핸드셰이크, 낮은 지연시간</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="주의사항">주의사항</h1>
+
+<ol>
+  <li><strong>선택적 사용</strong>: HTTP/3은 기본이 아니므로 명시적으로 활성화 필요</li>
+  <li><strong>서버 지원</strong>: 모든 서버가 HTTP/3을 지원하지는 않음</li>
+  <li><strong>파이어월</strong>: 일부 방화벽이 QUIC(UDP 포트 443) 차단 가능</li>
+  <li><strong>모니터링</strong>: HTTP/3 요청의 실패를 처리할 수 있도록 구현</li>
+</ol>
+
+<h1 id="성능-개선-예상-효과">성능 개선 예상 효과</h1>
+
+<ul>
+  <li><strong>연결 수립 시간</strong>: 50-90% 감소</li>
+  <li><strong>페이지 로드 시간</strong>: 10-30% 감소</li>
+  <li><strong>네트워크 복구</strong>: 패킷 손실 환경에서 우수</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Java26" role="doc-endnote">
+      <p><a href="https://docs.oracle.com/en/java/javase/26/docs/api/" target="_blank">Oracle-Java_26_Release_Notes</a> <a href="#fnref:Java26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:Http3ClientAPI" role="doc-endnote">
+      <p><a href="https://openjdk.org/jeps/517" target="_blank">OpenJDK-JEP 517: HTTP/3 for the HTTP Client API</a> <a href="#fnref:Http3ClientAPI" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:HTTP3Spec" role="doc-endnote">
+      <p><a href="https://www.rfc-editor.org/rfc/rfc9114" target="_blank">RFC 9114: HTTP/3</a> <a href="#fnref:HTTP3Spec" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:QUICSpec" role="doc-endnote">
+      <p><a href="https://www.rfc-editor.org/rfc/rfc9000" target="_blank">RFC 9000: QUIC Protocol</a> <a href="#fnref:QUICSpec" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#http-3" class="page__taxonomy-item" rel="tag">HTTP/3</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java-26" class="page__taxonomy-item" rel="tag">Java 26</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#networking" class="page__taxonomy-item" rel="tag">Networking</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#releases" class="page__taxonomy-item" rel="tag">Releases</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-03-17">March 17, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/java/g1gc-improvements/" class="pagination--pager" title="Java 26 - G1 GC: Improve Throughput by Reducing Synchronization
+">이전</a>
+    
+    
+      <a href="/ai/multimodal-embedding/" class="pagination--pager" title="AI 멀티모달 임베딩(Multimodal Embedding) 완벽 가이드
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/metagpt-metatool/" rel="permalink">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/database/data-concurrency-lock/" rel="permalink">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 18 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-boot-database-replica-configuration/" rel="permalink">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 09 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/llm-coding-agent-prompt/" rel="permalink">LLM, 코딩 에이전트, Prompt 종합 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM(Large Language Model)과 코딩 에이전트의 개념부터 활용까지 - Prompt Engineering을 중심으로 한 완벽한 종합 가이드
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

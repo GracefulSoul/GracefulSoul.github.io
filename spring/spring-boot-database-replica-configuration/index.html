@@ -1,0 +1,1825 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing - Development story</title>
+<meta name="description" content="Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing">
+<meta property="og:url" content="/spring/spring-boot-database-replica-configuration/">
+
+
+  <meta property="og:description" content="Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법">
+
+
+
+  <meta property="og:image" content="/assets/images/spring/database-replica-configuration.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-09T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-04-09T20:18:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/spring/spring-boot-database-replica-configuration/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/spring/database-replica-configuration.png" alt="Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing">
+    <meta itemprop="description" content="Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법">
+    <meta itemprop="datePublished" content="2026-04-09T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-04-09T20:18:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-04-09T00:00:00+00:00">April 09, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#1-데이터베이스-replica-구성의-개념">1. 데이터베이스 Replica 구성의 개념</a><ul><li><a href="#11-primary-replica란">1.1 Primary-Replica란?</a><ul><li><a href="#구조">구조</a></li><li><a href="#특징">특징</a></li></ul></li><li><a href="#12-primary-replica-구성의-이점">1.2 Primary-Replica 구성의 이점</a></li><li><a href="#13-데이터베이스-선택-h2-vs-실제-db">1.3 데이터베이스 선택: H2 vs 실제 DB</a></li></ul></li><li><a href="#2-메커니즘-datasource-라우팅-동작-방식">2. 메커니즘: DataSource 라우팅 동작 방식</a><ul><li><a href="#21-전체-요청-흐름">2.1 전체 요청 흐름</a></li><li><a href="#22-핵심-클래스들의-상호작용">2.2 핵심 클래스들의 상호작용</a><ul><li><a href="#routedatasourcecontext-threadlocal-관리">RouteDataSourceContext (ThreadLocal 관리)</a></li><li><a href="#readwriteroutingdatasource-abstractroutingdatasource">ReadWriteRoutingDataSource (AbstractRoutingDataSource)</a></li><li><a href="#datasourceroutingaspect-aop-advice">DataSourceRoutingAspect (AOP Advice)</a></li></ul></li><li><a href="#23-라우팅-규칙">2.3 라우팅 규칙</a></li><li><a href="#24-threadlocal을-사용한-멀티스레드-안전성">2.4 ThreadLocal을 사용한 멀티스레드 안전성</a></li></ul></li><li><a href="#3-내부-구조-상세-분석">3. 내부 구조 상세 분석</a><ul><li><a href="#31-프로젝트-디렉토리-구조">3.1 프로젝트 디렉토리 구조</a></li><li><a href="#32-설정-파일-상세분석">3.2 설정 파일 상세분석</a><ul><li><a href="#applicationyml">application.yml</a></li></ul></li><li><a href="#33-entity-설계">3.3 Entity 설계</a><ul><li><a href="#user-entity">User Entity</a></li><li><a href="#userlog-entity">UserLog Entity</a></li></ul></li><li><a href="#34-repository-디자인">3.4 Repository 디자인</a><ul><li><a href="#쿼리별-datasource-사용">쿼리별 DataSource 사용</a></li></ul></li><li><a href="#35-service-계층의-라우팅-로직">3.5 Service 계층의 라우팅 로직</a></li></ul></li><li><a href="#4-주요-제품-및-기술-스택">4. 주요 제품 및 기술 스택</a><ul><li><a href="#41-사용된-기술">4.1 사용된 기술</a></li><li><a href="#42-실제-운영-환경-권장-구성">4.2 실제 운영 환경 권장 구성</a><ul><li><a href="#mysql--replication">MySQL + Replication</a></li><li><a href="#postgresql--replication">PostgreSQL + Replication</a></li></ul></li></ul></li><li><a href="#5-활용-샘플-및-코드">5. 활용 샘플 및 코드</a><ul><li><a href="#51-기본-crud-예제">5.1 기본 CRUD 예제</a><ul><li><a href="#사용자-생성-write---primary-사용">사용자 생성 (Write - Primary 사용)</a></li><li><a href="#사용자-조회-read---replica-사용">사용자 조회 (Read - Replica 사용)</a></li></ul></li><li><a href="#52-복잡한-쿼리-예제">5.2 복잡한 쿼리 예제</a><ul><li><a href="#검색-및-필터링">검색 및 필터링</a></li><li><a href="#복합-트랜잭션">복합 트랜잭션</a></li></ul></li><li><a href="#53-배치-작업-예제">5.3 배치 작업 예제</a></li></ul></li><li><a href="#6-주요-코드-설명">6. 주요 코드 설명</a><ul><li><a href="#61-routedatasourcecontext-상세분석">6.1 RouteDataSourceContext 상세분석</a></li><li><a href="#62-readwriteroutingdatasource-상세분석">6.2 ReadWriteRoutingDataSource 상세분석</a></li><li><a href="#63-datasourceconfig-상세분석">6.3 DataSourceConfig 상세분석</a></li><li><a href="#64-datasourceroutingaspect-상세분석">6.4 DataSourceRoutingAspect 상세분석</a></li></ul></li><li><a href="#7-테스트-전략">7. 테스트 전략</a><ul><li><a href="#71-단위-테스트">7.1 단위 테스트</a></li><li><a href="#72-통합-테스트">7.2 통합 테스트</a></li><li><a href="#73-성능-테스트">7.3 성능 테스트</a></li></ul></li><li><a href="#8-실제-운영-환경-고려사항">8. 실제 운영 환경 고려사항</a><ul><li><a href="#81-데이터-동기화-지연-replication-lag">8.1 데이터 동기화 지연 (Replication Lag)</a></li><li><a href="#82-primary-장애-처리">8.2 Primary 장애 처리</a></li><li><a href="#83-모니터링">8.3 모니터링</a></li></ul></li><li><a href="#9-mysql-replication-실제-구성-예제">9. MySQL Replication 실제 구성 예제</a><ul><li><a href="#91-docker-compose로-mysql-primary-replica-구성">9.1 Docker Compose로 MySQL Primary-Replica 구성</a></li><li><a href="#92-replication-설정-스크립트">9.2 Replication 설정 스크립트</a></li></ul></li><li><a href="#10-결론">10. 결론</a><ul><li><a href="#101-정리">10.1 정리</a></li><li><a href="#102-주요-이점">10.2 주요 이점</a></li><li><a href="#103-주의사항">10.3 주의사항</a></li><li><a href="#104-다음-단계">10.4 다음 단계</a></li></ul></li><li><a href="#참고-자료">참고 자료</a><ul><li><a href="#공식-문서">공식 문서</a></li><li><a href="#데이터베이스-복제">데이터베이스 복제</a></li><li><a href="#관련-기술">관련 기술</a></li><li><a href="#프로덕션-고려사항">프로덕션 고려사항</a></li><li><a href="#샘플-코드">샘플 코드</a></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+
+<p>데이터베이스 부하 분산과 고가용성은 대규모 시스템에서 필수적인 요구사항입니다. 이 글에서는 <strong>Spring Boot 애플리케이션에서 Primary-Replica(또는 Master-Slave) 데이터베이스 구성을 구현</strong>하고, <strong>AOP 기반의 자동 라우팅 메커니즘</strong>을 통해 읽기(Read) 작업과 쓰기(Write) 작업을 효율적으로 분리하는 방법을 자세히 설명합니다.</p>
+
+<p>이 예제에서는 <strong>H2 메모리 데이터베이스</strong> 2개를 Primary와 Replica로 구성하여 실제 운영 환경의 복제 구성을 시뮬레이션합니다.</p>
+
+<hr />
+
+<h1 id="1-데이터베이스-replica-구성의-개념">1. 데이터베이스 Replica 구성의 개념</h1>
+
+<h2 id="11-primary-replica란">1.1 Primary-Replica란?</h2>
+
+<p><strong>Primary-Replica(또는 Master-Slave, Primary-Secondary) 구성</strong>은 데이터베이스의 고가용성과 성능을 향상시키기 위한 아키텍처입니다.</p>
+
+<h3 id="구조">구조</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌────────────────────────────────────┐
+│     Application (Spring Boot)      │
+│                                    │
+│  ┌─────────────────────────────┐   │
+│  │   DataSource Routing        │   │
+│  │  (AbstractRoutingDataSource)│   │
+│  └──────┬──────────────┬───────┘   │
+│         │              │           │
+│    (Write)        (Read)           │
+│         │              │           │
+│  ┌──────▼────┐   ┌─────▼──────┐    │
+│  │  Primary  │   │  Replica   │    │
+│  │(Read/Write)   │(Read-Only) │    │
+│  └───────────┘   └────────────┘    │
+│                                    │
+│ 데이터 동기화 (Replication) ←─────┘  │
+└────────────────────────────────────┘
+</code></pre></div></div>
+
+<h3 id="특징">특징</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구성</th>
+      <th>특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary</strong></td>
+      <td>모든 쓰기 작업(INSERT, UPDATE, DELETE) 수행, 읽기도 가능</td>
+    </tr>
+    <tr>
+      <td><strong>Replica</strong></td>
+      <td>Primary의 데이터를 동기화받음, 읽기(SELECT) 전용</td>
+    </tr>
+    <tr>
+      <td><strong>동기화</strong></td>
+      <td>Primary의 변경사항이 Replica에 자동으로 전파됨</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="12-primary-replica-구성의-이점">1.2 Primary-Replica 구성의 이점</h2>
+
+<ol>
+  <li><strong>읽기 성능 향상</strong>: 읽기 작업을 여러 Replica로 분산</li>
+  <li><strong>부하 분산</strong>: 쓰기(Primary)와 읽기(Replica) 부하 분리</li>
+  <li><strong>고가용성</strong>: Primary 장애 시 Replica로 페일오버 가능</li>
+  <li><strong>백업 용이</strong>: Replica를 백업 용도로 사용 가능</li>
+  <li><strong>분석 작업</strong>: 읽기 전용 Replica에서 무거운 분석 쿼리 수행</li>
+</ol>
+
+<h2 id="13-데이터베이스-선택-h2-vs-실제-db">1.3 데이터베이스 선택: H2 vs 실제 DB</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>DB</th>
+      <th>개발 환경</th>
+      <th>테스트</th>
+      <th>운영 환경</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>H2 (메모리)</strong></td>
+      <td>✅ 완벽</td>
+      <td>✅ 완벽</td>
+      <td>❌ 권장 안함</td>
+    </tr>
+    <tr>
+      <td><strong>MySQL</strong></td>
+      <td>⭐ 가능</td>
+      <td>✅ 가능</td>
+      <td>✅ 권장</td>
+    </tr>
+    <tr>
+      <td><strong>PostgreSQL</strong></td>
+      <td>⭐ 가능</td>
+      <td>✅ 가능</td>
+      <td>✅ 권장</td>
+    </tr>
+    <tr>
+      <td><strong>Oracle</strong></td>
+      <td>⭐ 가능</td>
+      <td>✅ 가능</td>
+      <td>✅ 권장</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>이 글에서는 <strong>H2 메모리 DB</strong>를 사용하여 개발/테스트 환경에 최적화된 예제를 제공합니다.</p>
+</blockquote>
+
+<hr />
+
+<h1 id="2-메커니즘-datasource-라우팅-동작-방식">2. 메커니즘: DataSource 라우팅 동작 방식</h1>
+
+<h2 id="21-전체-요청-흐름">2.1 전체 요청 흐름</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP 요청
+    ↓
+Spring Controller
+    ↓
+Service 메서드 호출
+    ↓
+┌─────────────────────────────────────┐
+│  AOP Aspect Interception            │
+│                                     │
+│  1. @ReadOnlyOnReplica 확인          │
+│  2. @Transactional(readOnly) 확인    │
+│  3. RouteDataSourceContext 업데이트  │
+└────────────┬────────────────────────┘
+             ↓
+┌─────────────────────────────────┐
+│ ReadWriteRoutingDataSource      │
+│ determineCurrentLookupKey()     │
+│ → RouteDataSourceContext 값 조회 │
+│ → PRIMARY 또는 REPLICA 결정      │
+└────────────┬────────────────────┘
+             ↓
+┌─────────────┬────────────────┐
+│  PRIMARY DB │   REPLICA DB   │
+│ (Write)     │   (Read)       │
+└─────────────┴────────────────┘
+</code></pre></div></div>
+
+<h2 id="22-핵심-클래스들의-상호작용">2.2 핵심 클래스들의 상호작용</h2>
+
+<h3 id="routedatasourcecontext-threadlocal-관리">RouteDataSourceContext (ThreadLocal 관리)</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouteDataSourceContext</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">DataSourceType</span><span class="o">&gt;</span> <span class="n">contextHolder</span> 
+        <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="nc">DataSourceType</span><span class="o">.</span><span class="na">PRIMARY</span><span class="o">);</span>
+    
+    <span class="c1">// 각 스레드별로 독립적인 DataSource 타입 관리</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>역할</strong>: 각 스레드가 독립적으로 사용할 DataSource 타입을 관리합니다.</p>
+
+<h3 id="readwriteroutingdatasource-abstractroutingdatasource">ReadWriteRoutingDataSource (AbstractRoutingDataSource)</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadWriteRoutingDataSource</span> <span class="kd">extends</span> <span class="nc">AbstractRoutingDataSource</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">Object</span> <span class="nf">determineCurrentLookupKey</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">getDataSourceType</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>역할</strong>: Spring이 DB 접근 시점에 어떤 DataSource를 사용할지 결정합니다.</p>
+
+<h3 id="datasourceroutingaspect-aop-advice">DataSourceRoutingAspect (AOP Advice)</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Aspect</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceRoutingAspect</span> <span class="o">{</span>
+    <span class="nd">@Before</span><span class="o">(</span><span class="s">"@annotation(com.gracefulsoul.replica.routing.ReadOnlyOnReplica)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeReadOnlyOnReplica</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@After</span><span class="o">(</span><span class="s">"@annotation(com.gracefulsoul.replica.routing.ReadOnlyOnReplica)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterReadOnlyOnReplica</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>역할</strong>: 메서드 호출 전후에 DataSource 컨텍스트를 자동으로 변경합니다.</p>
+
+<h2 id="23-라우팅-규칙">2.3 라우팅 규칙</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">규칙 1</span><span class="pi">:</span> <span class="err">@</span><span class="s">ReadOnlyOnReplica 어노테이션</span>
+  <span class="s">├─ public List&lt;User&gt; getAllUsers()          → REPLICA 사용</span>
+  <span class="s">└─ 메서드 종료 후 PRIMARY로 복원</span>
+
+<span class="na">규칙 2</span><span class="pi">:</span> <span class="err">@</span><span class="s">Transactional(readOnly = </span><span class="no">true</span><span class="s">)</span>
+  <span class="s">├─ public Optional&lt;User&gt; getUserById(Long) → REPLICA 사용</span>
+  <span class="s">└─ 메서드 종료 후 PRIMARY로 복원</span>
+
+<span class="na">규칙 3</span><span class="pi">:</span> <span class="s">일반 @Transactional (readOnly 없음)</span>
+  <span class="s">├─ public User createUser(User)            → PRIMARY 사용</span>
+  <span class="s">└─ 메서드 종료 후 유지</span>
+
+<span class="na">규칙 4</span><span class="pi">:</span> <span class="s">트랜잭션 없음 (기본값)</span>
+  <span class="s">└─ PRIMARY 사용 (기본값)</span>
+</code></pre></div></div>
+
+<h2 id="24-threadlocal을-사용한-멀티스레드-안전성">2.4 ThreadLocal을 사용한 멀티스레드 안전성</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 스레드 A</span>
+<span class="n">thread_A</span><span class="o">.</span><span class="na">start_request</span><span class="o">()</span>
+  <span class="err">→</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">()</span>  <span class="c1">// Thread A의 컨텍스트만 변경</span>
+  <span class="err">→</span> <span class="no">SELECT</span> <span class="n">수행</span>
+  <span class="err">→</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">()</span>
+
+<span class="c1">// 스레드 B (동시에 실행)</span>
+<span class="n">thread_B</span><span class="o">.</span><span class="na">start_request</span><span class="o">()</span>
+  <span class="err">→</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">()</span>  <span class="c1">// Thread B의 컨텍스트만 변경</span>
+  <span class="err">→</span> <span class="no">INSERT</span> <span class="n">수행</span>
+  <span class="err">→</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">()</span>
+
+<span class="c1">// 스레드 A와 B는 서로 영향을 주지 않음 ✓</span>
+</code></pre></div></div>
+
+<p><strong>ThreadLocal의 장점</strong>:</p>
+<ul>
+  <li>각 스레드별로 독립적인 저장소 제공</li>
+  <li>컨텍스트 전달 없이도 스레드 내 어디서나 접근 가능</li>
+  <li>멀티스레드 환경에서 동기화 문제 자동 해결</li>
+</ul>
+
+<hr />
+
+<h1 id="3-내부-구조-상세-분석">3. 내부 구조 상세 분석</h1>
+
+<h2 id="31-프로젝트-디렉토리-구조">3.1 프로젝트 디렉토리 구조</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spring-boot-h2-replica/
+├── src/main/java/com/gracefulsoul/replica/
+│   ├── SpringBootH2ReplicaApplication.java
+│   ├── aspect/
+│   │   └── DataSourceRoutingAspect.java
+│   ├── config/
+│   │   └── DataSourceConfig.java
+│   ├── controller/
+│   │   └── UserController.java
+│   ├── entity/
+│   │   ├── User.java
+│   │   └── UserLog.java
+│   ├── repository/
+│   │   ├── UserRepository.java
+│   │   └── UserLogRepository.java
+│   ├── routing/
+│   │   ├── RouteDataSourceContext.java
+│   │   ├── ReadWriteRoutingDataSource.java
+│   │   └── ReadOnlyOnReplica.java
+│   └── service/
+│       ├── UserService.java
+│       └── UserLogService.java
+├── src/main/resources/
+│   └── application.yml
+├── src/test/java/com/gracefulsoul/replica/
+│   ├── DataSourceContextTest.java
+│   └── integration/
+│       └── DataSourceRoutingIntegrationTest.java
+└── pom.xml
+</code></pre></div></div>
+
+<h2 id="32-설정-파일-상세분석">3.2 설정 파일 상세분석</h2>
+
+<h3 id="applicationyml">application.yml</h3>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">datasource</span><span class="pi">:</span>
+    <span class="na">primary</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">jdbc:h2:mem:primary</span>        <span class="c1"># Primary용 H2 메모리 DB</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s">sa</span>
+      <span class="na">hikari</span><span class="pi">:</span>
+        <span class="na">maximum-pool-size</span><span class="pi">:</span> <span class="m">10</span>
+    
+    <span class="na">replica</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s">jdbc:h2:mem:replica</span>        <span class="c1"># Replica용 H2 메모리 DB</span>
+      <span class="na">username</span><span class="pi">:</span> <span class="s">sa</span>
+      <span class="na">hikari</span><span class="pi">:</span>
+        <span class="na">maximum-pool-size</span><span class="pi">:</span> <span class="m">10</span>
+</code></pre></div></div>
+
+<p><strong>특징</strong>:</p>
+<ul>
+  <li>별도의 메모리 DB 2개로 Primary/Replica 분리</li>
+  <li>HikariCP로 연결 풀 관리</li>
+  <li>각각 독립적인 설정 가능</li>
+</ul>
+
+<h2 id="33-entity-설계">3.3 Entity 설계</h2>
+
+<h3 id="user-entity">User Entity</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">User</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">,</span> <span class="n">unique</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">email</span><span class="o">;</span>
+    
+    <span class="nd">@CreationTimestamp</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">createdAt</span><span class="o">;</span>
+    
+    <span class="nd">@UpdateTimestamp</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">updatedAt</span><span class="o">;</span>
+    
+    <span class="nd">@Version</span>  <span class="c1">// 낙관적 잠금</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">version</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>특징</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@Version</code>: 동시성 제어 (낙관적 잠금)</li>
+  <li><code class="language-plaintext highlighter-rouge">@CreationTimestamp</code>: 자동으로 생성 시간 기록</li>
+  <li><code class="language-plaintext highlighter-rouge">@UpdateTimestamp</code>: 자동으로 수정 시간 기록</li>
+</ul>
+
+<h3 id="userlog-entity">UserLog Entity</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"user_logs"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserLog</span> <span class="o">{</span>
+    <span class="nd">@Id</span>
+    <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">IDENTITY</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">Long</span> <span class="n">userId</span><span class="o">;</span>
+    
+    <span class="nd">@Column</span><span class="o">(</span><span class="n">nullable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">action</span><span class="o">;</span>
+    
+    <span class="nd">@CreationTimestamp</span>
+    <span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">createdAt</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>특징</strong>:</p>
+<ul>
+  <li>로그 데이터이므로 UPDATE/DELETE 불필요</li>
+  <li>PRIMARY KEY와 userId는 인덱싱 추천</li>
+</ul>
+
+<h2 id="34-repository-디자인">3.4 Repository 디자인</h2>
+
+<h3 id="쿼리별-datasource-사용">쿼리별 DataSource 사용</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="c1">// READ: Replica DataSource 사용</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findByEmail</span><span class="o">(</span><span class="nc">String</span> <span class="n">email</span><span class="o">);</span>
+    
+    <span class="nd">@Query</span><span class="o">(</span><span class="s">"SELECT u FROM User u WHERE u.active = true"</span><span class="o">)</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">findAllActiveUsers</span><span class="o">();</span>
+    
+    <span class="c1">// WRITE: Primary DataSource 사용</span>
+    <span class="c1">// save(), delete() 등 불필요 - 기본 제공</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="35-service-계층의-라우팅-로직">3.5 Service 계층의 라우팅 로직</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+    
+    <span class="c1">// 쓰기 작업: @Transactional (기본값)</span>
+    <span class="nd">@Transactional</span>  <span class="c1">// readOnly 미지정 = PRIMARY 사용</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">createUser</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>  <span class="c1">// INSERT</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 읽기 작업: @Transactional(readOnly = true)</span>
+    <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>  <span class="c1">// readOnly = true = REPLICA 사용</span>
+    <span class="kd">public</span> <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getUserById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>  <span class="c1">// SELECT</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 읽기 작업: @ReadOnlyOnReplica (대안)</span>
+    <span class="nd">@ReadOnlyOnReplica</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getAllUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>  <span class="c1">// SELECT</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-주요-제품-및-기술-스택">4. 주요 제품 및 기술 스택</h1>
+
+<h2 id="41-사용된-기술">4.1 사용된 기술</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>기술</th>
+      <th>버전</th>
+      <th>용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Java</strong></td>
+      <td>25</td>
+      <td>최신 언어 기능 활용</td>
+    </tr>
+    <tr>
+      <td><strong>Spring Boot</strong></td>
+      <td>3.3.0</td>
+      <td>애플리케이션 프레임워크</td>
+    </tr>
+    <tr>
+      <td><strong>Spring Data JPA</strong></td>
+      <td>Latest</td>
+      <td>ORM 및 데이터 접근</td>
+    </tr>
+    <tr>
+      <td><strong>Spring AOP</strong></td>
+      <td>Latest</td>
+      <td>라우팅 메커니즘 구현</td>
+    </tr>
+    <tr>
+      <td><strong>H2 Database</strong></td>
+      <td>2.2.224</td>
+      <td>메모리 DB (개발/테스트)</td>
+    </tr>
+    <tr>
+      <td><strong>HikariCP</strong></td>
+      <td>5.1.0</td>
+      <td>연결 풀 관리</td>
+    </tr>
+    <tr>
+      <td><strong>Lombok</strong></td>
+      <td>Latest</td>
+      <td>보일러플레이트 코드 제거</td>
+    </tr>
+    <tr>
+      <td><strong>JUnit 5</strong></td>
+      <td>Latest</td>
+      <td>단위 테스트</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="42-실제-운영-환경-권장-구성">4.2 실제 운영 환경 권장 구성</h2>
+
+<h3 id="mysql--replication">MySQL + Replication</h3>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Primary Server</span>
+<span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">'replication'</span><span class="o">@</span><span class="s1">'replica-server'</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">'password'</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="n">REPLICATION</span> <span class="n">SLAVE</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">'replication'</span><span class="o">@</span><span class="s1">'replica-server'</span><span class="p">;</span>
+
+<span class="c1">-- Replica Server</span>
+<span class="n">CHANGE</span> <span class="n">REPLICATION</span> <span class="k">SOURCE</span> <span class="k">TO</span>
+  <span class="n">SOURCE_HOST</span> <span class="o">=</span> <span class="s1">'primary-server'</span><span class="p">,</span>
+  <span class="n">SOURCE_USER</span> <span class="o">=</span> <span class="s1">'replication'</span><span class="p">,</span>
+  <span class="n">SOURCE_PASSWORD</span> <span class="o">=</span> <span class="s1">'password'</span><span class="p">,</span>
+  <span class="n">SOURCE_LOG_FILE</span> <span class="o">=</span> <span class="s1">'mysql-bin.000001'</span><span class="p">,</span>
+  <span class="n">SOURCE_LOG_POS</span> <span class="o">=</span> <span class="mi">154</span><span class="p">;</span>
+
+<span class="k">START</span> <span class="n">REPLICA</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="postgresql--replication">PostgreSQL + Replication</h3>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- Primary 설정 (postgresql.conf)</span>
+<span class="n">wal_level</span> <span class="o">=</span> <span class="n">replica</span>
+<span class="n">max_wal_senders</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">max_replication_slots</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1">-- Replica 설정</span>
+<span class="n">pg_basebackup</span> <span class="o">-</span><span class="n">h</span> <span class="k">primary</span><span class="o">-</span><span class="n">server</span> <span class="o">-</span><span class="n">D</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">postgresql</span><span class="o">/</span><span class="k">data</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="5-활용-샘플-및-코드">5. 활용 샘플 및 코드</h1>
+
+<h2 id="51-기본-crud-예제">5.1 기본 CRUD 예제</h2>
+
+<h3 id="사용자-생성-write---primary-사용">사용자 생성 (Write - Primary 사용)</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/users"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">createUser</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">userService</span><span class="o">.</span><span class="na">createUser</span><span class="o">(</span><span class="n">user</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>HTTP Request</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST http://localhost:8080/api/users <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "name": "김준호",
+    "email": "jhkim@example.com",
+    "phone": "010-1234-5678",
+    "active": true
+  }'</span>
+</code></pre></div></div>
+
+<p><strong>로그 출력</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DataSourceRoutingAspect: 메서드 시작: UserService.createUser → PRIMARY DataSource 선택됨
+</code></pre></div></div>
+
+<h3 id="사용자-조회-read---replica-사용">사용자 조회 (Read - Replica 사용)</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/users/{id}"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getUserById</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">userService</span><span class="o">.</span><span class="na">getUserById</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">ResponseEntity:</span><span class="o">:</span><span class="n">ok</span><span class="o">)</span>
+        <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">notFound</span><span class="o">().</span><span class="na">build</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>HTTP Request</strong>:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> GET http://localhost:8080/api/users/1
+</code></pre></div></div>
+
+<p><strong>로그 출력</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DataSourceRoutingAspect: 메서드 시작: UserService.getUserById → REPLICA DataSource 선택됨
+</code></pre></div></div>
+
+<h2 id="52-복잡한-쿼리-예제">5.2 복잡한 쿼리 예제</h2>
+
+<h3 id="검색-및-필터링">검색 및 필터링</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+    
+    <span class="nd">@ReadOnlyOnReplica</span><span class="o">(</span><span class="s">"사용자명으로 검색"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">searchUsers</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">searchByName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">getActiveUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAllActiveUsers</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@ReadOnlyOnReplica</span><span class="o">(</span><span class="s">"활성 사용자 수 카운트"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">countActiveUsers</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">countByActive</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="복합-트랜잭션">복합 트랜잭션</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransactionService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserLogRepository</span> <span class="n">userLogRepository</span><span class="o">;</span>
+    
+    <span class="c1">// 1단계: 사용자 수정 (Primary)</span>
+    <span class="c1">// 2단계: 로그 기록 (Primary)</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateUserWithLog</span><span class="o">(</span><span class="nc">Long</span> <span class="n">userId</span><span class="o">,</span> <span class="nc">User</span> <span class="n">updateData</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">userId</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"사용자 없음"</span><span class="o">));</span>
+        
+        <span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">updateData</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">userRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        
+        <span class="nc">UserLog</span> <span class="n">log</span> <span class="o">=</span> <span class="nc">UserLog</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">userId</span><span class="o">(</span><span class="n">userId</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">action</span><span class="o">(</span><span class="s">"UPDATE"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">description</span><span class="o">(</span><span class="s">"사용자 정보 수정"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">ipAddress</span><span class="o">(</span><span class="s">"192.168.1.1"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        <span class="n">userLogRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">log</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 1단계: 사용자 조회 (Replica)</span>
+    <span class="c1">// 2단계: 로그 조회 (Replica)</span>
+    <span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">UserProfile</span> <span class="nf">getUserProfile</span><span class="o">(</span><span class="nc">Long</span> <span class="n">userId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">userId</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"사용자 없음"</span><span class="o">));</span>
+        
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">UserLog</span><span class="o">&gt;</span> <span class="n">logs</span> <span class="o">=</span> <span class="n">userLogRepository</span><span class="o">.</span><span class="na">findByUserId</span><span class="o">(</span><span class="n">userId</span><span class="o">);</span>
+        
+        <span class="k">return</span> <span class="nc">UserProfile</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">user</span><span class="o">(</span><span class="n">user</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">logs</span><span class="o">(</span><span class="n">logs</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="53-배치-작업-예제">5.3 배치 작업 예제</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserBatchService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">UserRepository</span> <span class="n">userRepository</span><span class="o">;</span>
+    
+    <span class="c1">// 배치 INSERT: Primary 사용</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">batchCreateUsers</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nl">userRepository:</span><span class="o">:</span><span class="n">save</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 배치 SELECT: Replica 사용</span>
+    <span class="nd">@ReadOnlyOnReplica</span><span class="o">(</span><span class="s">"전체 사용자 배치 조회"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="nf">batchGetAllUsers</span><span class="o">(</span><span class="kt">int</span> <span class="n">batchSize</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 일괄 업데이트: Primary 사용</span>
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">batchUpdateUsersStatus</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;</span> <span class="n">userIds</span><span class="o">,</span> <span class="nc">Boolean</span> <span class="n">active</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">userRepository</span><span class="o">.</span><span class="na">findAllById</span><span class="o">(</span><span class="n">userIds</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">user</span> <span class="o">-&gt;</span> <span class="n">user</span><span class="o">.</span><span class="na">setActive</span><span class="o">(</span><span class="n">active</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-주요-코드-설명">6. 주요 코드 설명</h1>
+
+<h2 id="61-routedatasourcecontext-상세분석">6.1 RouteDataSourceContext 상세분석</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RouteDataSourceContext</span> <span class="o">{</span>
+    <span class="c1">// ThreadLocal: 각 스레드별 독립적인 저장소</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">DataSourceType</span><span class="o">&gt;</span> <span class="n">contextHolder</span> 
+        <span class="o">=</span> <span class="nc">ThreadLocal</span><span class="o">.</span><span class="na">withInitial</span><span class="o">(()</span> <span class="o">-&gt;</span> <span class="nc">DataSourceType</span><span class="o">.</span><span class="na">PRIMARY</span><span class="o">);</span>
+    
+    <span class="c1">// DataSource 설정</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setDataSourceType</span><span class="o">(</span><span class="nc">DataSourceType</span> <span class="n">dataSourceType</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">contextHolder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">dataSourceType</span><span class="o">);</span>  <span class="c1">// 스레드 안전</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// DataSource 조회</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">DataSourceType</span> <span class="nf">getDataSourceType</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">contextHolder</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 초기화</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">contextHolder</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">DataSourceType</span><span class="o">.</span><span class="na">PRIMARY</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>핵심 개념</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ThreadLocal.withInitial()</code>: 초기값 설정</li>
+  <li><code class="language-plaintext highlighter-rouge">set()</code>: 현재 스레드의 값 설정</li>
+  <li><code class="language-plaintext highlighter-rouge">get()</code>: 현재 스레드의 값 조회</li>
+  <li>스레드마다 독립적인 저장소로 동기화 문제 해결</li>
+</ul>
+
+<h2 id="62-readwriteroutingdatasource-상세분석">6.2 ReadWriteRoutingDataSource 상세분석</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReadWriteRoutingDataSource</span> <span class="kd">extends</span> <span class="nc">AbstractRoutingDataSource</span> <span class="o">{</span>
+    
+    <span class="c1">// 핵심: Spring이 DB 접근 직전 이 메서드 호출</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">Object</span> <span class="nf">determineCurrentLookupKey</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 1. 현재 컨텍스트에서 DataSource 타입 조회</span>
+        <span class="nc">DataSourceType</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">getDataSourceType</span><span class="o">();</span>
+        
+        <span class="c1">// 2. 해당 타입의 DataSource 반환</span>
+        <span class="c1">// 이 객체는 targetDataSources Map에 저장된 DataSource를 찾음</span>
+        <span class="k">return</span> <span class="n">type</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>호출 순서</strong>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Service 메서드 호출
+   ↓
+2. AOP Aspect가 메서드 가로채기
+   ↓
+3. RouteDataSourceContext 업데이트
+   ↓
+4. Repository 메서드 호출 (JPA)
+   ↓
+5. AbstractRoutingDataSource.determineCurrentLookupKey() 호출
+   ↓
+6. 적절한 DataSource 반환
+   ↓
+7. DB 작업 수행
+</code></pre></div></div>
+
+<h2 id="63-datasourceconfig-상세분석">6.3 DataSourceConfig 상세분석</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceConfig</span> <span class="o">{</span>
+    
+    <span class="c1">// Primary DataSource Bean (Write용)</span>
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"primaryDataSource"</span><span class="o">)</span>
+    <span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"spring.datasource.primary"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">DataSource</span> <span class="nf">primaryDataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">DataSourceBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">driverClassName</span><span class="o">(</span><span class="s">"org.h2.Driver"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// Replica DataSource Bean (Read용)</span>
+    <span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"replicaDataSource"</span><span class="o">)</span>
+    <span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"spring.datasource.replica"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">DataSource</span> <span class="nf">replicaDataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">DataSourceBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">driverClassName</span><span class="o">(</span><span class="s">"org.h2.Driver"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 라우팅 DataSource (Primary Bean)</span>
+    <span class="nd">@Bean</span>
+    <span class="nd">@Primary</span>
+    <span class="kd">public</span> <span class="nc">DataSource</span> <span class="nf">routingDataSource</span><span class="o">(</span>
+            <span class="nd">@Autowired</span> <span class="nc">DataSource</span> <span class="n">primaryDataSource</span><span class="o">,</span>
+            <span class="nd">@Autowired</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"replicaDataSource"</span><span class="o">)</span> <span class="nc">DataSource</span> <span class="n">replicaDataSource</span><span class="o">)</span> <span class="o">{</span>
+        
+        <span class="nc">ReadWriteRoutingDataSource</span> <span class="n">routingDataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ReadWriteRoutingDataSource</span><span class="o">();</span>
+        
+        <span class="c1">// 라우팅 맵 설정</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">targetDataSources</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">targetDataSources</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">DataSourceType</span><span class="o">.</span><span class="na">PRIMARY</span><span class="o">,</span> <span class="n">primaryDataSource</span><span class="o">);</span>
+        <span class="n">targetDataSources</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">DataSourceType</span><span class="o">.</span><span class="na">REPLICA</span><span class="o">,</span> <span class="n">replicaDataSource</span><span class="o">);</span>
+        
+        <span class="n">routingDataSource</span><span class="o">.</span><span class="na">setTargetDataSources</span><span class="o">(</span><span class="n">targetDataSources</span><span class="o">);</span>
+        <span class="n">routingDataSource</span><span class="o">.</span><span class="na">setDefaultTargetDataSource</span><span class="o">(</span><span class="n">primaryDataSource</span><span class="o">);</span>
+        
+        <span class="k">return</span> <span class="n">routingDataSource</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>특징</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@ConfigurationProperties</code>: YAML 설정과 자동 매핑</li>
+  <li><code class="language-plaintext highlighter-rouge">@Primary</code>: 여러 DataSource 중 기본값으로 사용</li>
+  <li><code class="language-plaintext highlighter-rouge">targetDataSources</code>: 라우팅할 DataSource 맵</li>
+</ul>
+
+<h2 id="64-datasourceroutingaspect-상세분석">6.4 DataSourceRoutingAspect 상세분석</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Aspect</span>
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceRoutingAspect</span> <span class="o">{</span>
+    
+    <span class="c1">// @ReadOnlyOnReplica 메서드 호출 전</span>
+    <span class="nd">@Before</span><span class="o">(</span><span class="s">"@annotation(com.gracefulsoul.replica.routing.ReadOnlyOnReplica)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeReadOnlyOnReplica</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">,</span> <span class="nc">ReadOnlyOnReplica</span> <span class="n">readOnlyOnReplica</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">methodName</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
+        <span class="nc">String</span> <span class="n">className</span> <span class="o">=</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getTarget</span><span class="o">().</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">();</span>
+        
+        <span class="c1">// Replica로 설정</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">();</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"메서드 시작: {}.{} -&gt; Replica DataSource 선택됨"</span><span class="o">,</span> 
+                 <span class="n">className</span><span class="o">,</span> <span class="n">methodName</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// @ReadOnlyOnReplica 메서드 호출 후</span>
+    <span class="nd">@After</span><span class="o">(</span><span class="s">"@annotation(com.gracefulsoul.replica.routing.ReadOnlyOnReplica)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">afterReadOnlyOnReplica</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Primary로 복원</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// @Transactional(readOnly = true) 메서드 호출 전</span>
+    <span class="nd">@Before</span><span class="o">(</span><span class="s">"@annotation(org.springframework.transaction.annotation.Transactional)"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">beforeTransactionalMethod</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">,</span> <span class="nc">Transactional</span> <span class="n">transactional</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">transactional</span><span class="o">.</span><span class="na">readOnly</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>AOP 포인트컷</strong>:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">@annotation()</code>: 특정 어노테이션 대상 메서드</li>
+  <li><code class="language-plaintext highlighter-rouge">@Before</code>: 메서드 실행 전 실행</li>
+  <li><code class="language-plaintext highlighter-rouge">@After</code>: 메서드 실행 후 실행</li>
+</ul>
+
+<hr />
+
+<h1 id="7-테스트-전략">7. 테스트 전략</h1>
+
+<h2 id="71-단위-테스트">7.1 단위 테스트</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">DataSourceContextTest</span> <span class="o">{</span>
+    
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"DataSourceContext 기본값이 PRIMARY"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">testDefaultDataSourceContext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">getDataSourceType</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="nc">DataSourceType</span><span class="o">.</span><span class="na">PRIMARY</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"setReplica()로 REPLICA 변경 가능"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">testSetReplicaDataSourceContext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">();</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">getDataSourceType</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">isEqualTo</span><span class="o">(</span><span class="nc">DataSourceType</span><span class="o">.</span><span class="na">REPLICA</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="72-통합-테스트">7.2 통합 테스트</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootTest</span>
+<span class="kd">class</span> <span class="nc">DataSourceRoutingIntegrationTest</span> <span class="o">{</span>
+    
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="nc">UserService</span> <span class="n">userService</span><span class="o">;</span>
+    
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"사용자 생성 시 PRIMARY DataSource 사용"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">testCreateUserUsesPrimary</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">User</span> <span class="n">user</span> <span class="o">=</span> <span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"김소울"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="s">"soul@example.com"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">phone</span><span class="o">(</span><span class="s">"010-1234-5678"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">active</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+        
+        <span class="nc">User</span> <span class="n">created</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">createUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">created</span><span class="o">.</span><span class="na">getId</span><span class="o">()).</span><span class="na">isNotNull</span><span class="o">();</span>
+    <span class="o">}</span>
+    
+    <span class="nd">@Test</span>
+    <span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"사용자 조회 시 REPLICA DataSource 사용"</span><span class="o">)</span>
+    <span class="kt">void</span> <span class="nf">testGetUserUsesReplica</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 먼저 사용자 생성</span>
+        <span class="nc">User</span> <span class="n">created</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">createUser</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        
+        <span class="c1">// 조회 (REPLICA 사용)</span>
+        <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">retrieved</span> <span class="o">=</span> <span class="n">userService</span><span class="o">.</span><span class="na">getUserById</span><span class="o">(</span><span class="n">created</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">retrieved</span><span class="o">).</span><span class="na">isPresent</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="73-성능-테스트">7.3 성능 테스트</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Test</span>
+<span class="nd">@DisplayName</span><span class="o">(</span><span class="s">"배치 INSERT 성능 측정"</span><span class="o">)</span>
+<span class="kt">void</span> <span class="nf">testBatchInsertPerformance</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">users</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+        <span class="n">users</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">User</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">name</span><span class="o">(</span><span class="s">"User"</span> <span class="o">+</span> <span class="n">i</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">email</span><span class="o">(</span><span class="s">"user"</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"@example.com"</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">phone</span><span class="o">(</span><span class="s">"010-0000-"</span> <span class="o">+</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%04d"</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+            <span class="o">.</span><span class="na">active</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+    <span class="o">}</span>
+    
+    <span class="n">userService</span><span class="o">.</span><span class="na">batchCreateUsers</span><span class="o">(</span><span class="n">users</span><span class="o">);</span>
+    
+    <span class="kt">long</span> <span class="n">endTime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+    <span class="kt">long</span> <span class="n">duration</span> <span class="o">=</span> <span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">;</span>
+    
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"배치 INSERT 1000개: "</span> <span class="o">+</span> <span class="n">duration</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">duration</span><span class="o">).</span><span class="na">isLessThan</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>  <span class="c1">// 5초 이내</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-실제-운영-환경-고려사항">8. 실제 운영 환경 고려사항</h1>
+
+<h2 id="81-데이터-동기화-지연-replication-lag">8.1 데이터 동기화 지연 (Replication Lag)</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Primary에 DATA 쓰기
+    ↓
+Replica에 전파되는 짧은 시간 동시성 문제 발생 가능
+    ↓
+Replica에서 READ 시 최신 데이터가 아닐 수 있음
+</code></pre></div></div>
+
+<p><strong>해결방안</strong>:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserService</span> <span class="o">{</span>
+    
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">createAndReturnUser</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 1. Primary에 INSERT</span>
+        <span class="nc">User</span> <span class="n">created</span> <span class="o">=</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        
+        <span class="c1">// 2. 동기화를 기다리기 위해 약간의 로직 추가</span>
+        <span class="c1">// (실제로는 Redis 캐시 등을 사용)</span>
+        
+        <span class="c1">// 3. Primary에서 재조회 (최신 데이터 보장)</span>
+        <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">created</span><span class="o">.</span><span class="na">getId</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">orElseThrow</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="82-primary-장애-처리">8.2 Primary 장애 처리</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FailoverUserService</span> <span class="o">{</span>
+    
+    <span class="nd">@Transactional</span>
+    <span class="kd">public</span> <span class="nc">User</span> <span class="nf">createUserWithFailover</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// Primary 시도</span>
+            <span class="k">return</span> <span class="n">userRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Primary 실패, Replica로 폴백 시도"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+            
+            <span class="c1">// Replica에 쓰기 시도 (읽기 전용이므로 오류)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"쓰기 작업은 Primary만 가능"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="83-모니터링">8.3 모니터링</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceHealthMonitor</span> <span class="o">{</span>
+    
+    <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">fixedDelay</span> <span class="o">=</span> <span class="mi">60000</span><span class="o">)</span>  <span class="c1">// 1분마다</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">checkDataSourceHealth</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Connection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+            <span class="nc">Statement</span> <span class="n">stmt</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="na">createStatement</span><span class="o">();</span>
+            
+            <span class="c1">// Primary 확인</span>
+            <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="s">"SELECT 1"</span><span class="o">);</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"✓ Primary DataSource 정상"</span><span class="o">);</span>
+            
+            <span class="c1">// Replica 확인</span>
+            <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setReplica</span><span class="o">();</span>
+            <span class="n">stmt</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="s">"SELECT 1"</span><span class="o">);</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"✓ Replica DataSource 정상"</span><span class="o">);</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"✗ DataSource 오류: {}"</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="c1">// 알람 발송</span>
+            <span class="n">notificationService</span><span class="o">.</span><span class="na">sendAlert</span><span class="o">(</span><span class="s">"DB 연결 실패"</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="nc">RouteDataSourceContext</span><span class="o">.</span><span class="na">setPrimary</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="9-mysql-replication-실제-구성-예제">9. MySQL Replication 실제 구성 예제</h1>
+
+<h2 id="91-docker-compose로-mysql-primary-replica-구성">9.1 Docker Compose로 MySQL Primary-Replica 구성</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">3.8'</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mysql-primary</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.0</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">root_password</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">app_db</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3306:3306"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./my-primary.cnf:/etc/mysql/my.cnf</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">--server-id=1 --log-bin=mysql-bin --binlog-format=ROW</span>
+  
+  <span class="na">mysql-replica</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:8.0</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">root_password</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3307:3306"</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mysql-primary</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">--server-id=2 --relay-log=mysql-relay-bin</span>
+</code></pre></div></div>
+
+<h2 id="92-replication-설정-스크립트">9.2 Replication 설정 스크립트</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Primary에서 바이너리 로깅 상태 확인</span>
+mysql <span class="nt">-h</span> localhost <span class="nt">-u</span> root <span class="nt">-p</span><span class="nv">$MYSQL_ROOT_PASSWORD</span> <span class="nt">-e</span> <span class="se">\</span>
+  <span class="s2">"SHOW MASTER STATUS;"</span> <span class="o">&gt;</span> master_status.txt
+
+<span class="c"># Replica에 Replication 설정</span>
+mysql <span class="nt">-h</span> localhost <span class="nt">-P</span> 3307 <span class="nt">-u</span> root <span class="nt">-p</span><span class="nv">$MYSQL_ROOT_PASSWORD</span> <span class="nt">-e</span> <span class="se">\</span>
+  <span class="s2">"CHANGE REPLICATION SOURCE TO </span><span class="se">\</span><span class="s2">
+    SOURCE_HOST='mysql-primary', </span><span class="se">\</span><span class="s2">
+    SOURCE_USER='repl_user', </span><span class="se">\</span><span class="s2">
+    SOURCE_PASSWORD='repl_password', </span><span class="se">\</span><span class="s2">
+    SOURCE_LOG_FILE='mysql-bin.000001', </span><span class="se">\</span><span class="s2">
+    SOURCE_LOG_POS=154; </span><span class="se">\</span><span class="s2">
+   START REPLICA;"</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="10-결론">10. 결론</h1>
+
+<h2 id="101-정리">10.1 정리</h2>
+
+<p>Spring Boot에서 Primary-Replica 데이터베이스 구성과 Transaction Routing을 구현하는 것은:</p>
+
+<ol>
+  <li><strong>AbstractRoutingDataSource</strong> 활용</li>
+  <li><strong>AOP 포인트컷</strong> 활용</li>
+  <li><strong>ThreadLocal 컨텍스트</strong> 관리</li>
+</ol>
+
+<p>이 세 가지 기술의 조합으로 가능합니다.</p>
+
+<h2 id="102-주요-이점">10.2 주요 이점</h2>
+
+<ul>
+  <li>✅ <strong>읽기 성능 향상</strong>: 읽기를 여러 Replica로 분산</li>
+  <li>✅ <strong>코드 간결화</strong>: @ReadOnlyOnReplica 한 줄로 라우팅 제어</li>
+  <li>✅ <strong>테스트 용이</strong>: H2 메모리 DB로 간편한 테스트</li>
+  <li>✅ <strong>확장성</strong>: Replica 개수 쉽게 증가 가능</li>
+</ul>
+
+<h2 id="103-주의사항">10.3 주의사항</h2>
+
+<ul>
+  <li>⚠️ <strong>Replication Lag</strong>: 약간의 데이터 일관성 문제 가능</li>
+  <li>⚠️ <strong>복잡성</strong>: 장애 대응이 더 복잡할 수 있음</li>
+  <li>⚠️ <strong>모니터링</strong>: 지속적인건강 상태 확인 필요</li>
+</ul>
+
+<h2 id="104-다음-단계">10.4 다음 단계</h2>
+
+<p>이 패턴을 기반으로:</p>
+<ol>
+  <li><strong>읽기 전용 Replica 추가</strong> (Primary 1개, Replica 3개+)</li>
+  <li><strong>자동 페일오버</strong> (MHA, Orchestrator 등 사용)</li>
+  <li><strong>분산 트랜잭션</strong> (MQ를 통한 이벤트 기반 동기화)</li>
+  <li><strong>캐시 계층 추가</strong> (Redis, Memcached)</li>
+</ol>
+
+<hr />
+
+<h1 id="참고-자료">참고 자료</h1>
+
+<h2 id="공식-문서">공식 문서</h2>
+<ul>
+  <li><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank">Spring Data JPA 공식 문서</a></li>
+  <li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop" target="_blank">Spring AOP 공식 문서</a></li>
+  <li><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/datasource/lookup/AbstractRoutingDataSource.html" target="_blank">AbstractRoutingDataSource API 문서</a></li>
+</ul>
+
+<h2 id="데이터베이스-복제">데이터베이스 복제</h2>
+<ul>
+  <li><a href="https://dev.mysql.com/doc/refman/8.0/en/replication.html" target="_blank">MySQL 공식 Replication 문서</a></li>
+  <li><a href="https://www.postgresql.org/docs/current/warm-standby.html" target="_blank">PostgreSQL 유류 복제 문서</a></li>
+  <li><a href="https://mariadb.com/docs/reference/mdb/features/replication/" target="_blank">MariaDB Replication 가이드</a></li>
+</ul>
+
+<h2 id="관련-기술">관련 기술</h2>
+<ul>
+  <li><a href="http://www.h2database.com/" target="_blank">H2 Database 공식 웹사이트</a></li>
+  <li><a href="https://github.com/brettwooldridge/HikariCP" target="_blank">HikariCP 성능 및 설정 가이드</a></li>
+  <li><a href="https://docs.spring.io/spring-framework/docs/current/reference/html/data-access.html#transaction" target="_blank">Spring Transaction Management</a></li>
+</ul>
+
+<h2 id="프로덕션-고려사항">프로덕션 고려사항</h2>
+<ul>
+  <li><a href="https://github.com/yoshinorim/mha4mysql-manager" target="_blank">MySQL 이중화 자동 페일오버 - MHA</a></li>
+  <li><a href="https://github.com/openark/orchestrator" target="_blank">Orchestrator - MySQL Replication 자동화</a></li>
+  <li><a href="https://redis.io/" target="_blank">Redis를 이용한 캐싱 전략</a></li>
+</ul>
+
+<h2 id="샘플-코드">샘플 코드</h2>
+<ul>
+  <li>이 글의 완전한 소스 코드는 아래에서 확인할 수 있습니다:</li>
+  <li><a href="https://github.com/GracefulSoul/spring-boot-h2-replica" target="_blank">spring-boot-h2-replica 저장소</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#aop" class="page__taxonomy-item" rel="tag">AOP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#database" class="page__taxonomy-item" rel="tag">Database</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#h2" class="page__taxonomy-item" rel="tag">H2</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#replica" class="page__taxonomy-item" rel="tag">Replica</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring-boot" class="page__taxonomy-item" rel="tag">Spring Boot</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#transaction-routing" class="page__taxonomy-item" rel="tag">Transaction Routing</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#spring" class="page__taxonomy-item" rel="tag">Spring</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-04-09">April 9, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/llm-coding-agent-prompt/" class="pagination--pager" title="LLM, 코딩 에이전트, Prompt 종합 가이드
+">이전</a>
+    
+    
+      <a href="/database/data-concurrency-lock/" class="pagination--pager" title="데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/metagpt-metatool/" rel="permalink">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/database/data-concurrency-lock/" rel="permalink">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 18 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/llm-coding-agent-prompt/" rel="permalink">LLM, 코딩 에이전트, Prompt 종합 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM(Large Language Model)과 코딩 에이전트의 개념부터 활용까지 - Prompt Engineering을 중심으로 한 완벽한 종합 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/rag/" rel="permalink">RAG (Retrieval-Augmented Generation)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> March 30 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Retrieval-Augmented Generation의 개념, 메커니즘, 아키텍처, 주요 제품 및 구현 방법에 대해 학습합니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
