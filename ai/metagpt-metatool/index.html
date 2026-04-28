@@ -1,0 +1,1535 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크 - Development story</title>
+<meta name="description" content="LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크">
+<meta property="og:url" content="/ai/metagpt-metatool/">
+
+
+  <meta property="og:description" content="LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/metagpt-metatool.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-04-24T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-04-24T19:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/metagpt-metatool/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+      <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/metagpt-metatool.png" alt="MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크">
+    <meta itemprop="description" content="LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드">
+    <meta itemprop="datePublished" content="2026-04-24T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-04-24T19:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-04-24T00:00:00+00:00">April 24, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#1-개념-concept">1. 개념 (Concept)</a><ul><li><a href="#11-metagpt란">1.1 MetaGPT란?</a></li><li><a href="#12-metatool-방식">1.2 MetaTool 방식</a></li><li><a href="#13-핵심-철학">1.3 핵심 철학</a></li></ul></li><li><a href="#2-메커니즘-mechanism">2. 메커니즘 (Mechanism)</a><ul><li><a href="#21-다중-에이전트-협력-구조">2.1 다중 에이전트 협력 구조</a></li><li><a href="#22-에이전트-역할-구성">2.2 에이전트 역할 구성</a><ul><li><a href="#product-manager-상품-관리자">Product Manager (상품 관리자)</a></li><li><a href="#architect-아키텍트">Architect (아키텍트)</a></li><li><a href="#project-manager-프로젝트-관리자">Project Manager (프로젝트 관리자)</a></li><li><a href="#engineer-개발자">Engineer (개발자)</a></li></ul></li><li><a href="#23-sop-기반-워크플로우">2.3 SOP 기반 워크플로우</a></li></ul></li><li><a href="#3-내부-구조-internal-architecture">3. 내부 구조 (Internal Architecture)</a><ul><li><a href="#31-metagpt-시스템-아키텍처">3.1 MetaGPT 시스템 아키텍처</a></li><li><a href="#32-role-클래스-구조">3.2 Role 클래스 구조</a></li><li><a href="#33-message-기반-통신">3.3 Message 기반 통신</a></li></ul></li><li><a href="#4-주요-제품-및-실제-구현">4. 주요 제품 및 실제 구현</a><ul><li><a href="#41-metagpt-framework">4.1 MetaGPT Framework</a><ul><li><a href="#주요-특징">주요 특징</a></li><li><a href="#주요-내장-role들">주요 내장 Role들</a></li></ul></li><li><a href="#42-data-interpreter">4.2 Data Interpreter</a></li><li><a href="#43-mgx-metagpt-x">4.3 MGX (MetaGPT X)</a></li></ul></li><li><a href="#5-활용-샘플-및-코드">5. 활용 샘플 및 코드</a><ul><li><a href="#51-기본-사용-예제---cli-방식">5.1 기본 사용 예제 - CLI 방식</a><ul><li><a href="#설치">설치</a></li><li><a href="#config2yaml-예제">config2.yaml 예제</a></li></ul></li><li><a href="#52-실행-예제">5.2 실행 예제</a><ul><li><a href="#cli-사용법">CLI 사용법</a></li></ul></li><li><a href="#53-python-라이브러리로-사용">5.3 Python 라이브러리로 사용</a></li><li><a href="#54-커스텀-role-만들기">5.4 커스텀 Role 만들기</a></li><li><a href="#55-data-interpreter-활용-예제">5.5 Data Interpreter 활용 예제</a></li><li><a href="#56-다중-에이전트-협력-예제">5.6 다중 에이전트 협력 예제</a></li><li><a href="#57-복잡한-워크플로우-예제">5.7 복잡한 워크플로우 예제</a></li></ul></li><li><a href="#6-아키텍처-패턴-및-best-practices">6. 아키텍처 패턴 및 Best Practices</a><ul><li><a href="#61-메모리-관리">6.1 메모리 관리</a></li><li><a href="#62-컨텍스트-관리">6.2 컨텍스트 관리</a></li><li><a href="#63-오류-처리-및-재시도">6.3 오류 처리 및 재시도</a></li></ul></li><li><a href="#7-성능-및-최적화">7. 성능 및 최적화</a><ul><li><a href="#71-병렬-처리">7.1 병렬 처리</a></li><li><a href="#72-토큰-최적화">7.2 토큰 최적화</a></li></ul></li><li><a href="#8-실제-적용-사례">8. 실제 적용 사례</a><ul><li><a href="#81-소프트웨어-개발-자동화">8.1 소프트웨어 개발 자동화</a></li><li><a href="#82-데이터-분석-자동화">8.2 데이터 분석 자동화</a></li><li><a href="#83-연구-및-보고서-작성">8.3 연구 및 보고서 작성</a></li></ul></li><li><a href="#9-제한사항-및-고려사항">9. 제한사항 및 고려사항</a><ul><li><a href="#91-llm-비용">9.1 LLM 비용</a></li><li><a href="#92-코드-품질">9.2 코드 품질</a></li><li><a href="#93-시간-소요">9.3 시간 소요</a></li></ul></li><li><a href="#10-향후-발전-방향">10. 향후 발전 방향</a><ul><li><a href="#101-최신-개발-2025년">10.1 최신 개발 (2025년)</a></li><li><a href="#102-예상되는-개선사항">10.2 예상되는 개선사항</a></li></ul></li><li><a href="#참조-및-리소스">참조 및 리소스</a><ul><li><a href="#공식-문서-및-저장소">공식 문서 및 저장소</a></li><li><a href="#주요-논문">주요 논문</a></li><li><a href="#관련-프로젝트">관련 프로젝트</a></li><li><a href="#추천-학습-자료">추천 학습 자료</a></li></ul></li><li><a href="#결론">결론</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+
+<p><strong>MetaGPT</strong>와 <strong>MetaTool</strong>은 대규모 언어 모델(LLM)의 능력을 활용하여 복잡한 작업을 해결하기 위한 혁신적인 프레임워크입니다. 전통적인 단일 에이전트 방식의 한계를 극복하기 위해, 메타 프로그래밍(Meta Programming) 개념을 도입하여 여러 LLM 에이전트가 소프트웨어 회사와 같은 조직 구조를 이루고 협력하는 방식입니다.</p>
+
+<hr />
+
+<h1 id="1-개념-concept">1. 개념 (Concept)</h1>
+
+<h2 id="11-metagpt란">1.1 MetaGPT란?</h2>
+
+<p><strong>MetaGPT</strong>는 “Meta Programming for A Multi-Agent Collaborative Framework”의 약자로, 다음과 같은 핵심 특징을 가진 프레임워크입니다:</p>
+
+<ul>
+  <li><strong>소프트웨어 회사 시뮬레이션</strong>: LLM 기반의 역할(Role)들이 실제 소프트웨어 회사의 조직 구조를 형성</li>
+  <li><strong>표준 운영 절차(SOP) 기반</strong>: 효율적인 워크플로우를 구조화된 프롬프트 시퀀스로 인코딩</li>
+  <li><strong>복잡한 작업 분해</strong>: 한 줄의 요구사항을 입력으로 받아 사용자 스토리, 경쟁 분석, 아키텍처, 코드 등을 출력</li>
+</ul>
+
+<h2 id="12-metatool-방식">1.2 MetaTool 방식</h2>
+
+<p>MetaTool은 더 광범위한 도구 사용 패러다임으로, LLM이 다양한 도구와 함수를 활용하여 작업을 수행하는 방식입니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>특성</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>도구 인식</strong></td>
+      <td>LLM이 사용 가능한 도구의 목록과 사용법을 인식</td>
+    </tr>
+    <tr>
+      <td><strong>지능형 선택</strong></td>
+      <td>주어진 작업에 적합한 도구를 자동으로 선택</td>
+    </tr>
+    <tr>
+      <td><strong>반복적 실행</strong></td>
+      <td>도구를 사용한 결과를 바탕으로 다음 단계 결정</td>
+    </tr>
+    <tr>
+      <td><strong>오류 해결</strong></td>
+      <td>도구 사용 오류를 감지하고 수정</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="13-핵심-철학">1.3 핵심 철학</h2>
+
+<p><strong><code class="language-plaintext highlighter-rouge">Code = SOP(Team)</code></strong></p>
+
+<p>MetaGPT의 핵심 철학은 코드를 팀의 표준 운영 절차(SOP)로 표현하는 것입니다. 즉:</p>
+<ul>
+  <li>복잡한 작업은 여러 역할의 협력으로 구성</li>
+  <li>각 역할은 명확한 책임과 워크플로우를 가짐</li>
+  <li>LLM들이 인간처럼 도메인 전문성을 가지고 중간 결과를 검증</li>
+  <li>이를 통해 할루시네이션으로 인한 오류 감소</li>
+</ul>
+
+<hr />
+
+<h1 id="2-메커니즘-mechanism">2. 메커니즘 (Mechanism)</h1>
+
+<h2 id="21-다중-에이전트-협력-구조">2.1 다중 에이전트 협력 구조</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────┐
+│      한 줄 요구사항 (Requirement)     │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│      메타 프로그래밍 엔진              │
+│    (Meta Programming Engine)        │
+└──────────────┬──────────────────────┘
+               │
+      ┌────────┼────────┬─────────┐
+      ▼        ▼        ▼         ▼
+   ┌─────┐ ┌──────┐ ┌────────┐ ┌────────┐
+   │ PM  │ │Arch. │ │Manager │ │Engineer│
+   │(상품)│ │(설계)│ │(프로젝트)│ │(개발)   │
+   └─────┘ └──────┘ └────────┘ └────────┘
+      │        │        │         │
+      └────────┼────────┼─────────┘
+               │
+               ▼
+   ┌─────────────────────────────────────┐
+   │    협력된 결과물                      │
+   │  - 사용자 스토리                      │
+   │  - 아키텍처 설계                      │
+   │  - 데이터 모델                        │
+   │  - API 명세                          │
+   │  - 구현 코드                         │
+   └─────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="22-에이전트-역할-구성">2.2 에이전트 역할 구성</h2>
+
+<p>MetaGPT 시스템에는 다음과 같은 주요 역할들이 있습니다:</p>
+
+<h3 id="product-manager-상품-관리자">Product Manager (상품 관리자)</h3>
+<ul>
+  <li>요구사항을 사용자 스토리로 변환</li>
+  <li>경쟁 분석 수행</li>
+  <li>제품 요구사항 정의(PRD) 작성</li>
+</ul>
+
+<h3 id="architect-아키텍트">Architect (아키텍트)</h3>
+<ul>
+  <li>소프트웨어 아키텍처 설계</li>
+  <li>기술 스택 선정</li>
+  <li>시스템 구조도 작성</li>
+</ul>
+
+<h3 id="project-manager-프로젝트-관리자">Project Manager (프로젝트 관리자)</h3>
+<ul>
+  <li>작업 분해 (Task Breakdown)</li>
+  <li>일정 관리</li>
+  <li>리스크 관리</li>
+</ul>
+
+<h3 id="engineer-개발자">Engineer (개발자)</h3>
+<ul>
+  <li>실제 코드 작성</li>
+  <li>기술 구현</li>
+  <li>테스트 코드 작성</li>
+</ul>
+
+<h2 id="23-sop-기반-워크플로우">2.3 SOP 기반 워크플로우</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Input: "2048 게임을 만들어줘"
+
+↓
+
+SOP 1: Product Manager
+- 게임 요구사항 분석
+- 사용자 스토리 작성
+- 게임 규칙 문서화
+
+↓
+
+SOP 2: Architect
+- 게임 구조 설계
+- 데이터 모델 정의
+  * GameState
+  * Grid
+  * Score
+
+↓
+
+SOP 3: Project Manager
+- 구현 작업 분해
+- 마일스톤 정의
+- 의존성 정의
+
+↓
+
+SOP 4: Engineer
+- 게임 로직 코드 작성
+- UI/렌더링 구현
+- 테스트 코드 작성
+
+↓
+
+Output: 완전한 2048 게임 프로젝트
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="3-내부-구조-internal-architecture">3. 내부 구조 (Internal Architecture)</h1>
+
+<h2 id="31-metagpt-시스템-아키텍처">3.1 MetaGPT 시스템 아키텍처</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────────────┐
+│         User Interface Layer                │
+│  (CLI, Web UI, API Gateway)                 │
+└────────────────┬────────────────────────────┘
+                 │
+┌─────────────────────────────────────────────┐
+│      Multi-Agent Orchestration Layer        │
+│  - Agent Manager                            │
+│  - Message Queue                            │
+│  - State Management                         │
+└────────────────┬────────────────────────────┘
+                 │
+┌─────────────────────────────────────────────┐
+│         Role Layer                          │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐     │
+│  │   Role   │ │   Role   │ │   Role   │     │
+│  │ Behavior │ │ Prompts  │ │ Actions  │     │
+│  └──────────┘ └──────────┘ └──────────┘     │
+└────────────────┬────────────────────────────┘
+                 │
+┌─────────────────────────────────────────────┐
+│        Memory &amp; Context Layer               │
+│  - Message History                          │
+│  - Shared Context                           │
+│  - Knowledge Base                           │
+└────────────────┬────────────────────────────┘
+                 │
+┌─────────────────────────────────────────────┐
+│         LLM Integration Layer               │
+│  - LLM API Client                           │
+│  - Prompt Engineering                       │
+│  - Response Parsing                         │
+└────────────────┬────────────────────────────┘
+                 │
+┌─────────────────────────────────────────────┐
+│          External Tools &amp; APIs              │
+│  - Code Execution                           │
+│  - File Operations                          │
+│  - Database Access                          │
+└─────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="32-role-클래스-구조">3.2 Role 클래스 구조</h2>
+
+<p>MetaGPT의 핵심은 <strong>Role</strong> 클래스로, 각 에이전트는 Role을 상속받습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 기본 Role 구조
+</span><span class="k">class</span> <span class="nc">Role</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">profile</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">profile</span> <span class="o">=</span> <span class="n">profile</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">()</span>  <span class="c1"># 메시지 히스토리
+</span>        
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="s">"""역할 수행 실행"""</span>
+        <span class="k">pass</span>
+        
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">think</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""다음 행동 결정"""</span>
+        <span class="k">pass</span>
+        
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s">"""행동 수행"""</span>
+        <span class="k">pass</span>
+</code></pre></div></div>
+
+<h2 id="33-message-기반-통신">3.3 Message 기반 통신</h2>
+
+<p>MetaGPT는 메시지 기반의 비동기 통신을 사용합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">dataclass</span>
+<span class="k">class</span> <span class="nc">Message</span><span class="p">:</span>
+    <span class="n">role</span><span class="p">:</span> <span class="nb">str</span>              <span class="c1"># 송신자 역할
+</span>    <span class="n">content</span><span class="p">:</span> <span class="nb">str</span>           <span class="c1"># 메시지 내용
+</span>    <span class="n">inst</span><span class="p">:</span> <span class="nb">str</span>              <span class="c1"># 지시사항
+</span>    <span class="n">cause_by</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">Action</span><span class="p">]</span> <span class="c1"># 어떤 액션으로 인한 메시지인지
+</span>    <span class="n">send_to</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>      <span class="c1"># 수신자 역할
+</span></code></pre></div></div>
+
+<hr />
+
+<h1 id="4-주요-제품-및-실제-구현">4. 주요 제품 및 실제 구현</h1>
+
+<h2 id="41-metagpt-framework">4.1 MetaGPT Framework</h2>
+
+<h3 id="주요-특징">주요 특징</h3>
+<ul>
+  <li><strong>Open Source</strong>: MIT 라이선스</li>
+  <li><strong>Python 기반</strong>: Python 3.9 이상 필요</li>
+  <li><strong>플러그인 지원</strong>: 커스텀 Role, Action 확장 가능</li>
+  <li><strong>다양한 LLM 지원</strong>: OpenAI, Azure, Ollama, Groq 등</li>
+</ul>
+
+<h3 id="주요-내장-role들">주요 내장 Role들</h3>
+<p>| Role | 역할 | 출력 |
+|——|——|——|
+| ProductManager | 요구사항 분석 | PRD (Product Requirement Document) |
+| Architect | 설계 | System Design Document |
+| ProjectManager | 계획 수립 | Task Breakdown Structure |
+| Engineer | 개발 | Source Code |</p>
+
+<h2 id="42-data-interpreter">4.2 Data Interpreter</h2>
+
+<p>MetaGPT의 대표적인 활용 사례로, 데이터 분석을 자동화합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.roles.di.data_interpreter</span> <span class="kn">import</span> <span class="n">DataInterpreter</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="n">DataInterpreter</span><span class="p">()</span>
+    <span class="c1"># sklearn Iris 데이터셋 분석 및 시각화
+</span>    <span class="k">await</span> <span class="n">di</span><span class="p">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="s">"Iris 데이터셋 분석: 꽃받침 길이와 꽃잎 길이의 관계 분석 및 산점도 생성"</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="43-mgx-metagpt-x">4.3 MGX (MetaGPT X)</h2>
+
+<p>최신 제품으로, AI 에이전트 개발팀을 시뮬레이션합니다:</p>
+<ul>
+  <li><strong>자연어 프로그래밍</strong>: 자연어로 소프트웨어 프로젝트 생성</li>
+  <li><strong>전체 개발 사이클</strong>: 요구사항 → 설계 → 구현</li>
+  <li><strong>산업 규모 결과물</strong>: 실제 사용 가능한 코드 생성</li>
+</ul>
+
+<hr />
+
+<h1 id="5-활용-샘플-및-코드">5. 활용 샘플 및 코드</h1>
+
+<h2 id="51-기본-사용-예제---cli-방식">5.1 기본 사용 예제 - CLI 방식</h2>
+
+<h3 id="설치">설치</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># pip를 사용한 설치</span>
+pip <span class="nb">install </span>metagpt
+
+<span class="c"># 초기 설정 (OpenAI API 키 필요)</span>
+metagpt <span class="nt">--init-config</span>
+
+<span class="c"># 설정 파일 편집</span>
+vim ~/.metagpt/config2.yaml
+</code></pre></div></div>
+
+<h3 id="config2yaml-예제">config2.yaml 예제</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">llm</span><span class="pi">:</span>
+  <span class="na">api_type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">openai"</span>
+  <span class="na">model</span><span class="pi">:</span> <span class="s2">"</span><span class="s">gpt-4-turbo"</span>
+  <span class="na">base_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://api.openai.com/v1"</span>
+  <span class="na">api_key</span><span class="pi">:</span> <span class="s2">"</span><span class="s">your-api-key-here"</span>
+  
+<span class="na">mermaid</span><span class="pi">:</span>
+  <span class="na">engine</span><span class="pi">:</span> <span class="s2">"</span><span class="s">playwright"</span>
+  <span class="na">width</span><span class="pi">:</span> <span class="m">1200</span>
+  <span class="na">height</span><span class="pi">:</span> <span class="m">800</span>
+</code></pre></div></div>
+
+<h2 id="52-실행-예제">5.2 실행 예제</h2>
+
+<h3 id="cli-사용법">CLI 사용법</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 2048 게임 생성</span>
+metagpt <span class="s2">"Create a 2048 game"</span>
+
+<span class="c"># 뱀 게임 생성</span>
+metagpt <span class="s2">"Create a snake game with pygame"</span>
+
+<span class="c"># 할일 앱 생성</span>
+metagpt <span class="s2">"Create a todo application with Flask and SQLite"</span>
+
+<span class="c"># 결과는 ./workspace 디렉토리에 생성됨</span>
+</code></pre></div></div>
+
+<h2 id="53-python-라이브러리로-사용">5.3 Python 라이브러리로 사용</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.software_company</span> <span class="kn">import</span> <span class="n">generate_repo</span>
+<span class="kn">from</span> <span class="nn">metagpt.utils.project_repo</span> <span class="kn">import</span> <span class="n">ProjectRepo</span>
+
+<span class="c1"># 요구사항으로 저장소 생성
+</span><span class="n">repo</span><span class="p">:</span> <span class="n">ProjectRepo</span> <span class="o">=</span> <span class="n">generate_repo</span><span class="p">(</span><span class="s">"Create a 2048 game"</span><span class="p">)</span>
+
+<span class="c1"># 생성된 프로젝트 구조 출력
+</span><span class="k">print</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="54-커스텀-role-만들기">5.4 커스텀 Role 만들기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.roles</span> <span class="kn">import</span> <span class="n">Role</span>
+<span class="kn">from</span> <span class="nn">metagpt.actions</span> <span class="kn">import</span> <span class="n">Action</span>
+<span class="kn">from</span> <span class="nn">metagpt.logs</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># 커스텀 Action 정의
+</span><span class="k">class</span> <span class="nc">AnalyzeTrends</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
+    <span class="s">"""트렌드 분석 액션"""</span>
+    
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># LLM을 사용하여 트렌드 분석
+</span>        <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s">"""
+        다음 시장 데이터를 분석하고 주요 트렌드를 파악해주세요:
+        </span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="s">
+        
+        분석 결과:
+        1. 주요 트렌드
+        2. 성장 분야
+        3. 위험 요소
+        """</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="p">.</span><span class="n">llm</span><span class="p">.</span><span class="n">aask</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+
+<span class="c1"># 커스텀 Role 정의
+</span><span class="k">class</span> <span class="nc">MarketAnalyst</span><span class="p">(</span><span class="n">Role</span><span class="p">):</span>
+    <span class="s">"""시장 분석가 역할"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s">"Market Analyst"</span><span class="p">,</span>
+            <span class="n">profile</span><span class="o">=</span><span class="s">"전문 시장 분석가"</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">set_actions</span><span class="p">([</span><span class="n">AnalyzeTrends</span><span class="p">()])</span>
+    
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_act</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s"> is analyzing market trends..."</span><span class="p">)</span>
+        <span class="n">todo</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">rc</span><span class="p">.</span><span class="n">memory</span><span class="p">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="p">.</span><span class="n">rc</span><span class="p">.</span><span class="n">execute</span><span class="p">(</span><span class="n">todo</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h2 id="55-data-interpreter-활용-예제">5.5 Data Interpreter 활용 예제</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">from</span> <span class="nn">metagpt.roles.di.data_interpreter</span> <span class="kn">import</span> <span class="n">DataInterpreter</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">analyze_iris</span><span class="p">():</span>
+    <span class="s">"""Iris 데이터셋 분석"""</span>
+    <span class="n">di</span> <span class="o">=</span> <span class="n">DataInterpreter</span><span class="p">()</span>
+    
+    <span class="c1"># 데이터 분석 및 시각화
+</span>    <span class="k">await</span> <span class="n">di</span><span class="p">.</span><span class="n">run</span><span class="p">(</span>
+        <span class="s">"""
+        sklearn의 Iris 데이터셋을 로드하여:
+        1. 각 꽃의 특성 통계 분석
+        2. 품종별 특성 비교
+        3. 꽃받침 길이와 꽃잎 길이의 관계를 산점도로 표시
+        """</span>
+    <span class="p">)</span>
+
+<span class="c1"># 실행
+</span><span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">analyze_iris</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h2 id="56-다중-에이전트-협력-예제">5.6 다중 에이전트 협력 예제</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.team</span> <span class="kn">import</span> <span class="n">Team</span>
+<span class="kn">from</span> <span class="nn">metagpt.roles</span> <span class="kn">import</span> <span class="n">ProductManager</span><span class="p">,</span> <span class="n">Architect</span><span class="p">,</span> <span class="n">Engineer</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">create_software_team</span><span class="p">():</span>
+    <span class="s">"""소프트웨어 개발팀 구성"""</span>
+    
+    <span class="c1"># 팀 생성
+</span>    <span class="n">team</span> <span class="o">=</span> <span class="n">Team</span><span class="p">()</span>
+    
+    <span class="c1"># 역할 추가
+</span>    <span class="n">team</span><span class="p">.</span><span class="n">add_roles</span><span class="p">([</span>
+        <span class="n">ProductManager</span><span class="p">(),</span>
+        <span class="n">Architect</span><span class="p">(),</span>
+        <span class="n">Engineer</span><span class="p">(),</span>
+    <span class="p">])</span>
+    
+    <span class="c1"># 요구사항 입력
+</span>    <span class="n">requirement</span> <span class="o">=</span> <span class="s">"간단한 API 서버를 만들어주세요. FastAPI를 사용하고 CRUD 기능을 지원해야 합니다."</span>
+    
+    <span class="c1"># 팀 실행
+</span>    <span class="k">await</span> <span class="n">team</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">requirement</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">team</span>
+
+<span class="c1"># 실행
+</span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="n">team</span> <span class="o">=</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">create_software_team</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h2 id="57-복잡한-워크플로우-예제">5.7 복잡한 워크플로우 예제</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.team</span> <span class="kn">import</span> <span class="n">Team</span>
+<span class="kn">from</span> <span class="nn">metagpt.actions</span> <span class="kn">import</span> <span class="n">UserStoryBrainstorm</span><span class="p">,</span> <span class="n">WritePRD</span>
+<span class="kn">from</span> <span class="nn">metagpt.roles</span> <span class="kn">import</span> <span class="n">ProductManager</span><span class="p">,</span> <span class="n">Architect</span><span class="p">,</span> <span class="n">Engineer</span><span class="p">,</span> <span class="n">ProjectManager</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">complex_workflow</span><span class="p">():</span>
+    <span class="s">"""복잡한 소프트웨어 개발 워크플로우"""</span>
+    
+    <span class="n">team</span> <span class="o">=</span> <span class="n">Team</span><span class="p">()</span>
+    
+    <span class="c1"># 팀 구성
+</span>    <span class="n">team</span><span class="p">.</span><span class="n">add_roles</span><span class="p">([</span>
+        <span class="n">ProductManager</span><span class="p">(),</span>
+        <span class="n">Architect</span><span class="p">(),</span>
+        <span class="n">ProjectManager</span><span class="p">(),</span>
+        <span class="n">Engineer</span><span class="p">(),</span>
+    <span class="p">])</span>
+    
+    <span class="c1"># 요구사항
+</span>    <span class="n">requirement</span> <span class="o">=</span> <span class="s">"""
+    전자상거래 플랫폼을 만들어주세요:
+    - 사용자 인증 시스템
+    - 상품 카탈로그 관리
+    - 장바구니 기능
+    - 결제 시스템
+    - 주문 추적
+    """</span>
+    
+    <span class="c1"># 실행
+</span>    <span class="n">repo</span> <span class="o">=</span> <span class="k">await</span> <span class="n">team</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">requirement</span><span class="p">)</span>
+    
+    <span class="c1"># 생성된 파일 확인
+</span>    <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">repo</span><span class="p">.</span><span class="n">all_files</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"생성된 파일: </span><span class="si">{</span><span class="nb">file</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="c1"># 실행
+</span><span class="n">asyncio</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">complex_workflow</span><span class="p">())</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="6-아키텍처-패턴-및-best-practices">6. 아키텍처 패턴 및 Best Practices</h1>
+
+<h2 id="61-메모리-관리">6.1 메모리 관리</h2>
+
+<p>MetaGPT는 효율적인 메모리 관리를 위해 다양한 메모리 유형을 사용합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">metagpt.memory</span> <span class="kn">import</span> <span class="n">Memory</span><span class="p">,</span> <span class="n">LongTermMemory</span>
+
+<span class="c1"># 단기 메모리 (메시지 히스토리)
+</span><span class="n">memory</span> <span class="o">=</span> <span class="n">Memory</span><span class="p">()</span>
+<span class="n">memory</span><span class="p">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<span class="c1"># 장기 메모리 (임베딩 기반 유사도 검색)
+</span><span class="n">long_memory</span> <span class="o">=</span> <span class="n">LongTermMemory</span><span class="p">()</span>
+<span class="n">long_memory</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="n">vectorstore</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="62-컨텍스트-관리">6.2 컨텍스트 관리</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 공유 컨텍스트를 통한 에이전트 간 정보 교환
+</span><span class="n">shared_context</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"project_name"</span><span class="p">:</span> <span class="s">"MyProject"</span><span class="p">,</span>
+    <span class="s">"requirements"</span><span class="p">:</span> <span class="s">"PRD 문서"</span><span class="p">,</span>
+    <span class="s">"architecture"</span><span class="p">:</span> <span class="s">"설계 문서"</span><span class="p">,</span>
+    <span class="s">"tasks"</span><span class="p">:</span> <span class="s">"작업 분해 구조"</span>
+<span class="p">}</span>
+
+<span class="c1"># 각 에이전트가 필요한 정보 참조
+</span><span class="n">product_manager_context</span> <span class="o">=</span> <span class="n">shared_context</span><span class="p">[</span><span class="s">"requirements"</span><span class="p">]</span>
+<span class="n">architect_context</span> <span class="o">=</span> <span class="n">shared_context</span><span class="p">[</span><span class="s">"architecture"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="63-오류-처리-및-재시도">6.3 오류 처리 및 재시도</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">tenacity</span> <span class="kn">import</span> <span class="n">retry</span><span class="p">,</span> <span class="n">stop_after_attempt</span><span class="p">,</span> <span class="n">wait_exponential</span>
+
+<span class="o">@</span><span class="n">retry</span><span class="p">(</span>
+    <span class="n">stop</span><span class="o">=</span><span class="n">stop_after_attempt</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">wait</span><span class="o">=</span><span class="n">wait_exponential</span><span class="p">(</span><span class="n">multiplier</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">safe_llm_call</span><span class="p">(</span><span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="s">"""재시도 로직을 포함한 LLM 호출"""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">llm</span><span class="p">.</span><span class="n">aask</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s">"LLM 호출 실패: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">raise</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-성능-및-최적화">7. 성능 및 최적화</h1>
+
+<h2 id="71-병렬-처리">7.1 병렬 처리</h2>
+
+<p>MetaGPT는 비동기 처리를 통해 여러 에이전트가 동시에 작업할 수 있습니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="c1"># 동시 실행
+</span><span class="k">await</span> <span class="n">asyncio</span><span class="p">.</span><span class="n">gather</span><span class="p">(</span>
+    <span class="n">product_manager</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">requirement</span><span class="p">),</span>
+    <span class="n">architect</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">prd</span><span class="p">),</span>
+    <span class="n">project_manager</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">design</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="72-토큰-최적화">7.2 토큰 최적화</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 프롬프트 길이 제한
+</span><span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">4000</span>
+
+<span class="c1"># 불필요한 정보 필터링
+</span><span class="n">filtered_context</span> <span class="o">=</span> <span class="n">summarize_context</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-실제-적용-사례">8. 실제 적용 사례</h1>
+
+<h2 id="81-소프트웨어-개발-자동화">8.1 소프트웨어 개발 자동화</h2>
+
+<p>MetaGPT를 사용하면 단순한 텍스트 요구사항으로부터:</p>
+<ul>
+  <li>완전한 시스템 설계</li>
+  <li>실행 가능한 코드</li>
+  <li>테스트 케이스</li>
+  <li>문서</li>
+</ul>
+
+<p>를 자동 생성할 수 있습니다.</p>
+
+<h2 id="82-데이터-분석-자동화">8.2 데이터 분석 자동화</h2>
+
+<p>Data Interpreter를 사용하여:</p>
+<ul>
+  <li>데이터 로딩 및 전처리</li>
+  <li>통계 분석</li>
+  <li>시각화</li>
+  <li>인사이트 도출</li>
+</ul>
+
+<p>을 자동으로 수행합니다.</p>
+
+<h2 id="83-연구-및-보고서-작성">8.3 연구 및 보고서 작성</h2>
+
+<p>커스텀 Role을 만들어:</p>
+<ul>
+  <li>주제 분석</li>
+  <li>자료 수집</li>
+  <li>보고서 작성</li>
+  <li>시각화 자료 생성</li>
+</ul>
+
+<p>을 자동화할 수 있습니다.</p>
+
+<hr />
+
+<h1 id="9-제한사항-및-고려사항">9. 제한사항 및 고려사항</h1>
+
+<h2 id="91-llm-비용">9.1 LLM 비용</h2>
+
+<ul>
+  <li>OpenAI API 사용 시 토큰 기반 과금</li>
+  <li>복잡한 프로젝트는 큰 비용 발생 가능</li>
+</ul>
+
+<h2 id="92-코드-품질">9.2 코드 품질</h2>
+
+<ul>
+  <li>생성된 코드가 항상 최적은 아님</li>
+  <li>리뷰 및 테스트 필요</li>
+</ul>
+
+<h2 id="93-시간-소요">9.3 시간 소요</h2>
+
+<ul>
+  <li>복잡한 프로젝트는 여러 LLM 호출 필요</li>
+  <li>실행 시간이 길어질 수 있음</li>
+</ul>
+
+<hr />
+
+<h1 id="10-향후-발전-방향">10. 향후 발전 방향</h1>
+
+<h2 id="101-최신-개발-2025년">10.1 최신 개발 (2025년)</h2>
+
+<ul>
+  <li><strong>AFlow</strong>: 자동 에이전트 워크플로우 생성 (ICLR 2025 구두 발표)</li>
+  <li><strong>SPO</strong>: 구조화된 프로그래밍 최적화</li>
+  <li><strong>AOT</strong>: 에이전트 온톨로지 이론</li>
+</ul>
+
+<h2 id="102-예상되는-개선사항">10.2 예상되는 개선사항</h2>
+
+<ul>
+  <li>더욱 정교한 메모리 관리</li>
+  <li>더 나은 에러 핸들링</li>
+  <li>성능 최적화</li>
+  <li>추론(Reasoning) 능력 강화</li>
+</ul>
+
+<hr />
+
+<h1 id="참조-및-리소스">참조 및 리소스</h1>
+
+<h2 id="공식-문서-및-저장소">공식 문서 및 저장소</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>자료</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>GitHub 저장소</strong></td>
+      <td><a href="https://github.com/FoundationAgents/MetaGPT" target="_blank">FoundationAgents/MetaGPT</a></td>
+    </tr>
+    <tr>
+      <td><strong>공식 문서</strong></td>
+      <td><a href="https://docs.deepwisdom.ai/" target="_blank">MetaGPT Documentation</a></td>
+    </tr>
+    <tr>
+      <td><strong>논문</strong></td>
+      <td><a href="https://arxiv.org/abs/2308.00352" target="_blank">MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework</a></td>
+    </tr>
+    <tr>
+      <td><strong>Discord 커뮤니티</strong></td>
+      <td><a href="https://discord.gg/ZRHeExS6xv" target="_blank">Join Discord</a></td>
+    </tr>
+    <tr>
+      <td><strong>Twitter</strong></td>
+      <td><a href="https://twitter.com/MetaGPT_" target="_blank">@MetaGPT_</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="주요-논문">주요 논문</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>제목</th>
+      <th>설명</th>
+      <th>링크</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MetaGPT</td>
+      <td>기초 논문</td>
+      <td><a href="https://arxiv.org/abs/2308.00352" target="_blank">arXiv:2308.00352</a></td>
+    </tr>
+    <tr>
+      <td>AFlow</td>
+      <td>워크플로우 자동화</td>
+      <td><a href="https://openreview.net/forum?id=z5uVAKwmjf" target="_blank">ICLR 2025</a></td>
+    </tr>
+    <tr>
+      <td>SPO</td>
+      <td>구조화 최적화</td>
+      <td><a href="https://arxiv.org/pdf/2502.06855" target="_blank">arXiv:2502.06855</a></td>
+    </tr>
+    <tr>
+      <td>AOT</td>
+      <td>에이전트 온톨로지</td>
+      <td><a href="https://arxiv.org/pdf/2502.12018" target="_blank">arXiv:2502.12018</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="관련-프로젝트">관련 프로젝트</h2>
+
+<ul>
+  <li><a href="https://mgx.dev/" target="_blank">MGX (MetaGPT X)</a> - AI 에이전트 개발팀 (ProductHunt #1)</li>
+  <li><a href="https://docs.deepwisdom.ai/main/en/guide/use_cases/agent/interpreter/intro.html" target="_blank">Data Interpreter</a> - 데이터 분석 자동화</li>
+  <li><a href="https://www.deepwisdom.ai/" target="_blank">DeepWisdom</a> - MetaGPT 개발사</li>
+</ul>
+
+<h2 id="추천-학습-자료">추천 학습 자료</h2>
+
+<ol>
+  <li><strong>공식 튜토리얼</strong>
+    <ul>
+      <li><a href="https://docs.deepwisdom.ai/main/en/guide/tutorials/agent_101.html" target="_blank">Agent 101</a></li>
+      <li><a href="https://docs.deepwisdom.ai/main/en/guide/tutorials/multi_agent_101.html" target="_blank">MultiAgent 101</a></li>
+    </ul>
+  </li>
+  <li><strong>YouTube 영상</strong>
+    <ul>
+      <li><a href="https://youtu.be/uT75J_KG_aY" target="_blank">Matthew Berman - How To Install MetaGPT</a></li>
+      <li><a href="https://github.com/FoundationAgents/MetaGPT/assets/2707039/5e8c1062-8c35-440f-bb20-2b0320f8d27d" target="_blank">공식 데모 영상</a></li>
+    </ul>
+  </li>
+  <li><strong>온라인 데모</strong>
+    <ul>
+      <li><a href="https://huggingface.co/spaces/deepwisdom/MetaGPT-SoftwareCompany" target="_blank">MetaGPT Huggingface Space</a></li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h1 id="결론">결론</h1>
+
+<p>MetaGPT와 MetaTool은 LLM 기반의 자동화를 새로운 수준으로 끌어올린 혁신적인 프레임워크입니다. 단순한 텍스트 요구사항으로부터 완전한 소프트웨어를 생성할 수 있는 가능성은 소프트웨어 개발의 미래를 크게 바꿀 것으로 예상됩니다.</p>
+
+<p>SOP 기반의 구조화된 접근방식은 LLM의 할루시네이션을 줄이고, 다중 에이전트 협력은 복잡한 문제를 효율적으로 해결합니다. 지속적인 개선과 새로운 기능 추가를 통해 MetaGPT는 AI 에이전트 시대의 핵심 플랫폼으로 자리잡을 것입니다.</p>
+
+<hr />
+
+<p><strong>Source Code</strong>: MetaGPT 소스 코드는 <a href="https://github.com/FoundationAgents/MetaGPT" target="_blank">GitHub Repository</a>에서 확인 가능합니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#ai" class="page__taxonomy-item" rel="tag">AI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#framework" class="page__taxonomy-item" rel="tag">Framework</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#metagpt" class="page__taxonomy-item" rel="tag">MetaGPT</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#multi-agent" class="page__taxonomy-item" rel="tag">Multi-Agent</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-04-24">April 24, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/database/data-concurrency-lock/" class="pagination--pager" title="데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+">이전</a>
+    
+    
+      <a href="/spring/spring-cloud-config-vault/" class="pagination--pager" title="Spring Cloud Config Server와 Vault 통합을 이용한 분산 설정 관리
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-cloud-config-vault/" rel="permalink">Spring Cloud Config Server와 Vault 통합을 이용한 분산 설정 관리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 28 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Cloud Config Server와 HashiCorp Vault를 활용한 분산 환경에서의 안전한 설정 관리 방법을 학습합니다. 개념, 메커니즘, 차이점 및 실제 구현 예제를 포함합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/database/data-concurrency-lock/" rel="permalink">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 18 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-boot-database-replica-configuration/" rel="permalink">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 09 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/llm-coding-agent-prompt/" rel="permalink">LLM, 코딩 에이전트, Prompt 종합 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 06 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM(Large Language Model)과 코딩 에이전트의 개념부터 활용까지 - Prompt Engineering을 중심으로 한 완벽한 종합 가이드
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

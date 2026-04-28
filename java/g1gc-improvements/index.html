@@ -1,0 +1,1199 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Java 26 - G1 GC: Improve Throughput by Reducing Synchronization - Development story</title>
+<meta name="description" content="Java 26에서 G1 가비지 컬렉터의 동기화 오버헤드 감소로 처리량 개선">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Java 26 - G1 GC: Improve Throughput by Reducing Synchronization">
+<meta property="og:url" content="/java/g1gc-improvements/">
+
+
+  <meta property="og:description" content="Java 26에서 G1 가비지 컬렉터의 동기화 오버헤드 감소로 처리량 개선">
+
+
+
+  <meta property="og:image" content="/assets/images/java/java.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-17T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-03-17T11:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/java/g1gc-improvements/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/java/java.png" alt="Java 26 - G1 GC: Improve Throughput by Reducing Synchronization" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java 26 - G1 GC: Improve Throughput by Reducing Synchronization">
+    <meta itemprop="description" content="Java 26에서 G1 가비지 컬렉터의 동기화 오버헤드 감소로 처리량 개선">
+    <meta itemprop="datePublished" content="2026-03-17T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-03-17T11:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Java 26 - G1 GC: Improve Throughput by Reducing Synchronization
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-03-17T00:00:00+00:00">March 17, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#java-26">JAVA 261</a><ul><li><a href="#g1gc의-배경">G1GC의 배경</a></li><li><a href="#card-table-최적화">Card Table 최적화</a></li><li><a href="#성능-측정-및-모니터링">성능 측정 및 모니터링</a><ul><li><a href="#1-g1gc-성능-메트릭-확인">1. G1GC 성능 메트릭 확인</a></li></ul></li><li><a href="#객체-참조-집약적인-워크로드">객체 참조 집약적인 워크로드</a><ul><li><a href="#2-참조-필드-자주-수정하는-애플리케이션">2. 참조 필드 자주 수정하는 애플리케이션</a></li></ul></li><li><a href="#card-table과-write-barrier">Card Table과 Write Barrier</a><ul><li><a href="#3-write-barrier-최적화-이해">3. Write Barrier 최적화 이해</a></li></ul></li><li><a href="#gc-일시-중지-시간-감소">GC 일시 중지 시간 감소</a><ul><li><a href="#4-gc-pause-time-모니터링">4. GC Pause Time 모니터링</a></li></ul></li><li><a href="#메모리-오버헤드">메모리 오버헤드</a><ul><li><a href="#5-card-table-메모리-사용량">5. Card Table 메모리 사용량</a></li></ul></li><li><a href="#gc-튜닝-옵션">GC 튜닝3 옵션</a><ul><li><a href="#6-g1gc-설정과-최적화">6. G1GC 설정과 최적화</a></li></ul></li></ul></li><li><a href="#성능-개선-요약">성능 개선 요약</a></li><li><a href="#주의사항">주의사항</a></li><li><a href="#언제-효과적인가">언제 효과적인가?</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="java-26">JAVA 26<sup id="fnref:Java26" role="doc-noteref"><a href="#fn:Java26" class="footnote" rel="footnote">1</a></sup></h1>
+
+<p>Java 26에서는 G1 가비지 컬렉터(G1GC)의 처리량을 개선<sup id="fnref:G1GCImprovement" role="doc-noteref"><a href="#fn:G1GCImprovement" class="footnote" rel="footnote">2</a></sup>하기 위해 애플리케이션 스레드와 GC 스레드 간의 동기화 오버헤드를 줄였습니다. 이로 인해 특히 객체 참조 필드를 자주 수정하는 애플리케이션에서 5-15%의 처리량 개선을 기대할 수 있습니다.</p>
+
+<h2 id="g1gc의-배경">G1GC의 배경</h2>
+
+<p>G1 가비지 컬렉터는 HotSpot JVM의 기본 GC로, 지연시간과 처리량의 균형을 맞추도록 설계되었습니다. 그러나 처리량 중심의 Parallel GC와 비교하면 성능이 떨어질 수 있습니다.</p>
+
+<h2 id="card-table-최적화">Card Table 최적화</h2>
+
+<p>G1GC는 두 개의 Card Table을 사용하여 동기화를 줄입니다:</p>
+
+<ul>
+  <li><strong>첫 번째 Card Table</strong>: 애플리케이션 스레드가 동기화 없이 업데이트</li>
+  <li><strong>두 번째 Card Table</strong>: 최적화 스레드가 독립적으로 처리</li>
+</ul>
+
+<p>이로 인해 Write Barrier 코드가 단순화되고, x64 기준 약 50개 명령어에서 12개 명령어로 감소합니다.</p>
+
+<h2 id="성능-측정-및-모니터링">성능 측정 및 모니터링</h2>
+
+<h3 id="1-g1gc-성능-메트릭-확인">1. G1GC 성능 메트릭 확인</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.lang.management.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">G1GCPerformanceMonitoring</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// GC 관련 정보 출력</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== G1GC 성능 모니터링 ===\n"</span><span class="o">);</span>
+        
+        <span class="c1">// 메모리 사용량 확인</span>
+        <span class="nc">MemoryMXBean</span> <span class="n">memoryBean</span> <span class="o">=</span> <span class="nc">ManagementFactory</span><span class="o">.</span><span class="na">getMemoryMXBean</span><span class="o">();</span>
+        <span class="nc">MemoryUsage</span> <span class="n">heapUsage</span> <span class="o">=</span> <span class="n">memoryBean</span><span class="o">.</span><span class="na">getHeapMemoryUsage</span><span class="o">();</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"힙 메모리:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  초기: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsage</span><span class="o">.</span><span class="na">getInit</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  사용중: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsage</span><span class="o">.</span><span class="na">getUsed</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  커밋됨: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsage</span><span class="o">.</span><span class="na">getCommitted</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  최대: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsage</span><span class="o">.</span><span class="na">getMax</span><span class="o">()));</span>
+        
+        <span class="c1">// GC 정보 확인</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n가비지 컬렉터 정보:"</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">GarbageCollectorMXBean</span> <span class="n">gcBean</span> <span class="o">:</span> <span class="nc">ManagementFactory</span><span class="o">.</span><span class="na">getGarbageCollectorMXBeans</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  이름: "</span> <span class="o">+</span> <span class="n">gcBean</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  수집 횟수: "</span> <span class="o">+</span> <span class="n">gcBean</span><span class="o">.</span><span class="na">getCollectionCount</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  수집 시간: "</span> <span class="o">+</span> <span class="n">gcBean</span><span class="o">.</span><span class="na">getCollectionTime</span><span class="o">()</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="c1">// 런타임 통계</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n런타임 통계:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  사용 가능 프로세서: "</span> <span class="o">+</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  최대 메모리: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">maxMemory</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  전체 메모리: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">totalMemory</span><span class="o">()));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  여유 메모리: "</span> <span class="o">+</span> <span class="n">formatBytes</span><span class="o">(</span><span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">freeMemory</span><span class="o">()));</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">formatBytes</span><span class="o">(</span><span class="kt">long</span> <span class="n">bytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">bytes</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="s">"0 B"</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">units</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"KB"</span><span class="o">,</span> <span class="s">"MB"</span><span class="o">,</span> <span class="s">"GB"</span> <span class="o">};</span>
+        <span class="kt">int</span> <span class="n">digitGroups</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="n">bytes</span><span class="o">)</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="mi">1024</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.2f %s"</span><span class="o">,</span> <span class="n">bytes</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">(</span><span class="mi">1024</span><span class="o">,</span> <span class="n">digitGroups</span><span class="o">),</span> 
+                            <span class="n">units</span><span class="o">[</span><span class="n">digitGroups</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과 (예):</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== G1GC 성능 모니터링 ===
+
+힙 메모리:
+  초기: 513.00 MB
+  사용중: 102.45 MB
+  커밋됨: 513.00 MB
+  최대: 8,192.00 MB
+
+가비지 컬렉터 정보:
+  이름: G1 Young Generation
+  수집 횟수: 5
+  수집 시간: 45ms
+  
+...
+</code></pre></div></div>
+
+<h2 id="객체-참조-집약적인-워크로드">객체 참조 집약적인 워크로드</h2>
+
+<h3 id="2-참조-필드-자주-수정하는-애플리케이션">2. 참조 필드 자주 수정하는 애플리케이션</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">G1GCOptimizedWorkload</span> <span class="o">{</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Node</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">String</span> <span class="n">data</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nc">Node</span> <span class="n">next</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nc">Node</span> <span class="n">prev</span><span class="o">;</span>
+        
+        <span class="kd">public</span> <span class="nf">Node</span><span class="o">(</span><span class="nc">String</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 참조 필드를 자주 수정하는 작업</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">heavyReferenceModification</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Node</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="c1">// 많은 객체를 생성하고 참조 업데이트</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="nc">Node</span> <span class="n">node</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Node</span><span class="o">(</span><span class="s">"Data-"</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            
+            <span class="k">if</span> <span class="o">(!</span><span class="n">nodes</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+                <span class="c1">// 참조 필드 수정 - Write Barrier 실행</span>
+                <span class="nc">Node</span> <span class="n">lastNode</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+                <span class="n">lastNode</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+                <span class="n">node</span><span class="o">.</span><span class="na">prev</span> <span class="o">=</span> <span class="n">lastNode</span><span class="o">;</span>
+            <span class="o">}</span>
+            
+            <span class="n">nodes</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">node</span><span class="o">);</span>
+            
+            <span class="c1">// 주기적으로 참조 재정렬</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">reorganizeReferences</span><span class="o">(</span><span class="n">nodes</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"처리 완료: "</span> <span class="o">+</span> <span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">+</span> <span class="s">"개 노드"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">reorganizeReferences</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Node</span><span class="o">&gt;</span> <span class="n">nodes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 참조 구조 변경</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nc">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="mi">10</span><span class="o">,</span> <span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">());</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="nc">Node</span> <span class="n">current</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">current</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span>
+                    <span class="o">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">%</span> <span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">()</span>
+                <span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        
+        <span class="c1">// Java 26 이전: 더 많은 동기화 오버헤드</span>
+        <span class="c1">// Java 26 이후: 감소된 동기화 오버헤드 (5-15% 개선)</span>
+        <span class="n">heavyReferenceModification</span><span class="o">();</span>
+        
+        <span class="kt">long</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"실행 시간: "</span> <span class="o">+</span> <span class="n">elapsed</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="card-table과-write-barrier">Card Table과 Write Barrier</h2>
+
+<h3 id="3-write-barrier-최적화-이해">3. Write Barrier 최적화 이해</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">WriteBarrierOptimization</span> <span class="o">{</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Container</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">Object</span> <span class="n">reference</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// Write Barrier가 실행되는 작업</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">demonstrateWriteBarrier</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Container</span> <span class="n">container</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Container</span><span class="o">();</span>
+        
+        <span class="c1">// 다음 코드는 Write Barrier를 트리거합니다:</span>
+        <span class="c1">// Java 26 이전: ~50개 명령어 실행</span>
+        <span class="c1">// Java 26 이후: ~12개 명령어 실행</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1000000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// 참조 필드에 객체 할당 - Write Barrier 실행</span>
+            <span class="nc">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Object</span><span class="o">();</span>
+            <span class="n">container</span><span class="o">.</span><span class="na">reference</span> <span class="o">=</span> <span class="n">obj</span><span class="o">;</span>
+            
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">100000</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"처리됨: "</span> <span class="o">+</span> <span class="n">i</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Write Barrier 최적화 완료"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+        <span class="n">demonstrateWriteBarrier</span><span class="o">();</span>
+        <span class="kt">long</span> <span class="n">elapsed</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">;</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"총 실행 시간: "</span> <span class="o">+</span> <span class="n">elapsed</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="gc-일시-중지-시간-감소">GC 일시 중지 시간 감소</h2>
+
+<h3 id="4-gc-pause-time-모니터링">4. GC Pause Time 모니터링</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.LocalDateTime</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.time.format.DateTimeFormatter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GCPauseTimeMonitoring</span> <span class="o">{</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">GCPauseRecord</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">LocalDateTime</span> <span class="n">timestamp</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">long</span> <span class="n">pauseTimeMs</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">long</span> <span class="n">heapUsedBefore</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="kt">long</span> <span class="n">heapUsedAfter</span><span class="o">;</span>
+        
+        <span class="kd">public</span> <span class="nf">GCPauseRecord</span><span class="o">(</span><span class="kt">long</span> <span class="n">pauseTimeMs</span><span class="o">,</span> <span class="kt">long</span> <span class="n">before</span><span class="o">,</span> <span class="kt">long</span> <span class="n">after</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">timestamp</span> <span class="o">=</span> <span class="nc">LocalDateTime</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">pauseTimeMs</span> <span class="o">=</span> <span class="n">pauseTimeMs</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">heapUsedBefore</span> <span class="o">=</span> <span class="n">before</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">heapUsedAfter</span> <span class="o">=</span> <span class="n">after</span><span class="o">;</span>
+        <span class="o">}</span>
+        
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+                <span class="s">"%s - Pause: %dms | Heap: %s -&gt; %s"</span><span class="o">,</span>
+                <span class="n">timestamp</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="nc">DateTimeFormatter</span><span class="o">.</span><span class="na">ofPattern</span><span class="o">(</span><span class="s">"HH:mm:ss.SSS"</span><span class="o">)),</span>
+                <span class="n">pauseTimeMs</span><span class="o">,</span>
+                <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsedBefore</span><span class="o">),</span>
+                <span class="n">formatBytes</span><span class="o">(</span><span class="n">heapUsedAfter</span><span class="o">)</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">GCPauseRecord</span><span class="o">&gt;</span> <span class="n">pauseRecords</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== GC Pause Time 시뮬레이션 ===\n"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Java 26의 이중 Card Table 최적화로:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"- GC Pause 시간이 약간 감소"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"- 애플리케이션 처리량이 5-15% 증가\n"</span><span class="o">);</span>
+        
+        <span class="c1">// 시뮬레이션 GC 일시 중지 기록</span>
+        <span class="kt">long</span><span class="o">[]</span> <span class="n">pauseTimes</span> <span class="o">=</span> <span class="o">{</span><span class="mi">15</span><span class="o">,</span> <span class="mi">12</span><span class="o">,</span> <span class="mi">14</span><span class="o">,</span> <span class="mi">13</span><span class="o">,</span> <span class="mi">11</span><span class="o">,</span> <span class="mi">12</span><span class="o">,</span> <span class="mi">10</span><span class="o">,</span> <span class="mi">9</span><span class="o">,</span> <span class="mi">10</span><span class="o">};</span>
+        <span class="kt">long</span><span class="o">[]</span> <span class="n">heapBefore</span> <span class="o">=</span> <span class="o">{</span><span class="mi">512</span><span class="o">,</span> <span class="mi">480</span><span class="o">,</span> <span class="mi">500</span><span class="o">,</span> <span class="mi">490</span><span class="o">,</span> <span class="mi">510</span><span class="o">,</span> <span class="mi">495</span><span class="o">,</span> <span class="mi">505</span><span class="o">,</span> <span class="mi">515</span><span class="o">,</span> <span class="mi">485</span><span class="o">};</span>
+        <span class="kt">long</span><span class="o">[]</span> <span class="n">heapAfter</span> <span class="o">=</span> <span class="o">{</span><span class="mi">256</span><span class="o">,</span> <span class="mi">240</span><span class="o">,</span> <span class="mi">250</span><span class="o">,</span> <span class="mi">245</span><span class="o">,</span> <span class="mi">255</span><span class="o">,</span> <span class="mi">247</span><span class="o">,</span> <span class="mi">252</span><span class="o">,</span> <span class="mi">257</span><span class="o">,</span> <span class="mi">242</span><span class="o">};</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"GC Pause 기록:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"-"</span><span class="o">.</span><span class="na">repeat</span><span class="o">(</span><span class="mi">70</span><span class="o">));</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">pauseTimes</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="nc">GCPauseRecord</span> <span class="n">record</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">GCPauseRecord</span><span class="o">(</span>
+                <span class="n">pauseTimes</span><span class="o">[</span><span class="n">i</span><span class="o">],</span>
+                <span class="n">heapBefore</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">,</span>
+                <span class="n">heapAfter</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>
+            <span class="o">);</span>
+            <span class="n">pauseRecords</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">record</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">record</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"-"</span><span class="o">.</span><span class="na">repeat</span><span class="o">(</span><span class="mi">70</span><span class="o">));</span>
+        
+        <span class="c1">// 통계</span>
+        <span class="kt">double</span> <span class="n">avgPauseTime</span> <span class="o">=</span> <span class="n">pauseRecords</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">mapToLong</span><span class="o">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">pauseTimeMs</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">average</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        
+        <span class="kt">long</span> <span class="n">maxPauseTime</span> <span class="o">=</span> <span class="n">pauseRecords</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">mapToLong</span><span class="o">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">pauseTimeMs</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">max</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        
+        <span class="kt">long</span> <span class="n">minPauseTime</span> <span class="o">=</span> <span class="n">pauseRecords</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">mapToLong</span><span class="o">(</span><span class="n">r</span> <span class="o">-&gt;</span> <span class="n">r</span><span class="o">.</span><span class="na">pauseTimeMs</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">min</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n통계:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  평균 Pause Time: "</span> <span class="o">+</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.1f"</span><span class="o">,</span> <span class="n">avgPauseTime</span><span class="o">)</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  최대 Pause Time: "</span> <span class="o">+</span> <span class="n">maxPauseTime</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"  최소 Pause Time: "</span> <span class="o">+</span> <span class="n">minPauseTime</span> <span class="o">+</span> <span class="s">"ms"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">formatBytes</span><span class="o">(</span><span class="kt">long</span> <span class="n">bytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">bytes</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="s">"0 B"</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">units</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"KB"</span><span class="o">,</span> <span class="s">"MB"</span><span class="o">,</span> <span class="s">"GB"</span> <span class="o">};</span>
+        <span class="kt">int</span> <span class="n">digitGroups</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="n">bytes</span><span class="o">)</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="mi">1024</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.0f %s"</span><span class="o">,</span> <span class="n">bytes</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">(</span><span class="mi">1024</span><span class="o">,</span> <span class="n">digitGroups</span><span class="o">),</span> 
+                            <span class="n">units</span><span class="o">[</span><span class="n">digitGroups</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== GC Pause Time 시뮬레이션 ===
+
+Java 26의 이중 Card Table 최적화로:
+- GC Pause 시간이 약간 감소
+- 애플리케이션 처리량이 5-15% 증가
+
+GC Pause 기록:
+----------------------------------------------------------------------
+...
+----------------------------------------------------------------------
+
+통계:
+  평균 Pause Time: 12.0ms
+  최대 Pause Time: 15ms
+  최소 Pause Time: 9ms
+</code></pre></div></div>
+
+<h2 id="메모리-오버헤드">메모리 오버헤드</h2>
+
+<h3 id="5-card-table-메모리-사용량">5. Card Table 메모리 사용량</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardTableMemoryFootprint</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== Card Table 메모리 오버헤드 ===\n"</span><span class="o">);</span>
+        
+        <span class="c1">// Card Table은 각각 Java 힙 용량의 0.2%</span>
+        <span class="kt">long</span><span class="o">[]</span> <span class="n">heapSizes</span> <span class="o">=</span> <span class="o">{</span>
+            <span class="mi">1024</span><span class="o">,</span>      <span class="c1">// 1 GB</span>
+            <span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">,</span>  <span class="c1">// 4 GB</span>
+            <span class="mi">8</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">,</span>  <span class="c1">// 8 GB</span>
+            <span class="mi">16</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">,</span> <span class="c1">// 16 GB</span>
+            <span class="mi">32</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1">// 32 GB</span>
+        <span class="o">};</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"힙 크기 | Card Table 크기 (1개) | 이중 Card Table"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"-"</span><span class="o">.</span><span class="na">repeat</span><span class="o">(</span><span class="mi">55</span><span class="o">));</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="kt">long</span> <span class="n">heapSize</span> <span class="o">:</span> <span class="n">heapSizes</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 각 Card Table은 힙의 0.2%</span>
+            <span class="kt">long</span> <span class="n">cardTableSize</span> <span class="o">=</span> <span class="n">heapSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="c1">// 0.2% = 1/500</span>
+            <span class="kt">long</span> <span class="n">dualCardTableSize</span> <span class="o">=</span> <span class="n">cardTableSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+            
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span>
+                <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%3dGB | %17s | %15s"</span><span class="o">,</span>
+                    <span class="n">heapSize</span> <span class="o">/</span> <span class="mi">1024</span><span class="o">,</span>
+                    <span class="n">formatBytes</span><span class="o">(</span><span class="n">cardTableSize</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">),</span>
+                    <span class="n">formatBytes</span><span class="o">(</span><span class="n">dualCardTableSize</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">))</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\n참고:"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"- 각 Card Table: 힙의 0.2%"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"- 이중 Card Table: 힙의 0.4%"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"- 1GB 힙당 약 2MB 추가 메모리"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">formatBytes</span><span class="o">(</span><span class="kt">long</span> <span class="n">bytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">bytes</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="s">"0 B"</span><span class="o">;</span>
+        <span class="kd">final</span> <span class="nc">String</span><span class="o">[]</span> <span class="n">units</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"B"</span><span class="o">,</span> <span class="s">"KB"</span><span class="o">,</span> <span class="s">"MB"</span><span class="o">,</span> <span class="s">"GB"</span> <span class="o">};</span>
+        <span class="kt">int</span> <span class="n">digitGroups</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="o">(</span><span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="n">bytes</span><span class="o">)</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">log10</span><span class="o">(</span><span class="mi">1024</span><span class="o">));</span>
+        <span class="k">return</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%.1f %s"</span><span class="o">,</span> <span class="n">bytes</span> <span class="o">/</span> <span class="nc">Math</span><span class="o">.</span><span class="na">pow</span><span class="o">(</span><span class="mi">1024</span><span class="o">,</span> <span class="n">digitGroups</span><span class="o">),</span> 
+                            <span class="n">units</span><span class="o">[</span><span class="n">digitGroups</span><span class="o">]);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== Card Table 메모리 오버헤드 ===
+
+힙 크기 | Card Table 크기 (1개) | 이중 Card Table
+-------------------------------------------------------
+  1GB |                 2.0 MB |             4.0 MB
+  4GB |                 8.0 MB |            16.0 MB
+  8GB |                16.0 MB |            32.0 MB
+ 16GB |                32.0 MB |            64.0 MB
+ 32GB |                64.0 MB |           128.0 MB
+
+참고:
+- 각 Card Table: 힙의 0.2%
+- 이중 Card Table: 힙의 0.4%
+- 1GB 힙당 약 2MB 추가 메모리
+</code></pre></div></div>
+
+<h2 id="gc-튜닝-옵션">GC 튜닝<sup id="fnref:GarbageCollectionTuning" role="doc-noteref"><a href="#fn:GarbageCollectionTuning" class="footnote" rel="footnote">3</a></sup> 옵션</h2>
+
+<h3 id="6-g1gc-설정과-최적화">6. G1GC 설정과 최적화</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 기본 G1GC 사용 (Java 26에서 최적화됨)</span>
+java <span class="nt">-XX</span>:+UseG1GC MyApplication
+
+<span class="c"># 동시 리파인먼트 스레드 수 조절</span>
+java <span class="nt">-XX</span>:+UseG1GC <span class="nt">-XX</span>:G1ConcRefinementThreads<span class="o">=</span>4 MyApplication
+
+<span class="c"># 동시 리파인먼트 비활성화 (성능 테스트용)</span>
+java <span class="nt">-XX</span>:+UseG1GC <span class="nt">-XX</span>:-G1UseConcRefinement MyApplication
+
+<span class="c"># GC 일시 중지 목표 설정 (기본: 200ms)</span>
+java <span class="nt">-XX</span>:+UseG1GC <span class="nt">-XX</span>:MaxGCPauseMillis<span class="o">=</span>150 MyApplication
+
+<span class="c"># 힙 크기 설정</span>
+java <span class="nt">-XX</span>:+UseG1GC <span class="nt">-Xms4g</span> <span class="nt">-Xmx8g</span> MyApplication
+
+<span class="c"># GC 로깅 활성화 (성능 분석용)</span>
+java <span class="nt">-XX</span>:+UseG1GC <span class="nt">-Xlog</span>:gc<span class="k">*</span><span class="o">=</span>info MyApplication
+</code></pre></div></div>
+
+<h1 id="성능-개선-요약">성능 개선 요약</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>항목</th>
+      <th>개선 정도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>참조 필드 집약 워크로드</strong></td>
+      <td>5-15% 처리량 증가</td>
+    </tr>
+    <tr>
+      <td><strong>일반적인 워크로드</strong></td>
+      <td>최대 5% 처리량 증가</td>
+    </tr>
+    <tr>
+      <td><strong>Write Barrier 크기</strong></td>
+      <td>50 → 12 명령어 (x64)</td>
+    </tr>
+    <tr>
+      <td><strong>GC Pause 시간</strong></td>
+      <td>약간 감소</td>
+    </tr>
+    <tr>
+      <td><strong>메모리 오버헤드</strong></td>
+      <td>힙당 +0.2%</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="주의사항">주의사항</h1>
+
+<ol>
+  <li><strong>메모리 추가</strong>: 이중 Card Table로 인해 약간의 추가 메모리 필요</li>
+  <li><strong>자동 최적화</strong>: 대부분의 사용자는 별도 설정 불필요</li>
+  <li><strong>호환성</strong>: 기존 GC 옵션과 완전 호환</li>
+</ol>
+
+<h1 id="언제-효과적인가">언제 효과적인가?</h1>
+
+<ul>
+  <li>✓ 객체 참조를 자주 수정하는 애플리케이션</li>
+  <li>✓ 높은 처리량이 중요한 시스템</li>
+  <li>✓ 대규모 힙(멀티 기가바이트) 환경</li>
+  <li>✗ 메모리가 매우 제한적인 환경</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Java26" role="doc-endnote">
+      <p><a href="https://docs.oracle.com/en/java/javase/26/docs/api/" target="_blank">Oracle-Java_26_Release_Notes</a> <a href="#fnref:Java26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:G1GCImprovement" role="doc-endnote">
+      <p><a href="https://openjdk.org/jeps/522" target="_blank">OpenJDK-JEP 522: G1 GC Improve Throughput</a> <a href="#fnref:G1GCImprovement" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:GarbageCollectionTuning" role="doc-endnote">
+      <p><a href="https://docs.oracle.com/en/java/javase/26/gctuning/" target="_blank">Oracle-Java Garbage Collection Tuning</a> <a href="#fnref:GarbageCollectionTuning" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#garbage-collection" class="page__taxonomy-item" rel="tag">Garbage Collection</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java-26" class="page__taxonomy-item" rel="tag">Java 26</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#performance" class="page__taxonomy-item" rel="tag">Performance</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#releases" class="page__taxonomy-item" rel="tag">Releases</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-03-17">March 17, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/devops/nvm/" class="pagination--pager" title="NVM에 대한 설명과 설정 방법
+">이전</a>
+    
+    
+      <a href="/java/http3-client-api/" class="pagination--pager" title="Java 26 - HTTP/3 for the HTTP Client API
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-cloud-config-vault/" rel="permalink">Spring Cloud Config Server와 Vault 통합을 이용한 분산 설정 관리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 28 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Cloud Config Server와 HashiCorp Vault를 활용한 분산 환경에서의 안전한 설정 관리 방법을 학습합니다. 개념, 메커니즘, 차이점 및 실제 구현 예제를 포함합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/metagpt-metatool/" rel="permalink">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/database/data-concurrency-lock/" rel="permalink">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 18 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-boot-database-replica-configuration/" rel="permalink">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 09 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

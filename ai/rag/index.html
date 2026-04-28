@@ -1,0 +1,1215 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>RAG (Retrieval-Augmented Generation) - Development story</title>
+<meta name="description" content="Retrieval-Augmented Generation의 개념, 메커니즘, 아키텍처, 주요 제품 및 구현 방법에 대해 학습합니다.">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="RAG (Retrieval-Augmented Generation)">
+<meta property="og:url" content="/ai/rag/">
+
+
+  <meta property="og:description" content="Retrieval-Augmented Generation의 개념, 메커니즘, 아키텍처, 주요 제품 및 구현 방법에 대해 학습합니다.">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/rag.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-03-30T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-03-30T20:32:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/rag/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+      <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/rag.png" alt="RAG (Retrieval-Augmented Generation)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="RAG (Retrieval-Augmented Generation)">
+    <meta itemprop="description" content="Retrieval-Augmented Generation의 개념, 메커니즘, 아키텍처, 주요 제품 및 구현 방법에 대해 학습합니다.">
+    <meta itemprop="datePublished" content="2026-03-30T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-03-30T20:32:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">RAG (Retrieval-Augmented Generation)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-03-30T00:00:00+00:00">March 30, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개념">개념</a><ul><li><a href="#rag란-무엇인가">RAG란 무엇인가?</a><ul><li><a href="#핵심-특징">핵심 특징</a></li><li><a href="#rag의-필요성">RAG의 필요성</a></li></ul></li></ul></li><li><a href="#메커니즘">메커니즘</a><ul><li><a href="#rag의-작동-원리">RAG의 작동 원리</a><ul><li><a href="#1-검색-단계-retrieval">1. 검색 단계 (Retrieval)</a></li><li><a href="#2-증강-단계-augmentation">2. 증강 단계 (Augmentation)</a></li><li><a href="#3-생성-단계-generation">3. 생성 단계 (Generation)</a></li></ul></li></ul></li><li><a href="#내부-구조">내부 구조</a><ul><li><a href="#rag-시스템의-구성-요소">RAG 시스템의 구성 요소</a><ul><li><a href="#주요-컴포넌트">주요 컴포넌트</a></li></ul></li></ul></li><li><a href="#주요-제품">주요 제품</a><ul><li><a href="#상용-솔루션">상용 솔루션</a><ul><li><a href="#1-langchain">1. LangChain</a></li><li><a href="#2-llamaindex">2. LlamaIndex</a></li><li><a href="#3-pinecone">3. Pinecone</a></li><li><a href="#4-weaviate">4. Weaviate</a></li><li><a href="#5-milvus">5. Milvus</a></li><li><a href="#6-haystack">6. Haystack</a></li></ul></li></ul></li><li><a href="#활용-샘플">활용 샘플</a><ul><li><a href="#사용-사례">사용 사례</a><ul><li><a href="#1-기술-문서-질의응답-qa">1. 기술 문서 질의응답 (Q&amp;A)</a></li><li><a href="#2-고객-지원-customer-support">2. 고객 지원 (Customer Support)</a></li><li><a href="#3-법률-및-의료-관련">3. 법률 및 의료 관련</a></li><li><a href="#4-뉴스-및-연구">4. 뉴스 및 연구</a></li></ul></li></ul></li><li><a href="#주요-코드">주요 코드</a><ul><li><a href="#1-langchain을-이용한-기본-rag-구현">1. LangChain을 이용한 기본 RAG 구현</a></li><li><a href="#2-llamaindex를-이용한-rag">2. LlamaIndex를 이용한 RAG</a></li><li><a href="#3-간단한-python-예제-로컬-임베딩-사용">3. 간단한 Python 예제 (로컬 임베딩 사용)</a></li><li><a href="#4-pinecone을-이용한-벡터-db-관리">4. Pinecone을 이용한 벡터 DB 관리</a></li></ul></li><li><a href="#동작-흐름-예제">동작 흐름 예제</a><ul><li><a href="#질문에서-답변까지의-전체-과정">질문에서 답변까지의 전체 과정</a><ul><li><a href="#step-1-임베딩">Step 1: 임베딩</a></li><li><a href="#step-2-검색">Step 2: 검색</a></li><li><a href="#step-3-증강">Step 3: 증강</a></li><li><a href="#step-4-생성">Step 4: 생성</a></li></ul></li></ul></li><li><a href="#구현-시-고려사항">구현 시 고려사항</a><ul><li><a href="#최적화-팁">최적화 팁</a><ul><li><a href="#1-문서-분할-chunking">1. 문서 분할 (Chunking)</a></li><li><a href="#2-검색-결과-개수">2. 검색 결과 개수</a></li><li><a href="#3-임베딩-모델-선택">3. 임베딩 모델 선택</a></li><li><a href="#4-하이브리드-검색">4. 하이브리드 검색</a></li></ul></li></ul></li><li><a href="#참조">참조</a><ul><li><a href="#공식-문서">공식 문서</a></li><li><a href="#학술-자료">학술 자료</a></li><li><a href="#커뮤니티-자료">커뮤니티 자료</a></li><li><a href="#관련-기술">관련 기술</a></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개념">개념</h1>
+
+<h2 id="rag란-무엇인가">RAG란 무엇인가?</h2>
+
+<p><strong>RAG (Retrieval-Augmented Generation)</strong>는 대규모 언어 모델(LLM)의 성능을 향상시키기 위해 검색(Retrieval) 단계를 생성(Generation) 단계 이전에 추가하는 방식입니다.</p>
+
+<h3 id="핵심-특징">핵심 특징</h3>
+
+<ul>
+  <li><strong>검색 기반</strong>: 외부 지식 베이스에서 관련 문서를 검색하여 활용</li>
+  <li><strong>생성 기반</strong>: 검색된 정보를 바탕으로 텍스트 생성</li>
+  <li><strong>정보 신뢰성 향상</strong>: 최신 정보와 도메인 특화 정보 활용 가능</li>
+  <li><strong>할루시네이션 감소</strong>: 검색된 문서 기반으로 생성하여 거짓 정보 생성 감소</li>
+</ul>
+
+<h3 id="rag의-필요성">RAG의 필요성</h3>
+
+<p>일반적인 LLM의 문제점을 해결합니다:</p>
+<ul>
+  <li><strong>오래된 정보</strong>: 학습 데이터 기준 이후의 정보 부재</li>
+  <li><strong>도메인 지식 부족</strong>: 특화된 분야 정보 제한</li>
+  <li><strong>할루시네이션</strong>: LLM이 존재하지 않는 정보 생성</li>
+  <li><strong>투명성 부족</strong>: 답변의 출처를 알 수 없음</li>
+</ul>
+
+<hr />
+
+<h1 id="메커니즘">메커니즘</h1>
+
+<h2 id="rag의-작동-원리">RAG의 작동 원리</h2>
+
+<p>RAG는 크게 3가지 단계로 동작합니다:</p>
+
+<h3 id="1-검색-단계-retrieval">1. 검색 단계 (Retrieval)</h3>
+
+<p>사용자의 질문(쿼리)을 받으면:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자 질문 → 쿼리 임베딩 → 유사도 검색 → 관련 문서 추출
+</code></pre></div></div>
+
+<p><strong>과정</strong>:</p>
+<ul>
+  <li>쿼리를 벡터로 변환 (Embedding)</li>
+  <li>벡터 데이터베이스에서 유사한 문서 검색</li>
+  <li>상위 K개 문서 선택</li>
+</ul>
+
+<h3 id="2-증강-단계-augmentation">2. 증강 단계 (Augmentation)</h3>
+
+<p>검색된 문서를 쿼리와 함께 프롬프트에 추가합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>프롬프트 = "다음 문서를 참고하여 질문에 답변하세요.\n문서: [검색 결과]\n질문: [사용자 질문]"
+</code></pre></div></div>
+
+<h3 id="3-생성-단계-generation">3. 생성 단계 (Generation)</h3>
+
+<p>LLM이 증강된 프롬프트를 입력받아 답변을 생성합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LLM(증강된 프롬프트) → 생성된 답변
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="내부-구조">내부 구조</h1>
+
+<h2 id="rag-시스템의-구성-요소">RAG 시스템의 구성 요소</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────────────────────┐
+│                  사용자 질문 입력                     │
+└────────────────────┬────────────────────────────────┘
+                     │
+                     ▼
+        ┌────────────────────────┐
+        │  쿼리 임베딩 변환        │
+        │ (Query Embedding)      │
+        └────────┬───────────────┘
+                 │
+                 ▼
+     ┌──────────────────────────┐
+     │   벡터 데이터베이스         │
+     │ (Vector Database)        │
+     │ [문서1] [문서2] [문서3]    │
+     └────────┬─────────────────┘
+              │
+              ▼
+  ┌────────────────────────────┐
+  │  유사 문서 검색 및 추출       │
+  │ (Semantic Search)          │
+  └────────┬───────────────────┘
+           │
+           ▼
+┌──────────────────────────────────┐
+│  프롬프트 증강                     │
+│ (Context + Query)                │
+└────────┬─────────────────────────┘
+         │
+         ▼
+  ┌──────────────────────────┐
+  │    LLM (언어 모델)        │
+  │  (GPT, Claude 등)        │
+  └────────┬─────────────────┘
+           │
+           ▼
+┌──────────────────────────────────┐
+│     생성된 답변 (최종 결과)         │
+└──────────────────────────────────┘
+</code></pre></div></div>
+
+<h3 id="주요-컴포넌트">주요 컴포넌트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>문서 저장소</strong></td>
+      <td>검색할 원본 문서 저장소</td>
+      <td>PDF, 웹 페이지, DB</td>
+    </tr>
+    <tr>
+      <td><strong>임베딩 모델</strong></td>
+      <td>텍스트를 벡터로 변환</td>
+      <td>sentence-transformers, OpenAI API</td>
+    </tr>
+    <tr>
+      <td><strong>벡터 DB</strong></td>
+      <td>임베딩된 벡터 저장 및 검색</td>
+      <td>Pinecone, Weaviate, Milvus</td>
+    </tr>
+    <tr>
+      <td><strong>검색 엔진</strong></td>
+      <td>유사도 기반 문서 검색</td>
+      <td>BM25, 코사인 유사도</td>
+    </tr>
+    <tr>
+      <td><strong>LLM</strong></td>
+      <td>최종 답변 생성</td>
+      <td>GPT-4, Claude, Llama</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="주요-제품">주요 제품</h1>
+
+<h2 id="상용-솔루션">상용 솔루션</h2>
+
+<h3 id="1-langchain">1. LangChain</h3>
+<ul>
+  <li><strong>특징</strong>: RAG 구현을 위한 프레임워크</li>
+  <li><strong>장점</strong>: 다양한 LLM 및 벡터 DB 지원, 풍부한 문서</li>
+  <li><strong>링크</strong>: <a href="https://www.langchain.com/" target="_blank">LangChain</a></li>
+</ul>
+
+<h3 id="2-llamaindex">2. LlamaIndex</h3>
+<ul>
+  <li><strong>특징</strong>: 데이터 인덱싱 및 쿼리 최적화</li>
+  <li><strong>장점</strong>: 다양한 데이터 소스 지원, 구조화된 인덱싱</li>
+  <li><strong>링크</strong>: <a href="https://www.llamaindex.ai/" target="_blank">LlamaIndex</a></li>
+</ul>
+
+<h3 id="3-pinecone">3. Pinecone</h3>
+<ul>
+  <li><strong>특징</strong>: 완전 관리형 벡터 데이터베이스</li>
+  <li><strong>장점</strong>: 확장성, 낮은 지연시간, 간편한 API</li>
+  <li><strong>링크</strong>: <a href="https://www.pinecone.io/" target="_blank">Pinecone</a></li>
+</ul>
+
+<h3 id="4-weaviate">4. Weaviate</h3>
+<ul>
+  <li><strong>특징</strong>: 오픈소스 벡터 데이터베이스</li>
+  <li><strong>장점</strong>: 자체 호스팅 가능, GraphQL API, 좋은 스케일링</li>
+  <li><strong>링크</strong>: <a href="https://weaviate.io/" target="_blank">Weaviate</a></li>
+</ul>
+
+<h3 id="5-milvus">5. Milvus</h3>
+<ul>
+  <li><strong>특징</strong>: 오픈소스 벡터 데이터베이스</li>
+  <li><strong>장점</strong>: 고성능, 다양한 인덱스 지원, 커뮤니티 지원</li>
+  <li><strong>링크</strong>: <a href="https://milvus.io/" target="_blank">Milvus</a></li>
+</ul>
+
+<h3 id="6-haystack">6. Haystack</h3>
+<ul>
+  <li><strong>특징</strong>: 오픈소스 검색 엔진 프레임워크</li>
+  <li><strong>장점</strong>: 유연한 파이프라인, 다양한 검색 방식 지원</li>
+  <li><strong>링크</strong>: <a href="https://deepset.ai/haystack" target="_blank">Haystack</a></li>
+</ul>
+
+<hr />
+
+<h1 id="활용-샘플">활용 샘플</h1>
+
+<h2 id="사용-사례">사용 사례</h2>
+
+<h3 id="1-기술-문서-질의응답-qa">1. 기술 문서 질의응답 (Q&amp;A)</h3>
+<ul>
+  <li>나만의 API 문서 기반 답변 시스템</li>
+  <li>회사 내부 문서 검색 시스템</li>
+</ul>
+
+<h3 id="2-고객-지원-customer-support">2. 고객 지원 (Customer Support)</h3>
+<ul>
+  <li>FAQ 기반 자동 답변</li>
+  <li>제품 매뉴얼 기반 지원</li>
+</ul>
+
+<h3 id="3-법률-및-의료-관련">3. 법률 및 의료 관련</h3>
+<ul>
+  <li>의료 기록 기반 진단 지원</li>
+  <li>법률 문서 검색 및 분석</li>
+</ul>
+
+<h3 id="4-뉴스-및-연구">4. 뉴스 및 연구</h3>
+<ul>
+  <li>최신 뉴스 기반 요약</li>
+  <li>학술 논문 기반 분석</li>
+</ul>
+
+<hr />
+
+<h1 id="주요-코드">주요 코드</h1>
+
+<h2 id="1-langchain을-이용한-기본-rag-구현">1. LangChain을 이용한 기본 RAG 구현</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain.document_loaders</span> <span class="kn">import</span> <span class="n">PyPDFLoader</span>
+<span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">CharacterTextSplitter</span>
+<span class="kn">from</span> <span class="nn">langchain.embeddings</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">RetrievalQA</span>
+<span class="kn">from</span> <span class="nn">langchain.llms</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="c1"># 1. 문서 로드
+</span><span class="n">loader</span> <span class="o">=</span> <span class="n">PyPDFLoader</span><span class="p">(</span><span class="s">"document.pdf"</span><span class="p">)</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+
+<span class="c1"># 2. 문서 분할
+</span><span class="n">text_splitter</span> <span class="o">=</span> <span class="n">CharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">splits</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="p">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="c1"># 3. 임베딩 및 벡터 DB 생성
+</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="p">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">splits</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="c1"># 4. 검색 및 생성
+</span><span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">()</span>
+<span class="n">qa_chain</span> <span class="o">=</span> <span class="n">RetrievalQA</span><span class="p">.</span><span class="n">from_chain_type</span><span class="p">(</span>
+    <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+    <span class="n">chain_type</span><span class="o">=</span><span class="s">"stuff"</span><span class="p">,</span>
+    <span class="n">retriever</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">.</span><span class="n">as_retriever</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># 5. 질의
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">qa_chain</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">"문서에 대해 설명해주세요"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-llamaindex를-이용한-rag">2. LlamaIndex를 이용한 RAG</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">llama_index</span> <span class="kn">import</span> <span class="n">SimpleDirectoryReader</span><span class="p">,</span> <span class="n">GPTVectorStoreIndex</span><span class="p">,</span> <span class="n">ServiceContext</span>
+<span class="kn">from</span> <span class="nn">llama_index.llms</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="c1"># 1. 문서 로드
+</span><span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="s">"./data"</span><span class="p">).</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="c1"># 2. 인덱스 생성
+</span><span class="n">service_context</span> <span class="o">=</span> <span class="n">ServiceContext</span><span class="p">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">OpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s">"gpt-4"</span><span class="p">))</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">GPTVectorStoreIndex</span><span class="p">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="p">,</span>
+    <span class="n">service_context</span><span class="o">=</span><span class="n">service_context</span>
+<span class="p">)</span>
+
+<span class="c1"># 3. 쿼리 엔진 생성
+</span><span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="p">.</span><span class="n">as_query_engine</span><span class="p">()</span>
+
+<span class="c1"># 4. 질의
+</span><span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">"제 질문은 무엇입니까?"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="3-간단한-python-예제-로컬-임베딩-사용">3. 간단한 Python 예제 (로컬 임베딩 사용)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="c1"># 1. 임베딩 모델 로드
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s">'all-MiniLM-L6-v2'</span><span class="p">)</span>
+
+<span class="c1"># 2. 문서 준비
+</span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s">"RAG는 검색 기반 생성 방식입니다."</span><span class="p">,</span>
+    <span class="s">"벡터 데이터베이스는 임베딩을 저장합니다."</span><span class="p">,</span>
+    <span class="s">"LLM은 대규모 언어 모델입니다."</span>
+<span class="p">]</span>
+
+<span class="c1"># 3. 문서 임베딩
+</span><span class="n">doc_embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">encode</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="c1"># 4. 쿼리 임베딩
+</span><span class="n">query</span> <span class="o">=</span> <span class="s">"RAG의 개념은 무엇인가?"</span>
+<span class="n">query_embedding</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="n">encode</span><span class="p">([</span><span class="n">query</span><span class="p">])</span>
+
+<span class="c1"># 5. 유사도 계산
+</span><span class="n">similarities</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">query_embedding</span><span class="p">,</span> <span class="n">doc_embeddings</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># 6. 상위 문서 선택
+</span><span class="n">top_idx</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">similarities</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"가장 유사한 문서: </span><span class="si">{</span><span class="n">documents</span><span class="p">[</span><span class="n">top_idx</span><span class="p">]</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"유사도 점수: </span><span class="si">{</span><span class="n">similarities</span><span class="p">[</span><span class="n">top_idx</span><span class="p">]:.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="4-pinecone을-이용한-벡터-db-관리">4. Pinecone을 이용한 벡터 DB 관리</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pinecone</span>
+<span class="kn">from</span> <span class="nn">langchain.embeddings.openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain.vectorstores</span> <span class="kn">import</span> <span class="n">Pinecone</span>
+<span class="kn">from</span> <span class="nn">langchain.chat_models</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span> <span class="nn">langchain.chains</span> <span class="kn">import</span> <span class="n">RetrievalQA</span>
+
+<span class="c1"># 1. Pinecone 초기화
+</span><span class="n">pinecone</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s">"YOUR_API_KEY"</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s">"us-west1-gcp"</span><span class="p">)</span>
+
+<span class="c1"># 2. 인덱스 생성
+</span><span class="n">pinecone</span><span class="p">.</span><span class="n">create_index</span><span class="p">(</span><span class="s">"rag-index"</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">1536</span><span class="p">)</span>
+
+<span class="c1"># 3. 임베딩 및 벡터 저장
+</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">Pinecone</span><span class="p">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="p">,</span>
+    <span class="n">embeddings</span><span class="p">,</span>
+    <span class="n">index_name</span><span class="o">=</span><span class="s">"rag-index"</span>
+<span class="p">)</span>
+
+<span class="c1"># 4. RAG 체인 구성
+</span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s">"gpt-4"</span><span class="p">)</span>
+<span class="n">qa</span> <span class="o">=</span> <span class="n">RetrievalQA</span><span class="p">.</span><span class="n">from_chain_type</span><span class="p">(</span>
+    <span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span>
+    <span class="n">chain_type</span><span class="o">=</span><span class="s">"stuff"</span><span class="p">,</span>
+    <span class="n">retriever</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">.</span><span class="n">as_retriever</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># 5. 질의
+</span><span class="n">answer</span> <span class="o">=</span> <span class="n">qa</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">"당신의 질문"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="동작-흐름-예제">동작 흐름 예제</h1>
+
+<h2 id="질문에서-답변까지의-전체-과정">질문에서 답변까지의 전체 과정</h2>
+
+<p><strong>질문</strong>: “RAG의 장점은 무엇인가요?”</p>
+
+<h3 id="step-1-임베딩">Step 1: 임베딩</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"RAG의 장점은 무엇인가요?" 
+→ [0.234, -0.123, 0.456, ...] (벡터)
+</code></pre></div></div>
+
+<h3 id="step-2-검색">Step 2: 검색</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>유사도 점수:
+- 문서 1: "RAG는 최신 정보를 활용합니다." (점수: 0.92)
+- 문서 2: "할루시네이션 감소에 효과적입니다." (점수: 0.88)
+- 문서 3: "벡터 DB는 임베딩을 저장합니다." (점수: 0.65)
+</code></pre></div></div>
+
+<h3 id="step-3-증강">Step 3: 증강</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>프롬프트:
+"다음 문서를 참고하여 질문에 답변하세요.
+
+문서:
+1. RAG는 최신 정보를 활용합니다.
+2. 할루시네이션 감소에 효과적입니다.
+
+질문: RAG의 장점은 무엇인가요?"
+</code></pre></div></div>
+
+<h3 id="step-4-생성">Step 4: 생성</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>답변: "RAG의 주요 장점은 다음과 같습니다:
+1. 최신 정보 활용: 검색을 통해 최신 정보 제공
+2. 할루시네이션 감소: 검색된 문서 기반으로 답변
+3. 투명성 향상: 답변의 출처 제시 가능
+..."
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="구현-시-고려사항">구현 시 고려사항</h1>
+
+<h2 id="최적화-팁">최적화 팁</h2>
+
+<h3 id="1-문서-분할-chunking">1. 문서 분할 (Chunking)</h3>
+<ul>
+  <li><strong>너무 작음</strong>: 충분한 컨텍스트 부족</li>
+  <li><strong>너무 큼</strong>: 무관한 정보 포함</li>
+  <li><strong>권장</strong>: 512~1024 토큰 범위</li>
+</ul>
+
+<h3 id="2-검색-결과-개수">2. 검색 결과 개수</h3>
+<ul>
+  <li><strong>적게</strong>: 필요한 정보 부족</li>
+  <li><strong>많게</strong>: 비용 증가, 생성 속도 저하</li>
+  <li><strong>권장</strong>: 3~5개 문서</li>
+</ul>
+
+<h3 id="3-임베딩-모델-선택">3. 임베딩 모델 선택</h3>
+<ul>
+  <li><strong>경량</strong>: 빠르지만 정확도 낮음</li>
+  <li><strong>대규모</strong>: 정확하지만 비용 높음</li>
+  <li><strong>권장</strong>: 도메인에 맞는 모델 선택</li>
+</ul>
+
+<h3 id="4-하이브리드-검색">4. 하이브리드 검색</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># BM25 + 의미적 유사도 결합
+</span><span class="n">hybrid_results</span> <span class="o">=</span> <span class="n">bm25_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="n">semantic_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="참조">참조</h1>
+
+<h2 id="공식-문서">공식 문서</h2>
+<ul>
+  <li><a href="https://python.langchain.com/" target="_blank">LangChain Documentation</a></li>
+  <li><a href="https://docs.llamaindex.ai/" target="_blank">LlamaIndex Documentation</a></li>
+  <li><a href="https://docs.pinecone.io/" target="_blank">Pinecone Documentation</a></li>
+  <li><a href="https://weaviate.io/developers/weaviate" target="_blank">Weaviate Documentation</a></li>
+</ul>
+
+<h2 id="학술-자료">학술 자료</h2>
+<ul>
+  <li><a href="https://arxiv.org/abs/2005.11401" target="_blank">RAG 원본 논문 - Lewis et al. 2020</a></li>
+  <li><a href="https://arxiv.org/abs/2005.11401" target="_blank">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</a></li>
+</ul>
+
+<h2 id="커뮤니티-자료">커뮤니티 자료</h2>
+<ul>
+  <li><a href="https://huggingface.co/docs/transformers/tasks/rag" target="_blank">Hugging Face - RAG Guide</a></li>
+  <li><a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank">OpenAI RAG Best Practices</a></li>
+</ul>
+
+<h2 id="관련-기술">관련 기술</h2>
+<ul>
+  <li><a href="https://platform.openai.com/docs/guides/embeddings" target="_blank">임베딩 (Embedding)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Vector_database" target="_blank">벡터 데이터베이스</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank">대규모 언어 모델 (LLM)</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#generativeai" class="page__taxonomy-item" rel="tag">GenerativeAI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#nlp" class="page__taxonomy-item" rel="tag">NLP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rag" class="page__taxonomy-item" rel="tag">RAG</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-03-30">March 30, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/model-context-protocol/" class="pagination--pager" title="Model Context Protocol - MCP
+">이전</a>
+    
+    
+      <a href="/ai/llm-coding-agent-prompt/" class="pagination--pager" title="LLM, 코딩 에이전트, Prompt 종합 가이드
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-cloud-config-vault/" rel="permalink">Spring Cloud Config Server와 Vault 통합을 이용한 분산 설정 관리
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 28 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Cloud Config Server와 HashiCorp Vault를 활용한 분산 환경에서의 안전한 설정 관리 방법을 학습합니다. 개념, 메커니즘, 차이점 및 실제 구현 예제를 포함합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/metagpt-metatool/" rel="permalink">MetaGPT &amp; MetaTool - LLM 기반 다중 에이전트 협력 프레임워크
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">LLM과 AI에서 사용하는 MetaTool 방식의 개념, 메커니즘, 내부 구조, 주요 제품과 활용 샘플을 종합적으로 정리한 가이드
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/database/data-concurrency-lock/" rel="permalink">데이터 동시성 제어 - 낙관락, 비관락, 분산락 (Java/Spring)
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 18 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java와 Spring을 사용한 데이터 동시성 제어. 낙관락(Optimistic Locking), 비관락(Pessimistic Locking), 분산락(Distributed Lock)의 개념, 메커니즘, 구현 방법을 상세히 설명합니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/spring/spring-boot-database-replica-configuration/" rel="permalink">Spring Boot Database Replica Configuration - Primary-Replica 구성과 Read-Write Transaction Routing
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> April 09 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Spring Boot에서 H2 Database를 사용하여 Primary-Replica 이중화 구성을 구현하고, AOP 기반의 Read-Write Transaction Routing으로 자동 데이터소스 라우팅을 실현하는 방법
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
