@@ -62,15 +62,15 @@ try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│              JVM Virtual Threads Scheduler           │
+│              JVM Virtual Threads Scheduler          │
 ├─────────────────────────────────────────────────────┤
-│  VThread 1   │  VThread 2   │  ...  │  VThread N   │
+│  VThread 1   │  VThread 2   │  ...  │  VThread N    │
 └────┬──────────────┬──────────────────┬──────────────┘
      │              │                  │
   ┌──▼──┐        ┌──▼──┐           ┌──▼──┐
   │Carr │        │Carr │           │Carr │
   │ Thread 1     │ Thread 2  ...   │ Thread M
-  └──────┘        └──────┘           └──────┘
+  └─────┘        └─────┘           └─────┘
      (Platform Threads - OS Level)
 ```
 
@@ -302,9 +302,9 @@ public synchronized void criticalSection() {
 정상 상황:
 ┌──────────────────┐
 │  VirtualThread 1 │ ──┐
-├──────────────────┤  │
+├──────────────────┤   │
 │  VirtualThread 2 │ ──┤─▶ Carrier Thread (번갈아가며 실행)
-├──────────────────┤  │
+├──────────────────┤   │
 │  VirtualThread 3 │ ──┘
 └──────────────────┘
 
