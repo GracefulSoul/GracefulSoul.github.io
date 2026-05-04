@@ -1,6 +1,6 @@
 # Our Docker image will be based on ruby:3-slim
 # it is a very light docker image.
-FROM ruby:3.2-slim
+FROM ruby:3.3-slim
 LABEL author="GracefulSoul"
 LABEL version="1.0.0"
 

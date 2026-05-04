@@ -5,7 +5,7 @@ gem "minimal-mistakes-jekyll"
 gem "jekyll", github: "jekyll/jekyll"
 gem "rake"
 gem "faraday"
-gem "nokogiri", ">= 1.14"
+gem "nokogiri", ">= 1.15"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.11"
