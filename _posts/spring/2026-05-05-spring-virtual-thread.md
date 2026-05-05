@@ -1,7 +1,7 @@
 ---
 title: "Spring Boot 4.0.5에서 VirtualThread 활용하기"
 excerpt: "Java 25 + Spring Boot 4.0.5 환경에서 Project Loom의 VirtualThread를 활용하는 방법을 소개합니다. VirtualThread의 개념, 메커니즘, Thread Pinning 문제 및 해결책을 실제 코드 예제와 함께 설명합니다."
-last_modified_at: 2026-05-05T10:00:00
+last_modified_at: 2026-05-05T09:40:00
 header:
   image: /assets/images/spring/virtual-thread-spring.png
 categories:
