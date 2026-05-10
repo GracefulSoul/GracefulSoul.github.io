@@ -1,6 +1,6 @@
 ---
-title: "Spring Boot 4.0.5에서 VirtualThread 활용하기"
-excerpt: "Java 25 + Spring Boot 4.0.5 환경에서 Project Loom의 VirtualThread를 활용하는 방법을 소개합니다. VirtualThread의 개념, 메커니즘, Thread Pinning 문제 및 해결책을 실제 코드 예제와 함께 설명합니다."
+title: "Java 25에서 VirtualThread 활용하기 - Spring Boot 3.2+ 설정"
+excerpt: "Java 25 환경에서 Spring Boot 3.2+의 VirtualThread를 활용하는 방법을 소개합니다. VirtualThread의 개념, 메커니즘, Thread Pinning 문제 및 해결책을 실제 코드 예제와 함께 설명하고, 올바른 설정 방법을 다룹니다."
 last_modified_at: 2026-05-05T09:40:00
 header:
   image: /assets/images/spring/virtual-thread-spring.png
@@ -418,29 +418,44 @@ public void criticalSection(int taskId) {
 
 ---
 
-# Spring Boot 4.0.5에서의 VirtualThread 지원
+# Spring Boot 3.2+에서의 VirtualThread 지원
 
-## 자동 설정
+## VirtualThread 활성화 방법
 
-Spring Boot 4.0.5부터는 VirtualThread를 기본적으로 지원합니다.
+Spring Boot 3.2부터 VirtualThread를 지원하기 시작했으며, **명시적으로 설정하여 활성화**해야 합니다.
+
+### VirtualThread 활성화 조건
+
+1. **Java 버전**: Java 21 이상 필요
+2. **Spring Boot 버전**: 3.2 이상 필수
+3. **명시적 설정**: `spring.threads.virtual.enabled=true` 필수
+4. **주의사항**: 커스텀 Executor Bean 사용 시 `setVirtualThreads(true)` 추가 필요
+
+> ⚠️ **중요**: 
+> - VirtualThread는 기본값으로 비활성화되어 있습니다.
+> - `application.yml` 설정만으로는 커스텀 Executor Bean에 적용되지 않습니다.
+> - 커스텀 Executor를 사용하면 `executor.setVirtualThreads(true)`를 명시적으로 설정해야 합니다.
 
 ### application.yml 설정
 
 ```yaml
+# VirtualThread 활성화 (필수)
 spring:
   application:
     name: spring-virtual-thread-sample
   threads:
     virtual:
-      enabled: true
+      enabled: true  # ← VirtualThread 활성화 (기본값: false)
 
+# Tomcat 스레드 풀 설정 (VirtualThread 사용 시 조정 가능)
 server:
   port: 8080
   tomcat:
     threads:
-      max: 200
+      max: 200        # VirtualThread 사용 시 중요도 감소
       min-spare: 10
 
+# 모니터링
 management:
   endpoints:
     web:
@@ -449,6 +464,183 @@ management:
   endpoint:
     health:
       show-details: always
+```
+
+## VirtualThread 활성화 방식 비교
+
+### 방식 1: 자동 설정 (권장) ⭐
+
+Executor Bean을 정의하지 않고 Spring Boot 자동 설정을 사용합니다.
+
+```java
+@SpringBootApplication
+@EnableAsync
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+    // Executor Bean 정의 없음 - Spring Boot가 자동으로 VirtualThread 적용
+}
+```
+
+@Async 사용:
+
+```java
+@Service
+public class AsyncService {
+    
+    @Async  // application.yml의 spring.threads.virtual.enabled=true가 자동 적용됨
+    public CompletableFuture<String> processAsync(int taskId) {
+        Thread current = Thread.currentThread();
+        System.out.println("IsVirtual: " + current.isVirtual());  // ✓ true
+        return CompletableFuture.completedFuture("Completed");
+    }
+}
+```
+
+**장점**:
+- 가장 간단한 방식
+- Spring Boot 자동 설정이 적용됨
+- 설정 오류 가능성 낮음
+
+### 방식 2: 명시적 Executor Bean 설정
+
+ThreadPoolTaskExecutor를 커스터마이징하면서 VirtualThread를 사용하려면 `setVirtualThreads(true)` 반드시 설정:
+
+```java
+@SpringBootApplication
+@EnableAsync
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+    @Bean(name = "virtualThreadExecutor")
+    public Executor virtualThreadExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        
+        // ⭐ 중요: VirtualThread 활성화 명시
+        executor.setVirtualThreads(true);
+        
+        // 선택적 커스텀 설정
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(100);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("virtual-thread-");
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        executor.setAwaitTerminationSeconds(60);
+        executor.initialize();
+        
+        return executor;
+    }
+}
+```
+
+@Async 사용:
+
+```java
+@Service
+public class AsyncService {
+    
+    @Async("virtualThreadExecutor")  // 명시적 Executor Bean 사용
+    public CompletableFuture<String> processAsync(int taskId) {
+        Thread current = Thread.currentThread();
+        System.out.println("IsVirtual: " + current.isVirtual());  // ✓ true
+        return CompletableFuture.completedFuture("Completed");
+    }
+}
+```
+
+**주의사항**:
+- `setVirtualThreads(true)` 반드시 설정 필요
+- 이 없으면 Platform Thread 사용됨
+- application.yml 설정만으로는 부족
+
+### 활성화 여부 확인
+
+```java
+@RestController
+@RequestMapping("/api")
+public class DebugController {
+    
+    @GetMapping("/check-thread")
+    public String checkThread() {
+        Thread current = Thread.currentThread();
+        boolean isVirtual = current.isVirtual();
+        
+        return String.format(
+            "Thread: %s\nVirtual: %s\nPlatform: %s",
+            current.getName(),
+            isVirtual ? "✓ YES" : "✗ NO",
+            !isVirtual ? "✓ YES (설정 확인 필요)" : "✗ NO"
+        );
+    }
+}
+```
+
+테스트:
+
+```bash
+curl http://localhost:8080/api/check-thread
+
+# 예상 출력 (VirtualThread 활성화된 경우):
+# Thread: virtual-thread-1
+# Virtual: ✓ YES
+# Platform: ✗ NO
+
+# 문제 있는 경우 (Platform Thread 사용):
+# Thread: pool-1-thread-1
+# Virtual: ✗ NO (설정 확인 필요)
+# Platform: ✓ YES
+```
+
+## 활성화 확인 및 문제 해결
+
+### 체크리스트
+
+| 항목 | 확인 사항 |
+|------|---------|
+| **Java 버전** | `java -version`으로 확인 (21 이상) |
+| **Spring Boot 버전** | `pom.xml`에서 버전 확인 (3.2 이상) |
+| **application.yml** | `spring.threads.virtual.enabled=true` 설정됨 |
+| **Executor Bean** | 커스텀 사용 시 `executor.setVirtualThreads(true)` 설정됨 |
+| **@EnableAsync** | 클래스에 어노테이션 추가됨 |
+| **로그 확인** | 애플리케이션 시작 로그 검토 |
+
+### 명시적 활성화 테스트
+
+```bash
+# 1. application.yml 설정 확인
+# spring.threads.virtual.enabled=true
+
+# 2. 애플리케이션 실행
+mvn spring-boot:run
+
+# 3. 로그 확인
+# 다음과 같은 메시지가 보여야 함:
+# "Virtual thread configuration enabled"
+
+# 4. 또는 명시적으로 환경변수로 활성화
+set SPRING_THREADS_VIRTUAL_ENABLED=true
+java -jar application.jar
+```
+
+### 문제 해결
+
+**문제**: Platform Thread로 실행되는 경우
+
+```bash
+# 원인 1: application.yml 설정 누락
+# 해결책: spring.threads.virtual.enabled=true 추가
+
+# 원인 2: 커스텀 Executor Bean에서 setVirtualThreads(true) 누락
+# 해결책: executor.setVirtualThreads(true) 추가
+
+# 원인 3: Spring Boot 버전 낮음
+# 해결책: pom.xml에서 버전 3.2 이상으로 업그레이드
+
+# 원인 4: Java 버전 낮음
+# 해결책: Java 21 이상 설치 확인
 ```
 
 ## RestController에서의 사용
@@ -743,14 +935,38 @@ Java 25:
 
 VirtualThread로 마이그레이션할 때 확인사항:
 
-- [ ] Java 버전 확인 (21 이상 필요)
-- [ ] Spring Boot 버전 확인 (3.2 이상 권장)
+## 필수 확인 항목
+
+- [ ] **Java 버전**: Java 21 이상 설치 확인
+- [ ] **Spring Boot 버전**: 3.2 이상 확인
+- [ ] **VirtualThread 활성화 설정**: `spring.threads.virtual.enabled=true` 추가
+- [ ] **설정 확인**: 애플리케이션 시작 로그에서 VirtualThread 활성화 메시지 확인
+
+## 마이그레이션 항목
+
 - [ ] synchronized 키워드 사용 검토
+  - Java 21: ReentrantLock으로 변경
+  - Java 24+: 대부분 최적화되지만 복잡한 로직은 ReentrantLock 권장
 - [ ] 외부 라이브러리의 VirtualThread 지원 확인
 - [ ] Thread Pinning 가능성 분석
-- [ ] 성능 테스트 수행
+- [ ] 성능 테스트 수행 (Platform Thread 대비 비교)
 - [ ] 모니터링 및 메트릭 설정
-- [ ] 점진적 마이그레이션 계획 수립
+- [ ] 점진적 마이그레이션 계획 수립 (부분 적용 후 확대)
+
+## 검증 코드
+
+VirtualThread가 정상 활성화되었는지 확인하는 테스트:
+
+```java
+@Test
+public void verifyVirtualThreadIsActive() {
+    Thread current = Thread.currentThread();
+    boolean isVirtual = current.isVirtual();
+    
+    assertTrue(isVirtual, "VirtualThread가 활성화되지 않았습니다. " +
+        "spring.threads.virtual.enabled=true를 확인하세요.");
+}
+```
 
 ---
 
@@ -1036,7 +1252,17 @@ VirtualThread는 Java 애플리케이션의 동시성 처리를 혁신적으로 
 | 24 | VirtualThread 사용, synchronized 일부 가능 |
 | 25+ | VirtualThread 사용, synchronized 대부분 가능 |
 
-Spring Boot 4.0.5 환경에서 VirtualThread를 적극 활용하면 높은 성능과 확장성을 갖춘 애플리케이션을 구축할 수 있습니다.
+## Spring Boot 지원 현황
+
+| Spring Boot 버전 | VirtualThread 지원 | 활성화 방법 |
+|-----------------|------------------|-----------|
+| 3.1 이하 | ✗ 미지원 | - |
+| 3.2 이상 | ✓ 지원 | `spring.threads.virtual.enabled=true` 설정 |
+| 4.0 이상 | ✓ 지원 | `spring.threads.virtual.enabled=true` 설정 |
+
+> **주의**: VirtualThread는 명시적으로 활성화해야 하며, 기본값으로는 Platform Thread를 사용합니다.
+
+Spring Boot 3.2 이상 환경에서 VirtualThread를 명시적으로 활성화하면 높은 성능과 확장성을 갖춘 애플리케이션을 구축할 수 있습니다.
 
 ---
 
