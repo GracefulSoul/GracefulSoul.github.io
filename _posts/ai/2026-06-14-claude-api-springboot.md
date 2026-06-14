@@ -303,7 +303,15 @@ public class CodeAnalysisService {
       code
     );
 
-    return claudeApiClient.sendMessage(prompt);
+    return claudeApiClient.sendMessage(prompt)
+      .map(response -> extractResponseText(response));
+  }
+
+  private String extractResponseText(ChatResponse response) {
+    if (response.getContent() != null && !response.getContent().isEmpty()) {
+      return response.getContent().get(0).getText();
+    }
+    return "No response content";
   }
 
   public Mono<String> generateTests(String code, String language) {
@@ -325,7 +333,8 @@ public class CodeAnalysisService {
       lang, lang, code
     );
 
-    return claudeApiClient.sendMessage(prompt);
+    return claudeApiClient.sendMessage(prompt)
+      .map(response -> extractResponseText(response));
   }
 
   public Mono<String> generateCode(String description, String language) {
@@ -341,6 +350,7 @@ public class CodeAnalysisService {
       lang, description
     );
 
+      .map(response -> extractResponseText(response))
     return claudeApiClient.sendMessage(prompt, 0.3, 2048);
   }
 }
