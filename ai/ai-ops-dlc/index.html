@@ -1,0 +1,2028 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드 - Development story</title>
+<meta name="description" content="AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드">
+<meta property="og:url" content="/ai/ai-ops-dlc/">
+
+
+  <meta property="og:description" content="AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/ai-ops-dlc.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-05-24T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-05-24T21:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/ai-ops-dlc/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/ai-ops-dlc.png" alt="AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드">
+    <meta itemprop="description" content="AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.">
+    <meta itemprop="datePublished" content="2026-05-24T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-05-24T21:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-05-24T00:00:00+00:00">May 24, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#서론">서론</a></li><li><a href="#1-ai-ops-aiops---인공지능-기반-it-운영">1. AI Ops (AIOps) - 인공지능 기반 IT 운영</a><ul><li><a href="#11-ai-ops의-정의">1.1 AI Ops의 정의</a><ul><li><a href="#핵심-목표">핵심 목표</a></li></ul></li><li><a href="#12-ai-ops의-주요-구성-요소">1.2 AI Ops의 주요 구성 요소</a></li><li><a href="#13-ai-ops의-작동-메커니즘">1.3 AI Ops의 작동 메커니즘</a></li><li><a href="#14-ai-ops의-주요-기능">1.4 AI Ops의 주요 기능</a><ul><li><a href="#이상-탐지-anomaly-detection">이상 탐지 (Anomaly Detection)</a></li><li><a href="#근본-원인-분석-rca">근본 원인 분석 (RCA)</a></li></ul></li><li><a href="#15-ai-ops의-실제-활용-사례">1.5 AI Ops의 실제 활용 사례</a><ul><li><a href="#사례-1-금융사의-시스템-장애-대응">사례 1: 금융사의 시스템 장애 대응</a></li><li><a href="#사례-2-통신사의-네트워크-최적화">사례 2: 통신사의 네트워크 최적화</a></li></ul></li></ul></li><li><a href="#2-ai-dlc-ai-data-labeling-cloud---클라우드-기반-데이터-라벨링">2. AI DLC (AI Data Labeling Cloud) - 클라우드 기반 데이터 라벨링</a><ul><li><a href="#21-ai-dlc의-정의">2.1 AI DLC의 정의</a><ul><li><a href="#핵심-개념">핵심 개념</a></li></ul></li><li><a href="#22-ai-dlc의-작동-프로세스">2.2 AI DLC의 작동 프로세스</a></li><li><a href="#23-ai-dlc의-라벨링-유형">2.3 AI DLC의 라벨링 유형</a><ul><li><a href="#이미지-라벨링">이미지 라벨링</a></li><li><a href="#텍스트-라벨링">텍스트 라벨링</a></li><li><a href="#비디오-라벨링">비디오 라벨링</a></li></ul></li><li><a href="#24-ai-dlc의-라벨링-방식">2.4 AI DLC의 라벨링 방식</a></li><li><a href="#25-aws-sagemaker-ground-truth-예제">2.5 AWS SageMaker Ground Truth 예제</a></li><li><a href="#26-ai-dlc-실제-활용-사례">2.6 AI DLC 실제 활용 사례</a><ul><li><a href="#사례-1-hyundai-autoever--superb-ai">사례 1: Hyundai Autoever + Superb AI</a></li><li><a href="#사례-2-samsung의-제조-공정-최적화">사례 2: Samsung의 제조 공정 최적화</a></li></ul></li></ul></li><li><a href="#3-ai-ops-vs-ai-dlc-관계와-차이점">3. AI Ops vs AI DLC: 관계와 차이점</a><ul><li><a href="#31-개념-비교표">3.1 개념 비교표</a></li><li><a href="#32-mlops-생태계에서의-역할">3.2 MLOps 생태계에서의 역할</a></li></ul></li><li><a href="#4-글로벌-주요-플랫폼-및-솔루션">4. 글로벌 주요 플랫폼 및 솔루션</a><ul><li><a href="#41-ai-ops-솔루션">4.1 AI Ops 솔루션</a></li><li><a href="#42-data-labeling-cloud-솔루션">4.2 Data Labeling Cloud 솔루션</a></li></ul></li><li><a href="#5-한국과-글로벌-활용-사례">5. 한국과 글로벌 활용 사례</a><ul><li><a href="#51-한국-기업-사례">5.1 한국 기업 사례</a><ul><li><a href="#superb-ai-한국-스타트업">Superb AI (한국 스타트업)</a></li><li><a href="#kepco-한국전력">KEPCO (한국전력)</a></li><li><a href="#lg-electronics">LG Electronics</a></li></ul></li><li><a href="#52-글로벌-기업-사례">5.2 글로벌 기업 사례</a></li></ul></li><li><a href="#6-기술-아키텍처-상세-분석">6. 기술 아키텍처 상세 분석</a><ul><li><a href="#61-ai-ops-시스템-아키텍처">6.1 AI Ops 시스템 아키텍처</a></li><li><a href="#62-ai-dlc-시스템-아키텍처">6.2 AI DLC 시스템 아키텍처</a></li></ul></li><li><a href="#7-주요-도구-및-기술-스택">7. 주요 도구 및 기술 스택</a><ul><li><a href="#71-ai-ops-기술-스택">7.1 AI Ops 기술 스택</a></li><li><a href="#72-ai-dlc-기술-스택">7.2 AI DLC 기술 스택</a></li></ul></li><li><a href="#8-도전과제-및-향후-전망">8. 도전과제 및 향후 전망</a><ul><li><a href="#81-ai-ops의-과제">8.1 AI Ops의 과제</a><ul><li><a href="#1-데이터-품질-문제">1. 데이터 품질 문제</a></li><li><a href="#2-모델-해석성-explainability">2. 모델 해석성 (Explainability)</a></li><li><a href="#3-레거시-시스템-통합">3. 레거시 시스템 통합</a></li></ul></li><li><a href="#82-ai-dlc의-과제">8.2 AI DLC의 과제</a><ul><li><a href="#1-비용-대비-품질">1. 비용 대비 품질</a></li><li><a href="#2-도메인-전문성-부족">2. 도메인 전문성 부족</a></li><li><a href="#3-데이터-편향-bias">3. 데이터 편향 (Bias)</a></li></ul></li><li><a href="#83-향후-트렌드-및-전망">8.3 향후 트렌드 및 전망</a><ul><li><a href="#1-생성형-ai-통합">1. 생성형 AI 통합</a></li><li><a href="#2-edge-ai-ops">2. Edge AI Ops</a></li><li><a href="#3-자동-라벨링-발전">3. 자동 라벨링 발전</a></li><li><a href="#4-통합-플랫폼화">4. 통합 플랫폼화</a></li></ul></li></ul></li><li><a href="#참조-references">참조 (References)</a><ul><li><a href="#요약">요약</a></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="서론">서론</h1>
+
+<p>AI 기술의 발전으로 기업들이 머신러닝 모델을 본격적으로 프로덕션 환경에 배포하고 있습니다. 하지만 모델을 배포한 후 <strong>지속적인 운영과 개선</strong>이라는 새로운 과제가 발생합니다. 동시에 <strong>고품질의 학습 데이터 확보</strong>는 모든 AI 프로젝트의 성패를 좌우하는 중요한 요소입니다.</p>
+
+<p>이 글에서는 이 두 가지 핵심 과제를 해결하는 <strong>AI Ops(AIOps)</strong>와 <strong>AI DLC(AI Data Labeling Cloud)</strong>에 대해 깊이 있게 다루겠습니다.</p>
+
+<hr />
+
+<h1 id="1-ai-ops-aiops---인공지능-기반-it-운영">1. AI Ops (AIOps) - 인공지능 기반 IT 운영</h1>
+
+<h2 id="11-ai-ops의-정의">1.1 AI Ops의 정의</h2>
+
+<p><strong>AI Ops(Artificial Intelligence for IT Operations)</strong>는 Gartner가 2016년 처음 정의한 개념으로, <strong>AI와 머신러닝을 활용하여 IT 운영을 자동화·최적화·효율화하는 기술 및 플랫폼</strong>입니다.</p>
+
+<h3 id="핵심-목표">핵심 목표</h3>
+<ul>
+  <li><strong>MTTD(Mean Time To Detect) 단축</strong>: 문제 감지 시간 15-20% 향상</li>
+  <li><strong>MTTR(Mean Time To Repair) 단축</strong>: 문제 해결 시간 대폭 감소</li>
+  <li><strong>운영 비용 절감</strong>: 자동화를 통한 수작업 감소</li>
+  <li><strong>사건 감소</strong>: 예측 분석으로 장애 전 예방</li>
+</ul>
+
+<h2 id="12-ai-ops의-주요-구성-요소">1.2 AI Ops의 주요 구성 요소</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>구성 요소</th>
+      <th>설명</th>
+      <th>예시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>데이터 수집 및 통합</strong></td>
+      <td>모니터링 도구, 로그, 메트릭, 이벤트 데이터 aggregation</td>
+      <td>Prometheus, Grafana, ELK Stack</td>
+    </tr>
+    <tr>
+      <td><strong>머신러닝/분석</strong></td>
+      <td>이상 탐지(Anomaly Detection), 근본 원인 분석(RCA)</td>
+      <td>TensorFlow, PyTorch</td>
+    </tr>
+    <tr>
+      <td><strong>이벤트 상관관계</strong></td>
+      <td>연관된 알림들을 연결하여 실제 문제 식별</td>
+      <td>패턴 매칭, 상관관계 분석</td>
+    </tr>
+    <tr>
+      <td><strong>예측 분석</strong></td>
+      <td>성능 저하, 장애 예측</td>
+      <td>시계열 분석, 회귀 모델</td>
+    </tr>
+    <tr>
+      <td><strong>자동화/오케스트레이션</strong></td>
+      <td>자동 대응, 워크플로우 자동 실행</td>
+      <td>Ansible, Terraform</td>
+    </tr>
+    <tr>
+      <td><strong>가시화 및 대시보드</strong></td>
+      <td>대시보드, 리포트 제공</td>
+      <td>Grafana, Kibana</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="13-ai-ops의-작동-메커니즘">1.3 AI Ops의 작동 메커니즘</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────────────────────────────────────────┐
+│  1. Data Collection Layer                        │
+│  시스템 로그, 메트릭, 이벤트 데이터 수집              │
+└──────────────────────────────────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────────┐
+│  2. Data Aggregation &amp; Normalization             │
+│  수집된 데이터를 표준화된 형식으로 변환                │
+└──────────────────────────────────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────────┐
+│  3. ML/Analytics Processing                      │
+│  • 이상 탐지 (Anomaly Detection)                  │
+│  • 근본 원인 분석 (RCA)                            │
+│  • 이벤트 상관관계 분석 (Event Correlation)         │
+│  • 예측 분석 (Predictive Analytics)               │
+└──────────────────────────────────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────────┐
+│  4. Automation &amp; Orchestration Layer             │
+│  • 알림 라우팅 (Alert Routing)                     │
+│  • 자동 복구 워크플로우 (Auto-Remediation)          │
+│  • 응답 자동화 (Response Automation)               │
+└──────────────────────────────────────────────────┘
+                       ↓
+┌──────────────────────────────────────────────────┐
+│   5. Visualization &amp; Human Interface             │
+│  대시보드, 리포트, 인시던트 관리 시스템               │
+└──────────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="14-ai-ops의-주요-기능">1.4 AI Ops의 주요 기능</h2>
+
+<h3 id="이상-탐지-anomaly-detection">이상 탐지 (Anomaly Detection)</h3>
+<p>비정상적인 성능 패턴을 자동으로 감지하여 알림을 발생시킵니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python + TensorFlow를 이용한 이상 탐지 예제
+</span><span class="kn">import</span> <span class="n">tensorflow</span> <span class="k">as</span> <span class="n">tf</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">create_autoencoder_model</span><span class="p">(</span><span class="n">input_dim</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">([</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,)),</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">),</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">),</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">),</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">relu</span><span class="sh">'</span><span class="p">),</span>
+        <span class="n">tf</span><span class="p">.</span><span class="n">keras</span><span class="p">.</span><span class="n">layers</span><span class="p">.</span><span class="nc">Dense</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="sh">'</span><span class="s">linear</span><span class="sh">'</span><span class="p">)</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">model</span>
+
+<span class="c1"># 정상 데이터로 학습
+</span><span class="n">normal_data</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="nf">create_autoencoder_model</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="sh">'</span><span class="s">adam</span><span class="sh">'</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="sh">'</span><span class="s">mse</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">model</span><span class="p">.</span><span class="nf">fit</span><span class="p">(</span><span class="n">normal_data</span><span class="p">,</span> <span class="n">normal_data</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 이상 탐지
+</span><span class="n">test_data</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>  <span class="c1"># 비정상 데이터
+</span><span class="n">reconstruction_error</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">square</span><span class="p">(</span><span class="n">test_data</span> <span class="o">-</span> <span class="n">model</span><span class="p">.</span><span class="nf">predict</span><span class="p">(</span><span class="n">test_data</span><span class="p">)))</span>
+
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># 임계값
+</span><span class="k">if</span> <span class="n">reconstruction_error</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">⚠️ 이상 탐지! 에러: </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">✅ 정상 상태. 에러: </span><span class="si">{</span><span class="n">reconstruction_error</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="근본-원인-분석-rca">근본 원인 분석 (RCA)</h3>
+<p>연관된 알림들을 분석하여 실제 문제의 근원을 파악합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이벤트 상관관계 분석 예제
+</span><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="k">class</span> <span class="nc">EventCorrelationAnalyzer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">time_window_seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">time_window</span> <span class="o">=</span> <span class="n">time_window_seconds</span>
+        
+    <span class="k">def</span> <span class="nf">add_event</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">event_type</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">events</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span>
+            <span class="sh">'</span><span class="s">id</span><span class="sh">'</span><span class="p">:</span> <span class="n">event_id</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">:</span> <span class="n">event_type</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">source</span><span class="sh">'</span><span class="p">:</span> <span class="n">source</span>
+        <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">find_correlated_events</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">시간 범위 내에서 관련 이벤트 찾기</span><span class="sh">"""</span>
+        <span class="n">correlated_groups</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">events</span><span class="p">):</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="p">[</span><span class="n">event</span><span class="p">]</span>
+            <span class="n">ref_time</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">]</span>
+            
+            <span class="k">for</span> <span class="n">other_event</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="n">time_diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">other_event</span><span class="p">[</span><span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">]</span> <span class="o">-</span> <span class="n">ref_time</span><span class="p">).</span><span class="nf">total_seconds</span><span class="p">()</span>
+                <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">time_diff</span> <span class="o">&lt;=</span> <span class="n">self</span><span class="p">.</span><span class="n">time_window</span><span class="p">:</span>
+                    <span class="n">group</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">other_event</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">correlated_groups</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">correlated_groups</span>
+    
+    <span class="k">def</span> <span class="nf">identify_root_cause</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">correlated_events</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">첫 번째 이벤트를 근본 원인으로 식별</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">correlated_events</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        
+        <span class="n">sorted_events</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">correlated_events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">])</span>
+        <span class="n">root_cause</span> <span class="o">=</span> <span class="n">sorted_events</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">root_cause</span><span class="sh">'</span><span class="p">:</span> <span class="n">root_cause</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">downstream_events</span><span class="sh">'</span><span class="p">:</span> <span class="n">sorted_events</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+            <span class="sh">'</span><span class="s">event_chain</span><span class="sh">'</span><span class="p">:</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">root_cause</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s"> → </span><span class="sh">"</span> <span class="o">+</span> 
+                         <span class="sh">"</span><span class="s"> → </span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">e</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sorted_events</span><span class="p">[</span><span class="mi">1</span><span class="p">:]])</span>
+        <span class="p">}</span>
+
+<span class="c1"># 사용 예제
+</span><span class="n">analyzer</span> <span class="o">=</span> <span class="nc">EventCorrelationAnalyzer</span><span class="p">(</span><span class="n">time_window_seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">add_event</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">High CPU Usage</span><span class="sh">"</span><span class="p">,</span> <span class="n">now</span><span class="p">,</span> <span class="sh">"</span><span class="s">server-1</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">add_event</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sh">"</span><span class="s">Memory Spike</span><span class="sh">"</span><span class="p">,</span> <span class="n">now</span> <span class="o">+</span> <span class="nf">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">30</span><span class="p">),</span> <span class="sh">"</span><span class="s">server-1</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">add_event</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="sh">"</span><span class="s">Slow Query</span><span class="sh">"</span><span class="p">,</span> <span class="n">now</span> <span class="o">+</span> <span class="nf">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">60</span><span class="p">),</span> <span class="sh">"</span><span class="s">database</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">analyzer</span><span class="p">.</span><span class="nf">add_event</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="sh">"</span><span class="s">Application Error</span><span class="sh">"</span><span class="p">,</span> <span class="n">now</span> <span class="o">+</span> <span class="nf">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">90</span><span class="p">),</span> <span class="sh">"</span><span class="s">app-server</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">correlated</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">.</span><span class="nf">find_correlated_events</span><span class="p">()</span>
+<span class="k">if</span> <span class="n">correlated</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">correlated</span><span class="p">:</span>
+        <span class="n">analysis</span> <span class="o">=</span> <span class="n">analyzer</span><span class="p">.</span><span class="nf">identify_root_cause</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">근본 원인: </span><span class="si">{</span><span class="n">analysis</span><span class="p">[</span><span class="sh">'</span><span class="s">root_cause</span><span class="sh">'</span><span class="p">][</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">이벤트 체인: </span><span class="si">{</span><span class="n">analysis</span><span class="p">[</span><span class="sh">'</span><span class="s">event_chain</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="15-ai-ops의-실제-활용-사례">1.5 AI Ops의 실제 활용 사례</h2>
+
+<h3 id="사례-1-금융사의-시스템-장애-대응">사례 1: 금융사의 시스템 장애 대응</h3>
+<ul>
+  <li><strong>상황</strong>: 매일 수천 개의 알림이 발생하며 수동 분류에 4-5시간 소요</li>
+  <li><strong>해결</strong>: AIOps를 통한 이벤트 상관관계 자동화</li>
+  <li><strong>결과</strong>:
+    <ul>
+      <li>실제 문제 식별 시간 <strong>90% 단축</strong></li>
+      <li>MTTR <strong>6시간 → 30분</strong></li>
+      <li>운영 팀의 업무 부담 <strong>50% 감소</strong></li>
+      <li>운영 비용 <strong>40% 절감</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="사례-2-통신사의-네트워크-최적화">사례 2: 통신사의 네트워크 최적화</h3>
+<ul>
+  <li><strong>상황</strong>: 네트워크 성능 저하 원인 파악에 시간 소요</li>
+  <li><strong>해결</strong>: 실시간 모니터링 + 머신러닝 기반 RCA</li>
+  <li><strong>결과</strong>:
+    <ul>
+      <li>장애 예측 정확도 <strong>85%</strong></li>
+      <li>고객 영향도 <strong>70% 감소</strong></li>
+      <li>네트워크 효율성 <strong>25% 향상</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="2-ai-dlc-ai-data-labeling-cloud---클라우드-기반-데이터-라벨링">2. AI DLC (AI Data Labeling Cloud) - 클라우드 기반 데이터 라벨링</h1>
+
+<h2 id="21-ai-dlc의-정의">2.1 AI DLC의 정의</h2>
+
+<p><strong>AI DLC(AI Data Labeling Cloud)</strong>는 <strong>머신러닝 모델 학습에 필요한 라벨링된 데이터를 클라우드 환경에서 대규모로 생성·관리하는 서비스</strong>입니다.</p>
+
+<h3 id="핵심-개념">핵심 개념</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>모델 성능 = 알고리즘 품질 + 데이터 품질
+
+라벨링된 데이터 품질이 모델 정확도의 70-80%를 결정합니다.
+</code></pre></div></div>
+
+<h2 id="22-ai-dlc의-작동-프로세스">2.2 AI DLC의 작동 프로세스</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────────────────────────────┐
+│  1. Raw Data Collection              │
+│  이미지, 비디오, 텍스트, 음성 수집       │
+└──────────────────────────────────────┘
+                  ↓
+┌──────────────────────────────────────┐
+│  2. Data Preprocessing               │
+│  • 크기 조정 (Resizing)               │
+│  • 형식 변환 (Format Conversion)      │
+│  • 품질 보증 (QA)                     │
+└──────────────────────────────────────┘
+                  ↓
+┌──────────────────────────────────────┐
+│  3. Labeling Assignment              │
+│  • 인간 주석자 (Human Annotators)      │
+│  • AI 지원 제안 (AI-Assisted)         │
+│  • 품질 관리 (QC)                     │
+└──────────────────────────────────────┘
+                  ↓
+┌──────────────────────────────────────┐
+│  4. Quality Review &amp; Validation      │
+│  라벨링 결과 검증 및 수정               │
+└──────────────────────────────────────┘
+                  ↓
+┌──────────────────────────────────────┐
+│  5. Labeled Dataset Output           │
+│  주석이 포함된 데이터셋 생성             │
+└──────────────────────────────────────┘
+                  ↓
+┌──────────────────────────────────────┐
+│  6. Model Training Pipeline          │
+│  지도 학습을 통한 모델 학습              │
+└──────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="23-ai-dlc의-라벨링-유형">2.3 AI DLC의 라벨링 유형</h2>
+
+<h3 id="이미지-라벨링">이미지 라벨링</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이미지 라벨링 데이터 구조
+</span><span class="n">image_annotation</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">image_id</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">img_001.jpg</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">width</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">height</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">annotations</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">bounding_box</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">car</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">],</span>  <span class="c1"># [x_min, y_min, x_max, y_max]
+</span>            <span class="sh">"</span><span class="s">confidence</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.95</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">bounding_box</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">person</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">500</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">700</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">confidence</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.92</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="sh">"</span><span class="s">segmentation</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">road</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">mask</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">encoded_mask_data</span><span class="sh">"</span>  <span class="c1"># PNG 또는 RLE 형식
+</span>        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># COCO 형식으로 변환
+</span><span class="kn">import</span> <span class="n">json</span>
+
+<span class="n">coco_format</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">images</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">file_name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">img_001.jpg</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">width</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span> <span class="sh">"</span><span class="s">height</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1080</span><span class="p">}</span>
+    <span class="p">],</span>
+    <span class="sh">"</span><span class="s">annotations</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">image_id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">category_id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">area</span><span class="sh">"</span><span class="p">:</span> <span class="mi">50000</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">iscrowd</span><span class="sh">"</span><span class="p">:</span> <span class="mi">0</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="sh">"</span><span class="s">categories</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">car</span><span class="sh">"</span><span class="p">},</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">person</span><span class="sh">"</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">coco_format</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="텍스트-라벨링">텍스트 라벨링</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 텍스트 분류 및 NER (Named Entity Recognition) 라벨링
+</span><span class="n">text_annotations</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Apple Inc.는 캘리포니아 쿠퍼티노에 본사를 두고 있습니다.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">labels</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">classification</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">business</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">confidence</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.98</span>
+            <span class="p">}</span>
+        <span class="p">],</span>
+        <span class="sh">"</span><span class="s">entities</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Apple Inc.</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">entity_type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">ORG</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">start</span><span class="sh">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">end</span><span class="sh">"</span><span class="p">:</span> <span class="mi">9</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">캘리포니아</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">entity_type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">LOC</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">start</span><span class="sh">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">end</span><span class="sh">"</span><span class="p">:</span> <span class="mi">19</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">쿠퍼티노</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">entity_type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">LOC</span><span class="sh">"</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">start</span><span class="sh">"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+                <span class="sh">"</span><span class="s">end</span><span class="sh">"</span><span class="p">:</span> <span class="mi">23</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="c1"># IoU 형식 (Inside-Outside-Begin)
+</span><span class="n">iob_format</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">Apple</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">B-ORG</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">Inc.</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">I-ORG</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">는</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">캘리포니아</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">B-LOC</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">에</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">쿠퍼티노</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">B-LOC</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">에</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">본사</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">O</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">iob_format</span><span class="p">:</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">word</span><span class="si">}</span><span class="se">\t</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="비디오-라벨링">비디오 라벨링</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 비디오 라벨링 구조
+</span><span class="n">video_annotation</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">video_id</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">video_001.mp4</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">duration_frames</span><span class="sh">"</span><span class="p">:</span> <span class="mi">3000</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">fps</span><span class="sh">"</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">width</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1920</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">height</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1080</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">tracks</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">track_id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">person</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">start_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">end_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">keyframes</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="sh">"</span><span class="s">frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="sh">"</span><span class="s">frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">150</span><span class="p">,</span> <span class="mi">140</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">380</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="sh">"</span><span class="s">frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">360</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">track_id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">class</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">car</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">start_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">end_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">keyframes</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="sh">"</span><span class="s">frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">600</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="sh">"</span><span class="s">frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">bbox</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="mi">700</span><span class="p">,</span> <span class="mi">280</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">480</span><span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="sh">"</span><span class="s">actions</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="sh">"</span><span class="s">start_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">end_frame</span><span class="sh">"</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">action</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">walking</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">actor_track_id</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">video_annotation</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="24-ai-dlc의-라벨링-방식">2.4 AI DLC의 라벨링 방식</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>방식</th>
+      <th>설명</th>
+      <th>장점</th>
+      <th>단점</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>수동 라벨링</strong></td>
+      <td>전문가가 직접 주석 작성</td>
+      <td>높은 정확도</td>
+      <td>시간과 비용 소모 많음</td>
+    </tr>
+    <tr>
+      <td><strong>반자동 라벨링</strong></td>
+      <td>AI가 1차 라벨링 후 인간이 검증</td>
+      <td>효율성과 정확도 균형</td>
+      <td>초기 모델 필요</td>
+    </tr>
+    <tr>
+      <td><strong>자동 라벨링</strong></td>
+      <td>AI가 자동으로 라벨 생성</td>
+      <td>매우 빠르고 저렴</td>
+      <td>정확도 낮음</td>
+    </tr>
+    <tr>
+      <td><strong>크라우드소싱</strong></td>
+      <td>다수의 온라인 워커 참여</td>
+      <td>빠르고 확장성 높음</td>
+      <td>품질 관리 어려움</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="25-aws-sagemaker-ground-truth-예제">2.5 AWS SageMaker Ground Truth 예제</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">boto3</span>
+<span class="kn">import</span> <span class="n">json</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># AWS SageMaker 클라이언트 생성
+</span><span class="n">sagemaker_client</span> <span class="o">=</span> <span class="n">boto3</span><span class="p">.</span><span class="nf">client</span><span class="p">(</span><span class="sh">'</span><span class="s">sagemaker</span><span class="sh">'</span><span class="p">,</span> <span class="n">region_name</span><span class="o">=</span><span class="sh">'</span><span class="s">us-east-1</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_labeling_job</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">라벨링 작업 생성</span><span class="sh">"""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">sagemaker_client</span><span class="p">.</span><span class="nf">create_labeling_job</span><span class="p">(</span>
+        <span class="n">LabelingJobName</span><span class="o">=</span><span class="sh">'</span><span class="s">image-classification-job-</span><span class="sh">'</span> <span class="o">+</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">().</span><span class="nf">strftime</span><span class="p">(</span><span class="sh">"</span><span class="s">%Y%m%d%H%M%S</span><span class="sh">"</span><span class="p">),</span>
+        <span class="n">LabelAttributeName</span><span class="o">=</span><span class="sh">'</span><span class="s">image-class</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">InputConfig</span><span class="o">=</span><span class="p">{</span>
+            <span class="sh">'</span><span class="s">DataSource</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">S3DataSource</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="sh">'</span><span class="s">ManifestFile</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">s3://my-bucket/manifest.json</span><span class="sh">'</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="n">OutputConfig</span><span class="o">=</span><span class="p">{</span>
+            <span class="sh">'</span><span class="s">S3OutputPath</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">s3://my-bucket/output/</span><span class="sh">'</span>
+        <span class="p">},</span>
+        <span class="n">RoleArn</span><span class="o">=</span><span class="sh">'</span><span class="s">arn:aws:iam::ACCOUNT_ID:role/SageMakerRole</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">LabelingJobAlgorithmsConfig</span><span class="o">=</span><span class="p">{</span>
+            <span class="sh">'</span><span class="s">LabelingJobAlgorithmSpecificationArn</span><span class="sh">'</span><span class="p">:</span> 
+                <span class="sh">'</span><span class="s">arn:aws:sagemaker:us-east-1:297974555149:labeling-job-algorithm-specification/image-classification</span><span class="sh">'</span>
+        <span class="p">},</span>
+        <span class="n">HumanTaskConfig</span><span class="o">=</span><span class="p">{</span>
+            <span class="sh">'</span><span class="s">WorkteamArn</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">arn:aws:sagemaker:us-east-1:ACCOUNT_ID:workteam/private-dc/my-workteam</span><span class="sh">'</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">UiConfig</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">HumanTaskUiArn</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">arn:aws:sagemaker:us-east-1:297974555149:human-task-ui/ImageClassification</span><span class="sh">'</span>
+            <span class="p">},</span>
+            <span class="sh">'</span><span class="s">PreHumanTaskLambdaArn</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">arn:aws:lambda:us-east-1:ACCOUNT_ID:function:PreProcessingLambda</span><span class="sh">'</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">AnnotationConsolidationConfig</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">AnnotationConsolidationLambdaArn</span><span class="sh">'</span><span class="p">:</span> 
+                    <span class="sh">'</span><span class="s">arn:aws:lambda:us-east-1:297974555149:function:AnnotationConsolidation</span><span class="sh">'</span>
+            <span class="p">},</span>
+            <span class="sh">'</span><span class="s">NumberOfHumanWorkersPerDataObject</span><span class="sh">'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">MaxConcurrentTaskCount</span><span class="sh">'</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">TaskAvailabilityLifetimeInSeconds</span><span class="sh">'</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">TaskTimeLimitInSeconds</span><span class="sh">'</span><span class="p">:</span> <span class="mi">3600</span>
+        <span class="p">},</span>
+        <span class="n">Tags</span><span class="o">=</span><span class="p">[</span>
+            <span class="p">{</span><span class="sh">'</span><span class="s">Key</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Project</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Value</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">ImageClassification</span><span class="sh">'</span><span class="p">},</span>
+            <span class="p">{</span><span class="sh">'</span><span class="s">Key</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Team</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Value</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">DataScience</span><span class="sh">'</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+<span class="k">def</span> <span class="nf">describe_labeling_job</span><span class="p">(</span><span class="n">job_name</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">라벨링 작업 상태 확인</span><span class="sh">"""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">sagemaker_client</span><span class="p">.</span><span class="nf">describe_labeling_job</span><span class="p">(</span>
+        <span class="n">LabelingJobName</span><span class="o">=</span><span class="n">job_name</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+<span class="k">def</span> <span class="nf">list_labeling_jobs</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">모든 라벨링 작업 조회</span><span class="sh">"""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">sagemaker_client</span><span class="p">.</span><span class="nf">list_labeling_jobs</span><span class="p">(</span>
+        <span class="n">SortOrder</span><span class="o">=</span><span class="sh">'</span><span class="s">Descending</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">SortBy</span><span class="o">=</span><span class="sh">'</span><span class="s">CreationTime</span><span class="sh">'</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">response</span>
+
+<span class="c1"># 사용 예제
+# job_response = create_labeling_job()
+# print(f"라벨링 작업 생성됨: {job_response['LabelingJobArn']}")
+</span></code></pre></div></div>
+
+<h2 id="26-ai-dlc-실제-활용-사례">2.6 AI DLC 실제 활용 사례</h2>
+
+<h3 id="사례-1-hyundai-autoever--superb-ai">사례 1: Hyundai Autoever + Superb AI</h3>
+<ul>
+  <li><strong>목표</strong>: 자동차 보안 카메라 시스템 개선</li>
+  <li><strong>과제</strong>: 야간, 극한 날씨, 다양한 카메라 유형 데이터 필요</li>
+  <li><strong>해결</strong>: Superb AI 합성 데이터 생성 기술 활용</li>
+  <li><strong>결과</strong>:
+    <ul>
+      <li>데이터 품질 <strong>기대치 초과</strong></li>
+      <li>모델 정확도 <strong>2년 단축</strong></li>
+      <li>라벨링 비용 <strong>60% 감소</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="사례-2-samsung의-제조-공정-최적화">사례 2: Samsung의 제조 공정 최적화</h3>
+<ul>
+  <li><strong>목표</strong>: 반도체 제조 결함 검출</li>
+  <li><strong>과제</strong>: 매일 수만 장의 웨이퍼 이미지 분석</li>
+  <li><strong>해결</strong>: 클라우드 기반 자동 라벨링</li>
+  <li><strong>결과</strong>:
+    <ul>
+      <li>결함 탐지 정확도 <strong>96%</strong> 달성</li>
+      <li>제조 시간 <strong>15% 단축</strong></li>
+      <li>불량률 <strong>70% 감소</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="3-ai-ops-vs-ai-dlc-관계와-차이점">3. AI Ops vs AI DLC: 관계와 차이점</h1>
+
+<h2 id="31-개념-비교표">3.1 개념 비교표</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>AI Ops</th>
+      <th>AI DLC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>목적</strong></td>
+      <td>IT 운영 최적화 및 자동화</td>
+      <td>ML 모델 학습 데이터 준비</td>
+    </tr>
+    <tr>
+      <td><strong>대상</strong></td>
+      <td>IT 인프라/시스템</td>
+      <td>머신러닝 모델</td>
+    </tr>
+    <tr>
+      <td><strong>주요 기능</strong></td>
+      <td>모니터링, 진단, 자동화</td>
+      <td>데이터 주석, 라벨링</td>
+    </tr>
+    <tr>
+      <td><strong>사용자</strong></td>
+      <td>IT Ops, DevOps 팀</td>
+      <td>데이터 사이언티스트, ML 엔지니어</td>
+    </tr>
+    <tr>
+      <td><strong>입력</strong></td>
+      <td>시스템 로그, 메트릭, 이벤트</td>
+      <td>원본 데이터 (이미지, 텍스트 등)</td>
+    </tr>
+    <tr>
+      <td><strong>출력</strong></td>
+      <td>인시던트 알림, 자동 조치</td>
+      <td>라벨링된 데이터셋</td>
+    </tr>
+    <tr>
+      <td><strong>구현 주기</strong></td>
+      <td>지속적인 운영</td>
+      <td>프로젝트 기반</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="32-mlops-생태계에서의-역할">3.2 MLOps 생태계에서의 역할</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌──────────────────────────────────────────────────────────┐
+│            Full MLOps Lifecycle                          │
+├──────────────────────────────────────────────────────────┤
+│                                                          │
+│  AI DLC        모델 개발    배포      AI Ops               │
+│ (데이터준비) → (학습/검증) → (프로덕션) → (모니터링/최적화)     │
+│                                                          │
+│  • 라벨링      • 특성 공학  • 컨테이너  • 성능 모니터링       │
+│  • QA          • 모델 선택  • 배포      • 이상 탐지         │
+│  • 버저닝      • 검증       • A/B 테스트 • 자동 복구         │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="4-글로벌-주요-플랫폼-및-솔루션">4. 글로벌 주요 플랫폼 및 솔루션</h1>
+
+<h2 id="41-ai-ops-솔루션">4.1 AI Ops 솔루션</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>플랫폼</th>
+      <th>주요 기능</th>
+      <th>특징</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ServiceNow AIOps</strong></td>
+      <td>ITSM 통합, 사건 감지</td>
+      <td>Gartner 리더, 엔터프라이즈급</td>
+    </tr>
+    <tr>
+      <td><strong>Splunk</strong></td>
+      <td>로그 분석, 이상 탐지</td>
+      <td>빅데이터 분석 강점</td>
+    </tr>
+    <tr>
+      <td><strong>Datadog</strong></td>
+      <td>모니터링, 인시던트 관리</td>
+      <td>클라우드 네이티브, 실시간 분석</td>
+    </tr>
+    <tr>
+      <td><strong>Dynatrace</strong></td>
+      <td>AI 기반 성능 모니터링</td>
+      <td>애플리케이션 성능 최적화</td>
+    </tr>
+    <tr>
+      <td><strong>Atera Networks</strong></td>
+      <td>원격 모니터링, 자동화</td>
+      <td>MSP(Managed Service Provider) 최적화</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="42-data-labeling-cloud-솔루션">4.2 Data Labeling Cloud 솔루션</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>플랫폼</th>
+      <th>출처</th>
+      <th>특징</th>
+      <th>규모</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Amazon SageMaker Ground Truth</strong></td>
+      <td>AWS</td>
+      <td>AWS 생태계 통합, 하이브리드 라벨링</td>
+      <td>대규모</td>
+    </tr>
+    <tr>
+      <td><strong>Google Vertex AI Data Labeling</strong></td>
+      <td>Google Cloud</td>
+      <td>엔터프라이즈급, 높은 자동화</td>
+      <td>중~대규모</td>
+    </tr>
+    <tr>
+      <td><strong>Microsoft Azure ML Data Labeling</strong></td>
+      <td>Azure</td>
+      <td>Azure 네이티브, 보안 강화</td>
+      <td>중규모</td>
+    </tr>
+    <tr>
+      <td><strong>Superb AI</strong></td>
+      <td>한국 (서울)</td>
+      <td>산업용 AI, Video Analysis 강점</td>
+      <td>중규모</td>
+    </tr>
+    <tr>
+      <td><strong>Amazon Mechanical Turk</strong></td>
+      <td>AWS</td>
+      <td>크라우드소싱 마켓플레이스</td>
+      <td>초소규모~중규모</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="5-한국과-글로벌-활용-사례">5. 한국과 글로벌 활용 사례</h1>
+
+<h2 id="51-한국-기업-사례">5.1 한국 기업 사례</h2>
+
+<h3 id="superb-ai-한국-스타트업">Superb AI (한국 스타트업)</h3>
+<ul>
+  <li><strong>정의</strong>: “AI를 민주화하다” - 산업용 AI 플랫폼</li>
+  <li><strong>인정</strong>: 한국 국가 AI 챔피언 선정 (최고 등급)</li>
+  <li><strong>파트너십</strong>: NVIDIA Physical AI 핵심 파트너, AWS 파트너 오브더이어</li>
+  <li><strong>주요 고객</strong>: Samsung, Kakao, NCSOFT, LG, Hyundai, Toyota, POSCO</li>
+  <li><strong>핵심 기술</strong>:
+    <ul>
+      <li>자동 라벨링 (Automated Labeling)</li>
+      <li>합성 데이터 생성 (Synthetic Data)</li>
+      <li>비디오 분석 (Video Analytics)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="kepco-한국전력">KEPCO (한국전력)</h3>
+<ul>
+  <li><strong>사례</strong>: 발전소 안전 진단 AI 시스템</li>
+  <li><strong>성과</strong>: 안전 문제 조기 발견률 95%</li>
+</ul>
+
+<h3 id="lg-electronics">LG Electronics</h3>
+<ul>
+  <li><strong>사례</strong>: 제조 공정 최적화 AI</li>
+  <li><strong>성과</strong>: 생산 효율 25% 향상</li>
+</ul>
+
+<h2 id="52-글로벌-기업-사례">5.2 글로벌 기업 사례</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>기업</th>
+      <th>분야</th>
+      <th>사례</th>
+      <th>결과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>T-Mobile</strong></td>
+      <td>통신</td>
+      <td>NLP 기반 고객 서비스 모델</td>
+      <td>고객 만족도 30% 증가</td>
+    </tr>
+    <tr>
+      <td><strong>AstraZeneca</strong></td>
+      <td>바이오</td>
+      <td>유전체 기초 모델 미세조정</td>
+      <td>신약 개발 시간 2년 단축</td>
+    </tr>
+    <tr>
+      <td><strong>NFL</strong></td>
+      <td>스포츠</td>
+      <td>헬멧 충돌 감지 AI</td>
+      <td>선수 안전성 향상</td>
+    </tr>
+    <tr>
+      <td><strong>Tyson Foods</strong></td>
+      <td>식품</td>
+      <td>컴퓨터 비전 자동화</td>
+      <td>생산성 40% 증가</td>
+    </tr>
+    <tr>
+      <td><strong>Toyota</strong></td>
+      <td>자동차</td>
+      <td>자동차 이미지 인식</td>
+      <td>품질 관리 최적화</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="6-기술-아키텍처-상세-분석">6. 기술 아키텍처 상세 분석</h1>
+
+<h2 id="61-ai-ops-시스템-아키텍처">6.1 AI Ops 시스템 아키텍처</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># AI Ops 시스템 구현 예제 (Python + Flask + Redis)
+</span>
+<span class="kn">from</span> <span class="n">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">import</span> <span class="n">redis</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="nc">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">redis_client</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="nc">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="sh">'</span><span class="s">localhost</span><span class="sh">'</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">6379</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">AIOpsSystem</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">alert_window_size</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">metrics_buffer</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">alerts</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="n">alert_window_size</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">2.0</span>
+        
+    <span class="k">def</span> <span class="nf">collect_metrics</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">timestamp</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">메트릭 수집</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">timestamp</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+        
+        <span class="n">metric_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">:</span> <span class="n">metric_name</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">value</span><span class="sh">'</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">.</span><span class="nf">isoformat</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">server</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">prod-server-1</span><span class="sh">'</span>
+        <span class="p">}</span>
+        
+        <span class="n">self</span><span class="p">.</span><span class="n">metrics_buffer</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">metric_data</span><span class="p">)</span>
+        <span class="n">redis_client</span><span class="p">.</span><span class="nf">lpush</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">metrics:</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="sh">'</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">metric_data</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">metric_data</span>
+    
+    <span class="k">def</span> <span class="nf">detect_anomaly</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">30</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">이상 탐지 - 통계 기반 방식</span><span class="sh">"""</span>
+        <span class="n">recent_metrics</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">metrics_buffer</span><span class="p">)[</span><span class="o">-</span><span class="n">window_size</span><span class="p">:]</span>
+        
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">recent_metrics</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">window_size</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+        
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="sh">'</span><span class="s">value</span><span class="sh">'</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">recent_metrics</span><span class="p">]</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">std</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        
+        <span class="n">current_value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">z_score</span> <span class="o">=</span> <span class="nf">abs</span><span class="p">((</span><span class="n">current_value</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">std</span><span class="p">)</span> <span class="k">if</span> <span class="n">std</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        
+        <span class="n">is_anomaly</span> <span class="o">=</span> <span class="n">z_score</span> <span class="o">&gt;</span> <span class="n">self</span><span class="p">.</span><span class="n">threshold</span>
+        
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">metric</span><span class="sh">'</span><span class="p">:</span> <span class="n">metric_name</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">is_anomaly</span><span class="sh">'</span><span class="p">:</span> <span class="n">is_anomaly</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">current_value</span><span class="sh">'</span><span class="p">:</span> <span class="n">current_value</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">mean</span><span class="sh">'</span><span class="p">:</span> <span class="nf">float</span><span class="p">(</span><span class="n">mean</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">std</span><span class="sh">'</span><span class="p">:</span> <span class="nf">float</span><span class="p">(</span><span class="n">std</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">z_score</span><span class="sh">'</span><span class="p">:</span> <span class="nf">float</span><span class="p">(</span><span class="n">z_score</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">().</span><span class="nf">isoformat</span><span class="p">()</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="n">is_anomaly</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">alerts</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">result</span>
+    
+    <span class="k">def</span> <span class="nf">get_correlated_alerts</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">연관된 알림 찾기</span><span class="sh">"""</span>
+        <span class="n">alert_list</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">alerts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">alert_list</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        
+        <span class="n">correlated</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alert1</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">alert_list</span><span class="p">):</span>
+            <span class="n">related</span> <span class="o">=</span> <span class="p">[</span><span class="n">alert1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">alert2</span> <span class="ow">in</span> <span class="n">alert_list</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]:</span>
+                <span class="c1"># 시간 범위 내 유사한 서버의 알림
+</span>                <span class="k">if</span> <span class="n">related</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="sh">'</span><span class="s">metric</span><span class="sh">'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">alert2</span><span class="p">[</span><span class="sh">'</span><span class="s">metric</span><span class="sh">'</span><span class="p">]:</span>
+                    <span class="n">related</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">alert2</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">related</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">correlated</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">related</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">correlated</span>
+    
+    <span class="k">def</span> <span class="nf">trigger_auto_remediation</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">자동 복구 트리거</span><span class="sh">"""</span>
+        <span class="n">remediation_action</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">alert_id</span><span class="sh">'</span><span class="p">:</span> <span class="nf">str</span><span class="p">(</span><span class="n">alert</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">action</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">auto_remediation_triggered</span><span class="sh">'</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">steps</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span>
+                <span class="sh">'</span><span class="s">restart_service</span><span class="sh">'</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">clear_cache</span><span class="sh">'</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">monitor_recovery</span><span class="sh">'</span>
+            <span class="p">],</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">().</span><span class="nf">isoformat</span><span class="p">()</span>
+        <span class="p">}</span>
+        
+        <span class="n">redis_client</span><span class="p">.</span><span class="nf">lpush</span><span class="p">(</span><span class="sh">'</span><span class="s">remediation_queue</span><span class="sh">'</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">remediation_action</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">remediation_action</span>
+
+<span class="c1"># 사용 예제
+</span><span class="n">aiops</span> <span class="o">=</span> <span class="nc">AIOpsSystem</span><span class="p">()</span>
+
+<span class="c1"># 정상 메트릭 수집
+</span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">aiops</span><span class="p">.</span><span class="nf">collect_metrics</span><span class="p">(</span><span class="sh">'</span><span class="s">cpu_usage</span><span class="sh">'</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">normal</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># 비정상 메트릭 수집
+</span><span class="n">aiops</span><span class="p">.</span><span class="nf">collect_metrics</span><span class="p">(</span><span class="sh">'</span><span class="s">cpu_usage</span><span class="sh">'</span><span class="p">,</span> <span class="mf">95.5</span><span class="p">)</span>
+<span class="n">aiops</span><span class="p">.</span><span class="nf">collect_metrics</span><span class="p">(</span><span class="sh">'</span><span class="s">cpu_usage</span><span class="sh">'</span><span class="p">,</span> <span class="mf">92.1</span><span class="p">)</span>
+
+<span class="c1"># 이상 탐지
+</span><span class="n">anomaly</span> <span class="o">=</span> <span class="n">aiops</span><span class="p">.</span><span class="nf">detect_anomaly</span><span class="p">(</span><span class="sh">'</span><span class="s">cpu_usage</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">이상 탐지 결과: </span><span class="si">{</span><span class="n">anomaly</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 연관 알림 분석
+</span><span class="n">correlated</span> <span class="o">=</span> <span class="n">aiops</span><span class="p">.</span><span class="nf">get_correlated_alerts</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">연관 알림: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">correlated</span><span class="p">)</span><span class="si">}</span><span class="s">개 그룹</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="62-ai-dlc-시스템-아키텍처">6.2 AI DLC 시스템 아키텍처</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># AI DLC 라벨링 시스템 구현 예제
+</span>
+<span class="kn">import</span> <span class="n">uuid</span>
+<span class="kn">from</span> <span class="n">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span> <span class="nc">LabelingStatus</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="sh">"</span><span class="s">pending</span><span class="sh">"</span>
+    <span class="n">IN_PROGRESS</span> <span class="o">=</span> <span class="sh">"</span><span class="s">in_progress</span><span class="sh">"</span>
+    <span class="n">COMPLETED</span> <span class="o">=</span> <span class="sh">"</span><span class="s">completed</span><span class="sh">"</span>
+    <span class="n">REJECTED</span> <span class="o">=</span> <span class="sh">"</span><span class="s">rejected</span><span class="sh">"</span>
+
+<span class="k">class</span> <span class="nc">AnnotationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">CLASSIFICATION</span> <span class="o">=</span> <span class="sh">"</span><span class="s">classification</span><span class="sh">"</span>
+    <span class="n">BOUNDING_BOX</span> <span class="o">=</span> <span class="sh">"</span><span class="s">bounding_box</span><span class="sh">"</span>
+    <span class="n">SEGMENTATION</span> <span class="o">=</span> <span class="sh">"</span><span class="s">segmentation</span><span class="sh">"</span>
+    <span class="n">KEYPOINT</span> <span class="o">=</span> <span class="sh">"</span><span class="s">keypoint</span><span class="sh">"</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">AnnotationData</span><span class="p">:</span>
+    <span class="n">annotation_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">AnnotationType</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">annotator_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">LabelingTask</span><span class="p">:</span>
+    <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">data_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">status</span><span class="p">:</span> <span class="n">LabelingStatus</span>
+    <span class="n">annotations</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AnnotationData</span><span class="p">]</span>
+    <span class="n">assigned_to</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">quality_score</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">created_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">completed_at</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">class</span> <span class="nc">AIDataLabelingCloud</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LabelingTask</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">workers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">quality_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">def</span> <span class="nf">create_labeling_task</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">data_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">annotation_type</span><span class="p">:</span> <span class="n">AnnotationType</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">라벨링 작업 생성</span><span class="sh">"""</span>
+        <span class="n">task_id</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">.</span><span class="nf">uuid4</span><span class="p">())</span>
+        <span class="n">task</span> <span class="o">=</span> <span class="nc">LabelingTask</span><span class="p">(</span>
+            <span class="n">task_id</span><span class="o">=</span><span class="n">task_id</span><span class="p">,</span>
+            <span class="n">data_id</span><span class="o">=</span><span class="n">data_id</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">LabelingStatus</span><span class="p">.</span><span class="n">PENDING</span><span class="p">,</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">[],</span>
+            <span class="n">created_at</span><span class="o">=</span><span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+        <span class="p">)</span>
+        
+        <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">task</span>
+        <span class="k">return</span> <span class="n">task</span>
+    
+    <span class="k">def</span> <span class="nf">assign_task</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">작업자에게 작업 할당</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">task_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Task </span><span class="si">{</span><span class="n">task_id</span><span class="si">}</span><span class="s"> not found</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="n">task</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span>
+        <span class="n">task</span><span class="p">.</span><span class="n">assigned_to</span> <span class="o">=</span> <span class="n">worker_id</span>
+        <span class="n">task</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">LabelingStatus</span><span class="p">.</span><span class="n">IN_PROGRESS</span>
+        
+        <span class="k">return</span> <span class="n">task</span>
+    
+    <span class="k">def</span> <span class="nf">submit_annotation</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">annotation_type</span><span class="p">:</span> <span class="n">AnnotationType</span><span class="p">,</span>
+                         <span class="n">annotation_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">주석 제출</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">task_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Task </span><span class="si">{</span><span class="n">task_id</span><span class="si">}</span><span class="s"> not found</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="n">task</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span>
+        <span class="n">annotation</span> <span class="o">=</span> <span class="nc">AnnotationData</span><span class="p">(</span>
+            <span class="n">annotation_id</span><span class="o">=</span><span class="nf">str</span><span class="p">(</span><span class="n">uuid</span><span class="p">.</span><span class="nf">uuid4</span><span class="p">()),</span>
+            <span class="nb">type</span><span class="o">=</span><span class="n">annotation_type</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">annotation_data</span><span class="p">,</span>
+            <span class="n">confidence</span><span class="o">=</span><span class="n">confidence</span><span class="p">,</span>
+            <span class="n">annotator_id</span><span class="o">=</span><span class="n">worker_id</span><span class="p">,</span>
+            <span class="n">created_at</span><span class="o">=</span><span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+        <span class="p">)</span>
+        
+        <span class="n">task</span><span class="p">.</span><span class="n">annotations</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">annotation</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">annotation</span>
+    
+    <span class="k">def</span> <span class="nf">complete_task</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">quality_score</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">작업 완료</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">task_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Task </span><span class="si">{</span><span class="n">task_id</span><span class="si">}</span><span class="s"> not found</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="n">task</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">[</span><span class="n">task_id</span><span class="p">]</span>
+        <span class="n">task</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">LabelingStatus</span><span class="p">.</span><span class="n">COMPLETED</span>
+        <span class="n">task</span><span class="p">.</span><span class="n">quality_score</span> <span class="o">=</span> <span class="n">quality_score</span>
+        <span class="n">task</span><span class="p">.</span><span class="n">completed_at</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span>
+        
+        <span class="n">self</span><span class="p">.</span><span class="nf">_update_worker_quality</span><span class="p">(</span><span class="n">task</span><span class="p">.</span><span class="n">assigned_to</span><span class="p">,</span> <span class="n">quality_score</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">task</span>
+    
+    <span class="k">def</span> <span class="nf">_update_worker_quality</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">작업자의 품질 점수 업데이트</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">worker_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">quality_metrics</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">quality_metrics</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">total_tasks</span><span class="sh">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">average_quality</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.0</span>
+            <span class="p">}</span>
+        
+        <span class="n">metrics</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">quality_metrics</span><span class="p">[</span><span class="n">worker_id</span><span class="p">]</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_tasks</span><span class="sh">'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">average_quality</span><span class="sh">'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">average_quality</span><span class="sh">'</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_tasks</span><span class="sh">'</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">score</span><span class="p">)</span> <span class="o">/</span>
+            <span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_tasks</span><span class="sh">'</span><span class="p">]</span>
+        <span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">get_labeling_statistics</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">라벨링 통계 조회</span><span class="sh">"""</span>
+        <span class="n">total_tasks</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">)</span>
+        <span class="n">pending</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span><span class="p">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">LabelingStatus</span><span class="p">.</span><span class="n">PENDING</span><span class="p">)</span>
+        <span class="n">in_progress</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span><span class="p">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">LabelingStatus</span><span class="p">.</span><span class="n">IN_PROGRESS</span><span class="p">)</span>
+        <span class="n">completed</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span><span class="p">.</span><span class="n">status</span> <span class="o">==</span> <span class="n">LabelingStatus</span><span class="p">.</span><span class="n">COMPLETED</span><span class="p">)</span>
+        
+        <span class="n">avg_quality</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">([</span><span class="n">t</span><span class="p">.</span><span class="n">quality_score</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">tasks</span><span class="p">.</span><span class="nf">values</span><span class="p">()</span> <span class="k">if</span> <span class="n">t</span><span class="p">.</span><span class="n">quality_score</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span> \
+                      <span class="k">if</span> <span class="n">completed</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">total_tasks</span><span class="sh">'</span><span class="p">:</span> <span class="n">total_tasks</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">pending</span><span class="sh">'</span><span class="p">:</span> <span class="n">pending</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">in_progress</span><span class="sh">'</span><span class="p">:</span> <span class="n">in_progress</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">completed</span><span class="sh">'</span><span class="p">:</span> <span class="n">completed</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">average_quality_score</span><span class="sh">'</span><span class="p">:</span> <span class="nf">float</span><span class="p">(</span><span class="n">avg_quality</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">completion_rate</span><span class="sh">'</span><span class="p">:</span> <span class="p">(</span><span class="n">completed</span> <span class="o">/</span> <span class="n">total_tasks</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">if</span> <span class="n">total_tasks</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        <span class="p">}</span>
+
+<span class="c1"># 사용 예제
+</span><span class="n">dlc</span> <span class="o">=</span> <span class="nc">AIDataLabelingCloud</span><span class="p">()</span>
+
+<span class="c1"># 라벨링 작업 생성
+</span><span class="n">task1</span> <span class="o">=</span> <span class="n">dlc</span><span class="p">.</span><span class="nf">create_labeling_task</span><span class="p">(</span><span class="sh">'</span><span class="s">image_001.jpg</span><span class="sh">'</span><span class="p">,</span> <span class="n">AnnotationType</span><span class="p">.</span><span class="n">BOUNDING_BOX</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">작업 생성: </span><span class="si">{</span><span class="n">task1</span><span class="p">.</span><span class="n">task_id</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 작업 할당
+</span><span class="n">dlc</span><span class="p">.</span><span class="nf">assign_task</span><span class="p">(</span><span class="n">task1</span><span class="p">.</span><span class="n">task_id</span><span class="p">,</span> <span class="sh">'</span><span class="s">worker_001</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">작업 할당됨: </span><span class="si">{</span><span class="n">task1</span><span class="p">.</span><span class="n">assigned_to</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 주석 제출
+</span><span class="n">annotation</span> <span class="o">=</span> <span class="n">dlc</span><span class="p">.</span><span class="nf">submit_annotation</span><span class="p">(</span>
+    <span class="n">task1</span><span class="p">.</span><span class="n">task_id</span><span class="p">,</span>
+    <span class="n">AnnotationType</span><span class="p">.</span><span class="n">BOUNDING_BOX</span><span class="p">,</span>
+    <span class="p">{</span><span class="sh">'</span><span class="s">bbox</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="sh">'</span><span class="s">class</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">car</span><span class="sh">'</span><span class="p">},</span>
+    <span class="mf">0.95</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">worker_001</span><span class="sh">'</span>
+<span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">주석 제출: </span><span class="si">{</span><span class="n">annotation</span><span class="p">.</span><span class="n">annotation_id</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 작업 완료
+</span><span class="n">dlc</span><span class="p">.</span><span class="nf">complete_task</span><span class="p">(</span><span class="n">task1</span><span class="p">.</span><span class="n">task_id</span><span class="p">,</span> <span class="n">quality_score</span><span class="o">=</span><span class="mf">0.92</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">작업 완료</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 통계 조회
+</span><span class="n">stats</span> <span class="o">=</span> <span class="n">dlc</span><span class="p">.</span><span class="nf">get_labeling_statistics</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">라벨링 통계: </span><span class="si">{</span><span class="n">stats</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="7-주요-도구-및-기술-스택">7. 주요 도구 및 기술 스택</h1>
+
+<h2 id="71-ai-ops-기술-스택">7.1 AI Ops 기술 스택</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># AI Ops 기술 스택</span>
+
+<span class="na">Data Collection</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Prometheus</span><span class="pi">:</span> <span class="s">메트릭 수집</span>
+  <span class="pi">-</span> <span class="na">Grafana</span><span class="pi">:</span> <span class="s">메트릭 시각화</span>
+  <span class="pi">-</span> <span class="na">ELK Stack</span><span class="pi">:</span> <span class="s">로그 수집 및 분석</span>
+  <span class="pi">-</span> <span class="na">Fluentd</span><span class="pi">:</span> <span class="s">로그 포워딩</span>
+  
+<span class="na">Machine Learning</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">TensorFlow</span><span class="pi">:</span> <span class="s">이상 탐지 모델</span>
+  <span class="pi">-</span> <span class="na">PyTorch</span><span class="pi">:</span> <span class="s">예측 분석</span>
+  <span class="pi">-</span> <span class="na">Scikit-learn</span><span class="pi">:</span> <span class="s">통계 분석</span>
+  <span class="pi">-</span> <span class="na">XGBoost</span><span class="pi">:</span> <span class="s">근본 원인 분석</span>
+  
+<span class="na">Data Processing</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Apache Spark</span><span class="pi">:</span> <span class="s">대규모 데이터 처리</span>
+  <span class="pi">-</span> <span class="na">Kafka</span><span class="pi">:</span> <span class="s">실시간 이벤트 스트림</span>
+  <span class="pi">-</span> <span class="na">Redis</span><span class="pi">:</span> <span class="s">실시간 데이터 캐싱</span>
+  
+<span class="na">Automation</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Ansible</span><span class="pi">:</span> <span class="s">자동 대응 실행</span>
+  <span class="pi">-</span> <span class="na">Terraform</span><span class="pi">:</span> <span class="s">인프라 자동화</span>
+  <span class="pi">-</span> <span class="na">Jenkins</span><span class="pi">:</span> <span class="s">CI/CD 자동화</span>
+  
+<span class="na">Container &amp; Orchestration</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Docker</span><span class="pi">:</span> <span class="s">컨테이너화</span>
+  <span class="pi">-</span> <span class="na">Kubernetes</span><span class="pi">:</span> <span class="s">컨테이너 오케스트레이션</span>
+  <span class="pi">-</span> <span class="na">Helm</span><span class="pi">:</span> <span class="s">Kubernetes 패키지 매니저</span>
+</code></pre></div></div>
+
+<h2 id="72-ai-dlc-기술-스택">7.2 AI DLC 기술 스택</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># AI DLC 기술 스택</span>
+
+<span class="na">Frontend</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">React</span><span class="pi">:</span> <span class="s">UI 개발</span>
+  <span class="pi">-</span> <span class="na">Vue.js</span><span class="pi">:</span> <span class="s">라벨링 인터페이스</span>
+  <span class="pi">-</span> <span class="na">Konva.js</span><span class="pi">:</span> <span class="s">캔버스 기반 드로잉</span>
+  <span class="pi">-</span> <span class="na">Video.js</span><span class="pi">:</span> <span class="s">비디오 플레이어</span>
+  
+<span class="na">Backend</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">Python</span><span class="pi">:</span> <span class="s">데이터 처리 로직</span>
+  <span class="pi">-</span> <span class="na">Node.js</span><span class="pi">:</span> <span class="s">실시간 업데이트</span>
+  <span class="pi">-</span> <span class="na">Go</span><span class="pi">:</span> <span class="s">고성능 처리</span>
+  <span class="pi">-</span> <span class="na">FastAPI</span><span class="pi">:</span> <span class="s">API 서버</span>
+  
+<span class="na">Database</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">PostgreSQL</span><span class="pi">:</span> <span class="s">메타데이터 저장</span>
+  <span class="pi">-</span> <span class="na">MongoDB</span><span class="pi">:</span> <span class="s">유연한 스키마</span>
+  <span class="pi">-</span> <span class="na">Elasticsearch</span><span class="pi">:</span> <span class="s">검색 최적화</span>
+  
+<span class="na">Storage</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">AWS S3</span><span class="pi">:</span> <span class="s">클라우드 스토리지</span>
+  <span class="pi">-</span> <span class="na">Google Cloud Storage</span><span class="pi">:</span> <span class="s">GCS</span>
+  <span class="pi">-</span> <span class="na">Azure Blob</span><span class="pi">:</span> <span class="s">Azure 스토리지</span>
+  
+<span class="na">ML Integration</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">PyTorch</span><span class="pi">:</span> <span class="s">사전학습 모델</span>
+  <span class="pi">-</span> <span class="na">TensorFlow</span><span class="pi">:</span> <span class="s">추론</span>
+  <span class="pi">-</span> <span class="na">ONNX</span><span class="pi">:</span> <span class="s">모델 포맷 표준화</span>
+  <span class="pi">-</span> <span class="na">OpenCV</span><span class="pi">:</span> <span class="s">이미지 처리</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="8-도전과제-및-향후-전망">8. 도전과제 및 향후 전망</h1>
+
+<h2 id="81-ai-ops의-과제">8.1 AI Ops의 과제</h2>
+
+<h3 id="1-데이터-품질-문제">1. 데이터 품질 문제</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 노이즈가 많은 운영 데이터
+• 부정확한 타임스탐프
+• 누락된 메트릭
+</code></pre></div></div>
+
+<h3 id="2-모델-해석성-explainability">2. 모델 해석성 (Explainability)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• AI의 결정 이유를 설명하기 어려움
+• 거짓 양성(False Positive) 증가
+• 운영팀의 신뢰도 저하
+</code></pre></div></div>
+
+<h3 id="3-레거시-시스템-통합">3. 레거시 시스템 통합</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 구식 모니터링 도구와의 호환성
+• 데이터 형식 표준화 필요
+• 마이그레이션 비용
+</code></pre></div></div>
+
+<h2 id="82-ai-dlc의-과제">8.2 AI DLC의 과제</h2>
+
+<h3 id="1-비용-대비-품질">1. 비용 대비 품질</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 크라우드소싱의 일관성 부족
+• 품질 관리 오버헤드
+• 재작업 비용 증가
+</code></pre></div></div>
+
+<h3 id="2-도메인-전문성-부족">2. 도메인 전문성 부족</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 의료, 법률 등 특화 분야 전문가 필요
+• 기술 이해도 낮은 작업자
+• 교육 및 검증 비용
+</code></pre></div></div>
+
+<h3 id="3-데이터-편향-bias">3. 데이터 편향 (Bias)</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 대표성 있는 데이터셋 구성 어려움
+• 지역 및 문화적 편향
+• 모델 공정성 문제
+</code></pre></div></div>
+
+<h2 id="83-향후-트렌드-및-전망">8.3 향후 트렌드 및 전망</h2>
+
+<h3 id="1-생성형-ai-통합">1. 생성형 AI 통합</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 합성 데이터로 라벨링 작업 자동화
+• 영상 생성 기반 데이터 증강
+• 텍스트 기반 데이터 생성
+</code></pre></div></div>
+
+<h3 id="2-edge-ai-ops">2. Edge AI Ops</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• 엣지 환경에서의 실시간 모니터링
+• 5G 네트워크 최적화
+• IoT 기반 예측 분석
+</code></pre></div></div>
+
+<h3 id="3-자동-라벨링-발전">3. 자동 라벨링 발전</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• Zero-shot 학습 기술
+• Few-shot 학습 활용
+• 자기 지도 학습 (Self-Supervised Learning)
+</code></pre></div></div>
+
+<h3 id="4-통합-플랫폼화">4. 통합 플랫폼화</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>• MLOps + AIOps 통합 솔루션
+• 엔드투엔드 AI 생명주기 관리
+• 원클릭 배포 및 모니터링
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="참조-references">참조 (References)</h1>
+<ul>
+  <li><strong>Gartner AIOps 정의</strong>: <a href="https://www.gartner.com/" target="_blank">https://www.gartner.com/</a></li>
+  <li><strong>IBM AIOps 가이드</strong>: <a href="https://www.ibm.com/think/topics/aiops" target="_blank">https://www.ibm.com/think/topics/aiops</a></li>
+  <li><strong>Wikipedia - AIOps</strong>: <a href="https://en.wikipedia.org/wiki/AIOps" target="_blank">https://en.wikipedia.org/wiki/AIOps</a></li>
+  <li><strong>Wikipedia - Machine Learning Operations</strong>: <a href="https://en.wikipedia.org/wiki/MLOps" target="_blank">https://en.wikipedia.org/wiki/MLOps</a></li>
+</ul>
+
+<hr />
+
+<h2 id="요약">요약</h2>
+
+<p>AI Ops와 AI DLC는 현대 AI 시스템의 완전한 생명주기 관리를 위한 필수적인 기술입니다.</p>
+
+<p><strong>AI Ops</strong>는 프로덕션 환경에서 배포된 AI/ML 모델과 인프라를 <strong>지속적으로 모니터링, 진단, 자동 최적화</strong>하여 서비스 안정성과 성능을 보장합니다.</p>
+
+<p><strong>AI DLC</strong>는 머신러닝 모델 학습의 기초가 되는 <strong>고품질의 라벨링된 데이터</strong>를 효율적으로 대규모 생성하고 관리하는 솔루션입니다.</p>
+
+<p>두 기술이 함께 작동할 때, 기업은 <strong>데이터 기반의 지속적으로 개선되는 AI 시스템</strong>을 구축하고 유지보수할 수 있습니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#aiops" class="page__taxonomy-item" rel="tag">AIOps</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ai" class="page__taxonomy-item" rel="tag">AI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#automation" class="page__taxonomy-item" rel="tag">Automation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#cloud" class="page__taxonomy-item" rel="tag">Cloud</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#datalabeling" class="page__taxonomy-item" rel="tag">DataLabeling</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#mlops" class="page__taxonomy-item" rel="tag">MLOps</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-05-24">May 24, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/prompt-context-harness-engineering/" class="pagination--pager" title="Prompt Engineering, Context Engineering, Harness Engineering
+">이전</a>
+    
+    
+      <a href="/ai/semantic-directive-binding/" class="pagination--pager" title="메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-skills-hooks/" rel="permalink">Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 23 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-api-springboot/" rel="permalink">Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 14 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/semantic-directive-binding/" rel="permalink">메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 03 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">메타지침 바인딩 기술의 개념, 메커니즘, 아키텍처를 이해하고 Spring Boot 기반 실제 샘플 프로젝트로 구현해보세요.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/prompt-context-harness-engineering/" rel="permalink">Prompt Engineering, Context Engineering, Harness Engineering
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 20 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

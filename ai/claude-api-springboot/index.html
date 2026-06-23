@@ -1,0 +1,1759 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드 - Development story</title>
+<meta name="description" content="Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드">
+<meta property="og:url" content="/ai/claude-api-springboot/">
+
+
+  <meta property="og:description" content="Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/claude-api-springboot.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-14T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-06-14T05:30:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/claude-api-springboot/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/claude-api-springboot.png" alt="Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드">
+    <meta itemprop="description" content="Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교">
+    <meta itemprop="datePublished" content="2026-06-14T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-06-14T05:30:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-06-14T00:00:00+00:00">June 14, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#claude-api란-무엇인가">Claude API란 무엇인가?</a><ul><li><a href="#개념">개념</a></li><li><a href="#이용-가능한-claude-모델">이용 가능한 Claude 모델</a></li></ul></li><li><a href="#아키텍처-및-메커니즘">아키텍처 및 메커니즘</a><ul><li><a href="#시스템-아키텍처">시스템 아키텍처</a></li><li><a href="#요청응답-메커니즘">요청/응답 메커니즘</a></li></ul></li><li><a href="#spring-boot-40--java-25-샘플-프로젝트">Spring Boot 4.0 + Java 25 샘플 프로젝트</a><ul><li><a href="#프로젝트-설정">프로젝트 설정</a><ul><li><a href="#1-maven-의존성-pomxml">1. Maven 의존성 (pom.xml)</a></li><li><a href="#2-애플리케이션-설정-applicationproperties">2. 애플리케이션 설정 (application.properties)</a></li></ul></li><li><a href="#주요-컴포넌트-설명">주요 컴포넌트 설명</a><ul><li><a href="#1-claude-api-설정-클래스">1. Claude API 설정 클래스</a></li><li><a href="#2-webclient-설정">2. WebClient 설정</a></li><li><a href="#3-claude-api-클라이언트">3. Claude API 클라이언트</a></li><li><a href="#4-메시지-서비스">4. 메시지 서비스</a></li><li><a href="#5-코드-분석-서비스">5. 코드 분석 서비스</a></li><li><a href="#6-rest-api-컨트롤러">6. REST API 컨트롤러</a></li></ul></li></ul></li><li><a href="#실제-활용-예제">실제 활용 예제</a><ul><li><a href="#예제-1-단순-채팅">예제 1: 단순 채팅</a></li><li><a href="#예제-2-코드-분석">예제 2: 코드 분석</a></li><li><a href="#예제-3-테스트-코드-생성">예제 3: 테스트 코드 생성</a></li><li><a href="#예제-4-코드-생성">예제 4: 코드 생성</a></li></ul></li><li><a href="#유사-제품-sdk-비교">유사 제품 SDK 비교</a><ul><li><a href="#1-openai-api-chatgpt">1. OpenAI API (ChatGPT)</a><ul><li><a href="#개념-1">개념</a></li><li><a href="#장점">장점</a></li><li><a href="#단점">단점</a></li><li><a href="#spring-boot-통합-예제">Spring Boot 통합 예제</a></li></ul></li><li><a href="#2-google-gemini-api">2. Google Gemini API</a><ul><li><a href="#개념-2">개념</a></li><li><a href="#장점-1">장점</a></li><li><a href="#단점-1">단점</a></li><li><a href="#spring-boot-통합-예제-1">Spring Boot 통합 예제</a></li></ul></li><li><a href="#3-anthropic-claude-api-우리의-선택">3. Anthropic Claude API (우리의 선택)</a><ul><li><a href="#개념-3">개념</a></li><li><a href="#장점-2">장점</a></li><li><a href="#단점-2">단점</a></li></ul></li><li><a href="#비교-테이블">비교 테이블</a></li><li><a href="#선택-가이드">선택 가이드</a></li></ul></li><li><a href="#성능-최적화-팁">성능 최적화 팁</a><ul><li><a href="#1-비동기-처리">1. 비동기 처리</a></li><li><a href="#2-캐싱-전략">2. 캐싱 전략</a></li><li><a href="#3-연결-풀링">3. 연결 풀링</a></li></ul></li><li><a href="#보안-고려사항">보안 고려사항</a><ul><li><a href="#1-api-키-관리">1. API 키 관리</a></li><li><a href="#2-rate-limiting">2. Rate Limiting</a></li><li><a href="#3-입력-검증">3. 입력 검증</a></li></ul></li><li><a href="#문제-해결-가이드">문제 해결 가이드</a><ul><li><a href="#1-401-unauthorized-오류">1. 401 Unauthorized 오류</a></li><li><a href="#2-429-too-many-requests">2. 429 Too Many Requests</a></li><li><a href="#3-504-gateway-timeout">3. 504 Gateway Timeout</a></li><li><a href="#webclient-timeout-설정">WebClient Timeout 설정</a></li></ul></li><li><a href="#실제-사용-사례">실제 사용 사례</a><ul><li><a href="#1-개발자-코드리뷰-봇">1. 개발자 코드리뷰 봇</a></li><li><a href="#2-자동-문서화-시스템">2. 자동 문서화 시스템</a></li><li><a href="#3-지능형-채팅-애플리케이션">3. 지능형 채팅 애플리케이션</a></li></ul></li><li><a href="#결론">결론</a></li><li><a href="#참고-자료">참고 자료</a><ul><li><a href="#anthropic-claude">Anthropic Claude</a></li><li><a href="#spring-boot--java">Spring Boot &amp; Java</a></li><li><a href="#경쟁사-비교">경쟁사 비교</a></li><li><a href="#샘플-코드">샘플 코드</a></li></ul></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h2 id="개요">개요</h2>
+
+<p>Anthropic의 Claude API는 강력한 대규모 언어 모델(LLM)을 제공하여 다양한 애플리케이션에 인공지능 기능을 추가할 수 있습니다. 이 블로그에서는 <strong>Java 25와 Spring Boot 4.0</strong> 기반의 웹 애플리케이션에 Claude API를 완벽하게 통합하는 방법을 실제 예제 코드와 함께 설명합니다.</p>
+
+<h2 id="claude-api란-무엇인가">Claude API란 무엇인가?</h2>
+
+<h3 id="개념">개념</h3>
+
+<p><strong>Claude API</strong>는 Anthropic이 개발한 고도로 훈련된 언어 모델을 활용한 REST API입니다. 자연어 이해와 생성, 코드 작성/분석, 데이터 처리 등 다양한 작업을 수행할 수 있습니다.</p>
+
+<p>주요 특징:</p>
+<ul>
+  <li><strong>고급 추론 능력</strong>: 복잡한 문제 해결 가능</li>
+  <li><strong>장문맥 처리</strong>: 최대 200K 토큰 처리 가능</li>
+  <li><strong>코드 생성 및 분석</strong>: 프로그래밍 작업 최적화</li>
+  <li><strong>안전성 중시</strong>: Constitutional AI 기반의 안전한 응답</li>
+  <li><strong>다양한 모델</strong>: 성능 vs 비용 사이의 선택 옵션</li>
+</ul>
+
+<h3 id="이용-가능한-claude-모델">이용 가능한 Claude 모델</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">모델명</th>
+      <th style="text-align: left">특징</th>
+      <th style="text-align: left">최적 용도</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Claude 3.5 Sonnet</td>
+      <td style="text-align: left">높은 성능과 빠른 속도의 균형</td>
+      <td style="text-align: left">일반적인 작업, 프로덕션 환경</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Claude 3 Opus</td>
+      <td style="text-align: left">가장 강력한 모델</td>
+      <td style="text-align: left">복잡한 추론, 고난이도 작업</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Claude 3 Haiku</td>
+      <td style="text-align: left">가장 빠르고 효율적</td>
+      <td style="text-align: left">빠른 응답 필요, 비용 최소화</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="아키텍처-및-메커니즘">아키텍처 및 메커니즘</h2>
+
+<h3 id="시스템-아키텍처">시스템 아키텍처</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────┐
+│   Spring Boot App   │
+├─────────────────────┤
+│  REST Controller    │
+│  - ChatController   │
+│  - CodeController   │
+├─────────────────────┤
+│  Service Layer      │
+│  - MessageService   │
+│  - CodeAnalysis     │
+├─────────────────────┤
+│  Client Layer       │
+│  - ClaudeApiClient  │
+│  - WebClient        │
+├─────────────────────┤
+│  Config Layer       │
+│  - ClaudeApiConfig  │
+└─────────────────────┘
+         ↓ HTTP/REST
+┌──────────────────────────┐
+│  Anthropic Claude API    │
+│  https://api.anthropic   │
+└──────────────────────────┘
+</code></pre></div></div>
+
+<h3 id="요청응답-메커니즘">요청/응답 메커니즘</h3>
+
+<p>Claude API는 다음과 같은 흐름으로 작동합니다:</p>
+
+<ol>
+  <li><strong>클라이언트 요청</strong>:
+    <ul>
+      <li>사용자 메시지와 설정 파라미터를 포함한 JSON 요청</li>
+      <li>API 키를 인증 헤더에 포함</li>
+    </ul>
+  </li>
+  <li><strong>API 처리</strong>:
+    <ul>
+      <li>Anthropic 서버에서 메시지를 처리</li>
+      <li>훈련된 모델로 응답 생성</li>
+      <li>토큰 수 계산 및 사용량 추적</li>
+    </ul>
+  </li>
+  <li><strong>응답 반환</strong>:
+    <ul>
+      <li>생성된 텍스트를 포함한 JSON 응답</li>
+      <li>사용 통계(입력/출력 토큰) 포함</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="spring-boot-40--java-25-샘플-프로젝트">Spring Boot 4.0 + Java 25 샘플 프로젝트</h2>
+
+<h3 id="프로젝트-설정">프로젝트 설정</h3>
+
+<h4 id="1-maven-의존성-pomxml">1. Maven 의존성 (pom.xml)</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-webflux<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.fasterxml.jackson.core<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>jackson-databind<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.projectlombok<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>lombok<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h4 id="2-애플리케이션-설정-applicationproperties">2. 애플리케이션 설정 (application.properties)</h4>
+
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Claude API Configuration
+</span><span class="py">claude.api.key</span><span class="p">=</span><span class="s">${CLAUDE_API_KEY}</span>
+<span class="py">claude.api.base-url</span><span class="p">=</span><span class="s">https://api.anthropic.com</span>
+<span class="py">claude.api.version</span><span class="p">=</span><span class="s">2024-06-01</span>
+<span class="py">claude.model</span><span class="p">=</span><span class="s">claude-3-5-sonnet-20241022</span>
+<span class="py">claude.max-tokens</span><span class="p">=</span><span class="s">1024</span>
+<span class="py">claude.temperature</span><span class="p">=</span><span class="s">0.7</span>
+</code></pre></div></div>
+
+<h3 id="주요-컴포넌트-설명">주요 컴포넌트 설명</h3>
+
+<h4 id="1-claude-api-설정-클래스">1. Claude API 설정 클래스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="nd">@ConfigurationProperties</span><span class="o">(</span><span class="n">prefix</span> <span class="o">=</span> <span class="s">"claude.api"</span><span class="o">)</span>
+<span class="nd">@Getter</span>
+<span class="nd">@Setter</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClaudeApiConfig</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">key</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">baseUrl</span> <span class="o">=</span> <span class="s">"https://api.anthropic.com"</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">version</span> <span class="o">=</span> <span class="s">"2024-06-01"</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">model</span> <span class="o">=</span> <span class="s">"claude-3-5-sonnet-20241022"</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxTokens</span> <span class="o">=</span> <span class="mi">1024</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">double</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>이 설정 클래스는 application.properties에서 값을 읽어 Bean으로 관리합니다.</p>
+
+<h4 id="2-webclient-설정">2. WebClient 설정</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebClientConfig</span> <span class="o">{</span>
+
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">WebClient</span> <span class="nf">webClient</span><span class="o">(</span><span class="nc">ClaudeApiConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getBaseUrl</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="s">"anthropic-version"</span><span class="o">,</span> <span class="n">config</span><span class="o">.</span><span class="na">getVersion</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="s">"x-api-key"</span><span class="o">,</span> <span class="n">config</span><span class="o">.</span><span class="na">getKey</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="s">"content-type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>WebClient는 Spring WebFlux의 비동기 HTTP 클라이언트입니다. 논블로킹 방식으로 API 호출을 수행합니다.</p>
+
+<h4 id="3-claude-api-클라이언트">3. Claude API 클라이언트</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@Component</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClaudeApiClient</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ClaudeApiConfig</span> <span class="n">config</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ChatResponse</span><span class="o">&gt;</span> <span class="nf">sendMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">userMessage</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Sending message to Claude API: {}"</span><span class="o">,</span> <span class="n">userMessage</span><span class="o">);</span>
+
+    <span class="nc">ChatRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">ChatRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getModel</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getMaxTokens</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">temperature</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getTemperature</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">messages</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+        <span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">role</span><span class="o">(</span><span class="s">"user"</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">userMessage</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">()</span>
+      <span class="o">))</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="n">webClient</span><span class="o">.</span><span class="na">post</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="s">"/v1/messages"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">bodyValue</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">retrieve</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">ChatResponse</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">doOnSuccess</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Received response"</span><span class="o">))</span>
+      <span class="o">.</span><span class="na">doOnError</span><span class="o">(</span><span class="n">error</span> <span class="o">-&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Error"</span><span class="o">,</span> <span class="n">error</span><span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ChatResponse</span><span class="o">&gt;</span> <span class="nf">sendConversation</span><span class="o">(</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">&gt;</span> <span class="n">conversationHistory</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="nc">ChatRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">ChatRequest</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">model</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getModel</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">maxTokens</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getMaxTokens</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">temperature</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getTemperature</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">messages</span><span class="o">(</span><span class="n">conversationHistory</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="n">webClient</span><span class="o">.</span><span class="na">post</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="s">"/v1/messages"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">bodyValue</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">retrieve</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">ChatResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="4-메시지-서비스">4. 메시지 서비스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MessageService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ClaudeApiClient</span> <span class="n">claudeApiClient</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ConcurrentHashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">&gt;&gt;</span> 
+    <span class="n">conversationHistory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">processMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="n">extractResponseText</span><span class="o">(</span><span class="n">response</span><span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">sendConversationMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">sessionId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">userMessage</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">&gt;</span> <span class="n">history</span> <span class="o">=</span> <span class="n">conversationHistory</span><span class="o">.</span><span class="na">computeIfAbsent</span><span class="o">(</span>
+      <span class="n">sessionId</span><span class="o">,</span> 
+      <span class="n">k</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;()</span>
+    <span class="o">);</span>
+
+    <span class="n">history</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">role</span><span class="o">(</span><span class="s">"user"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">userMessage</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+
+    <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendConversation</span><span class="o">(</span><span class="n">history</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">assistantResponse</span> <span class="o">=</span> <span class="n">extractResponseText</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+        <span class="n">history</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="nc">ChatRequest</span><span class="o">.</span><span class="na">Message</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">role</span><span class="o">(</span><span class="s">"assistant"</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">content</span><span class="o">(</span><span class="n">assistantResponse</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+        <span class="k">return</span> <span class="n">assistantResponse</span><span class="o">;</span>
+      <span class="o">});</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="nf">extractResponseText</span><span class="o">(</span><span class="nc">ChatResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">().</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getText</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="s">"No response content"</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="5-코드-분석-서비스">5. 코드 분석 서비스</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@Service</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CodeAnalysisService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ClaudeApiClient</span> <span class="n">claudeApiClient</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">analyzeCode</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">prompt</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+      <span class="sh">"""
+      코드를 분석하고 다음을 제공해주세요:
+      1. 잠재적 버그 또는 문제점
+      2. 성능 개선 사항
+      3. 모범 사례 권장사항
+      4. 보안 취약점 (있는 경우)
+      
+      코드:
+      ```
+      %s
+      ```
+      """</span><span class="o">,</span>
+      <span class="n">code</span>
+    <span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">prompt</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="n">extractResponseText</span><span class="o">(</span><span class="n">response</span><span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="nf">extractResponseText</span><span class="o">(</span><span class="nc">ChatResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">().</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getText</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="s">"No response content"</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">generateTests</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">,</span> <span class="nc">String</span> <span class="n">language</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">lang</span> <span class="o">=</span> <span class="n">language</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">language</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">?</span> <span class="s">"java"</span> <span class="o">:</span> <span class="n">language</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">prompt</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+      <span class="sh">"""
+      다음 %s 코드에 대해 JUnit 5 단위 테스트를 작성해주세요:
+      
+      ```%s
+      %s
+      ```
+      
+      다음을 포함하는 테스트를 작성하세요:
+      1. 정상 경로 시나리오
+      2. 엣지 케이스
+      3. 에러 조건
+      4. 경계 조건
+      """</span><span class="o">,</span>
+      <span class="n">lang</span><span class="o">,</span> <span class="n">lang</span><span class="o">,</span> <span class="n">code</span>
+    <span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">prompt</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="n">extractResponseText</span><span class="o">(</span><span class="n">response</span><span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">generateCode</span><span class="o">(</span><span class="nc">String</span> <span class="n">description</span><span class="o">,</span> <span class="nc">String</span> <span class="n">language</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">lang</span> <span class="o">=</span> <span class="n">language</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">language</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">()</span> <span class="o">?</span> <span class="s">"java"</span> <span class="o">:</span> <span class="n">language</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">prompt</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span>
+      <span class="sh">"""
+      다음 요구사항에 대해 프로덕션 레벨의 %s 코드를 작성해주세요:
+      
+      %s
+      
+      모범 사례를 따르고, 에러 처리를 포함하며, 주석을 추가해주세요.
+      """</span><span class="o">,</span>
+      <span class="n">lang</span><span class="o">,</span> <span class="n">description</span>
+    <span class="o">);</span>
+
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="n">extractResponseText</span><span class="o">(</span><span class="n">response</span><span class="o">))</span>
+    <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">prompt</span><span class="o">,</span> <span class="mf">0.3</span><span class="o">,</span> <span class="mi">2048</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="6-rest-api-컨트롤러">6. REST API 컨트롤러</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/chat"</span><span class="o">)</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ChatController</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">MessageService</span> <span class="n">messageService</span><span class="o">;</span>
+
+  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/message"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">sendMessage</span><span class="o">(</span>
+    <span class="nd">@RequestParam</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="k">return</span> <span class="n">messageService</span><span class="o">.</span><span class="na">processMessage</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"message"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"response"</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+      <span class="o">})</span>
+      <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">500</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"메시지 처리 실패"</span><span class="o">)</span>
+      <span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/conversation/send"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">sendConversationMessage</span><span class="o">(</span>
+    <span class="nd">@RequestParam</span> <span class="nc">String</span> <span class="n">sessionId</span><span class="o">,</span>
+    <span class="nd">@RequestParam</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="k">return</span> <span class="n">messageService</span><span class="o">.</span><span class="na">sendConversationMessage</span><span class="o">(</span><span class="n">sessionId</span><span class="o">,</span> <span class="n">message</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"sessionId"</span><span class="o">,</span> <span class="n">sessionId</span><span class="o">);</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"userMessage"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"assistantResponse"</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+      <span class="o">})</span>
+      <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">500</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"대화 메시지 처리 실패"</span><span class="o">)</span>
+      <span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Slf4j</span>
+<span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/api/code"</span><span class="o">)</span>
+<span class="nd">@RequiredArgsConstructor</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CodeAnalysisController</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">CodeAnalysisService</span> <span class="n">codeAnalysisService</span><span class="o">;</span>
+
+  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/analyze"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">analyzeCode</span><span class="o">(</span>
+    <span class="nd">@RequestBody</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="nc">String</span> <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"code"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">analyzeCode</span><span class="o">(</span><span class="n">code</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">analysis</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"analysis"</span><span class="o">,</span> <span class="n">analysis</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+      <span class="o">})</span>
+      <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">500</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"코드 분석 실패"</span><span class="o">)</span>
+      <span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/generate-tests"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">generateTests</span><span class="o">(</span>
+    <span class="nd">@RequestBody</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="nc">String</span> <span class="n">code</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"code"</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">language</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="s">"language"</span><span class="o">,</span> <span class="s">"java"</span><span class="o">);</span>
+    
+    <span class="k">return</span> <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">generateTests</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">language</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">tests</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"tests"</span><span class="o">,</span> <span class="n">tests</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+      <span class="o">})</span>
+      <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">500</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"테스트 생성 실패"</span><span class="o">)</span>
+      <span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/generate"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">generateCode</span><span class="o">(</span>
+    <span class="nd">@RequestBody</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="nc">String</span> <span class="n">description</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"description"</span><span class="o">);</span>
+    <span class="nc">String</span> <span class="n">language</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getOrDefault</span><span class="o">(</span><span class="s">"language"</span><span class="o">,</span> <span class="s">"java"</span><span class="o">);</span>
+    
+    <span class="k">return</span> <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">generateCode</span><span class="o">(</span><span class="n">description</span><span class="o">,</span> <span class="n">language</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">code</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">result</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"code"</span><span class="o">,</span> <span class="n">code</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+      <span class="o">})</span>
+      <span class="o">.</span><span class="na">onErrorReturn</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">status</span><span class="o">(</span><span class="mi">500</span><span class="o">).</span><span class="na">body</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"코드 생성 실패"</span><span class="o">)</span>
+      <span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="실제-활용-예제">실제 활용 예제</h2>
+
+<h3 id="예제-1-단순-채팅">예제 1: 단순 채팅</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/chat/message?message=Spring Boot의 장점을 설명해줄 수 있을까?"</span>
+</code></pre></div></div>
+
+<p><strong>응답</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Spring Boot의 장점을 설명해줄 수 있을까?"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"response"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Spring Boot는 Spring Framework의 복잡성을 해결하기 위해 만들어진 프레임워크입니다:</span><span class="se">\n\n</span><span class="s2">1. **자동 설정**: 스프링 부트는 클래스패스에 있는 jar에 기반하여 Spring 애플리케이션을 자동으로 설정합니다.</span><span class="se">\n\n</span><span class="s2">2. **내장 서버**: Tomcat, Jetty 또는 Undertow를 내장하고 있어 독립형 애플리케이션으로 실행 가능합니다. ..."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="예제-2-코드-분석">예제 2: 코드 분석</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/code/analyze"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "code": "public class UserService {\n  public void updateUser(User user) {\n    if(user != null) {\n      database.update(user);\n    }\n  }\n}"
+  }'</span>
+</code></pre></div></div>
+
+<p><strong>응답</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"analysis"</span><span class="p">:</span><span class="w"> </span><span class="s2">"코드 분석 결과:</span><span class="se">\n\n</span><span class="s2">1. **잠재적 문제**:</span><span class="se">\n</span><span class="s2">   - database 객체가 null일 가능성</span><span class="se">\n</span><span class="s2">   - 트랜잭션 관리 없음</span><span class="se">\n</span><span class="s2">   - 로깅 부재</span><span class="se">\n\n</span><span class="s2">2. **개선 권장사항**:</span><span class="se">\n</span><span class="s2">   - Null 체크 강화</span><span class="se">\n</span><span class="s2">   - 예외 처리 추가</span><span class="se">\n</span><span class="s2">   - 로깅 추가</span><span class="se">\n</span><span class="s2">   - @Transactional 어노테이션 사용</span><span class="se">\n</span><span class="s2">   - 입력 검증 추가"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="예제-3-테스트-코드-생성">예제 3: 테스트 코드 생성</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/code/generate-tests"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "code": "public int fibonacci(int n) {\n  if(n &lt;= 1) return n;\n  return fibonacci(n-1) + fibonacci(n-2);\n}",
+    "language": "java"
+  }'</span>
+</code></pre></div></div>
+
+<p><strong>응답</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"tests"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@Test</span><span class="se">\n</span><span class="s2">public void testFibonacciBaseCase() {</span><span class="se">\n</span><span class="s2">  assertEquals(0, fibonacci(0));</span><span class="se">\n</span><span class="s2">  assertEquals(1, fibonacci(1));</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">@Test</span><span class="se">\n</span><span class="s2">public void testFibonacciSequence() {</span><span class="se">\n</span><span class="s2">  assertEquals(1, fibonacci(2));</span><span class="se">\n</span><span class="s2">  assertEquals(2, fibonacci(3));</span><span class="se">\n</span><span class="s2">  assertEquals(5, fibonacci(5));</span><span class="se">\n</span><span class="s2">  assertEquals(89, fibonacci(11));</span><span class="se">\n</span><span class="s2">}</span><span class="se">\n\n</span><span class="s2">@Test</span><span class="se">\n</span><span class="s2">public void testFibonacciNegative() {</span><span class="se">\n</span><span class="s2">  // 음수 입력에 대한 처리</span><span class="se">\n</span><span class="s2">  assertThrows(IllegalArgumentException.class, () -&gt; fibonacci(-1));</span><span class="se">\n</span><span class="s2">}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="예제-4-코드-생성">예제 4: 코드 생성</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-X</span> POST <span class="s2">"http://localhost:8080/api/code/generate"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+  <span class="nt">-d</span> <span class="s1">'{
+    "description": "사용자 이메일 주소를 검증하는 메서드를 작성해주세요. 정규식을 사용하고 적절한 예외 처리를 포함해야 합니다.",
+    "language": "java"
+  }'</span>
+</code></pre></div></div>
+
+<p><strong>응답</strong>:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"import java.util.regex.Pattern;</span><span class="se">\n</span><span class="s2">import java.util.regex.Matcher;</span><span class="se">\n\n</span><span class="s2">public class EmailValidator {</span><span class="se">\n</span><span class="s2">  private static final String EMAIL_PATTERN = </span><span class="se">\n</span><span class="s2">    </span><span class="se">\"</span><span class="s2">^[A-Za-z0-9+_.-]+@([A-Za-z0-9.-]+</span><span class="se">\\\\</span><span class="s2">.[A-Za-z]{2,})$</span><span class="se">\"</span><span class="s2">;</span><span class="se">\n</span><span class="s2">  private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);</span><span class="se">\n\n</span><span class="s2">  /**</span><span class="se">\n</span><span class="s2">   * 이메일 주소를 검증합니다.</span><span class="se">\n</span><span class="s2">   * </span><span class="se">\n</span><span class="s2">   * @param email 검증할 이메일 주소</span><span class="se">\n</span><span class="s2">   * @return 유효하면 true, 그렇지 않으면 false</span><span class="se">\n</span><span class="s2">   * @throws IllegalArgumentException 이메일이 null 또는 빈 문자열인 경우</span><span class="se">\n</span><span class="s2">   */</span><span class="se">\n</span><span class="s2">  public static boolean isValidEmail(String email) {</span><span class="se">\n</span><span class="s2">    if (email == null || email.trim().isEmpty()) {</span><span class="se">\n</span><span class="s2">      throw new IllegalArgumentException(</span><span class="se">\"</span><span class="s2">이메일 주소는 null이거나 비어있을 수 없습니다.</span><span class="se">\"</span><span class="s2">);</span><span class="se">\n</span><span class="s2">    }</span><span class="se">\n</span><span class="s2">    </span><span class="se">\n</span><span class="s2">    Matcher matcher = pattern.matcher(email);</span><span class="se">\n</span><span class="s2">    return matcher.matches();</span><span class="se">\n</span><span class="s2">  }</span><span class="se">\n</span><span class="s2">}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="유사-제품-sdk-비교">유사 제품 SDK 비교</h2>
+
+<p>현재 LLM API 시장에는 여러 솔루션이 있습니다. Claude API와 주요 경쟁사를 비교해봅시다.</p>
+
+<h3 id="1-openai-api-chatgpt">1. OpenAI API (ChatGPT)</h3>
+
+<h4 id="개념-1">개념</h4>
+<p>OpenAI가 제공하는 GPT 기반 API로, ChatGPT의 강력함을 API로 제공합니다.</p>
+
+<h4 id="장점">장점</h4>
+<ul>
+  <li><strong>가장 널리 사용됨</strong>: 가장 많은 커뮤니티와 리소스</li>
+  <li><strong>뛰어난 성능</strong>: GPT-4 Turbo는 매우 강력한 성능</li>
+  <li><strong>가격</strong>: 다양한 모델 옵션으로 비용 조절 가능</li>
+  <li><strong>Function Calling</strong>: 구조화된 출력과 함수 호출 지원</li>
+</ul>
+
+<h4 id="단점">단점</h4>
+<ul>
+  <li><strong>응답 속도</strong>: Claude에 비해 느린 경향</li>
+  <li><strong>가격 경쟁</strong>: 각 요청마다 비용 청구</li>
+  <li><strong>안전성</strong>: 노출된 보안 이슈 사례</li>
+</ul>
+
+<h4 id="spring-boot-통합-예제">Spring Boot 통합 예제</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">OpenAIService</span> <span class="o">{</span>
+  
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">chat</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpHeaders</span><span class="o">();</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">setBearerAuth</span><span class="o">(</span><span class="n">apiKey</span><span class="o">);</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">);</span>
+
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">requestBody</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">requestBody</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"model"</span><span class="o">,</span> <span class="s">"gpt-4-turbo"</span><span class="o">);</span>
+    <span class="n">requestBody</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"messages"</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+      <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"role"</span><span class="o">,</span> <span class="s">"user"</span><span class="o">,</span> <span class="s">"content"</span><span class="o">,</span> <span class="n">message</span><span class="o">)</span>
+    <span class="o">));</span>
+
+    <span class="nc">HttpEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">requestBody</span><span class="o">,</span> <span class="n">headers</span><span class="o">);</span>
+    
+    <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
+      <span class="s">"https://api.openai.com/v1/chat/completions"</span><span class="o">,</span>
+      <span class="n">request</span><span class="o">,</span>
+      <span class="nc">Map</span><span class="o">.</span><span class="na">class</span>
+    <span class="o">);</span>
+
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;</span> <span class="n">choices</span> <span class="o">=</span> <span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;)</span> <span class="n">response</span><span class="o">.</span><span class="na">getBody</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"choices"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">((</span><span class="nc">Map</span><span class="o">)</span> <span class="n">choices</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">get</span><span class="o">(</span><span class="s">"message"</span><span class="o">)).</span><span class="na">get</span><span class="o">(</span><span class="s">"content"</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-google-gemini-api">2. Google Gemini API</h3>
+
+<h4 id="개념-2">개념</h4>
+<p>Google DeepMind의 Gemini 모델을 API로 제공합니다. 이미지 처리 능력이 뛰어납니다.</p>
+
+<h4 id="장점-1">장점</h4>
+<ul>
+  <li><strong>멀티모달</strong>: 이미지, 음성, 텍스트 통합 처리</li>
+  <li><strong>Google 통합</strong>: Google Cloud 서비스와 통합 용이</li>
+  <li><strong>장문맥</strong>: 최대 1M 토큰 처리 가능</li>
+  <li><strong>가격</strong>: 매우 경쟁력 있는 가격대</li>
+</ul>
+
+<h4 id="단점-1">단점</h4>
+<ul>
+  <li><strong>성숙도</strong>: OpenAI나 Anthropic에 비해 새로움</li>
+  <li><strong>안정성</strong>: API 변경 가능성</li>
+  <li><strong>커뮤니티</strong>: 작은 커뮤니티</li>
+</ul>
+
+<h4 id="spring-boot-통합-예제-1">Spring Boot 통합 예제</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GeminiService</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">WebClient</span> <span class="n">webClient</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">generateContent</span><span class="o">(</span><span class="nc">String</span> <span class="n">prompt</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">request</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"contents"</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+      <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"parts"</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span>
+        <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"text"</span><span class="o">,</span> <span class="n">prompt</span><span class="o">)</span>
+      <span class="o">))</span>
+    <span class="o">));</span>
+
+    <span class="k">return</span> <span class="n">webClient</span><span class="o">.</span><span class="na">post</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">uri</span><span class="o">(</span><span class="s">"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">bodyValue</span><span class="o">(</span><span class="n">request</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">retrieve</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">bodyToMono</span><span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;</span> <span class="n">contents</span> <span class="o">=</span> <span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&gt;)</span> <span class="n">response</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"candidates"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">contents</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">toString</span><span class="o">();</span>
+      <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-anthropic-claude-api-우리의-선택">3. Anthropic Claude API (우리의 선택)</h3>
+
+<h4 id="개념-3">개념</h4>
+<p>Anthropic이 개발한 Constitutional AI 기반의 안전하고 강력한 LLM API입니다.</p>
+
+<h4 id="장점-2">장점</h4>
+<ul>
+  <li><strong>안전성 우선</strong>: Constitutional AI 기반의 윤리적 설계</li>
+  <li><strong>긴 문맥</strong>: 최대 200K 토큰 처리</li>
+  <li><strong>빠른 응답</strong>: 매우 빠른 응답 속도</li>
+  <li><strong>코드 성능</strong>: 코드 작업에 최적화</li>
+  <li><strong>명확한 API</strong>: RESTful하고 이해하기 쉬운 설계</li>
+  <li><strong>가격</strong>: 경쟁력 있는 토큰 기반 가격</li>
+</ul>
+
+<h4 id="단점-2">단점</h4>
+<ul>
+  <li><strong>커뮤니티 크기</strong>: OpenAI에 비해 작은 커뮤니티</li>
+  <li><strong>멀티모달</strong>: 아직 이미지/음성 지원 제한적</li>
+  <li><strong>모델 선택</strong>: OpenAI만큼 많은 모델 옵션 없음</li>
+</ul>
+
+<h3 id="비교-테이블">비교 테이블</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">특성</th>
+      <th style="text-align: left">Claude API</th>
+      <th style="text-align: left">OpenAI API</th>
+      <th style="text-align: left">Google Gemini</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>기본 성능</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>응답 속도</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>가격</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>안전성</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>멀티모달</strong></td>
+      <td style="text-align: left">⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>문맥 길이</strong></td>
+      <td style="text-align: left">200K</td>
+      <td style="text-align: left">128K</td>
+      <td style="text-align: left">1M</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>코드 능력</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>API 안정성</strong></td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>커뮤니티 크기</strong></td>
+      <td style="text-align: left">⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      <td style="text-align: left">⭐⭐⭐⭐</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="선택-가이드">선택 가이드</h3>
+
+<p><strong>Claude API를 선택해야 할 때:</strong></p>
+<ul>
+  <li>안전성과 윤리성이 중요한 프로젝트</li>
+  <li>코드 생성/분석이 주요 목적</li>
+  <li>빠른 응답 속도 필요</li>
+  <li>긴 문맥 처리 필요</li>
+</ul>
+
+<p><strong>OpenAI API를 선택해야 할 때:</strong></p>
+<ul>
+  <li>이미지/시각 처리 필요</li>
+  <li>가장 강력한 성능 필요</li>
+  <li>광범위한 커뮤니티 지원 원함</li>
+  <li>Function Calling 활용</li>
+</ul>
+
+<p><strong>Google Gemini를 선택해야 할 때:</strong></p>
+<ul>
+  <li>매우 저렴한 비용 우선</li>
+  <li>매우 긴 문맥 처리 필요 (1M 토큰)</li>
+  <li>Google Cloud 에코시스템 활용</li>
+  <li>멀티모달 기능 필수</li>
+</ul>
+
+<h2 id="성능-최적화-팁">성능 최적화 팁</h2>
+
+<h3 id="1-비동기-처리">1. 비동기 처리</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ✅ 권장: Project Reactor 사용</span>
+<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">processAsync</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">boundedElastic</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="c1">// ❌ 비권장: 블로킹 처리</span>
+<span class="kd">public</span> <span class="nc">String</span> <span class="nf">processSync</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">block</span><span class="o">();</span> <span class="c1">// 이는 스레드를 블로킹합니다</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-캐싱-전략">2. 캐싱 전략</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachedCodeAnalysisService</span> <span class="o">{</span>
+
+  <span class="nd">@Cacheable</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"codeAnalysis"</span><span class="o">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"#code"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">analyzeCode</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">analyzeCode</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-연결-풀링">3. 연결 풀링</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WebClientConfig</span> <span class="o">{</span>
+
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">WebClient</span> <span class="nf">webClient</span><span class="o">(</span><span class="nc">ClaudeApiConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getBaseUrl</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">clientConnector</span><span class="o">(</span><span class="k">new</span> <span class="nc">ReactorNettyClientRequestFactory</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">setMaxInMemoryBufferSize</span><span class="o">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">))</span>
+      <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="s">"x-api-key"</span><span class="o">,</span> <span class="n">config</span><span class="o">.</span><span class="na">getKey</span><span class="o">())</span>
+      <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="보안-고려사항">보안 고려사항</h2>
+
+<h3 id="1-api-키-관리">1. API 키 관리</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 환경 변수로 관리 (절대 코드에 하드코딩 금지)</span>
+<span class="nb">export </span><span class="nv">CLAUDE_API_KEY</span><span class="o">=</span>sk-ant-...
+
+<span class="c"># Spring Cloud Config로 관리</span>
+spring.cloud.config.server.encrypt.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
+
+<h3 id="2-rate-limiting">2. Rate Limiting</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateLimitingConfig</span> <span class="o">{</span>
+
+  <span class="nd">@Bean</span>
+  <span class="kd">public</span> <span class="nc">RateLimiter</span> <span class="nf">rateLimiter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">RateLimiter</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="mi">10</span><span class="o">);</span> <span class="c1">// 초당 10개 요청</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RateLimitedClaudeService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">RateLimiter</span> <span class="n">rateLimiter</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">processMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">rateLimiter</span><span class="o">.</span><span class="na">tryAcquire</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">claudeApiClient</span><span class="o">.</span><span class="na">sendMessage</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="k">new</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="s">"Rate limit exceeded"</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-입력-검증">3. 입력 검증</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/chat/message"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nc">Mono</span><span class="o">&lt;</span><span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;&gt;&gt;</span> <span class="nf">sendMessage</span><span class="o">(</span>
+  <span class="nd">@Valid</span> <span class="nd">@RequestParam</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+  
+  <span class="k">if</span> <span class="o">(</span><span class="n">message</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">10000</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nc">Mono</span><span class="o">.</span><span class="na">just</span><span class="o">(</span><span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">badRequest</span><span class="o">().</span><span class="na">body</span><span class="o">(</span>
+      <span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"error"</span><span class="o">,</span> <span class="s">"메시지가 너무 깁니다."</span><span class="o">)</span>
+    <span class="o">));</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">messageService</span><span class="o">.</span><span class="na">processMessage</span><span class="o">(</span><span class="n">message</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s">"response"</span><span class="o">,</span> <span class="n">response</span><span class="o">)));</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="문제-해결-가이드">문제 해결 가이드</h2>
+
+<h3 id="1-401-unauthorized-오류">1. 401 Unauthorized 오류</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>원인: API 키가 잘못되었거나 만료됨
+해결:
+- CLAUDE_API_KEY 환경 변수 확인
+- Anthropic 콘솔에서 API 키 재발급
+</code></pre></div></div>
+
+<h3 id="2-429-too-many-requests">2. 429 Too Many Requests</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>원인: Rate limit 초과
+해결:
+- 요청 간격 증가
+- Rate limiting 로직 구현
+- 배치 처리 고려
+</code></pre></div></div>
+
+<h3 id="3-504-gateway-timeout">3. 504 Gateway Timeout</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>원인: API 응답 시간 초과
+해결:
+- WebClient timeout 설정 증가
+- 프롬프트 단순화
+- 모델 변경 (Haiku로 변경)
+</code></pre></div></div>
+
+<h3 id="webclient-timeout-설정">WebClient Timeout 설정</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="kd">public</span> <span class="nc">WebClient</span> <span class="nf">webClient</span><span class="o">(</span><span class="nc">ClaudeApiConfig</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nc">HttpClient</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="nc">HttpClient</span><span class="o">.</span><span class="na">create</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">responseTimeout</span><span class="o">(</span><span class="nc">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="mi">60</span><span class="o">))</span>
+    <span class="o">.</span><span class="na">option</span><span class="o">(</span><span class="nc">ChannelOption</span><span class="o">.</span><span class="na">SO_KEEPALIVE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+
+  <span class="k">return</span> <span class="nc">WebClient</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getBaseUrl</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">clientConnector</span><span class="o">(</span><span class="k">new</span> <span class="nc">ReactorNettyClientRequestFactory</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">ops</span> <span class="o">-&gt;</span> <span class="n">ops</span><span class="o">.</span><span class="na">withConnector</span><span class="o">(</span><span class="n">httpClient</span><span class="o">)))</span>
+    <span class="o">.</span><span class="na">defaultHeader</span><span class="o">(</span><span class="s">"x-api-key"</span><span class="o">,</span> <span class="n">config</span><span class="o">.</span><span class="na">getKey</span><span class="o">())</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="실제-사용-사례">실제 사용 사례</h2>
+
+<h3 id="1-개발자-코드리뷰-봇">1. 개발자 코드리뷰 봇</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CodeReviewBot</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">CodeAnalysisService</span> <span class="n">codeAnalysisService</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reviewPullRequest</span><span class="o">(</span><span class="nc">String</span> <span class="n">code</span><span class="o">,</span> <span class="nc">String</span> <span class="n">prNumber</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">analyzeCode</span><span class="o">(</span><span class="n">code</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">analysis</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="c1">// GitHub API를 통해 코멘트 추가</span>
+        <span class="n">githubClient</span><span class="o">.</span><span class="na">addComment</span><span class="o">(</span><span class="n">prNumber</span><span class="o">,</span> <span class="n">analysis</span><span class="o">);</span>
+      <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="2-자동-문서화-시스템">2. 자동 문서화 시스템</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DocumentationGenerator</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">CodeAnalysisService</span> <span class="n">codeAnalysisService</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">generateProjectDocs</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sourceFiles</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">sourceFiles</span><span class="o">.</span><span class="na">parallelStream</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">file</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">code</span> <span class="o">=</span> <span class="n">readFile</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">codeAnalysisService</span><span class="o">.</span><span class="na">generateDocumentation</span><span class="o">(</span><span class="n">code</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">docs</span> <span class="o">-&gt;</span> <span class="n">saveDocumentation</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">docs</span><span class="o">));</span>
+      <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="3-지능형-채팅-애플리케이션">3. 지능형 채팅 애플리케이션</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IntelligentChatService</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">MessageService</span> <span class="n">messageService</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleUserChat</span><span class="o">(</span><span class="nc">String</span> <span class="n">userId</span><span class="o">,</span> <span class="nc">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">messageService</span><span class="o">.</span><span class="na">sendConversationMessage</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="n">message</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="n">response</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="n">notifyUser</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+        <span class="n">saveToDatabase</span><span class="o">(</span><span class="n">userId</span><span class="o">,</span> <span class="n">message</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+      <span class="o">});</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="결론">결론</h2>
+
+<p><strong>Claude API는</strong> 다음과 같은 경우에 최적의 선택입니다:</p>
+
+<p>✅ <strong>강점:</strong></p>
+<ul>
+  <li>안전하고 신뢰할 수 있는 응답</li>
+  <li>매우 빠른 처리 속도</li>
+  <li>뛰어난 코드 이해 및 생성 능력</li>
+  <li>긴 문맥 처리 가능</li>
+  <li>합리적인 가격</li>
+</ul>
+
+<p>⚠️ <strong>고려사항:</strong></p>
+<ul>
+  <li>상대적으로 작은 커뮤니티</li>
+  <li>이미지/음성 처리는 제한적</li>
+  <li>다양한 모델 선택지 부족</li>
+</ul>
+
+<p>Spring Boot 4.0과 Java 25를 활용하면 Claude API를 매우 효율적으로 통합할 수 있으며, 이를 통해 강력한 AI 기능을 갖춘 엔터프라이즈 애플리케이션을 구축할 수 있습니다.</p>
+
+<h2 id="참고-자료">참고 자료</h2>
+
+<h3 id="anthropic-claude">Anthropic Claude</h3>
+
+<ul>
+  <li><a href="https://www.anthropic.com" target="_blank">Anthropic 공식 사이트</a></li>
+  <li><a href="https://platform.claude.com/docs" target="_blank">Claude API 문서</a></li>
+  <li><a href="https://www.claude.com/pricing" target="_blank">Claude API 가격</a></li>
+  <li><a href="https://www.anthropic.com/claude" target="_blank">Claude 모델 정보</a></li>
+</ul>
+
+<h3 id="spring-boot--java">Spring Boot &amp; Java</h3>
+
+<ul>
+  <li><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot 공식 가이드</a></li>
+  <li><a href="https://docs.spring.io/spring-framework/reference/web/webflux-webclient.html" target="_blank">Spring WebClient 문서</a></li>
+  <li><a href="https://projectreactor.io/" target="_blank">Project Reactor 가이드</a></li>
+  <li><a href="https://openjdk.org/projects/jdk/25/" target="_blank">Java 25 변경 사항</a></li>
+</ul>
+
+<h3 id="경쟁사-비교">경쟁사 비교</h3>
+
+<ul>
+  <li><a href="https://platform.openai.com/docs" target="_blank">OpenAI API 문서</a></li>
+  <li><a href="https://ai.google.dev/" target="_blank">Google Gemini API</a></li>
+  <li><a href="https://github.com/xtekky/gpt4free" target="_blank">LLM API 비교 리뷰</a></li>
+</ul>
+
+<h3 id="샘플-코드">샘플 코드</h3>
+
+<ul>
+  <li><a href="https://github.com/GracefulSoul/claude-api-springboot-sample" target="_blank">GitHub 샘플 프로젝트</a></li>
+  <li><a href="https://github.com/spring-projects-experimental/spring-ai" target="_blank">Spring Boot AI 프로젝트</a></li>
+</ul>
+
+<hr />
+
+<p><strong>마지막 수정</strong>: 2026년 6월 14일</p>
+
+<p>이 블로그가 Claude API를 Spring Boot 애플리케이션에 통합하는 데 도움이 되었기를 바랍니다!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#anthropic" class="page__taxonomy-item" rel="tag">Anthropic</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#api-integration" class="page__taxonomy-item" rel="tag">API Integration</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#claude-api" class="page__taxonomy-item" rel="tag">Claude API</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java" class="page__taxonomy-item" rel="tag">Java</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#spring-boot" class="page__taxonomy-item" rel="tag">Spring Boot</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-06-14">June 14, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/semantic-directive-binding/" class="pagination--pager" title="메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+">이전</a>
+    
+    
+      <a href="/ai/claude-skills-hooks/" class="pagination--pager" title="Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-skills-hooks/" rel="permalink">Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 23 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/semantic-directive-binding/" rel="permalink">메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 03 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">메타지침 바인딩 기술의 개념, 메커니즘, 아키텍처를 이해하고 Spring Boot 기반 실제 샘플 프로젝트로 구현해보세요.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/ai-ops-dlc/" rel="permalink">AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/prompt-context-harness-engineering/" rel="permalink">Prompt Engineering, Context Engineering, Harness Engineering
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 20 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

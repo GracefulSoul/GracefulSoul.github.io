@@ -1,0 +1,2320 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화 - Development story</title>
+<meta name="description" content="Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화">
+<meta property="og:url" content="/ai/claude-skills-hooks/">
+
+
+  <meta property="og:description" content="Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/claude-skills-hooks.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-06-23T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-06-23T20:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/claude-skills-hooks/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/claude-skills-hooks.png" alt="Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화">
+    <meta itemprop="description" content="Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.">
+    <meta itemprop="datePublished" content="2026-06-23T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-06-23T20:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-06-23T00:00:00+00:00">June 23, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a><ul><li><a href="#skills와-hooks란">Skills와 Hooks란?</a></li><li><a href="#핵심-차이점">핵심 차이점</a></li><li><a href="#skills-vs-mcp-model-context-protocol">Skills vs MCP (Model Context Protocol)</a></li></ul></li><li><a href="#part-1-agent-skills">Part 1: Agent Skills</a><ul><li><a href="#11-skills란">1.1 Skills란?</a></li><li><a href="#12-progressive-loading-3단계">1.2 Progressive Loading (3단계)</a><ul><li><a href="#-주의-vs-code에서-새-skill-생성-후-인식되려면">🔄 주의: VS Code에서 새 Skill 생성 후 인식되려면</a></li></ul></li><li><a href="#13-skillmd-형식-필수-구조">1.3 SKILL.md 형식 (필수 구조)</a></li><li><a href="#14-frontmatter-필드-설명">1.4 frontmatter 필드 설명</a></li><li><a href="#15-실제-예제-code-quality-analyzer-skill">1.5 실제 예제: code-quality-analyzer Skill</a></li><li><a href="#16-skill-로드-경로">1.6 Skill 로드 경로</a></li><li><a href="#17-skills-사용-방법">1.7 Skills 사용 방법</a><ul><li><a href="#vs-code에서-사용">VS Code에서 사용</a></li><li><a href="#실행-예제">실행 예제</a></li></ul></li></ul></li><li><a href="#part-2-agent-hooks">Part 2: Agent Hooks</a><ul><li><a href="#21-hooks란">2.1 Hooks란?</a></li><li><a href="#22-8가지-lifecycle-이벤트">2.2 8가지 Lifecycle 이벤트</a></li><li><a href="#23-hook-구조">2.3 Hook 구조</a></li><li><a href="#24-hook-파일-위치">2.4 Hook 파일 위치</a></li><li><a href="#25-hook-inputoutput-계약">2.5 Hook Input/Output 계약</a><ul><li><a href="#hook-input-stdin">Hook Input (stdin)</a></li><li><a href="#hook-output-stdout">Hook Output (stdout)</a></li><li><a href="#exit-code-의미">Exit Code 의미</a></li></ul></li><li><a href="#26-실제-예제-보안-hook">2.6 실제 예제: 보안 Hook</a></li><li><a href="#27-실제-예제-자동-포맷팅-hook">2.7 실제 예제: 자동 포맷팅 Hook</a></li><li><a href="#28-실제-예제-감사-로깅-hook">2.8 실제 예제: 감사 로깅 Hook</a></li></ul></li><li><a href="#part-3-아키텍처-및-메커니즘">Part 3: 아키텍처 및 메커니즘</a><ul><li><a href="#31-전체-아키텍처">3.1 전체 아키텍처</a></li><li><a href="#32-skills-vs-instructions-비교">3.2 Skills vs Instructions 비교</a></li><li><a href="#33-skill-로드-효율성">3.3 Skill 로드 효율성</a></li><li><a href="#34-hook-실행-흐름">3.4 Hook 실행 흐름</a></li></ul></li><li><a href="#part-4-copilot에서의-사용">Part 4: Copilot에서의 사용</a><ul><li><a href="#41-vs-code에서-skills-사용">4.1 VS Code에서 Skills 사용</a><ul><li><a href="#기본-사용법">기본 사용법</a></li><li><a href="#예제">예제</a></li></ul></li><li><a href="#42-vs-code에서-hooks-사용">4.2 VS Code에서 Hooks 사용</a><ul><li><a href="#hooks-설정">Hooks 설정</a></li><li><a href="#hooks-검증">Hooks 검증</a></li></ul></li><li><a href="#43-copilot-cli에서-skills-사용">4.3 Copilot CLI에서 Skills 사용</a></li><li><a href="#44-claude-code에서-사용">4.4 Claude Code에서 사용</a></li></ul></li><li><a href="#part-5-claude-폴더에서의-인식">Part 5: .claude 폴더에서의 인식</a><ul><li><a href="#51-claude-폴더의-역할">5.1 .claude 폴더의 역할</a></li><li><a href="#52-지원되는-도구">5.2 지원되는 도구</a></li><li><a href="#53-파일-우선순위-로드-순서">5.3 파일 우선순위 (로드 순서)</a></li><li><a href="#54-skills와-claude-폴더">5.4 Skills와 .claude 폴더</a></li><li><a href="#55-claudesettingsjson-구조">5.5 .claude/settings.json 구조</a></li><li><a href="#56-claude-code에서-claude-인식-확인">5.6 Claude Code에서 .claude 인식 확인</a></li></ul></li><li><a href="#part-6-실습-프로젝트">Part 6: 실습 프로젝트</a><ul><li><a href="#61-프로젝트">6.1 프로젝트</a></li><li><a href="#62-빠른-시작">6.2 빠른 시작</a><ul><li><a href="#1단계-레파지토리-클론">1단계: 레파지토리 클론</a></li><li><a href="#2단계-vs-code에서-열기">2단계: VS Code에서 열기</a></li><li><a href="#3단계-hooks-확인">3단계: Hooks 확인</a></li><li><a href="#4단계-skills-테스트">4단계: Skills 테스트</a></li></ul></li><li><a href="#63-주요-파일-해설">6.3 주요 파일 해설</a><ul><li><a href="#githubskillscode-quality-analyzerskillmd">.github/skills/code-quality-analyzer/SKILL.md</a></li><li><a href="#githubhooksdevelopmentjson">.github/hooks/development.json</a></li><li><a href="#scriptssecurity-checksh">scripts/security-check.sh</a></li></ul></li></ul></li><li><a href="#part-7-고급-활용">Part 7: 고급 활용</a><ul><li><a href="#71-context-fork를-통한-대규모-skill">7.1 Context: fork를 통한 대규모 Skill</a></li><li><a href="#72-os별-hook-구현">7.2 OS별 Hook 구현</a></li><li><a href="#73-환경-변수를-통한-hook-커스터마이제이션">7.3 환경 변수를 통한 Hook 커스터마이제이션</a></li><li><a href="#74-hook에서-skill-트리거">7.4 Hook에서 Skill 트리거</a></li></ul></li><li><a href="#part-8-보안-고려사항">Part 8: 보안 고려사항</a><ul><li><a href="#81-skill-검토-체크리스트">8.1 Skill 검토 체크리스트</a></li><li><a href="#82-hook-보안-체크리스트">8.2 Hook 보안 체크리스트</a></li><li><a href="#83-자동-승인-제어">8.3 자동 승인 제어</a></li></ul></li><li><a href="#part-9-트러블슈팅">Part 9: 트러블슈팅</a><ul><li><a href="#91-skill이-로드되지-않음">9.1 Skill이 로드되지 않음</a></li><li><a href="#92-hook이-실행되지-않음">9.2 Hook이 실행되지 않음</a></li><li><a href="#93-hook-타임아웃">9.3 Hook 타임아웃</a></li></ul></li><li><a href="#part-10-skills-vs-mcp---깊이-있는-비교">Part 10: Skills vs MCP - 깊이 있는 비교</a><ul><li><a href="#101-토큰-효율성-skills의-우위">10.1 토큰 효율성: Skills의 우위</a><ul><li><a href="#mcp의-토큰-사용-구조">MCP의 토큰 사용 구조</a></li><li><a href="#skills의-토큰-사용-구조">Skills의 토큰 사용 구조</a></li></ul></li><li><a href="#102-세션-새로고침-skill-동적-감지">10.2 세션 새로고침: Skill 동적 감지</a><ul><li><a href="#새-skill-추가-시-동작">새 Skill 추가 시 동작</a></li><li><a href="#왜-새-세션이-필요한가">왜 새 세션이 필요한가?</a></li></ul></li><li><a href="#103-인증-authentication-skills의-장점">10.3 인증 (Authentication): Skills의 장점</a><ul><li><a href="#mcp---인증-필수">MCP - 인증 필수</a></li><li><a href="#skills---인증-불필요">Skills - 인증 불필요</a></li></ul></li><li><a href="#104-사용-사례별-선택-가이드">10.4 사용 사례별 선택 가이드</a><ul><li><a href="#skills-선택-이-경우-사용">Skills 선택 (이 경우 사용)</a></li><li><a href="#mcp-선택-이-경우-사용">MCP 선택 (이 경우 사용)</a></li><li><a href="#함께-사용-권장">함께 사용 (권장)</a></li></ul></li><li><a href="#105-요약-토큰-vs-기능">10.5 요약: 토큰 vs 기능</a></li></ul></li><li><a href="#결론-skills는-설정하고-잊기-방식">결론: Skills는 “설정하고 잊기” 방식</a><ul><li><a href="#핵심-통찰">핵심 통찰</a><ul><li><a href="#1️⃣-자동-인식-명시적-호출-불필요">1️⃣ 자동 인식 (명시적 호출 불필요)</a></li><li><a href="#2️⃣-토큰-효율-mcp-대비-40-50-절감">2️⃣ 토큰 효율 (MCP 대비 40-50% 절감)</a></li><li><a href="#3️⃣-인증-불필요-보안-우위">3️⃣ 인증 불필요 (보안 우위)</a></li></ul></li><li><a href="#사용-권장사항">사용 권장사항</a><ul><li><a href="#teamsorganizations-skills-우선-도입">Teams/Organizations: Skills 우선 도입</a></li><li><a href="#integration-mcp와-함께-사용">Integration: MCP와 함께 사용</a></li></ul></li><li><a href="#skills를-최대로-활용하기">Skills를 최대로 활용하기</a><ul><li><a href="#체크리스트">체크리스트</a></li><li><a href="#성과-측정">성과 측정</a></li></ul></li><li><a href="#최종-요약">최종 요약</a></li></ul></li><li><a href="#참고-자료">참고 자료</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <p>GitHub Copilot과 Claude Code의 강력한 기능을 최대한 활용하려면 <strong>Skills</strong>와 <strong>Hooks</strong>를 이해하는 것이 필수적입니다. 이 글에서는 이 두 가지 핵심 기능의 개념, 메커니즘, 아키텍처, 그리고 실제 구현 방법까지 완전히 다루겠습니다.</p>
+
+<h2 id="개요">개요</h2>
+
+<h3 id="skills와-hooks란">Skills와 Hooks란?</h3>
+
+<p><strong>Skills</strong>와 <strong>Hooks</strong>는 Claude Code를 확장하고 자동화하는 두 가지 근본적으로 다른 방식입니다.
+GitHub Copilot에서도 내부적으로 이 방식들을 지원합니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>Skills</th>
+      <th>Hooks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>목적</strong></td>
+      <td>특화된 기능 제공</td>
+      <td>자동화 및 제어</td>
+    </tr>
+    <tr>
+      <td><strong>동작 방식</strong></td>
+      <td>지시사항 기반</td>
+      <td>커맨드 기반</td>
+    </tr>
+    <tr>
+      <td><strong>트리거</strong></td>
+      <td>사용자 요청/자동 감지</td>
+      <td>정해진 라이프사이클 이벤트</td>
+    </tr>
+    <tr>
+      <td><strong>확장성</strong></td>
+      <td>높음 (스크립트 + 리소스)</td>
+      <td>제한적 (셸 커맨드)</td>
+    </tr>
+    <tr>
+      <td><strong>포팅성</strong></td>
+      <td>VS Code, Copilot CLI, Cloud</td>
+      <td>모든 에이전트 (호환성 필요)</td>
+    </tr>
+    <tr>
+      <td><strong>표준</strong></td>
+      <td>개방형 표준 (agentskills.io)</td>
+      <td>VS Code/Claude 고유</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="핵심-차이점">핵심 차이점</h3>
+
+<ul>
+  <li><strong>Skills</strong>: “Copilot에게 어떻게 일을 하는지 가르치기”</li>
+  <li><strong>Hooks</strong>: “작업 중간에 자동으로 특정 코드 실행하기”</li>
+</ul>
+
+<h3 id="skills-vs-mcp-model-context-protocol">Skills vs MCP (Model Context Protocol)</h3>
+
+<p><strong>Skills</strong>와 <strong>MCP</strong>는 모두 AI 에이전트를 확장하는 도구이지만, 다른 목적과 메커니즘을 가집니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>측면</th>
+      <th>Skills</th>
+      <th>MCP</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>목적</strong></td>
+      <td>작업 지시사항 전달</td>
+      <td>도구/리소스 통합</td>
+    </tr>
+    <tr>
+      <td><strong>메커니즘</strong></td>
+      <td>텍스트 기반 지시 (Progressive Loading)</td>
+      <td>양방향 RPC 프로토콜</td>
+    </tr>
+    <tr>
+      <td><strong>인증</strong></td>
+      <td>없음 (로컬 파일 기반)</td>
+      <td>필수 (서버 연결)</td>
+    </tr>
+    <tr>
+      <td><strong>리소스 관리</strong></td>
+      <td>필요시에만 로드 (~100B → ~5KB → 필요한 것)</td>
+      <td>항상 연결 유지 (상태 관리)</td>
+    </tr>
+    <tr>
+      <td><strong>토큰 사용</strong></td>
+      <td>매우 효율적 (명시적 호출까지 최소)</td>
+      <td>높음 (활성 연결 유지)</td>
+    </tr>
+    <tr>
+      <td><strong>자동 인식</strong></td>
+      <td>✅ Skill 설명으로 자동 인식, 수동 호출도 가능</td>
+      <td>✅ 시작 시 등록</td>
+    </tr>
+    <tr>
+      <td><strong>설정</strong></td>
+      <td>YAML 프론트매터</td>
+      <td>JSON 서버 설정</td>
+    </tr>
+    <tr>
+      <td><strong>보안</strong></td>
+      <td>로컬 스크립트로 제한</td>
+      <td>원격 서버 필수 (인증 오버헤드)</td>
+    </tr>
+    <tr>
+      <td><strong>적합한 용도</strong></td>
+      <td>코딩 작업/분석/자동화</td>
+      <td>외부 서비스 연동/실시간 데이터</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>핵심 차이:</strong></p>
+<ul>
+  <li><strong>Skills</strong>: 에이전트에게 “어떻게 할지” 알려주기 (지식 전달)</li>
+  <li><strong>MCP</strong>: 에이전트에게 “뭘 할 수 있는지” 제공하기 (도구 제공)</li>
+</ul>
+
+<p><strong>토큰 효율성 비교:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Skills:
+  - 세션 시작: 0 토큰 (Skill들이 자동 발견될 때만 로드)
+  - 첫 사용: ~100 tokens (name + description)
+  - 활성화: ~500 tokens (전체 SKILL.md)
+  - 총: 최소 600 tokens (한 번만, 이후 캐시)
+
+MCP:
+  - 세션 시작: ~1000 tokens (모든 tool 정의 로드)
+  - 지속: 활성 연결 유지 (배경 토큰 소비)
+  - 매 호출: ~50 tokens (RPC 오버헤드)
+  - 총: 1000+ tokens (지속적 소비)
+</code></pre></div></div>
+
+<p><strong>선택 기준:</strong></p>
+<ul>
+  <li>✅ <strong>Skills 사용</strong>: 코딩, 분석, 로컬 작업 자동화</li>
+  <li>✅ <strong>MCP 사용</strong>: GitHub API, 데이터베이스, 외부 API 연동</li>
+</ul>
+
+<h2 id="part-1-agent-skills">Part 1: Agent Skills</h2>
+
+<h3 id="11-skills란">1.1 Skills란?</h3>
+
+<p>Agent Skills는 <strong>재사용 가능한 작업별 워크플로우 폴더</strong>입니다. 각 Skill은 다음 구조를 가집니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my-skill/
+├── SKILL.md              # 필수: 메타데이터 + 지시사항
+├── scripts/              # 선택: 실행 가능한 코드
+├── examples/             # 선택: 사용 예제
+├── references/           # 선택: 문서 및 참고 자료
+└── templates/            # 선택: 템플릿 파일
+</code></pre></div></div>
+
+<h3 id="12-progressive-loading-3단계">1.2 Progressive Loading (3단계)</h3>
+
+<p>Copilot은 컨텍스트 효율성을 위해 Skills을 3단계에 걸쳐 로드합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────────────┐
+│  Step 1: Discovery (발견)                    │
+│  - Skill 이름과 설명만 로드                    │
+│  - 용량: ~100 bytes                          │
+│  - "언제 필요할지" 판단                        │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Step 2: Activation (활성화)                 │
+│  - 사용자의 작업이 Skill 설명과 매칭            │
+│  - 전체 SKILL.md 본문 로드                    │
+│  - 상세 지시사항 제공                          │
+└─────────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────────┐
+│  Step 3: Execution (실행)                    │
+│  - 참조된 파일/스크립트만 로드                  │
+│  - 실시간 작업 수행                           │
+│  - 필요한 리소스만 접근                        │
+└─────────────────────────────────────────────┘
+</code></pre></div></div>
+
+<p><strong>이점</strong>:</p>
+<ul>
+  <li>100개 Skill을 설치해도 처음에는 ~10KB만 메모리 사용</li>
+  <li>토큰 효율적: Discovery 단계에서 거의 토큰 소비 안 함</li>
+  <li>필요할 때만 활성화: 사용하지 않는 Skill은 메모리/토큰 영향 없음</li>
+  <li>명시적 호출 불필요: <code class="language-plaintext highlighter-rouge">disable-model-invocation: false</code>이면 자동 인식</li>
+</ul>
+
+<h4 id="-주의-vs-code에서-새-skill-생성-후-인식되려면">🔄 주의: VS Code에서 새 Skill 생성 후 인식되려면</h4>
+
+<p><strong>새로운 Skill을 만든 후:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. .github/skills/my-new-skill/SKILL.md 생성
+2. VS Code 재시작 <span class="o">(</span>또는 새로운 Copilot 세션 시작<span class="o">)</span>
+3. Chat: Open Customizations 실행
+4. Skills 탭에서 확인
+</code></pre></div></div>
+
+<p><strong>왜 세션을 새로 열어야 할까?</strong></p>
+<ul>
+  <li>Copilot은 <strong>세션 시작 시</strong> 모든 Skill 디렉토리를 스캔합니다</li>
+  <li>기존 세션 중에는 파일 시스템 변경을 감지하지 않습니다</li>
+  <li>따라서 새 Skill을 추가하면 <strong>새 세션(또는 VS Code 재시작)</strong>이 필요합니다</li>
+</ul>
+
+<p><strong>팁</strong>: <code class="language-plaintext highlighter-rouge">chat.skipLineNumberHistory</code>를 활용하거나, Command Palette에서 <code class="language-plaintext highlighter-rouge">Chat: Clear Copilot Context</code>로 강제 새로고침 가능합니다.</p>
+
+<h3 id="13-skillmd-형식-필수-구조">1.3 SKILL.md 형식 (필수 구조)</h3>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">code-quality-analyzer</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">코드 품질을 분석하고 개선 사항을 제안합니다. 린터 실행, 복잡도 계산, 메트릭 생성 등을 수행합니다.</span>
+<span class="na">user-invocable</span><span class="pi">:</span> <span class="kc">true</span>
+<span class="na">disable-model-invocation</span><span class="pi">:</span> <span class="kc">false</span>
+<span class="na">context</span><span class="pi">:</span> <span class="s">inline</span>
+<span class="nn">---</span>
+
+<span class="gh"># 스킬 이름</span>
+
+<span class="gu">## 개요</span>
+이 섹션에서는 스킬이 무엇을 하는지 설명합니다.
+
+<span class="gu">## 사용 시기</span>
+언제 이 스킬을 사용해야 하는지 명시합니다.
+
+<span class="gu">## 단계별 지시사항</span>
+<span class="p">1.</span> 첫 번째 단계
+<span class="p">2.</span> 두 번째 단계
+</code></pre></div></div>
+
+<h3 id="14-frontmatter-필드-설명">1.4 frontmatter 필드 설명</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">code-quality-analyzer</span>              <span class="c1"># 고유 식별자 (소문자, 하이픈만 사용)</span>
+<span class="na">description</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">코드 품질을 분석합니다.                # 1024자 이내, 구체적인 설명</span>
+<span class="na">user-invocable</span><span class="pi">:</span> <span class="kc">true</span>                     <span class="c1"># 사용자가 /로 호출 가능 여부</span>
+<span class="na">disable-model-invocation</span><span class="pi">:</span> <span class="kc">false</span>          <span class="c1"># 에이전트 자동 로드 여부</span>
+<span class="na">context</span><span class="pi">:</span> <span class="s">inline</span>                          <span class="c1"># inline 또는 fork (fork=서브에이전트)</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h3 id="15-실제-예제-code-quality-analyzer-skill">1.5 실제 예제: code-quality-analyzer Skill</h3>
+
+<p>본 프로젝트의 copilot-project 레파지토리에 포함된 실제 예제를 살펴봅시다:</p>
+
+<p><strong>위치</strong>: <code class="language-plaintext highlighter-rouge">.github/skills/code-quality-analyzer/SKILL.md</code></p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">code-quality-analyzer</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">코드 품질을 분석하고, 린터를 실행하고, 개선 사항을 제안합니다.</span>
+<span class="nn">---</span>
+
+<span class="gh"># 코드 품질 분석기</span>
+
+<span class="gu">## 개요</span>
+이 스킬은 프로젝트의 코드 품질을 자동으로 분석합니다.
+
+<span class="gu">### 수행하는 작업</span>
+<span class="p">-</span> ESLint, Pylint 등 린터 실행
+<span class="p">-</span> Prettier, Black으로 형식 검사
+<span class="p">-</span> 순환 복잡도(Cyclomatic Complexity) 계산
+<span class="p">-</span> 코드 메트릭 생성
+<span class="p">-</span> 개선 사항 제안
+
+<span class="gu">## 사용 시기</span>
+<span class="p">-</span> 새로운 코드를 작성한 후
+<span class="p">-</span> 커밋 전 품질 검증
+<span class="p">-</span> "코드 품질을 검토해줘" 요청
+<span class="p">-</span> 복잡도 메트릭이 필요할 때
+
+<span class="gu">## 사용 방법</span>
+
+<span class="gu">### Step 1: Skill 호출</span>
+/code-quality-analyzer src/
+
+<span class="gu">### Step 2: 에이전트 분석</span>
+프로젝트 타입 감지 → 적절한 린터 실행 → 메트릭 계산
+
+<span class="gu">### Step 3: 결과 검토</span>
+<span class="p">-</span> 발견된 이슈
+<span class="p">-</span> 복잡도 리포트
+<span class="p">-</span> 코드 메트릭
+<span class="p">-</span> 개선 사항 추천
+</code></pre></div></div>
+
+<p><strong>지원 스크립트</strong>: <code class="language-plaintext highlighter-rouge">validate-code.sh</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">PROJECT_PATH</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">.</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># 프로젝트 타입 감지</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">/package.json"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"JavaScript 프로젝트 감지"</span>
+    eslint <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">"</span> <span class="nt">--format</span> json
+<span class="k">elif</span> <span class="o">[</span> <span class="nt">-f</span> <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">/pyproject.toml"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Python 프로젝트 감지"</span>
+    pylint <span class="s2">"</span><span class="nv">$PROJECT_PATH</span><span class="s2">"</span> <span class="nt">--output-format</span><span class="o">=</span>json
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<h3 id="16-skill-로드-경로">1.6 Skill 로드 경로</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>프로젝트 Skills:
+  ├─ .github/skills/
+  ├─ .claude/skills/              # Claude Code
+  ├─ .agents/skills/
+  └─ 커스텀 경로 (chat.agentSkillsLocations)
+
+사용자 Skill:
+  ├─ ~/.copilot/skills/
+  ├─ ~/.claude/skills/            # Claude Code
+  └─ ~/.agents/skills/
+</code></pre></div></div>
+
+<h3 id="17-skills-사용-방법">1.7 Skills 사용 방법</h3>
+
+<h4 id="vs-code에서-사용">VS Code에서 사용</h4>
+
+<ol>
+  <li>채팅창에서 / 입력</li>
+  <li>Skill 목록 표시</li>
+  <li>code-quality-analyzer 선택</li>
+  <li>추가 컨텍스트 입력 (선택사항)</li>
+</ol>
+
+<h4 id="실행-예제">실행 예제</h4>
+
+<p><strong>입력:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/code-quality-analyzer src/
+</code></pre></div></div>
+
+<p><strong>Copilot 응답:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>JavaScript 프로젝트 감지됨.
+ESLint 실행 중...
+
+발견된 이슈:
+- 3개 ESLint 오류
+- 2개 스타일 경고
+
+복잡도 분석:
+- processData() 함수: 복잡도 12 (높음)
+- handleRequest() 함수: 복잡도 4 (정상)
+
+메트릭:
+- 총 라인: 1,247
+- 코드 중복: 8.2%
+- 유지보수성 지수: 72/100
+
+추천 사항:
+1. processData()를 더 작은 함수로 분할
+2. asyncHandler()에 에러 핸들링 추가
+3. JSDoc 주석 업데이트
+</code></pre></div></div>
+
+<h2 id="part-2-agent-hooks">Part 2: Agent Hooks</h2>
+
+<h3 id="21-hooks란">2.1 Hooks란?</h3>
+
+<p>Agent Hooks는 <strong>에이전트 세션의 특정 시점에 자동으로 실행되는 셸 커맨드</strong>입니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>User Request
+     ↓
+[Hook: SessionStart] ← 리소스 초기화
+     ↓
+Agent processes
+     ↓
+[Hook: PreToolUse] ← 보안 검증
+     ↓
+Tool executes
+     ↓
+[Hook: PostToolUse] ← 포맷팅, 테스트
+     ↓
+Session ends
+     ↓
+[Hook: Stop] ← 리포트 생성
+</code></pre></div></div>
+
+<h3 id="22-8가지-lifecycle-이벤트">2.2 8가지 Lifecycle 이벤트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>이벤트</th>
+      <th>트리거</th>
+      <th>사용 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SessionStart</strong></td>
+      <td>새 세션 시작</td>
+      <td>환경 변수 로드, 프로젝트 초기화</td>
+    </tr>
+    <tr>
+      <td><strong>UserPromptSubmit</strong></td>
+      <td>사용자 입력</td>
+      <td>프롬프트 감사, 시스템 정보 주입</td>
+    </tr>
+    <tr>
+      <td><strong>PreToolUse</strong></td>
+      <td>도구 실행 전</td>
+      <td>위험한 커맨드 차단, 승인 요청</td>
+    </tr>
+    <tr>
+      <td><strong>PostToolUse</strong></td>
+      <td>도구 실행 후</td>
+      <td>코드 포맷팅, 테스트 실행</td>
+    </tr>
+    <tr>
+      <td><strong>PreCompact</strong></td>
+      <td>컨텍스트 압축 전</td>
+      <td>상태 저장, 중요 정보 내보내기</td>
+    </tr>
+    <tr>
+      <td><strong>SubagentStart</strong></td>
+      <td>서브에이전트 시작</td>
+      <td>리소스 할당, 추적</td>
+    </tr>
+    <tr>
+      <td><strong>SubagentStop</strong></td>
+      <td>서브에이전트 종료</td>
+      <td>결과 수집, 정리</td>
+    </tr>
+    <tr>
+      <td><strong>Stop</strong></td>
+      <td>세션 종료</td>
+      <td>리포트 생성, 로그 저장</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="23-hook-구조">2.3 Hook 구조</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx prettier --write ."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"windows"</span><span class="p">:</span><span class="w"> </span><span class="s2">"powershell -File scripts</span><span class="se">\\</span><span class="s2">format.ps1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"KEY"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="24-hook-파일-위치">2.4 Hook 파일 위치</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.github/hooks/                    # 기본 위치
+├─ development.json
+├─ production.json
+└─ security.json
+
+.claude/settings.json             # Claude Code 호환
+~/.copilot/hooks/                 # 사용자 수준
+~/.claude/settings.json           # 사용자 수준 (Claude)
+</code></pre></div></div>
+
+<h3 id="25-hook-inputoutput-계약">2.5 Hook Input/Output 계약</h3>
+
+<h4 id="hook-input-stdin">Hook Input (stdin)</h4>
+
+<p>Copilot은 모든 Hook에 JSON을 stdin으로 전달합니다:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-06-23T14:30:45Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"session_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sess_abc123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cwd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/user/project"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hook_event_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PostToolUse"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hook_event_data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"tool_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create_file"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tool_input"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/user/project/app.js"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"console.log('hello');"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"tool_output"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"success"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="hook-output-stdout">Hook Output (stdout)</h4>
+
+<p>스크립트는 JSON을 stdout으로 반환하여 에이전트 동작을 제어합니다:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"continue"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"systemMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"포맷팅 완료"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hookSpecificOutput"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"formatted_files"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="exit-code-의미">Exit Code 의미</h4>
+
+<ul>
+  <li><strong>0</strong> (성공): stdout JSON 파싱, 계속 진행</li>
+  <li><strong>2</strong> (오류): 세션 중지, 모델에 stderr 전달</li>
+  <li><strong>기타</strong>: 경고, 계속 진행</li>
+</ul>
+
+<h3 id="26-실제-예제-보안-hook">2.6 실제 예제: 보안 Hook</h3>
+
+<p><strong>파일</strong>: <code class="language-plaintext highlighter-rouge">.github/hooks/development.json</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PreToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./scripts/security-check.sh"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"위험한 작업 차단"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>구현</strong>: <code class="language-plaintext highlighter-rouge">scripts/security-check.sh</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">INPUT</span><span class="o">=</span><span class="si">$(</span><span class="nb">cat</span><span class="si">)</span>
+
+<span class="nv">TOOL_NAME</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.hook_event_data.tool_name'</span><span class="si">)</span>
+<span class="nv">COMMAND</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.hook_event_data.tool_input.command // empty'</span><span class="si">)</span>
+
+<span class="c"># 위험한 패턴 검사</span>
+<span class="nv">DANGEROUS_PATTERNS</span><span class="o">=(</span><span class="s2">"rm -rf"</span> <span class="s2">"DROP TABLE"</span> <span class="s2">"chmod 777"</span><span class="o">)</span>
+
+<span class="k">for </span>pattern <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">DANGEROUS_PATTERNS</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span><span class="p">;</span> <span class="k">do
+    if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$COMMAND</span><span class="s2">"</span> <span class="o">==</span> <span class="k">*</span><span class="s2">"</span><span class="nv">$pattern</span><span class="s2">"</span><span class="k">*</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="c"># 차단 응답</span>
+        <span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+{
+  "continue": false,
+  "stopReason": "위험한 커맨드 차단: </span><span class="nv">$COMMAND</span><span class="sh">",
+  "systemMessage": "이 커맨드는 수동 승인이 필요합니다"
+}
+</span><span class="no">EOF
+</span>        <span class="nb">exit </span>2
+    <span class="k">fi
+done</span>
+
+<span class="c"># 안전한 작업 허용</span>
+<span class="nb">echo</span> <span class="s1">'{"continue": true}'</span>
+</code></pre></div></div>
+
+<p><strong>동작 흐름:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자: "rm -rf old_files/"
+     ↓
+[PreToolUse Hook 실행]
+     ↓
+security-check.sh 감지: "rm -rf" 패턴
+     ↓
+Exit code 2 반환 + 차단 메시지
+     ↓
+Copilot: "이 커맨드는 위험합니다. 수동 승인이 필요합니다"
+     ↓
+세션 중지
+</code></pre></div></div>
+
+<h3 id="27-실제-예제-자동-포맷팅-hook">2.7 실제 예제: 자동 포맷팅 Hook</h3>
+
+<p><strong>파일</strong>: <code class="language-plaintext highlighter-rouge">.github/hooks/development.json</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx prettier --write ."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"편집 후 자동 포맷팅"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>동작:</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자: "app.js 파일에 함수 추가해줘"
+     ↓
+Copilot: 파일 생성/편집
+     ↓
+[PostToolUse Hook 실행]
+     ↓
+npx prettier --write . 실행
+     ↓
+모든 파일 자동 포맷팅
+     ↓
+Copilot: "완료. 코드가 자동으로 포맷되었습니다."
+</code></pre></div></div>
+
+<h3 id="28-실제-예제-감사-로깅-hook">2.8 실제 예제: 감사 로깅 Hook</h3>
+
+<p><strong>파일</strong>: <code class="language-plaintext highlighter-rouge">scripts/audit-log.sh</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">INPUT</span><span class="o">=</span><span class="si">$(</span><span class="nb">cat</span><span class="si">)</span>
+
+<span class="nv">TIMESTAMP</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.timestamp'</span><span class="si">)</span>
+<span class="nv">SESSION_ID</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.session_id'</span><span class="si">)</span>
+<span class="nv">TOOL_NAME</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.hook_event_data.tool_name'</span><span class="si">)</span>
+<span class="nv">EVENT</span><span class="o">=</span><span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INPUT</span><span class="s2">"</span> | jq <span class="nt">-r</span> <span class="s1">'.hook_event_name'</span><span class="si">)</span>
+
+<span class="c"># 로그 디렉토리 생성</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> .audit-logs
+
+<span class="c"># 감사 로그 기록</span>
+<span class="nv">LOG_ENTRY</span><span class="o">=</span><span class="si">$(</span><span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh">
+{
+  "timestamp": "</span><span class="nv">$TIMESTAMP</span><span class="sh">",
+  "session_id": "</span><span class="nv">$SESSION_ID</span><span class="sh">",
+  "event": "</span><span class="nv">$EVENT</span><span class="sh">",
+  "tool": "</span><span class="nv">$TOOL_NAME</span><span class="sh">",
+  "details": </span><span class="nv">$INPUT</span><span class="sh">
+}
+</span><span class="no">EOF
+</span><span class="si">)</span>
+
+<span class="nb">echo</span> <span class="s2">"</span><span class="nv">$LOG_ENTRY</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> .audit-logs/session-<span class="nv">$SESSION_ID</span>.log
+
+<span class="c"># 성공 반환</span>
+<span class="nb">echo</span> <span class="s1">'{"continue": true}'</span>
+</code></pre></div></div>
+
+<p><strong>결과</strong>: <code class="language-plaintext highlighter-rouge">.audit-logs/session-sess_abc123.log</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-06-23T14:30:45Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"session_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sess_abc123"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"event"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PostToolUse"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tool"</span><span class="p">:</span><span class="w"> </span><span class="s2">"edit_file"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"details"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">...</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="part-3-아키텍처-및-메커니즘">Part 3: 아키텍처 및 메커니즘</h2>
+
+<h3 id="31-전체-아키텍처">3.1 전체 아키텍처</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────────────────────────────┐
+│  Copilot Agent Session                                  │
+└─────────────────────────────────────────────────────────┘
+              ↓
+        [SessionStart Hook]
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│  User Request: "/code-quality-analyzer src/"            │
+└─────────────────────────────────────────────────────────┘
+              ↓
+        [UserPromptSubmit Hook]
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│  Skill Discovery                                        │
+│  - name, description 로드 (~100 bytes)                   │
+│  - "code-quality-analyzer" 매칭                          │
+└─────────────────────────────────────────────────────────┘
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│  Skill Activation                                       │
+│  - SKILL.md 본문 로드                                    │
+│  - 상세 지시사항 제공 (~5KB)                              │
+└─────────────────────────────────────────────────────────┘
+              ↓
+        [PreToolUse Hook]
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│  Tool Execution                                         │
+│  - run_terminal: "./scripts/validate-code.sh"           │
+│  - create_file: "code-quality-report.json"              │
+└─────────────────────────────────────────────────────────┘
+              ↓
+        [PostToolUse Hook]
+              ↓
+┌─────────────────────────────────────────────────────────┐
+│  Resource Cleanup (if needed)                           │
+└─────────────────────────────────────────────────────────┘
+              ↓
+        [Stop Hook]
+              ↓
+        Session Complete
+</code></pre></div></div>
+
+<h3 id="32-skills-vs-instructions-비교">3.2 Skills vs Instructions 비교</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>측면</th>
+      <th>Skills</th>
+      <th>Custom Instructions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>목적</td>
+      <td>특화 기능 제공</td>
+      <td>코딩 표준 정의</td>
+    </tr>
+    <tr>
+      <td>포팅성</td>
+      <td>VS Code + CLI + Cloud</td>
+      <td>VS Code + GitHub.com</td>
+    </tr>
+    <tr>
+      <td>콘텐츠</td>
+      <td>지시 + 스크립트 + 리소스</td>
+      <td>지시만</td>
+    </tr>
+    <tr>
+      <td>범위</td>
+      <td>작업별 온디맨드</td>
+      <td>항상 적용 (glob 패턴)</td>
+    </tr>
+    <tr>
+      <td>표준</td>
+      <td>agentskills.io (개방형)</td>
+      <td>VS Code 고유</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="33-skill-로드-효율성">3.3 Skill 로드 효율성</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>스킬 10개 설치 시 메모리 사용:
+
+[Discovery 단계]:
+- 각 스킬의 name + description만 로드
+- 총: ~1 KB (10개 × 100 bytes)
+
+[Activation 단계]:
+- 필요한 1개 스킬만 전체 로드
+- 총: ~5 KB
+
+[Execution 단계]:
+- 참조된 파일/스크립트만 로드
+- 총: ~10-50 KB (필요한 것만)
+
+&gt;&gt;&gt; 전체 메모리: ~50 KB vs 500 KB (전체 로드 시)
+&gt;&gt;&gt; 효율: 90% 절감
+</code></pre></div></div>
+
+<h3 id="34-hook-실행-흐름">3.4 Hook 실행 흐름</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 이벤트 발생 (PostToolUse 등)
+                ↓
+2. Hook configuration 로드 (.github/hooks/*.json)
+                ↓
+3. 매칭되는 Hook 커맨드 검색
+                ↓
+4. JSON 입력 생성 (tool_name, tool_input 등)
+                ↓
+5. stdin으로 스크립트 실행
+     ├─ command: "npx prettier --write ."
+     ├─ cwd: ".github/hooks"
+     ├─ timeout: 30초
+     └─ env: {"KEY": "value"}
+                ↓
+6. stdout 모니터링
+     └─ JSON 파싱: {"continue": true, ...}
+                ↓
+7. Exit code 확인
+     ├─ 0: 성공, JSON 처리
+     ├─ 2: 오류, 세션 중지
+     └─ 기타: 경고
+                ↓
+8. 에이전트에 결과 반영
+</code></pre></div></div>
+
+<h2 id="part-4-copilot에서의-사용">Part 4: Copilot에서의 사용</h2>
+
+<h3 id="41-vs-code에서-skills-사용">4.1 VS Code에서 Skills 사용</h3>
+
+<h4 id="기본-사용법">기본 사용법</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 채팅창에서 "/" 입력
+2. 사용 가능한 Skills 목록 표시
+3. 원하는 Skill 선택
+4. 추가 컨텍스트 입력 (선택)
+5. Skill 자동 로드 및 실행
+</code></pre></div></div>
+
+<h4 id="예제">예제</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자: /code-quality-analyzer src/ --complexity-threshold=10
+
+Copilot:
+[Skill 로드: code-quality-analyzer]
+[복잡도 임계값: 10]
+[분석 중...]
+
+결과:
+- 3개 고복잡도 함수 발견
+- 평균 복잡도: 6.2
+- 리포트: code-quality-report.json 생성
+</code></pre></div></div>
+
+<h3 id="42-vs-code에서-hooks-사용">4.2 VS Code에서 Hooks 사용</h3>
+
+<h4 id="hooks-설정">Hooks 설정</h4>
+
+<ol>
+  <li><strong>Command Palette 열기</strong>: <code class="language-plaintext highlighter-rouge">Ctrl+Shift+P</code></li>
+  <li><strong>“Chat: Configure Hooks” 검색</strong></li>
+  <li>이벤트 타입 선택 (PostToolUse 등)</li>
+  <li>파일 위치 선택 (.github/hooks)</li>
+  <li>커맨드 입력</li>
+  <li>파일 저장 (자동 로드)</li>
+</ol>
+
+<h4 id="hooks-검증">Hooks 검증</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. View → Output 열기
+2. "GitHub Copilot Chat Hooks" 채널 선택
+3. 로드된 Hooks 확인
+4. 실행 결과 모니터링
+</code></pre></div></div>
+
+<h3 id="43-copilot-cli에서-skills-사용">4.3 Copilot CLI에서 Skills 사용</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>copilot chat <span class="s2">"코드 품질 분석해줘"</span> <span class="se">\</span>
+  <span class="nt">--skills-dir</span><span class="o">=</span><span class="s2">".github/skills/"</span> <span class="se">\</span>
+  <span class="nt">--project</span><span class="o">=</span><span class="s2">"myapp"</span>
+
+<span class="c"># 또는 기본 위치에서 자동 감지</span>
+copilot chat <span class="s2">"코드 품질 분석해줘"</span>
+</code></pre></div></div>
+
+<h3 id="44-claude-code에서-사용">4.4 Claude Code에서 사용</h3>
+
+<p>Claude Code는 <code class="language-plaintext highlighter-rouge">.claude</code> 폴더의 설정을 자동으로 인식합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.claude/
+├── settings.json          # Hooks 설정
+├── settings.local.json    # 로컬 오버라이드
+└── skills/               # Skills 디렉토리 (선택)
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">.claude/settings.json</code> 예제:</strong></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prettier --write ."</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="part-5-claude-폴더에서의-인식">Part 5: .claude 폴더에서의 인식</h2>
+
+<h3 id="51-claude-폴더의-역할">5.1 .claude 폴더의 역할</h3>
+
+<p><code class="language-plaintext highlighter-rouge">.claude</code> 폴더는 <strong>Claude Code와 다른 에이전트 도구에서 커스터마이제이션을 저장하는 표준 위치</strong>입니다.</p>
+
+<h3 id="52-지원되는-도구">5.2 지원되는 도구</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>도구</th>
+      <th>지원</th>
+      <th>형식</th>
+      <th>비고</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VS Code</td>
+      <td>✅</td>
+      <td><code class="language-plaintext highlighter-rouge">.github/hooks/</code> + <code class="language-plaintext highlighter-rouge">.claude/settings.json</code></td>
+      <td>듀얼 지원</td>
+    </tr>
+    <tr>
+      <td>Claude Code</td>
+      <td>✅</td>
+      <td><code class="language-plaintext highlighter-rouge">.claude/settings.json</code></td>
+      <td>기본 인식</td>
+    </tr>
+    <tr>
+      <td>Copilot CLI</td>
+      <td>✅</td>
+      <td>명시적 플래그 필요</td>
+      <td><code class="language-plaintext highlighter-rouge">--config-dir=".claude"</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="53-파일-우선순위-로드-순서">5.3 파일 우선순위 (로드 순서)</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 워크스페이스: .github/hooks/*.json
+2. 워크스페이스: .claude/settings.json
+3. 워크스페이스: .claude/settings.local.json (로컬 오버라이드)
+4. 사용자: ~/.copilot/hooks/
+5. 사용자: ~/.claude/settings.json
+</code></pre></div></div>
+
+<p><strong>우선순위</strong>: 워크스페이스 &gt; 사용자</p>
+
+<h3 id="54-skills와-claude-폴더">5.4 Skills와 .claude 폴더</h3>
+
+<p>Skills는 주로 <code class="language-plaintext highlighter-rouge">.claude/skills/</code>에 저장되고, GitHub Copilot도 이 위치의 Skills를 사용할 수 있다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.claude/skills/           # 기본 위치 (권장)
+├── my-custom-skill/
+│   └── SKILL.md
+└── ...
+</code></pre></div></div>
+
+<h3 id="55-claudesettingsjson-구조">5.5 .claude/settings.json 구조</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PreToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"enabledSkills"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"code-quality-analyzer"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"security-audit"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="56-claude-code에서-claude-인식-확인">5.6 Claude Code에서 .claude 인식 확인</h3>
+
+<p>Claude Code UI에서:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. Settings → Extensions
+2. Claude 탭 열기
+3. "Skills &amp; Hooks" 섹션 확인
+4. 로드된 커스터마이제이션 표시
+</code></pre></div></div>
+
+<p>또는 <code class="language-plaintext highlighter-rouge">.claude</code> 폴더를 workspace root에 배치하면 자동 인식됩니다.</p>
+
+<h2 id="part-6-실습-프로젝트">Part 6: 실습 프로젝트</h2>
+
+<h3 id="61-프로젝트">6.1 프로젝트</h3>
+
+<p><strong>GitHub</strong>: <a href="https://github.com/GracefulSoul/copilot-project" target="_blank">https://github.com/GracefulSoul/copilot-project</a></p>
+
+<h3 id="62-빠른-시작">6.2 빠른 시작</h3>
+
+<h4 id="1단계-레파지토리-클론">1단계: 레파지토리 클론</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/GracefulSoul/copilot-project
+<span class="nb">cd </span>copilot-project
+</code></pre></div></div>
+
+<h4 id="2단계-vs-code에서-열기">2단계: VS Code에서 열기</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>code <span class="nb">.</span>
+</code></pre></div></div>
+
+<h4 id="3단계-hooks-확인">3단계: Hooks 확인</h4>
+
+<p>Command Palette에서:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Chat: Open Customizations
+</code></pre></div></div>
+
+<p>Hooks 탭에서 로드된 Hooks 확인:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">development.json</code>: PostToolUse (Prettier)</li>
+  <li><code class="language-plaintext highlighter-rouge">production.json</code>: PreToolUse (보안)</li>
+</ul>
+
+<h4 id="4단계-skills-테스트">4단계: Skills 테스트</h4>
+
+<p>채팅창에서:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/code-quality-analyzer src/
+</code></pre></div></div>
+
+<h3 id="63-주요-파일-해설">6.3 주요 파일 해설</h3>
+
+<h4 id="githubskillscode-quality-analyzerskillmd"><code class="language-plaintext highlighter-rouge">.github/skills/code-quality-analyzer/SKILL.md</code></h4>
+
+<p>완전한 Skill 정의로서:</p>
+<ul>
+  <li>✅ 명확한 설명 (1024자 이내)</li>
+  <li>✅ 단계별 지시사항</li>
+  <li>✅ 실제 사용 예제</li>
+  <li>✅ 참조 파일 링크</li>
+  <li>✅ 트러블슈팅 팁</li>
+</ul>
+
+<h4 id="githubhooksdevelopmentjson"><code class="language-plaintext highlighter-rouge">.github/hooks/development.json</code></h4>
+
+<p>개발 환경용 자동화:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx prettier --write ."</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"파일 편집 후 자동 포맷팅"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h4 id="scriptssecurity-checksh"><code class="language-plaintext highlighter-rouge">scripts/security-check.sh</code></h4>
+
+<p>PreToolUse Hook 구현:</p>
+<ul>
+  <li>stdin에서 JSON 입력 읽기</li>
+  <li>위험한 패턴 검사</li>
+  <li><code class="language-plaintext highlighter-rouge">continue: false</code>로 블로킹</li>
+  <li>에러 메시지와 함께 exit code 2 반환</li>
+</ul>
+
+<h2 id="part-7-고급-활용">Part 7: 고급 활용</h2>
+
+<h3 id="71-context-fork를-통한-대규모-skill">7.1 Context: fork를 통한 대규모 Skill</h3>
+
+<p>큰 Skill은 메인 컨텍스트를 오염시키지 않도록 fork 모드로 실행:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">large-analysis-skill</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s">대규모 데이터 분석</span>
+<span class="na">context</span><span class="pi">:</span> <span class="s">fork</span>          <span class="c1"># 전용 서브에이전트에서 실행</span>
+<span class="nn">---</span>
+
+<span class="c1"># 대규모 분석 스킬</span>
+
+<span class="pi">[</span><span class="nv">상세 지시사항...</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p><strong>이점:</strong></p>
+<ul>
+  <li>메인 대화 컨텍스트 깨끗함</li>
+  <li>최종 결과만 부모 에이전트에 반환</li>
+  <li>중간 추론 과정 숨김</li>
+</ul>
+
+<h3 id="72-os별-hook-구현">7.2 OS별 Hook 구현</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"PostToolUse"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./scripts/format-unix.sh"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"windows"</span><span class="p">:</span><span class="w"> </span><span class="s2">"powershell -File scripts</span><span class="se">\\</span><span class="s2">format.ps1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"linux"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./scripts/format-linux.sh"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"osx"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./scripts/format-mac.sh"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="73-환경-변수를-통한-hook-커스터마이제이션">7.3 환경 변수를 통한 Hook 커스터마이제이션</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"hooks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"SessionStart"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"command"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"./scripts/init.sh"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"PROJECT_ROOT"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/home/user/myapp"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"SECURITY_LEVEL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"strict"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"LOG_LEVEL"</span><span class="p">:</span><span class="w"> </span><span class="s2">"debug"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="74-hook에서-skill-트리거">7.4 Hook에서 Skill 트리거</h3>
+
+<p>Hook이 특정 조건에서 Skill 사용을 제안할 수 있습니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># Hook이 복잡도를 감지하면 Skill 추천</span>
+
+<span class="nv">COMPLEXITY</span><span class="o">=</span><span class="si">$(</span>python3 complexity-report.py src/ | jq <span class="s1">'.summary.average_complexity'</span><span class="si">)</span>
+
+<span class="k">if</span> <span class="o">((</span> <span class="si">$(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$COMPLEXITY</span><span class="s2"> &gt; 10"</span> | bc <span class="nt">-l</span><span class="si">)</span> <span class="o">))</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s1">'{
+      "systemMessage": "높은 복잡도 감지. /code-quality-analyzer 실행을 추천합니다."
+    }'</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<h2 id="part-8-보안-고려사항">Part 8: 보안 고려사항</h2>
+
+<h3 id="81-skill-검토-체크리스트">8.1 Skill 검토 체크리스트</h3>
+
+<p>새로운 Skill 사용 전:</p>
+
+<ul>
+  <li>✅ 출처 확인 (공식 저장소?)</li>
+  <li>✅ SKILL.md 지시사항 검토</li>
+  <li>✅ 참조된 스크립트 점검</li>
+  <li>✅ 권한 요구사항 확인</li>
+  <li>✅ 에러 처리 방식 검토</li>
+</ul>
+
+<h3 id="82-hook-보안-체크리스트">8.2 Hook 보안 체크리스트</h3>
+
+<p>Hook 스크립트 검토:</p>
+
+<ul>
+  <li>✅ stdin 입력 검증</li>
+  <li>✅ 하드코딩된 암호 확인</li>
+  <li>✅ 셸 주입 가능성 체크</li>
+  <li>✅ 파일 권한 검증</li>
+  <li>✅ 외부 도구 의존성 확인</li>
+</ul>
+
+<h3 id="83-자동-승인-제어">8.3 자동 승인 제어</h3>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"chat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"tools"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"edits"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"autoApprove"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">Hook</span><span class="w"> </span><span class="err">수정</span><span class="w"> </span><span class="err">시</span><span class="w"> </span><span class="err">승인</span><span class="w"> </span><span class="err">필요</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="part-9-트러블슈팅">Part 9: 트러블슈팅</h2>
+
+<h3 id="91-skill이-로드되지-않음">9.1 Skill이 로드되지 않음</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>문제:
+/code-quality-analyzer 명령어가 나타나지 않음
+
+해결:
+1. 파일명이 정확히 SKILL.md인지 확인
+2. 디렉토리명이 name 필드와 일치하는지 확인
+3. 유효한 YAML 프론트매터 확인
+4. JSON에서 슬래시가 없는지 확인 (name: "my-skill" ✅, "my/skill" ❌)
+</code></pre></div></div>
+
+<h3 id="92-hook이-실행되지-않음">9.2 Hook이 실행되지 않음</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>문제:
+Hook 설정했는데 실행이 안 됨
+
+해결:
+1. JSON 파일이 .github/hooks/에 있는지 확인
+2. 파일 확장자가 .json인지 확인
+3. JSON 문법 검증 (online JSON validator)
+4. 스크립트에 실행 권한 있는지 확인: chmod +x script.sh
+5. Command Palette: Developer: Show Agent Debug Logs
+</code></pre></div></div>
+
+<h3 id="93-hook-타임아웃">9.3 Hook 타임아웃</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>문제:
+Hook이 실행 중 타임아웃
+
+해결:
+1. timeout 값 증가: "timeout": 60
+2. 스크립트 성능 최적화
+3. 로그로 병목 확인: echo "진행 중..." &gt;&amp;2
+</code></pre></div></div>
+
+<h2 id="part-10-skills-vs-mcp---깊이-있는-비교">Part 10: Skills vs MCP - 깊이 있는 비교</h2>
+
+<h3 id="101-토큰-효율성-skills의-우위">10.1 토큰 효율성: Skills의 우위</h3>
+
+<p>Skills가 MCP보다 훨씬 더 효율적인 이유를 자세히 살펴봅시다:</p>
+
+<h4 id="mcp의-토큰-사용-구조"><strong>MCP의 토큰 사용 구조</strong></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Session Start
+    ↓
+[모든 MCP 서버 연결]
+    ↓
+[모든 도구 정의 로드] ← 각 도구마다 ~50 tokens
+    ↓ (예: 20개 도구 = 1000 tokens!)
+    ↓
+Agent ready
+    ↓
+Every message: ~50 tokens overhead (RPC 메시지 포맷)
+</code></pre></div></div>
+
+<p><strong>예시: GitHub MCP (20개 도구)</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 세션 시작: 1,000 tokens (도구 정의)
+- 매 메시지: 50 tokens (RPC 오버헤드)
+- 세션당: 1,000 + (메시지 수 × 50) tokens
+</code></pre></div></div>
+
+<h4 id="skills의-토큰-사용-구조"><strong>Skills의 토큰 사용 구조</strong></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Session Start (스킬 발견)
+    ↓
+[모든 스킬의 name + description만 로드]
+    ↓ (~10 skills = 100 tokens!)
+    ↓
+Agent ready
+    ↓
+사용자 요청
+    ↓
+[해당 스킬만 활성화] ← Full SKILL.md 로드 (~500 tokens)
+    ↓
+[필요한 리소스만 접근]
+</code></pre></div></div>
+
+<p><strong>예시: 10개 Skills</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- 세션 시작: 100 tokens (발견)
+- 첫 사용: 500 tokens (활성화)
+- 캐시됨: 0 tokens (이후 사용)
+- 세션당: 100 + 500 = 600 tokens (한 번만!)
+</code></pre></div></div>
+
+<p><strong>토큰 절감: 40-50% 감소</strong></p>
+
+<h3 id="102-세션-새로고침-skill-동적-감지">10.2 세션 새로고침: Skill 동적 감지</h3>
+
+<h4 id="새-skill-추가-시-동작"><strong>새 Skill 추가 시 동작</strong></h4>
+
+<p><strong>MCP 방식 (재연결 필요):</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. MCP 서버에 새 도구 추가
+2. MCP 클라이언트 재연결 필요
+3. 모든 도구 정의 다시 로드
+4. 효율성 ↓
+</code></pre></div></div>
+
+<p><strong>Skills 방식 (동적 감지):</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. .github/skills/new-skill/ 디렉토리 추가
+2. Copilot 세션 재시작 <span class="o">(</span>선택 사항<span class="o">)</span>
+3. 새 세션에서 자동 발견
+4. 기존 세션에서도 수동 새로고침 가능
+
+<span class="c"># 방법 1: 새 세션 열기 (권장)</span>
+<span class="c"># Command Palette → Chat: Clear Copilot Context</span>
+<span class="c"># 또는 VS Code 재시작</span>
+
+<span class="c"># 방법 2: 기존 세션에서 강제 새로고침</span>
+<span class="c"># Command Palette → Chat: Open Customizations → 스킬 목록 새로고침</span>
+</code></pre></div></div>
+
+<h4 id="왜-새-세션이-필요한가"><strong>왜 새 세션이 필요한가?</strong></h4>
+
+<p>Skills 발견은 <strong>세션 시작 시 한 번만</strong> 수행됩니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────┐
+│ 새 Copilot 세션 시작              │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ 1️⃣ Skill 디렉토리 스캔            │ ← 여기서만 new-skill 감지
+│   - .github/skills/             │
+│   - .claude/skills/             │
+│   - ~/.copilot/skills/          │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ 각 스킬의 name + description 로드 │
+└─────────────────────────────────┘
+         ↓
+┌─────────────────────────────────┐
+│ 에이전트 준비 완료 (세션 내내 유지)  │
+└─────────────────────────────────┘
+
+[기존 세션 중간에 new-skill 추가] ← 감지 안 됨!
+</code></pre></div></div>
+
+<p><strong>대안: 세션 중 새로고침</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Command Palette: Chat: Open Customizations
+→ Skills 탭 → 새로고침 버튼
+또는
+Command Palette: Chat: Clear Copilot Context → 새 세션 시작
+</code></pre></div></div>
+
+<h3 id="103-인증-authentication-skills의-장점">10.3 인증 (Authentication): Skills의 장점</h3>
+
+<h4 id="mcp---인증-필수"><strong>MCP - 인증 필수</strong></h4>
+
+<p>MCP는 <strong>외부 서버와 양방향 통신</strong>을 하므로 인증이 필수입니다:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"github"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"@modelcontextprotocol/server-github"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"GITHUB_TOKEN"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ghp_xxxxx"</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="err">필수!</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p><strong>보안 고려사항:</strong></p>
+<ul>
+  <li>🔐 토큰이 로컬 설정에 하드코딩되어야 함</li>
+  <li>🔓 환경 변수 유출 위험</li>
+  <li>🌐 서버 인증 오버헤드</li>
+  <li>📝 자격증명 관리 복잡도 ↑</li>
+</ul>
+
+<h4 id="skills---인증-불필요"><strong>Skills - 인증 불필요</strong></h4>
+
+<p>Skills는 <strong>로컬 파일 기반</strong>이므로 인증이 필요 없습니다:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>.github/skills/
+├── my-skill/
+│   ├── SKILL.md              <span class="c"># 로컬 텍스트</span>
+│   └── script.sh             <span class="c"># 로컬 스크립트</span>
+</code></pre></div></div>
+
+<p><strong>보안 이점:</strong></p>
+<ul>
+  <li>✅ 외부 서버 연결 없음</li>
+  <li>✅ 토큰 관리 불필요</li>
+  <li>✅ 보안 오버헤드 최소</li>
+  <li>✅ 깃이그너 패턴으로 쉽게 제외 가능</li>
+</ul>
+
+<p><strong>Skills에서 외부 인증이 필요한 경우:</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># scripts/api-call.sh</span>
+
+<span class="c"># 환경 변수에서 토큰 읽기 (쉘만 보면 됨)</span>
+<span class="nv">API_TOKEN</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">MY_API_TOKEN</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Skill 문서에 "MY_API_TOKEN 환경 변수 설정 필요" 명시</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$API_TOKEN</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"Error: MY_API_TOKEN not set"</span>
+    <span class="nb">exit </span>1
+<span class="k">fi
+
+</span>curl <span class="nt">-H</span> <span class="s2">"Authorization: Bearer </span><span class="nv">$API_TOKEN</span><span class="s2">"</span> https://api.example.com
+</code></pre></div></div>
+
+<h3 id="104-사용-사례별-선택-가이드">10.4 사용 사례별 선택 가이드</h3>
+
+<h4 id="skills-선택-이-경우-사용"><strong>Skills 선택 (이 경우 사용)</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✅ 로컬 코드 분석 및 변환
+✅ 프로젝트별 커스텀 워크플로우
+✅ 팀 내 지식 공유
+✅ 토큰 절감이 중요한 경우
+✅ 빠른 프로토타이핑
+✅ 오프라인 작업 필요
+✅ 보안 민감 환경
+</code></pre></div></div>
+
+<p><strong>예:</strong> 코드 품질 분석, 테스트 실행, 배포 자동화</p>
+
+<h4 id="mcp-선택-이-경우-사용"><strong>MCP 선택 (이 경우 사용)</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✅ 실시간 외부 데이터 필요
+✅ API 서비스 통합
+✅ 상태 저장 필요
+✅ 장기 상호작용
+✅ 데이터베이스 접근
+✅ 프로비저닝 작업
+</code></pre></div></div>
+
+<p><strong>예:</strong> GitHub API 쿼리, 데이터베이스 작업, 클라우드 서비스 연동</p>
+
+<h4 id="함께-사용-권장"><strong>함께 사용 (권장)</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌─────────────────────────────────┐
+│ Skills로 로컬 작업 처리           │
+│ (빠르고 효율적)                   │
+└─────────────────────────────────┘
+            ↓
+    [필요시 MCP로 외부 연동]
+            ↓
+┌─────────────────────────────────┐
+│ MCP로 원격 리소스 접근             │
+│ (필요한 만큼만)                   │
+└─────────────────────────────────┘
+</code></pre></div></div>
+
+<p><strong>예: 하이브리드 워크플로우</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자: "GitHub의 최신 이슈를 분석하고 복잡도를 검사해줘"
+  ↓
+[Skill: code-quality-analyzer 활성화] ← 토큰 효율적
+  ↓
+[MCP: github 연결] ← 이슈 데이터 가져오기
+  ↓
+[MCP 결과 → Skill 분석]
+  ↓
+결과 반환
+</code></pre></div></div>
+
+<h3 id="105-요약-토큰-vs-기능">10.5 요약: 토큰 vs 기능</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>╔════════════════════════════════════════╗
+║         기술 선택 매트릭스                ║
+╠════════════════════════════════════════╣
+║             │   토큰 효율  │   외부 통합  ║
+║ Skills      │   ★★★★★  │   ★☆☆☆☆  ║
+║ MCP         │   ★★☆☆☆  │   ★★★★★  ║
+║ Hooks       │   ★★★★☆  │   ★★★☆☆  ║
+╚════════════════════════════════════════╝
+</code></pre></div></div>
+
+<h2 id="결론-skills는-설정하고-잊기-방식">결론: Skills는 “설정하고 잊기” 방식</h2>
+
+<h3 id="핵심-통찰">핵심 통찰</h3>
+
+<p>본 글에서 다룬 <strong>Agent Skills</strong>의 가장 강력한 측면은:</p>
+
+<h4 id="1️⃣-자동-인식-명시적-호출-불필요">1️⃣ <strong>자동 인식 (명시적 호출 불필요)</strong></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MCP 방식 (외부 의존):
+코드 → [반드시 명시적 호출] → MCP 서버 → 기능 수행
+
+Skills 방식 (자동):
+코드 → [disable-model-invocation: false] → Copilot 자동 인식 → 기능 수행
+</code></pre></div></div>
+
+<p>Skills를 만들면, <code class="language-plaintext highlighter-rouge">disable-model-invocation: false</code>(기본값)일 때:</p>
+<ul>
+  <li>✅ 사용자가 명시적으로 <code class="language-plaintext highlighter-rouge">/skill</code> 명령어를 쓸 필요 없음</li>
+  <li>✅ Copilot이 자동으로 상황에 맞춰 로드</li>
+  <li>✅ “마치 Copilot이 원래 가진 기능처럼” 작동</li>
+</ul>
+
+<p><strong>예시:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사용자: "이 코드의 품질을 분석해줘"
+  ↓
+[사용자가 /code-quality-analyzer 명령 안 함]
+  ↓
+Copilot: "code-quality-analyzer 스킬이 적합합니다"
+  ↓
+자동으로 스킬 로드 및 실행
+</code></pre></div></div>
+
+<h4 id="2️⃣-토큰-효율-mcp-대비-40-50-절감">2️⃣ <strong>토큰 효율 (MCP 대비 40-50% 절감)</strong></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MCP 세션:
+시작: 1,000 tokens (모든 도구 정의)
+계속: 50 tokens/message (RPC 오버헤드)
+합계: 2,000+ tokens (10 메시지 기준)
+
+Skills 세션:
+시작: 100 tokens (발견)
+사용: 500 tokens (활성화, 캐시됨)
+합계: 600 tokens (한 번만!)
+
+절감율: 70% 👍
+</code></pre></div></div>
+
+<h4 id="3️⃣-인증-불필요-보안-우위">3️⃣ <strong>인증 불필요 (보안 우위)</strong></h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MCP:
+- 토큰 하드코딩 필요
+- 환경 변수 유출 위험
+- 보안 오버헤드 증가
+
+Skills:
+- 로컬 파일 기반
+- 외부 서버 연결 없음
+- 보안 공격 면적 최소
+</code></pre></div></div>
+
+<h3 id="사용-권장사항">사용 권장사항</h3>
+
+<h4 id="teamsorganizations-skills-우선-도입"><strong>Teams/Organizations: Skills 우선 도입</strong></h4>
+<ol>
+  <li>팀의 공통 워크플로우를 Skill로 정의</li>
+  <li><code class="language-plaintext highlighter-rouge">.github/skills/</code>에 커밋</li>
+  <li>모든 팀원이 자동으로 사용 가능</li>
+  <li>토큰 비용 절감 (장기 누적 효과 큼)</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 예: 팀 표준 워크플로우</span>
+.github/skills/
+├── code-quality-analyzer/     <span class="c"># 코드 품질 검사</span>
+├── security-audit/            <span class="c"># 보안 검사</span>
+├── documentation-generator/   <span class="c"># 문서 생성</span>
+└── deployment-validator/      <span class="c"># 배포 검증</span>
+</code></pre></div></div>
+
+<h4 id="integration-mcp와-함께-사용"><strong>Integration: MCP와 함께 사용</strong></h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Local/Fast] Skills → Copilot → MCP [External/Heavy]
+       ↓                           ↓
+코드 분석, 변환           GitHub API, DB 연동
+빠른 피드백              실시간 데이터
+</code></pre></div></div>
+
+<h3 id="skills를-최대로-활용하기">Skills를 최대로 활용하기</h3>
+
+<h4 id="체크리스트">체크리스트</h4>
+<ul>
+  <li>✅ 팀의 반복 작업을 Skill화 했는가?</li>
+  <li>✅ <code class="language-plaintext highlighter-rouge">disable-model-invocation: false</code>로 자동 인식 설정했는가?</li>
+  <li>✅ 명확한 description으로 Copilot 판단 지원했는가?</li>
+  <li>✅ 참조 파일들을 <code class="language-plaintext highlighter-rouge">.github/skills/skill-name/</code>에 정리했는가?</li>
+  <li>✅ 큰 Skill은 <code class="language-plaintext highlighter-rouge">context: fork</code>로 최적화했는가?</li>
+</ul>
+
+<h4 id="성과-측정">성과 측정</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Copilot 세션 로그에서 토큰 추적</span>
+명령어: Developer: Show Agent Debug Logs
+
+로그 분석:
+- Skills 발견: 100 tokens <span class="o">(</span>낮음 <span class="o">=</span> 효율적<span class="o">)</span>
+- MCP 사용 시: 1,000 tokens <span class="o">(</span>높음<span class="o">)</span>
+- Skills vs MCP 토큰 비율 추적
+</code></pre></div></div>
+
+<h3 id="최종-요약">최종 요약</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>관점</th>
+      <th>결론</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>토큰 효율</strong></td>
+      <td>Skills가 MCP보다 40-50% 더 효율적</td>
+    </tr>
+    <tr>
+      <td><strong>자동 인식</strong></td>
+      <td>Skills는 명시 안 해도 자동 로드</td>
+    </tr>
+    <tr>
+      <td><strong>인증</strong></td>
+      <td>Skills는 인증 오버헤드 없음</td>
+    </tr>
+    <tr>
+      <td><strong>세션 새로고침</strong></td>
+      <td>새 세션 시작 시 자동 발견 (필요시 강제 새로고침 가능)</td>
+    </tr>
+    <tr>
+      <td><strong>권장 사용</strong></td>
+      <td>로컬 작업 → Skills, 외부 연동 → MCP</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Skills는 단순한 커스터마이제이션 도구가 아니라, Copilot의 능력을 팀 수준으로 확장하는 전략적 자산입니다.</strong> 🚀</p>
+
+<hr />
+
+<h2 id="참고-자료">참고 자료</h2>
+<ul>
+  <li><a href="https://code.visualstudio.com/docs/copilot/customization/agent-skills" target="_blank">VS Code Agent Skills</a></li>
+  <li><a href="https://code.visualstudio.com/docs/agent-customization/hooks" target="_blank">VS Code Agent Hooks</a></li>
+  <li><a href="https://agentskills.io/specification" target="_blank">Agent Skills 표준</a></li>
+  <li><a href="https://modelcontextprotocol.io/" target="_blank">Model Context Protocol (MCP)</a></li>
+  <li><a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot 저장소</a></li>
+  <li><a href="https://github.com/anthropics/skills" target="_blank">Anthropic Skills 레퍼런스</a></li>
+  <li><a href="https://github.com/modelcontextprotocol/" target="_blank">MCP 공식 저장소</a></li>
+</ul>
+
+<hr />
+
+<p>본 글의 샘플 코드와 완전한 프로젝트는 <a href="https://github.com/GracefulSoul/copilot-project" target="_blank">GracefulSoul/copilot-project</a>에서 확인할 수 있습니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#agent-customization" class="page__taxonomy-item" rel="tag">Agent Customization</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#automation" class="page__taxonomy-item" rel="tag">Automation</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#claude" class="page__taxonomy-item" rel="tag">Claude</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#copilot" class="page__taxonomy-item" rel="tag">Copilot</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#hooks" class="page__taxonomy-item" rel="tag">Hooks</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#skills" class="page__taxonomy-item" rel="tag">Skills</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#vs-code" class="page__taxonomy-item" rel="tag">VS Code</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-06-23">June 23, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/claude-api-springboot/" class="pagination--pager" title="Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-api-springboot/" rel="permalink">Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 14 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/semantic-directive-binding/" rel="permalink">메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 03 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">메타지침 바인딩 기술의 개념, 메커니즘, 아키텍처를 이해하고 Spring Boot 기반 실제 샘플 프로젝트로 구현해보세요.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/ai-ops-dlc/" rel="permalink">AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/prompt-context-harness-engineering/" rel="permalink">Prompt Engineering, Context Engineering, Harness Engineering
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 20 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

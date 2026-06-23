@@ -1,0 +1,1234 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Java 25 - Flexible Constructor Bodies (Final) - Development story</title>
+<meta name="description" content="Java 25에서 생성자의 유연한 몸체가 최종 기능으로 제공됩니다">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Java 25 - Flexible Constructor Bodies (Final)">
+<meta property="og:url" content="/java/flexible-constructor-bodies/">
+
+
+  <meta property="og:description" content="Java 25에서 생성자의 유연한 몸체가 최종 기능으로 제공됩니다">
+
+
+
+  <meta property="og:image" content="/assets/images/java/java.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2025-09-16T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2025-09-16T12:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/java/flexible-constructor-bodies/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/java/java.png" alt="Java 25 - Flexible Constructor Bodies (Final)" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java 25 - Flexible Constructor Bodies (Final)">
+    <meta itemprop="description" content="Java 25에서 생성자의 유연한 몸체가 최종 기능으로 제공됩니다">
+    <meta itemprop="datePublished" content="2025-09-16T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2025-09-16T12:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Java 25 - Flexible Constructor Bodies (Final)
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2025-09-16T00:00:00+00:00">September 16, 2025</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#java-25">JAVA 251</a><ul><li><a href="#기존의-문제점">기존의 문제점</a></li><li><a href="#기본-예제-fail-fast-검증">기본 예제: Fail-Fast 검증</a><ul><li><a href="#1-생성자-인자-검증">1. 생성자 인자 검증</a></li></ul></li><li><a href="#프롤로그와-에필로그">프롤로그와 에필로그</a><ul><li><a href="#2-생성자-실행-순서">2. 생성자 실행 순서</a></li></ul></li><li><a href="#복잡한-초기화">복잡한 초기화</a><ul><li><a href="#3-고급-초기화-패턴">3. 고급 초기화 패턴</a></li></ul></li><li><a href="#부분-초기화-방지">부분 초기화 방지</a><ul><li><a href="#4-객체-무결성-보장">4. 객체 무결성 보장</a></li></ul></li><li><a href="#필드-초기화-제약">필드 초기화 제약</a><ul><li><a href="#5-early-construction-context의-규칙">5. Early Construction Context의 규칙</a></li></ul></li><li><a href="#레코드와-열거형">레코드와 열거형</a><ul><li><a href="#6-record에서의-사용">6. Record에서의 사용</a></li></ul></li><li><a href="#열거형-생성자">열거형 생성자</a><ul><li><a href="#7-enum-constructor">7. Enum Constructor</a></li></ul></li></ul></li><li><a href="#주요-이점">주요 이점</a></li><li><a href="#주의사항">주의사항</a></li><li><a href="#호환성">호환성</a></li><li><a href="#reference">Reference</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="java-25">JAVA 25<sup id="fnref:Java25"><a href="#fn:Java25" class="footnote" rel="footnote" role="doc-noteref">1</a></sup></h1>
+
+<p>Java 25에서는 생성자의 본문 앞에 <code class="language-plaintext highlighter-rouge">super(...)</code> 또는 <code class="language-plaintext highlighter-rouge">this(...)</code> 호출 이전에 명령문들을 작성할 수 있도록 허용합니다. 이는 생성자에서 인자 검증을 우선적으로 수행할 수 있게 하며, 객체의 무결성을 더욱 강화합니다.</p>
+
+<h2 id="기존의-문제점">기존의 문제점</h2>
+
+<p>Java 24 이전에는 다음과 같은 제한이 있었습니다:</p>
+
+<ul>
+  <li>생성자의 첫 문장은 반드시 <code class="language-plaintext highlighter-rouge">super()</code> 또는 <code class="language-plaintext highlighter-rouge">this()</code> 호출이어야 함</li>
+  <li>인자 검증 후 상위 클래스 생성자 호출이 불가능</li>
+  <li>상위 클래스 생성자가 부분 초기화된 하위 클래스 필드에 접근할 수 있음</li>
+</ul>
+
+<h2 id="기본-예제-fail-fast-검증">기본 예제: Fail-Fast 검증</h2>
+
+<h3 id="1-생성자-인자-검증">1. 생성자 인자 검증</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Employee</span> <span class="kd">extends</span> <span class="nc">Person</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">officeID</span><span class="o">;</span>
+    
+    <span class="c1">// Java 25 이전: 검증을 할 수 없었음</span>
+    <span class="c1">// Java 25 이후: super() 호출 전 검증 가능</span>
+    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">String</span> <span class="n">officeID</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 프롤로그: super() 호출 전 명령문</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">age</span> <span class="o">&lt;</span> <span class="mi">18</span> <span class="o">||</span> <span class="n">age</span> <span class="o">&gt;</span> <span class="mi">67</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                <span class="s">"직원은 18세 이상 67세 이하여야 합니다"</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">officeID</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">officeID</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                <span class="s">"사무실 ID는 필수입니다"</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="c1">// 상위 클래스 생성자 호출</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">age</span><span class="o">);</span>
+        
+        <span class="c1">// 에필로그: super() 호출 후 명령문</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">officeID</span> <span class="o">=</span> <span class="n">officeID</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"직원이 생성되었습니다: "</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getOfficeID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">officeID</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 유효한 직원</span>
+            <span class="nc">Employee</span> <span class="n">emp1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Alice"</span><span class="o">,</span> <span class="mi">30</span><span class="o">,</span> <span class="s">"OFF-001"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"사무실: "</span> <span class="o">+</span> <span class="n">emp1</span><span class="o">.</span><span class="na">getOfficeID</span><span class="o">());</span>
+            
+            <span class="c1">// 나이 범위 위반</span>
+            <span class="nc">Employee</span> <span class="n">emp2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Bob"</span><span class="o">,</span> <span class="mi">15</span><span class="o">,</span> <span class="s">"OFF-002"</span><span class="o">);</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오류: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">name</span><span class="o">;</span> <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">age</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>직원이 생성되었습니다: Alice
+사무실: OFF-001
+오류: 직원은 18세 이상 67세 이하여야 합니다
+</code></pre></div></div>
+
+<h2 id="프롤로그와-에필로그">프롤로그와 에필로그</h2>
+
+<h3 id="2-생성자-실행-순서">2. 생성자 실행 순서</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConstructorPhases</span> <span class="o">{</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Base</span> <span class="o">{</span>
+        <span class="kd">protected</span> <span class="nc">String</span> <span class="n">baseName</span><span class="o">;</span>
+        
+        <span class="nc">Base</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Base 생성자 본문"</span><span class="o">);</span>
+            <span class="n">baseName</span> <span class="o">=</span> <span class="s">"base"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Middle</span> <span class="kd">extends</span> <span class="nc">Base</span> <span class="o">{</span>
+        <span class="kd">protected</span> <span class="nc">String</span> <span class="n">middleName</span><span class="o">;</span>
+        
+        <span class="nc">Middle</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// 프롤로그: super() 호출 전</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"1. Middle 프롤로그"</span><span class="o">);</span>
+            <span class="n">middleName</span> <span class="o">=</span> <span class="s">"middle-setup"</span><span class="o">;</span>
+            
+            <span class="c1">// 상위 클래스 생성자 호출</span>
+            <span class="kd">super</span><span class="o">();</span>
+            
+            <span class="c1">// 에필로그: super() 호출 후</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"4. Middle 에필로그"</span><span class="o">);</span>
+            <span class="n">middleName</span> <span class="o">=</span> <span class="s">"middle"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Derived</span> <span class="kd">extends</span> <span class="nc">Middle</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">derivedName</span><span class="o">;</span>
+        
+        <span class="nc">Derived</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// 프롤로그</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"2. Derived 프롤로그"</span><span class="o">);</span>
+            <span class="n">derivedName</span> <span class="o">=</span> <span class="s">"derived-setup"</span><span class="o">;</span>
+            
+            <span class="c1">// 상위 클래스 생성자 호출</span>
+            <span class="kd">super</span><span class="o">();</span>
+            
+            <span class="c1">// 에필로그</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"5. Derived 에필로그"</span><span class="o">);</span>
+            <span class="n">derivedName</span> <span class="o">=</span> <span class="s">"derived"</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== 객체 생성 시작 ==="</span><span class="o">);</span>
+        <span class="k">new</span> <span class="nf">Derived</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"=== 객체 생성 완료 ==="</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>=== 객체 생성 시작 ===
+1. Middle 프롤로그
+2. Derived 프롤로그
+Base 생성자 본문
+4. Middle 에필로그
+5. Derived 에필로그
+=== 객체 생성 완료 ===
+</code></pre></div></div>
+
+<h2 id="복잡한-초기화">복잡한 초기화</h2>
+
+<h3 id="3-고급-초기화-패턴">3. 고급 초기화 패턴</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.regex.Pattern</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConfigurationClass</span> <span class="o">{</span>
+    
+    <span class="kd">private</span> <span class="nc">Pattern</span> <span class="n">validationPattern</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">String</span> <span class="n">ipAddress</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">port</span><span class="o">;</span>
+    
+    <span class="kd">public</span> <span class="nf">ConfigurationClass</span><span class="o">(</span><span class="nc">String</span> <span class="n">pattern</span><span class="o">,</span> <span class="nc">String</span> <span class="n">ipAddress</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 프롤로그: 복잡한 계산 및 검증</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">port</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">port</span> <span class="o">&gt;</span> <span class="mi">65535</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                <span class="s">"포트는 1-65535 사이여야 합니다"</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="c1">// 정규표현식 컴파일 - 실패할 수 있음</span>
+        <span class="nc">Pattern</span> <span class="n">compiled</span> <span class="o">=</span> <span class="n">compilePattern</span><span class="o">(</span><span class="n">pattern</span><span class="o">);</span>
+        
+        <span class="c1">// IP 주소 검증</span>
+        <span class="n">validateIpAddress</span><span class="o">(</span><span class="n">ipAddress</span><span class="o">);</span>
+        
+        <span class="c1">// 복잡한 계산을 통한 초기값 설정</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">validationPattern</span> <span class="o">=</span> <span class="n">compiled</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">ipAddress</span> <span class="o">=</span> <span class="n">ipAddress</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">port</span> <span class="o">=</span> <span class="n">port</span><span class="o">;</span>
+        
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"설정이 성공적으로 초기화되었습니다"</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Pattern</span> <span class="nf">compilePattern</span><span class="o">(</span><span class="nc">String</span> <span class="n">pattern</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="nc">Pattern</span><span class="o">.</span><span class="na">compile</span><span class="o">(</span><span class="n">pattern</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                <span class="s">"유효하지 않은 정규표현식: "</span> <span class="o">+</span> <span class="n">pattern</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">validateIpAddress</span><span class="o">(</span><span class="nc">String</span> <span class="n">ip</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">parts</span> <span class="o">=</span> <span class="n">ip</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">"\\."</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">parts</span><span class="o">.</span><span class="na">length</span> <span class="o">!=</span> <span class="mi">4</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                <span class="s">"유효하지 않은 IP 주소: "</span> <span class="o">+</span> <span class="n">ip</span>
+            <span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">part</span> <span class="o">:</span> <span class="n">parts</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">part</span><span class="o">);</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">num</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">255</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="nf">NumberFormatException</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
+                    <span class="s">"각 옥텟은 0-255 사이여야 합니다"</span>
+                <span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">ConfigurationClass</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConfigurationClass</span><span class="o">(</span>
+                <span class="s">"^[a-zA-Z0-9]+$"</span><span class="o">,</span>
+                <span class="s">"192.168.1.1"</span><span class="o">,</span>
+                <span class="mi">8080</span>
+            <span class="o">);</span>
+            
+            <span class="nc">ConfigurationClass</span> <span class="n">invalid</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConfigurationClass</span><span class="o">(</span>
+                <span class="s">"[invalid"</span><span class="o">,</span>
+                <span class="s">"192.168.1.1"</span><span class="o">,</span>
+                <span class="mi">8080</span>
+            <span class="o">);</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오류: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>설정이 성공적으로 초기화되었습니다
+오류: 유효하지 않은 정규표현식: [invalid
+</code></pre></div></div>
+
+<h2 id="부분-초기화-방지">부분 초기화 방지</h2>
+
+<h3 id="4-객체-무결성-보장">4. 객체 무결성 보장</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">IntegrityExample</span> <span class="o">{</span>
+    
+    <span class="c1">// 상위 클래스</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Shape</span> <span class="o">{</span>
+        <span class="kd">protected</span> <span class="kt">int</span> <span class="n">sides</span><span class="o">;</span>
+        
+        <span class="nc">Shape</span><span class="o">(</span><span class="kt">int</span> <span class="n">sides</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Shape 생성자: sides="</span> <span class="o">+</span> <span class="n">sides</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">sides</span> <span class="o">=</span> <span class="n">sides</span><span class="o">;</span>
+            <span class="n">describe</span><span class="o">();</span>  <span class="c1">// 오버라이드된 메서드 호출</span>
+        <span class="o">}</span>
+        
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">describe</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"도형: "</span> <span class="o">+</span> <span class="n">sides</span> <span class="o">+</span> <span class="s">"변"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 하위 클래스</span>
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Polygon</span> <span class="kd">extends</span> <span class="nc">Shape</span> <span class="o">{</span>
+        <span class="kd">private</span> <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+        
+        <span class="nc">Polygon</span><span class="o">(</span><span class="kt">int</span> <span class="n">sides</span><span class="o">,</span> <span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 프롤로그: this.color를 먼저 초기화</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+            
+            <span class="c1">// 상위 생성자 호출 시 this.color가 이미 초기화됨</span>
+            <span class="kd">super</span><span class="o">(</span><span class="n">sides</span><span class="o">);</span>
+            
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Polygon 완성: "</span> <span class="o">+</span> <span class="n">color</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="nd">@Override</span>
+        <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">describe</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// color가 null이 아님을 보장</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"도형: "</span> <span class="o">+</span> <span class="n">sides</span> <span class="o">+</span> <span class="s">"변, 색상: "</span> <span class="o">+</span> <span class="n">color</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Polygon</span> <span class="n">polygon</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Polygon</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">"빨강"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Shape 생성자: sides=5
+도형: 5변, 색상: 빨강
+Polygon 완성: 빨강
+</code></pre></div></div>
+
+<h2 id="필드-초기화-제약">필드 초기화 제약</h2>
+
+<h3 id="5-early-construction-context의-규칙">5. Early Construction Context의 규칙</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConstructionConstraints</span> <span class="o">{</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">FieldExample</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">uninitializedField</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">initializedField</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+        
+        <span class="nc">FieldExample</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// 프롤로그에서 가능한 작업들</span>
+            
+            <span class="c1">// ✓ 초기화되지 않은 필드에 할당 - 가능</span>
+            <span class="n">uninitializedField</span> <span class="o">=</span> <span class="mi">42</span><span class="o">;</span>
+            
+            <span class="c1">// ✗ 초기화된 필드에 할당 - 불가능</span>
+            <span class="c1">// initializedField = 20;  // 컴파일 오류</span>
+            
+            <span class="c1">// ✗ this 명시적 사용 - 불가능</span>
+            <span class="c1">// int x = this.uninitializedField;  // 컴파일 오류</span>
+            
+            <span class="c1">// ✗ 현재 인스턴스를 메서드로 전달 - 불가능</span>
+            <span class="c1">// processField(this);  // 컴파일 오류</span>
+            
+            <span class="kd">super</span><span class="o">();</span>
+            
+            <span class="c1">// 에필로그에서는 모든 것이 가능</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">uninitializedField</span><span class="o">;</span>  <span class="c1">// ✓ 가능</span>
+            <span class="n">initializedField</span> <span class="o">=</span> <span class="mi">20</span><span class="o">;</span>  <span class="c1">// ✓ 가능</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+    
+    <span class="kd">static</span> <span class="kd">class</span> <span class="nc">NestedClassExample</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">field</span><span class="o">;</span>
+        
+        <span class="kd">class</span> <span class="nc">Inner</span> <span class="o">{</span>
+            <span class="nc">Inner</span><span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// 프롤로그에서 외부 인스턴스 접근 가능</span>
+                <span class="n">field</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>  <span class="c1">// ✓ 가능 (외부 인스턴스의 필드)</span>
+                
+                <span class="kd">super</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="레코드와-열거형">레코드와 열거형</h2>
+
+<h3 id="6-record에서의-사용">6. Record에서의 사용</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.time.LocalDate</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">record</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">LocalDate</span> <span class="n">birthDate</span><span class="o">)</span> <span class="o">{</span>
+    
+    <span class="c1">// Compact Constructor - Java 25 이전</span>
+    <span class="c1">// public Person {</span>
+    <span class="c1">//     Objects.requireNonNull(name);</span>
+    <span class="c1">//     if (birthDate.isAfter(LocalDate.now())) {</span>
+    <span class="c1">//         throw new IllegalArgumentException("출생일이 미래입니다");</span>
+    <span class="c1">//     }</span>
+    <span class="c1">// }</span>
+    
+    <span class="c1">// Java 25: 더 유연한 생성자</span>
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">LocalDate</span> <span class="n">birthDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// this(...) 호출 전 검증</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">name</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">name</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"이름은 필수입니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">birthDate</span><span class="o">.</span><span class="na">isAfter</span><span class="o">(</span><span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"출생일이 미래입니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">this</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">birthDate</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">Person</span> <span class="n">person1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Alice"</span><span class="o">,</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1990</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">15</span><span class="o">));</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"사람: "</span> <span class="o">+</span> <span class="n">person1</span><span class="o">);</span>
+            
+            <span class="nc">Person</span> <span class="n">person2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"Bob"</span><span class="o">,</span> <span class="nc">LocalDate</span><span class="o">.</span><span class="na">now</span><span class="o">().</span><span class="na">plusDays</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+            
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IllegalArgumentException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오류: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>사람: Person[name=Alice, birthDate=1990-05-15]
+오류: 출생일이 미래입니다
+</code></pre></div></div>
+
+<h2 id="열거형-생성자">열거형 생성자</h2>
+
+<h3 id="7-enum-constructor">7. Enum Constructor</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="nc">Status</span> <span class="o">{</span>
+    <span class="no">PENDING</span><span class="o">(</span><span class="s">"대기중"</span><span class="o">,</span> <span class="mi">1</span><span class="o">),</span>
+    <span class="no">ACTIVE</span><span class="o">(</span><span class="s">"활성"</span><span class="o">,</span> <span class="mi">2</span><span class="o">),</span>
+    <span class="no">DISABLED</span><span class="o">(</span><span class="s">"비활성"</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+    
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">displayName</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">code</span><span class="o">;</span>
+    
+    <span class="nc">Status</span><span class="o">(</span><span class="nc">String</span> <span class="n">displayName</span><span class="o">,</span> <span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Java 25: this() 호출 전 검증 가능</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">displayName</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">displayName</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"displayName은 필수입니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">if</span> <span class="o">(</span><span class="n">code</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"코드는 양수여야 합니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        
+        <span class="k">this</span><span class="o">(</span><span class="n">displayName</span><span class="o">,</span> <span class="n">code</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getDisplayName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">displayName</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Status</span> <span class="n">status</span> <span class="o">:</span> <span class="nc">Status</span><span class="o">.</span><span class="na">values</span><span class="o">())</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">status</span><span class="o">.</span><span class="na">name</span><span class="o">()</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">status</span><span class="o">.</span><span class="na">getDisplayName</span><span class="o">()</span> 
+                             <span class="o">+</span> <span class="s">" (코드: "</span> <span class="o">+</span> <span class="n">status</span><span class="o">.</span><span class="na">getCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>실행 결과:</strong></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PENDING: 대기중 (코드: 1)
+ACTIVE: 활성 (코드: 2)
+DISABLED: 비활성 (코드: 3)
+</code></pre></div></div>
+
+<h1 id="주요-이점">주요 이점</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>이점</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Fail-Fast</strong></td>
+      <td>생성자 초반에 검증하여 불완전한 객체 생성 방지</td>
+    </tr>
+    <tr>
+      <td><strong>객체 무결성</strong></td>
+      <td>상위 클래스 생성자 호출 전 모든 필드 초기화 가능</td>
+    </tr>
+    <tr>
+      <td><strong>가독성</strong></td>
+      <td>검증 로직을 명확하게 표현</td>
+    </tr>
+    <tr>
+      <td><strong>안전성</strong></td>
+      <td>상위 클래스의 메서드 호출 시 초기화되지 않은 필드 접근 방지</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="주의사항">주의사항</h1>
+
+<ul>
+  <li>Early Construction Context 규칙 준수 필수</li>
+  <li><code class="language-plaintext highlighter-rouge">this</code>를 명시적/암묵적으로 사용 불가 (프롤로그에서)</li>
+  <li>문서화 필요: 프롤로그에서 수행되는 작업 명시</li>
+</ul>
+
+<h1 id="호환성">호환성</h1>
+
+<ul>
+  <li><strong>소스 호환</strong>: 기존 코드는 변경 없이 작동</li>
+  <li><strong>바이너리 호환</strong>: 컴파일된 클래스 파일은 호환됨</li>
+  <li><strong>동작 호환</strong>: 기존과 동일한 의미 유지</li>
+</ul>
+
+<h1 id="reference">Reference</h1>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:Java25">
+      <p><a href="https://docs.oracle.com/en/java/javase/25/docs/api/" target="_blank">Oracle-Java_25_Release_Notes</a> <a href="#fnref:Java25" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#constructor" class="page__taxonomy-item" rel="tag">Constructor</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#java-25" class="page__taxonomy-item" rel="tag">Java 25</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#releases" class="page__taxonomy-item" rel="tag">Releases</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#safety" class="page__taxonomy-item" rel="tag">Safety</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#java" class="page__taxonomy-item" rel="tag">Java</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2025-09-16">September 16, 2025</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/leetcode/convert-integer-to-the-sum-of-two-no-zero-integers/" class="pagination--pager" title="Leetcode Java Convert Integer to the Sum of Two No-Zero Integers
+">이전</a>
+    
+    
+      <a href="/java/scoped-values/" class="pagination--pager" title="Java 25 - Scoped Values (Final)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-skills-hooks/" rel="permalink">Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 23 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-api-springboot/" rel="permalink">Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 14 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/semantic-directive-binding/" rel="permalink">메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 03 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">메타지침 바인딩 기술의 개념, 메커니즘, 아키텍처를 이해하고 Spring Boot 기반 실제 샘플 프로젝트로 구현해보세요.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/ai-ops-dlc/" rel="permalink">AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>

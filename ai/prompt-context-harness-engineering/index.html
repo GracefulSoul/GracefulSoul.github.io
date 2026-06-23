@@ -1,0 +1,1844 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.21.0 by Michael Rose
+  Copyright 2013-2020 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Prompt Engineering, Context Engineering, Harness Engineering - Development story</title>
+<meta name="description" content="AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드">
+
+
+  <meta name="author" content="Kim">
+  
+  <meta property="article:author" content="Kim">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="Development story">
+<meta property="og:title" content="Prompt Engineering, Context Engineering, Harness Engineering">
+<meta property="og:url" content="/ai/prompt-context-harness-engineering/">
+
+
+  <meta property="og:description" content="AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드">
+
+
+
+  <meta property="og:image" content="/assets/images/ai/prompt-context-harness.png">
+
+
+
+
+
+  <meta property="article:published_time" content="2026-05-20T00:00:00+00:00">
+
+
+
+  <meta property="article:modified_time" content="2026-05-20T17:00:00+00:00">
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="/ai/prompt-context-harness-engineering/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "GracefulSoul",
+      "url": "/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<!-- <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Development story Feed"> -->
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Development story Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+<script data-ad-client="ca-pub-1389049237497309" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="../../assets/favicon/site.webmanifest">
+<link rel="mask-icon" href="../../assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+<!-- google search console  -->
+<meta name="google-site-verification" content="k_DxeLgg09KfGsLX7L5eTVonGlM-npa_I66bBc6XgEk" />
+<!-- naver search advisor  -->
+<meta name="naver-site-verification" content="e0c73eb84c250dbbaf8842174bceac5e7da8e540" />
+<!-- bing webmaster -->
+<meta name="msvalidate.01" content="6C4B6CFE34B29E472BE5D2C7BE6F0D31" />
+<!-- end custom head snippets -->
+    
+      <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      TeX: {
+        equationNumbers: {
+          autoNumber: "AMS"
+        }
+      },
+      tex2jax: {
+      inlineMath: [ ['$', '$'] ],
+      displayMath: [ ['$$', '$$'] ],
+      processEscapes: true,
+    }
+  });
+  MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+      alert("Math Processing Error: "+message[1]);
+    });
+  </script>
+  <script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+    
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Development story
+          
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/categories/">Category</a>
+            </li><li class="masthead__menu-item">
+              <a href="/tags/">Tags</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+<div class="page__hero"
+  style=" background-image: url('');"
+>
+  
+    <img src="/assets/images/ai/prompt-context-harness.png" alt="Prompt Engineering, Context Engineering, Harness Engineering" class="page__hero-image">
+  
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Kim</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>Java software engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Seoul, Republic of Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://GracefulSoul.github.io" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">Website</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/GracefulSoul" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Prompt Engineering, Context Engineering, Harness Engineering">
+    <meta itemprop="description" content="AI 에이전트 개발의 핵심 기술: 프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링에 대한 완벽한 가이드">
+    <meta itemprop="datePublished" content="2026-05-20T00:00:00+00:00">
+    <meta itemprop="dateModified" content="2026-05-20T17:00:00+00:00">
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Prompt Engineering, Context Engineering, Harness Engineering
+</h1>
+          
+            <p class="page__date"><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트: <time datetime="2026-05-20T00:00:00+00:00">May 20, 2026</time></p>
+          
+          <!-- 
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+ -->
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+            <nav class="toc">
+              
+                <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+                <ul class="toc__menu"><li><a href="#개요">개요</a></li><li><a href="#part-1-프롬프트-엔지니어링-prompt-engineering">Part 1: 프롬프트 엔지니어링 (Prompt Engineering)</a><ul><li><a href="#개념">개념</a><ul><li><a href="#핵심-원칙">핵심 원칙</a></li></ul></li><li><a href="#메커니즘">메커니즘</a><ul><li><a href="#프롬프트-구조">프롬프트 구조</a></li><li><a href="#프롬프트-기법">프롬프트 기법</a></li></ul></li><li><a href="#아키텍처">아키텍처</a><ul><li><a href="#프롬프트-관리-시스템">프롬프트 관리 시스템</a></li></ul></li><li><a href="#활용-샘플">활용 샘플</a><ul><li><a href="#샘플-1-코드-리뷰-프롬프트">샘플 1: 코드 리뷰 프롬프트</a></li></ul></li><li><a href="#주요-코드">주요 코드</a><ul><li><a href="#프롬프트-템플릿-관리자">프롬프트 템플릿 관리자</a></li></ul></li><li><a href="#보안-고려사항">보안 고려사항</a><ul><li><a href="#프롬프트-주입-공격-방지">프롬프트 주입 공격 방지</a></li></ul></li></ul></li><li><a href="#part-2-컨텍스트-엔지니어링-context-engineering">Part 2: 컨텍스트 엔지니어링 (Context Engineering)</a><ul><li><a href="#개념-1">개념</a><ul><li><a href="#컨텍스트의-유형">컨텍스트의 유형</a></li></ul></li><li><a href="#메커니즘-1">메커니즘</a><ul><li><a href="#컨텍스트-윈도우-관리">컨텍스트 윈도우 관리</a></li><li><a href="#컨텍스트-검색-retrieval">컨텍스트 검색 (Retrieval)</a></li></ul></li><li><a href="#아키텍처-1">아키텍처</a><ul><li><a href="#컨텍스트-관리-시스템">컨텍스트 관리 시스템</a></li></ul></li><li><a href="#활용-샘플-1">활용 샘플</a><ul><li><a href="#샘플-멀티턴-대화-컨텍스트-관리">샘플: 멀티턴 대화 컨텍스트 관리</a></li></ul></li><li><a href="#주요-코드-1">주요 코드</a><ul><li><a href="#벡터-기반-컨텍스트-검색">벡터 기반 컨텍스트 검색</a></li></ul></li><li><a href="#보안-고려사항-1">보안 고려사항</a><ul><li><a href="#컨텍스트-누수-방지">컨텍스트 누수 방지</a></li></ul></li></ul></li><li><a href="#part-3-하네스-엔지니어링-harness-engineering">Part 3: 하네스 엔지니어링 (Harness Engineering)</a><ul><li><a href="#개념-2">개념</a><ul><li><a href="#하네스의-역할">하네스의 역할</a></li></ul></li><li><a href="#메커니즘-2">메커니즘</a><ul><li><a href="#에이전트-실행-파이프라인">에이전트 실행 파이프라인</a></li></ul></li><li><a href="#아키텍처-2">아키텍처</a><ul><li><a href="#하네스-시스템-아키텍처">하네스 시스템 아키텍처</a></li></ul></li><li><a href="#활용-샘플-2">활용 샘플</a><ul><li><a href="#샘플-에이전트-하네스-구현">샘플: 에이전트 하네스 구현</a></li></ul></li><li><a href="#주요-코드-2">주요 코드</a><ul><li><a href="#검증-프레임워크">검증 프레임워크</a></li></ul></li><li><a href="#보안-고려사항-2">보안 고려사항</a><ul><li><a href="#하네스-보안-정책">하네스 보안 정책</a></li></ul></li></ul></li><li><a href="#통합-활용-예제">통합 활용 예제</a></li><li><a href="#보안-체크리스트">보안 체크리스트</a><ul><li><a href="#프롬프트-엔지니어링">프롬프트 엔지니어링</a></li><li><a href="#컨텍스트-엔지니어링">컨텍스트 엔지니어링</a></li><li><a href="#하네스-엔지니어링">하네스 엔지니어링</a></li></ul></li><li><a href="#참고-자료-및-링크">참고 자료 및 링크</a><ul><li><a href="#공식-문서">공식 문서</a></li><li><a href="#참고-문서">참고 문서</a></li></ul></li><li><a href="#결론">결론</a></li></ul>
+
+              
+            </nav>
+            <nav class="toc-custom">
+              
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1389049237497309"
+     crossorigin="anonymous"></script>
+<!-- ADSense Vertical Sidebar -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1389049237497309"
+     data-ad-slot="2858413032"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+              
+            </nav>
+          </aside>
+        
+        <h1 id="개요">개요</h1>
+
+<p>AI 에이전트를 효과적으로 개발하고 운영하기 위해서는 세 가지 핵심 엔지니어링 분야를 이해해야 합니다:</p>
+
+<ol>
+  <li><strong>프롬프트 엔지니어링</strong> - 모델의 출력을 최적화하는 지시문 설계</li>
+  <li><strong>컨텍스트 엔지니어링</strong> - 관련 정보를 효율적으로 관리하고 활용</li>
+  <li><strong>하네스 엔지니어링</strong> - 에이전트의 동작을 제어하고 검증하는 프레임워크</li>
+</ol>
+
+<p>이 글에서는 세 가지 기술의 개념, 메커니즘, 아키텍처, 실제 사용 사례, 보안 고려사항을 다룹니다.</p>
+
+<hr />
+
+<h1 id="part-1-프롬프트-엔지니어링-prompt-engineering">Part 1: 프롬프트 엔지니어링 (Prompt Engineering)</h1>
+
+<h2 id="개념">개념</h2>
+
+<p><strong>프롬프트 엔지니어링</strong>은 자연어를 통해 LLM에 명확한 지시를 전달하여 원하는 결과를 얻도록 하는 기술입니다.</p>
+
+<h3 id="핵심-원칙">핵심 원칙</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">원칙</th>
+      <th style="text-align: left">설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>명확성</strong></td>
+      <td style="text-align: left">모호함 없이 명확한 지시 제공</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>구체성</strong></td>
+      <td style="text-align: left">구체적인 요구사항과 제약조건 명시</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>구조화</strong></td>
+      <td style="text-align: left">단계별, 계층적 지시 구조</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>예제</strong></td>
+      <td style="text-align: left">Few-shot 학습을 통한 명확한 예시</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>역할 정의</strong></td>
+      <td style="text-align: left">에이전트의 역할과 책임 명시</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="메커니즘">메커니즘</h2>
+
+<h3 id="프롬프트-구조">프롬프트 구조</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────────────────────────────┐
+│  1. 역할 및 목적 (Role &amp; Purpose)   │
+│     "당신은 Python 전문가입니다"     │
+├───────────────────────────────────┤
+│  2. 컨텍스트 정보 (Context)         │
+│     "FastAPI 프로젝트 중심"         │
+├───────────────────────────────────┤
+│  3. 작업 설명 (Task)               │
+│     "다음 코드를 검토하세요"         │
+├───────────────────────────────────┤
+│  4. 제약조건 (Constraints)         │
+│     "10줄 이내로 요약하세요"         │
+├───────────────────────────────────┤
+│  5. 출력 형식 (Output Format)      │
+│     "JSON 형식으로 응답하세요"       │
+├───────────────────────────────────┤
+│  6. 예제 (Examples)                │
+│     "예: {example}"               │
+└───────────────────────────────────┘
+</code></pre></div></div>
+
+<h3 id="프롬프트-기법">프롬프트 기법</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">기법</th>
+      <th style="text-align: left">설명</th>
+      <th style="text-align: left">효과</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>Zero-shot</strong></td>
+      <td style="text-align: left">예제 없이 직접 지시</td>
+      <td style="text-align: left">빠르지만 정확도 낮음</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Few-shot</strong></td>
+      <td style="text-align: left">2-5개 예제 제공</td>
+      <td style="text-align: left">정확도 향상</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Chain-of-Thought</strong></td>
+      <td style="text-align: left">단계별 추론 과정 명시</td>
+      <td style="text-align: left">복잡한 작업에 효과적</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Role Playing</strong></td>
+      <td style="text-align: left">특정 역할 가정</td>
+      <td style="text-align: left">출력 스타일 제어</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>Prompt Chaining</strong></td>
+      <td style="text-align: left">여러 프롬프트 연결</td>
+      <td style="text-align: left">복잡한 작업 분해</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="아키텍처">아키텍처</h2>
+
+<h3 id="프롬프트-관리-시스템">프롬프트 관리 시스템</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌────────────────────────────────────────┐
+│         프롬프트 관리 시스템              │
+├────────────────────────────────────────┤
+│ ┌──────────────────────────────────┐   │
+│ │  프롬프트 템플릿 저장소             │   │
+│ │  - 버전 관리                      │   │
+│ │  - 메타데이터                      │   │
+│ └──────────────────────────────────┘   │
+├────────────────────────────────────────┤
+│ ┌──────────────────────────────────┐   │
+│ │  프롬프트 최적화 엔진               │   │
+│ │  - 동적 변수 대체                  │   │
+│ │  - 토큰 계산                      │   │
+│ │  - 품질 평가                      │   │
+│ └──────────────────────────────────┘   │
+├────────────────────────────────────────┤
+│ ┌──────────────────────────────────┐   │
+│ │  결과 평가 및 피드백                │   │
+│ │  - 출력 검증                      │   │
+│ │  - 품질 점수 계산                  │   │
+│ │  - 개선 제안                      │   │
+│ └──────────────────────────────────┘   │
+└────────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="활용-샘플">활용 샘플</h2>
+
+<h3 id="샘플-1-코드-리뷰-프롬프트">샘플 1: 코드 리뷰 프롬프트</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>당신은 20년 경력의 소프트웨어 아키텍트입니다.
+
+다음 Python 코드를 기술적으로 검토하세요:
+1. 코드 품질 평가 (1-10)
+2. 발견된 문제 (심각도: Critical/High/Medium/Low)
+3. 성능 최적화 기회
+4. 보안 고려사항
+5. 개선 방안
+
+응답 형식:
+{
+  "quality_score": &lt;1-10&gt;,
+  "issues": [{"severity": "...", "description": "...", "fix": "..."}],
+  "optimizations": ["..."],
+  "security_notes": ["..."],
+  "summary": "..."
+}
+
+코드:
+```python
+def process_data(data):
+    result = []
+    for item in data:
+        if item &gt; 0:
+            result.append(item * 2)
+    return result
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### 샘플 2: 기술 문서 작성 프롬프트
+
+</code></pre></div></div>
+<p>역할: 기술 문서 전문 작가</p>
+
+<p>작업:
+다음 정보를 바탕으로 사용자 가이드를 작성하세요.</p>
+
+<p>제약:</p>
+<ul>
+  <li>마크다운 형식</li>
+  <li>초보자를 위한 명확한 설명</li>
+  <li>각 섹션마다 실제 예제 포함</li>
+  <li>500-1000 단어</li>
+</ul>
+
+<p>구조:</p>
+<ol>
+  <li>개요</li>
+  <li>설치</li>
+  <li>기본 사용법</li>
+  <li>고급 설정</li>
+  <li>문제 해결</li>
+</ol>
+
+<p>시작 정보:</p>
+<ul>
+  <li>제품명: FastAPI</li>
+  <li>주요 기능: 빠른 웹 API 개발</li>
+  <li>타겟 사용자: Python 개발자
+```</li>
+</ul>
+
+<h2 id="주요-코드">주요 코드</h2>
+
+<h3 id="프롬프트-템플릿-관리자">프롬프트 템플릿 관리자</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">import</span> <span class="n">re</span>
+
+<span class="k">class</span> <span class="nc">PromptTemplate</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">프롬프트 템플릿 클래스</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">template</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">variables</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="sh">"</span><span class="s">1.0</span><span class="sh">"</span>
+    
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">변수를 치환하여 최종 프롬프트 생성</span><span class="sh">"""</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">template</span>
+        
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">variables</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">var</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Missing variable: </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+            
+            <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">}</span><span class="sh">"</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="n">var</span><span class="p">]))</span>
+        
+        <span class="k">return</span> <span class="n">result</span>
+    
+    <span class="k">def</span> <span class="nf">get_variable_count</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">변수 개수 반환</span><span class="sh">"""</span>
+        <span class="k">return</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">variables</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">PromptManager</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">프롬프트 관리 시스템</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">templates</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PromptTemplate</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">def</span> <span class="nf">register_template</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">template</span><span class="p">:</span> <span class="n">PromptTemplate</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">템플릿 등록</span><span class="sh">"""</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">templates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span>
+    
+    <span class="k">def</span> <span class="nf">get_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">프롬프트 생성</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">templates</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Template not found: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">templates</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="nf">render</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">estimate_tokens</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">토큰 수 예측 (단순 계산)</span><span class="sh">"""</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="nf">split</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nf">int</span><span class="p">(</span><span class="n">words</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">)</span>  <span class="c1"># 대략 30% 오버헤드
+</span>
+<span class="c1"># 사용 예제
+</span><span class="n">manager</span> <span class="o">=</span> <span class="nc">PromptManager</span><span class="p">()</span>
+
+<span class="n">code_review_template</span> <span class="o">=</span> <span class="nc">PromptTemplate</span><span class="p">(</span>
+    <span class="n">template</span><span class="o">=</span><span class="sh">"""</span><span class="s">당신은 {expertise} 전문가입니다.
+
+다음 {language} 코드를 검토하세요:
+{code}
+
+{constraints}
+
+JSON 형식으로 응답하세요.</span><span class="sh">"""</span><span class="p">,</span>
+    <span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="s">expertise</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">language</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">code</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">constraints</span><span class="sh">"</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">manager</span><span class="p">.</span><span class="nf">register_template</span><span class="p">(</span><span class="sh">"</span><span class="s">code_review</span><span class="sh">"</span><span class="p">,</span> <span class="n">code_review_template</span><span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">manager</span><span class="p">.</span><span class="nf">get_prompt</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">code_review</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">expertise</span><span class="o">=</span><span class="sh">"</span><span class="s">Python 아키텍트</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">language</span><span class="o">=</span><span class="sh">"</span><span class="s">Python</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">code</span><span class="o">=</span><span class="sh">"</span><span class="s">def hello(): return </span><span class="sh">'</span><span class="s">world</span><span class="sh">'"</span><span class="p">,</span>
+    <span class="n">constraints</span><span class="o">=</span><span class="sh">"</span><span class="s">10줄 이내로 요약</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">토큰 예측: </span><span class="si">{</span><span class="n">manager</span><span class="p">.</span><span class="nf">estimate_tokens</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="보안-고려사항">보안 고려사항</h2>
+
+<h3 id="프롬프트-주입-공격-방지">프롬프트 주입 공격 방지</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">re</span>
+
+<span class="k">class</span> <span class="nc">PromptSecurityValidator</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">프롬프트 보안 검증</span><span class="sh">"""</span>
+    
+    <span class="n">INJECTION_PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="sh">"</span><span class="s">(?i)ignore.*instruction</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">"</span><span class="s">(?i)override.*rule</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">"</span><span class="s">(?i)execute.*code</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">"</span><span class="s">(?i)system.*prompt</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">"</span><span class="s">\{\{.*\}\}</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># Template injection
+</span>        <span class="sa">r</span><span class="sh">"</span><span class="s">\[\[.*\]\]</span><span class="sh">"</span><span class="p">,</span>
+    <span class="p">]</span>
+    
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">is_safe</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">주입 공격 패턴 검사</span><span class="sh">"""</span>
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">cls</span><span class="p">.</span><span class="n">INJECTION_PATTERNS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="part-2-컨텍스트-엔지니어링-context-engineering">Part 2: 컨텍스트 엔지니어링 (Context Engineering)</h1>
+
+<h2 id="개념-1">개념</h2>
+
+<p><strong>컨텍스트 엔지니어링</strong>은 AI 에이전트가 작업을 수행할 때 필요한 정보를 효율적으로 관리, 검색, 조직화하는 기술입니다.</p>
+
+<h3 id="컨텍스트의-유형">컨텍스트의 유형</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">유형</th>
+      <th style="text-align: left">설명</th>
+      <th style="text-align: left">예제</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>작업 컨텍스트</strong></td>
+      <td style="text-align: left">현재 수행 중인 작업</td>
+      <td style="text-align: left">코드 리뷰, 문서 작성</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>히스토리 컨텍스트</strong></td>
+      <td style="text-align: left">이전 상호작용 기록</td>
+      <td style="text-align: left">대화 히스토리</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>도메인 컨텍스트</strong></td>
+      <td style="text-align: left">분야별 전문 지식</td>
+      <td style="text-align: left">기술 가이드, 코딩 표준</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>사용자 컨텍스트</strong></td>
+      <td style="text-align: left">사용자 선호도, 프로필</td>
+      <td style="text-align: left">사용자 역할, 권한</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>환경 컨텍스트</strong></td>
+      <td style="text-align: left">시스템 상태 정보</td>
+      <td style="text-align: left">시간, 리소스, 설정</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="메커니즘-1">메커니즘</h2>
+
+<h3 id="컨텍스트-윈도우-관리">컨텍스트 윈도우 관리</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>LLM 토큰 제한: 100,000 토큰
+├─ 시스템 프롬프트: 500 토큰 (필수)
+├─ 도메인 지식: 10,000 토큰 (우선순위 높음)
+├─ 히스토리: 30,000 토큰 (우선순위 중간)
+├─ 현재 입력: 5,000 토큰 (필수)
+└─ 예약: 54,500 토큰 (출력 공간)
+</code></pre></div></div>
+
+<h3 id="컨텍스트-검색-retrieval">컨텍스트 검색 (Retrieval)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="n">math</span>
+
+<span class="k">class</span> <span class="nc">ContextRetriever</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">관련 컨텍스트 검색</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">documents</span> <span class="o">=</span> <span class="n">documents</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_generate_embeddings</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_generate_embeddings</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">documents</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">임베딩 생성 (간단한 예제)</span><span class="sh">"""</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="sh">'</span><span class="s">id</span><span class="sh">'</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">:</span> <span class="n">doc</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">],</span>
+            <span class="sh">'</span><span class="s">keywords</span><span class="sh">'</span><span class="p">:</span> <span class="n">doc</span><span class="p">[</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">].</span><span class="nf">lower</span><span class="p">().</span><span class="nf">split</span><span class="p">()</span>
+        <span class="p">}</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">documents</span><span class="p">)]</span>
+    
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]:</span>
+        <span class="sh">"""</span><span class="s">쿼리와 관련된 상위 k개 컨텍스트 반환</span><span class="sh">"""</span>
+        <span class="n">query_keywords</span> <span class="o">=</span> <span class="nf">set</span><span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="nf">lower</span><span class="p">().</span><span class="nf">split</span><span class="p">())</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">emb</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">embeddings</span><span class="p">):</span>
+            <span class="n">overlap</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">query_keywords</span> <span class="o">&amp;</span> <span class="nf">set</span><span class="p">(</span><span class="n">emb</span><span class="p">[</span><span class="sh">'</span><span class="s">keywords</span><span class="sh">'</span><span class="p">]))</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">overlap</span> <span class="o">/</span> <span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">query_keywords</span><span class="p">)</span> <span class="o">+</span> <span class="nf">len</span><span class="p">(</span><span class="n">emb</span><span class="p">[</span><span class="sh">'</span><span class="s">keywords</span><span class="sh">'</span><span class="p">]))</span>
+            <span class="n">scores</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">score</span><span class="p">))</span>
+        
+        <span class="n">top_results</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="n">top_k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">documents</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">top_results</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="아키텍처-1">아키텍처</h2>
+
+<h3 id="컨텍스트-관리-시스템">컨텍스트 관리 시스템</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────────────────────────────┐
+│     사용자 입력 (User Input)        │
+└────────────┬──────────────────────┘
+             │
+             ▼
+┌───────────────────────────────────┐
+│  컨텍스트 수집 (Collection)         │
+│  - 히스토리 검색                    │
+│  - 관련 문서 검색                   │
+│  - 메타데이터 추출                  │
+└────────────┬──────────────────────┘
+             │
+             ▼
+┌───────────────────────────────────┐
+│  컨텍스트 랭킹 (Ranking)            │
+│  - 관련성 점수                      │
+│  - 최신성 고려                      │
+│  - 중요도 평가                      │
+└────────────┬──────────────────────┘
+             │
+             ▼
+┌───────────────────────────────────┐
+│  컨텍스트 압축 (Compression)        │
+│  - 요약화                          │
+│  - 중복 제거                       │
+│  - 토큰 최적화                      │
+└────────────┬──────────────────────┘
+             │
+             ▼
+┌───────────────────────────────────┐
+│  최종 컨텍스트 (Final Context)      │
+└───────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="활용-샘플-1">활용 샘플</h2>
+
+<h3 id="샘플-멀티턴-대화-컨텍스트-관리">샘플: 멀티턴 대화 컨텍스트 관리</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">ConversationContext</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">멀티턴 대화 컨텍스트</span><span class="sh">"""</span>
+    
+    <span class="n">conversation_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">task_type</span><span class="p">:</span> <span class="nb">str</span>
+    
+    <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">memory</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="nf">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">add_message</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">메시지 추가</span><span class="sh">"""</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">messages</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span>
+            <span class="sh">'</span><span class="s">role</span><span class="sh">'</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">content</span><span class="sh">'</span><span class="p">:</span> <span class="n">content</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">().</span><span class="nf">isoformat</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">turn</span><span class="sh">'</span><span class="p">:</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">messages</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">get_recent_context</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">최근 n개 턴의 컨텍스트 반환</span><span class="sh">"""</span>
+        <span class="n">recent_msgs</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">messages</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">turns</span><span class="o">*</span><span class="mi">2</span><span class="p">):]</span>
+        
+        <span class="n">context</span> <span class="o">=</span> <span class="sh">"</span><span class="s">최근 대화:</span><span class="se">\n</span><span class="sh">"</span>
+        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">recent_msgs</span><span class="p">:</span>
+            <span class="n">context</span> <span class="o">+=</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="sh">'</span><span class="s">role</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">msg</span><span class="p">[</span><span class="sh">'</span><span class="s">content</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span>
+        
+        <span class="k">return</span> <span class="n">context</span>
+    
+    <span class="k">def</span> <span class="nf">store_session_memory</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">any</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">세션 메모리 저장</span><span class="sh">"""</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">memory</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">value</span><span class="sh">'</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">stored_at</span><span class="sh">'</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">().</span><span class="nf">isoformat</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">turn</span><span class="sh">'</span><span class="p">:</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">messages</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="주요-코드-1">주요 코드</h2>
+
+<h3 id="벡터-기반-컨텍스트-검색">벡터 기반 컨텍스트 검색</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">class</span> <span class="nc">VectorContextRetriever</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">벡터 기반 컨텍스트 검색</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">documents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">vectors</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">def</span> <span class="nf">add_document</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">문서 추가</span><span class="sh">"""</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">documents</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">vector</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_simple_vectorize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">vectors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_simple_vectorize</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">간단한 벡터화</span><span class="sh">"""</span>
+        <span class="n">words</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">lower</span><span class="p">().</span><span class="nf">split</span><span class="p">()</span>
+        <span class="n">vector</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:</span><span class="mi">100</span><span class="p">]:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">%</span> <span class="mi">100</span>
+            <span class="n">vector</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+        <span class="k">return</span> <span class="n">vector</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="nf">norm</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="sh">"""</span><span class="s">유사한 문서 검색</span><span class="sh">"""</span>
+        <span class="n">query_vector</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_simple_vectorize</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        
+        <span class="n">similarities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc_vector</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">vectors</span><span class="p">):</span>
+            <span class="n">similarity</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">dot</span><span class="p">(</span><span class="n">query_vector</span><span class="p">,</span> <span class="n">doc_vector</span><span class="p">)</span>
+            <span class="n">similarities</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">similarity</span><span class="p">))</span>
+        
+        <span class="n">top_results</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">similarities</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="n">top_k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">documents</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">top_results</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="보안-고려사항-1">보안 고려사항</h2>
+
+<h3 id="컨텍스트-누수-방지">컨텍스트 누수 방지</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ContextSecurityManager</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">컨텍스트 보안 관리</span><span class="sh">"""</span>
+    
+    <span class="n">SENSITIVE_PATTERNS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="sh">'</span><span class="s">password\s*[:=]</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">'</span><span class="s">api[_-]?key</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">'</span><span class="s">secret</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">'</span><span class="s">token</span><span class="sh">'</span><span class="p">,</span>
+        <span class="sa">r</span><span class="sh">'</span><span class="s">credential</span><span class="sh">'</span><span class="p">,</span>
+    <span class="p">]</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_sensitive</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">민감한 정보 감지</span><span class="sh">"""</span>
+        <span class="kn">import</span> <span class="n">re</span>
+        <span class="n">text_lower</span> <span class="o">=</span> <span class="n">text</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">ContextSecurityManager</span><span class="p">.</span><span class="n">SENSITIVE_PATTERNS</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text_lower</span><span class="p">):</span>
+                <span class="k">return</span> <span class="bp">True</span>
+        
+        <span class="k">return</span> <span class="bp">False</span>
+    
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">redact</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">민감한 정보 마스킹</span><span class="sh">"""</span>
+        <span class="kn">import</span> <span class="n">re</span>
+        
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">(sk_|pk_)[A-Za-z0-9]{20,}</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">[REDACTED_KEY]</span><span class="sh">'</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span>
+            <span class="sa">r</span><span class="sh">'</span><span class="s">[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}</span><span class="sh">'</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">[REDACTED_EMAIL]</span><span class="sh">'</span><span class="p">,</span>
+            <span class="n">text</span>
+        <span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">sub</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">[REDACTED_IP]</span><span class="sh">'</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">text</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="part-3-하네스-엔지니어링-harness-engineering">Part 3: 하네스 엔지니어링 (Harness Engineering)</h1>
+
+<h2 id="개념-2">개념</h2>
+
+<p><strong>하네스 엔지니어링</strong>은 AI 에이전트의 동작을 제어, 모니터링, 검증하는 프레임워크입니다. 에이전트가 정해진 규칙과 제약 조건 내에서 동작하도록 보장합니다.</p>
+
+<h3 id="하네스의-역할">하네스의 역할</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">역할</th>
+      <th style="text-align: left">설명</th>
+      <th style="text-align: left">목적</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>제어 (Control)</strong></td>
+      <td style="text-align: left">에이전트 동작 조절</td>
+      <td style="text-align: left">의도된 행동만 수행</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>검증 (Validation)</strong></td>
+      <td style="text-align: left">출력 검증</td>
+      <td style="text-align: left">품질 보증</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>모니터링 (Monitoring)</strong></td>
+      <td style="text-align: left">실시간 추적</td>
+      <td style="text-align: left">문제 조기 발견</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>로깅 (Logging)</strong></td>
+      <td style="text-align: left">모든 작업 기록</td>
+      <td style="text-align: left">감시 및 분석</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>복구 (Recovery)</strong></td>
+      <td style="text-align: left">오류 처리</td>
+      <td style="text-align: left">시스템 안정성</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="메커니즘-2">메커니즘</h2>
+
+<h3 id="에이전트-실행-파이프라인">에이전트 실행 파이프라인</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌────────────────────┐
+│ 사용자 요청          │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 입력 검증 및 살균    │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 컨텍스트 준비        │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 프롬프트 생성        │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ LLM 호출            │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 출력 파싱           │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 검증 및 필터링       │
+└──────────┬─────────┘
+           │
+           ▼
+┌────────────────────┐
+│ 결과 반환           │
+└────────────────────┘
+</code></pre></div></div>
+
+<h2 id="아키텍처-2">아키텍처</h2>
+
+<h3 id="하네스-시스템-아키텍처">하네스 시스템 아키텍처</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>┌───────────────────────────────────────────┐
+│           에이전트 하네스 시스템             │
+├───────────────────────────────────────────┤
+│                                           │
+│  ┌─────────────────────────────────────┐  │
+│  │    정책 엔진 (Policy Engine)         │  │
+│  │  - 실행 규칙                         │  │
+│  │  - 권한 관리                         │  │
+│  │  - 리소스 할당                       │  │
+│  └─────────────────────────────────────┘  │
+│                                           │
+│  ┌─────────────────────────────────────┐  │
+│  │    검증 엔진 (Validation Engine)     │  │
+│  │  - 출력 검증                         │  │
+│  │  - 품질 평가                         │  │
+│  │  - 안전성 확인                       │  │
+│  └─────────────────────────────────────┘  │
+│                                           │
+│  ┌─────────────────────────────────────┐  │
+│  │    모니터링 엔진 (Monitoring Engine)  │  │
+│  │  - 리소스 사용량 추적                  │  │
+│  │  - 성능 메트릭                        │  │
+│  │  - 이상 탐지                         │  │
+│  └─────────────────────────────────────┘  │
+│                                           │
+│  ┌─────────────────────────────────────┐  │
+│  │    로깅 엔진 (Logging Engine)        │  │
+│  │  - 모든 작업 기록                     │  │
+│  │  - 감시 추적                         │  │
+│  │  - 분석 데이터                       │  │
+│  └─────────────────────────────────────┘  │
+│                                           │
+└───────────────────────────────────────────┘
+</code></pre></div></div>
+
+<h2 id="활용-샘플-2">활용 샘플</h2>
+
+<h3 id="샘플-에이전트-하네스-구현">샘플: 에이전트 하네스 구현</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="n">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="n">json</span>
+<span class="kn">import</span> <span class="n">time</span>
+
+<span class="k">class</span> <span class="nc">ValidationResult</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">검증 결과</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">is_valid</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">errors</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">is_valid</span> <span class="o">=</span> <span class="n">is_valid</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">errors</span> <span class="o">=</span> <span class="n">errors</span> <span class="ow">or</span> <span class="p">[]</span>
+
+<span class="k">class</span> <span class="nc">AgentHarness</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">에이전트 실행 하네스</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">agent_config</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">agent_config</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">execution_log</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">total_executions</span><span class="sh">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">successful</span><span class="sh">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">failed</span><span class="sh">'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">total_time</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">에이전트 작업 실행</span><span class="sh">"""</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># 1단계: 입력 검증
+</span>            <span class="n">validation</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_validate_input</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">validation</span><span class="p">.</span><span class="n">is_valid</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">errors</span><span class="sh">'</span><span class="p">:</span> <span class="n">validation</span><span class="p">.</span><span class="n">errors</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                <span class="p">}</span>
+            
+            <span class="c1"># 2단계: 컨텍스트 준비
+</span>            <span class="n">prepared_context</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_prepare_context</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+            
+            <span class="c1"># 3단계: 프롬프트 생성
+</span>            <span class="n">prompt</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_build_prompt</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">prepared_context</span><span class="p">)</span>
+            
+            <span class="c1"># 4단계: LLM 호출
+</span>            <span class="n">llm_output</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_call_llm</span><span class="p">(</span><span class="n">prompt</span><span class="p">)</span>
+            
+            <span class="c1"># 5단계: 출력 파싱
+</span>            <span class="n">parse_result</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_parse_output</span><span class="p">(</span><span class="n">llm_output</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">parse_result</span><span class="p">[</span><span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">error</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Failed to parse output</span><span class="sh">'</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                <span class="p">}</span>
+            
+            <span class="c1"># 6단계: 최종 검증
+</span>            <span class="n">final_validation</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_validate_output</span><span class="p">(</span><span class="n">parse_result</span><span class="p">[</span><span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">final_validation</span><span class="p">.</span><span class="n">is_valid</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">errors</span><span class="sh">'</span><span class="p">:</span> <span class="n">final_validation</span><span class="p">.</span><span class="n">errors</span><span class="p">,</span>
+                    <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+                <span class="p">}</span>
+            
+            <span class="n">execution_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="n">self</span><span class="p">.</span><span class="nf">_log_execution</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">parse_result</span><span class="p">[</span><span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">],</span> <span class="bp">True</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">)</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">successful</span><span class="sh">'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_time</span><span class="sh">'</span><span class="p">]</span> <span class="o">+=</span> <span class="n">execution_time</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">:</span> <span class="n">parse_result</span><span class="p">[</span><span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">],</span>
+                <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">execution_time</span>
+            <span class="p">}</span>
+            
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">execution_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="n">self</span><span class="p">.</span><span class="nf">_log_execution</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="bp">False</span><span class="p">,</span> <span class="n">execution_time</span><span class="p">)</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">failed</span><span class="sh">'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">error</span><span class="sh">'</span><span class="p">:</span> <span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">),</span>
+                <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">execution_time</span>
+            <span class="p">}</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_executions</span><span class="sh">'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="k">def</span> <span class="nf">_validate_input</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">입력 검증</span><span class="sh">"""</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="sh">'</span><span class="s">type</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task</span><span class="p">:</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Missing </span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="s"> field</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="sh">'</span><span class="s">payload</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task</span><span class="p">:</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Missing </span><span class="sh">'</span><span class="s">payload</span><span class="sh">'</span><span class="s"> field</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">task</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">payload</span><span class="sh">'</span><span class="p">,</span> <span class="sh">''</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="mi">100000</span><span class="p">:</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Payload too large</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="nc">ValidationResult</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_prepare_context</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">컨텍스트 준비</span><span class="sh">"""</span>
+        <span class="n">cleaned</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">context</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="p">.</span><span class="nf">startswith</span><span class="p">(</span><span class="sh">'</span><span class="s">_</span><span class="sh">'</span><span class="p">):</span>
+                <span class="n">cleaned</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        
+        <span class="k">return</span> <span class="n">cleaned</span>
+    
+    <span class="k">def</span> <span class="nf">_build_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">프롬프트 생성</span><span class="sh">"""</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">"""</span><span class="s">
+        Task Type: </span><span class="si">{</span><span class="n">task</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">)</span><span class="si">}</span><span class="s">
+        Payload: </span><span class="si">{</span><span class="n">task</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">payload</span><span class="sh">'</span><span class="p">)</span><span class="si">}</span><span class="s">
+        Context: </span><span class="si">{</span><span class="n">json</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">context</span><span class="p">)</span><span class="si">}</span><span class="s">
+        </span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">_call_llm</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">LLM 호출</span><span class="sh">"""</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">Mock LLM Response</span><span class="sh">"</span>
+    
+    <span class="k">def</span> <span class="nf">_parse_output</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">출력 파싱</span><span class="sh">"""</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="sh">'</span><span class="s">{</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">output</span> <span class="ow">and</span> <span class="sh">'</span><span class="s">}</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+                <span class="n">json_str</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">output</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="sh">'</span><span class="s">{</span><span class="sh">'</span><span class="p">):</span><span class="n">output</span><span class="p">.</span><span class="nf">rfind</span><span class="p">(</span><span class="sh">'</span><span class="s">}</span><span class="sh">'</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">{</span><span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
+            
+            <span class="k">return</span> <span class="p">{</span><span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span> <span class="sh">'</span><span class="s">data</span><span class="sh">'</span><span class="p">:</span> <span class="p">{</span><span class="sh">'</span><span class="s">text</span><span class="sh">'</span><span class="p">:</span> <span class="n">output</span><span class="p">}}</span>
+        <span class="k">except</span> <span class="n">json</span><span class="p">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span> <span class="sh">'</span><span class="s">error</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">Failed to parse JSON</span><span class="sh">'</span><span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">_validate_output</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">output</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">출력 검증</span><span class="sh">"""</span>
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">output</span><span class="p">:</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Empty output</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="sh">'</span><span class="s">markdown</span><span class="sh">'</span> <span class="ow">in</span> <span class="n">output</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="sh">'</span><span class="s">markdown</span><span class="sh">'</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sh">"</span><span class="s">Invalid markdown field</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="nc">ValidationResult</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_log_execution</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">success</span><span class="p">,</span> <span class="n">exec_time</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">실행 로깅</span><span class="sh">"""</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">execution_log</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span>
+            <span class="sh">'</span><span class="s">task</span><span class="sh">'</span><span class="p">:</span> <span class="n">task</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">result</span><span class="sh">'</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">success</span><span class="sh">'</span><span class="p">:</span> <span class="n">success</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="n">exec_time</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+        <span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">get_metrics</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">메트릭 조회</span><span class="sh">"""</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="o">**</span><span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">average_time</span><span class="sh">'</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_time</span><span class="sh">'</span><span class="p">]</span> <span class="o">/</span> <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">successful</span><span class="sh">'</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">successful</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">),</span>
+            <span class="sh">'</span><span class="s">success_rate</span><span class="sh">'</span><span class="p">:</span> <span class="p">(</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">successful</span><span class="sh">'</span><span class="p">]</span> <span class="o">/</span> <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_executions</span><span class="sh">'</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+                <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">metrics</span><span class="p">[</span><span class="sh">'</span><span class="s">total_executions</span><span class="sh">'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="주요-코드-2">주요 코드</h2>
+
+<h3 id="검증-프레임워크">검증 프레임워크</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="k">class</span> <span class="nc">Validator</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">검증자 기본 클래스</span><span class="sh">"""</span>
+    
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">JSONValidator</span><span class="p">(</span><span class="n">Validator</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">JSON 검증</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">schema</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span>
+    
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ValidationResult</span><span class="p">:</span>
+        <span class="kn">import</span> <span class="n">json</span>
+        
+        <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nf">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">json</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">schema</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">required</span><span class="sh">'</span><span class="p">,</span> <span class="p">[]):</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Missing required field: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+            
+        <span class="k">except</span> <span class="n">json</span><span class="p">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">errors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Invalid JSON: </span><span class="si">{</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="nc">ValidationResult</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">errors</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="보안-고려사항-2">보안 고려사항</h2>
+
+<h3 id="하네스-보안-정책">하네스 보안 정책</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SecurityPolicy</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">보안 정책</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">policies</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">max_execution_time</span><span class="sh">'</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">max_tokens</span><span class="sh">'</span><span class="p">:</span> <span class="mi">4000</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">allowed_domains</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">api.openai.com</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">api.anthropic.com</span><span class="sh">'</span><span class="p">],</span>
+            <span class="sh">'</span><span class="s">blocked_keywords</span><span class="sh">'</span><span class="p">:</span> <span class="p">[</span><span class="sh">'</span><span class="s">password</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">secret</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">private_key</span><span class="sh">'</span><span class="p">],</span>
+            <span class="sh">'</span><span class="s">require_authentication</span><span class="sh">'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">rate_limit_per_minute</span><span class="sh">'</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">check_execution</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">task</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">실행 전 보안 확인</span><span class="sh">"""</span>
+        
+        <span class="n">task_str</span> <span class="o">=</span> <span class="nf">str</span><span class="p">(</span><span class="n">task</span><span class="p">).</span><span class="nf">lower</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">policies</span><span class="p">[</span><span class="sh">'</span><span class="s">blocked_keywords</span><span class="sh">'</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">task_str</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Blocked keyword detected: </span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="sh">"</span>
+        
+        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="n">policies</span><span class="p">[</span><span class="sh">'</span><span class="s">require_authentication</span><span class="sh">'</span><span class="p">]</span> <span class="ow">and</span> <span class="sh">'</span><span class="s">auth_token</span><span class="sh">'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="sh">"</span><span class="s">Authentication required</span><span class="sh">"</span>
+        
+        <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="bp">None</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="통합-활용-예제">통합 활용 예제</h1>
+
+<p>이 세 기술을 함께 사용하는 실제 예제:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AIAgentSystem</span><span class="p">:</span>
+    <span class="sh">"""</span><span class="s">AI 에이전트 시스템 (통합)</span><span class="sh">"""</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">prompt_manager</span> <span class="o">=</span> <span class="nc">PromptManager</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">context_retriever</span> <span class="o">=</span> <span class="nc">ContextRetriever</span><span class="p">([])</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">harness</span> <span class="o">=</span> <span class="nc">AgentHarness</span><span class="p">({</span><span class="sh">'</span><span class="s">timeout</span><span class="sh">'</span><span class="p">:</span> <span class="mi">30</span><span class="p">})</span>
+    
+    <span class="k">def</span> <span class="nf">process_task</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">user_request</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">사용자 요청 처리</span><span class="sh">"""</span>
+        
+        <span class="c1"># 1. 컨텍스트 엔지니어링: 관련 정보 검색
+</span>        <span class="n">context</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">context_retriever</span><span class="p">.</span><span class="nf">retrieve</span><span class="p">(</span><span class="n">user_request</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        
+        <span class="c1"># 2. 프롬프트 엔지니어링: 최적화된 프롬프트 생성
+</span>        <span class="n">prompt</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">prompt_manager</span><span class="p">.</span><span class="nf">get_prompt</span><span class="p">(</span>
+            <span class="sh">'</span><span class="s">general_task</span><span class="sh">'</span><span class="p">,</span>
+            <span class="n">request</span><span class="o">=</span><span class="n">user_request</span><span class="p">,</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">context</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># 3. 하네스 엔지니어링: 안전하게 실행
+</span>        <span class="n">result</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">harness</span><span class="p">.</span><span class="nf">execute</span><span class="p">(</span>
+            <span class="n">task</span><span class="o">=</span><span class="p">{</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">general</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">payload</span><span class="sh">'</span><span class="p">:</span> <span class="n">prompt</span><span class="p">},</span>
+            <span class="n">context</span><span class="o">=</span><span class="p">{</span><span class="sh">'</span><span class="s">user_request</span><span class="sh">'</span><span class="p">:</span> <span class="n">user_request</span><span class="p">}</span>
+        <span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="보안-체크리스트">보안 체크리스트</h1>
+
+<h2 id="프롬프트-엔지니어링">프롬프트 엔지니어링</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />프롬프트 주입 공격 감지 구현</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />입력 길이 제한 설정</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />특수 문자 이스케이프</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />금지된 명령어 패턴 차단</li>
+</ul>
+
+<h2 id="컨텍스트-엔지니어링">컨텍스트 엔지니어링</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />민감한 정보 자동 마스킹</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />접근 권한 확인</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />컨텍스트 크기 제한</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />데이터 암호화 (전송/저장)</li>
+</ul>
+
+<h2 id="하네스-엔지니어링">하네스 엔지니어링</h2>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />모든 실행 로깅</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />출력 검증 규칙 적용</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />타임아웃 설정</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />리소스 제한 강제</li>
+</ul>
+
+<hr />
+
+<h1 id="참고-자료-및-링크">참고 자료 및 링크</h1>
+
+<h2 id="공식-문서">공식 문서</h2>
+
+<ul>
+  <li><a href="https://platform.openai.com/docs/guides/prompt-engineering" target="_blank">OpenAI Prompt Engineering Guide</a></li>
+  <li><a href="https://docs.anthropic.com" target="_blank">Anthropic Claude Documentation</a></li>
+  <li><a href="https://ai.google.dev/docs" target="_blank">Google Gemini API Documentation</a></li>
+  <li><a href="https://python.langchain.com/" target="_blank">LangChain Documentation</a></li>
+</ul>
+
+<h2 id="참고-문서">참고 문서</h2>
+
+<ul>
+  <li><a href="https://github.com/dair-ai/Prompt-Engineering-Guide" target="_blank">Prompt Engineering Techniques</a></li>
+  <li><a href="https://github.com/openai/openai-cookbook" target="_blank">OpenAI Cookbook - Prompt Engineering</a></li>
+  <li><a href="https://www.pinecone.io/learn/vector-database/" target="_blank">Vector Databases Guide</a></li>
+  <li><a href="https://www.deeplearning.ai/short-courses/retrieval-augmented-generation-rag/" target="_blank">RAG (Retrieval Augmented Generation)</a></li>
+  <li><a href="https://docs.llamaindex.ai/" target="_blank">Llamaindex Documentation</a></li>
+  <li><a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank">AutoGPT</a></li>
+  <li><a href="https://crewai.com/" target="_blank">Crew AI</a></li>
+  <li><a href="https://github.com/microsoft/semantic-kernel" target="_blank">Microsoft Semantic Kernel</a></li>
+  <li><a href="https://owasp.org/www-project-ai-security/" target="_blank">OWASP AI Security</a></li>
+  <li><a href="https://github.com/ScottishFold007/awesome-prompt-injection" target="_blank">Prompt Injection Defense</a></li>
+  <li><a href="https://www.deeplearning.ai/short-courses/prompt-engineering-for-developers/" target="_blank">Advanced Prompt Engineering</a></li>
+  <li><a href="https://www.deeplearning.ai/short-courses/ai-agents-in-langgraph/" target="_blank">Building AI Agents</a></li>
+</ul>
+
+<hr />
+
+<h1 id="결론">결론</h1>
+
+<p>프롬프트 엔지니어링, 컨텍스트 엔지니어링, 하네스 엔지니어링은 AI 에이전트 개발의 세 가지 핵심 축입니다:</p>
+
+<ul>
+  <li><strong>프롬프트 엔지니어링</strong>: “정확하게 지시하기”</li>
+  <li><strong>컨텍스트 엔지니어링</strong>: “올바른 정보 제공하기”</li>
+  <li><strong>하네스 엔지니어링</strong>: “안전하게 제어하기”</li>
+</ul>
+
+<p>이 세 기술을 균형 있게 활용하면 강력하고 신뢰할 수 있는 AI 에이전트를 구축할 수 있습니다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#agent" class="page__taxonomy-item" rel="tag">Agent</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#ai" class="page__taxonomy-item" rel="tag">AI</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#context-engineering" class="page__taxonomy-item" rel="tag">Context Engineering</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#harness-engineering" class="page__taxonomy-item" rel="tag">Harness Engineering</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#llm" class="page__taxonomy-item" rel="tag">LLM</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming" class="page__taxonomy-item" rel="tag">Programming</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#prompt-engineering" class="page__taxonomy-item" rel="tag">Prompt Engineering</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#security" class="page__taxonomy-item" rel="tag">Security</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/categories/#ai" class="page__taxonomy-item" rel="tag">AI</a>
+    
+    </span>
+  </p>
+
+
+        
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2026-05-20">May 20, 2026</time></p>
+
+
+      </footer>
+
+      
+
+      
+  <nav class="pagination">
+    
+      <a href="/ai/spring-boot-ai-rag/" class="pagination--pager" title="Spring Boot + Ollama + pgvector를 활용한 RAG 시스템 구축
+">이전</a>
+    
+    
+      <a href="/ai/ai-ops-dlc/" class="pagination--pager" title="AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-skills-hooks/" rel="permalink">Claude Code Skills와 Hooks : Agent 커스터마이제이션과 자동화
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 23 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Claude Code Skills와 Agent Hooks의 개념부터 구현까지. Progressive Loading 메커니즘, 8가지 Lifecycle 이벤트, 실제 샘플 코드를 통해 Copilot 에이전트의 강력한 커스터마이제이션 기능 설명.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/claude-api-springboot/" rel="permalink">Anthropic Claude API를 Spring Boot 4.0에서 사용하기 - 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 14 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Java 25와 Spring Boot 4.0을 활용하여 Claude API를 통합하는 방법. 채팅, 코드 분석, 문서 생성 등 실제 활용 예제와 OpenAI API 비교
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/semantic-directive-binding/" rel="permalink">메타지침 바인딩 기술 (Semantic Directive Binding) - Java 25 + Spring Boot 4.0 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> June 03 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">메타지침 바인딩 기술의 개념, 메커니즘, 아키텍처를 이해하고 Spring Boot 기반 실제 샘플 프로젝트로 구현해보세요.
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/ai/ai-ops-dlc/" rel="permalink">AI Ops와 AI DLC (AI Data Labeling Cloud) 완벽 가이드
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i> May 24 2026</p>
+    
+    
+
+  <p class="page__meta">
+    
+
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">AI Ops와 AI DLC의 개념, 메커니즘, 아키텍처, 활용 샘플과 주요 코드를 통해 AI 시스템 운영 및 데이터 라벨링 클라우드의 모든 것을 다룹니다.
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+  <div class="search-hits"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <!-- <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div> -->
+
+<div class="page__footer-copyright">&copy; 2026 GracefulSoul. All rights reserved.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'LFNB6R2X8P',
+  apiKey: 'dfcb3f857ae447c7a20dd1a99e499120',
+  indexName: 'blog',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    
+    placeholder: '검색어를 입력하세요...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate,
+      empty: 'No results',
+    }
+  })
+);
+
+// Starting the search only when toggle is clicked
+$(document).ready(function () {
+  $(".search__toggle").on("click", function() {
+    if(!search.started) {
+      search.start();
+    }
+  });
+});
+</script>
+
+
+
+
+
+    <script>
+  'use strict';
+
+  (function() {
+    var commentContainer = document.querySelector('#utterances-comments');
+
+    if (!commentContainer) {
+      return;
+    }
+
+    var script = document.createElement('script');
+    script.setAttribute('src', 'https://utteranc.es/client.js');
+    script.setAttribute('repo', 'GracefulSoul/GracefulSoul.github.io');
+    script.setAttribute('issue-term', 'title');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+
+    commentContainer.appendChild(script);
+  })();
+</script>
+
+  
+
+
+
+
+
+  </body>
+</html>
